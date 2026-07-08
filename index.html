@@ -8,11 +8,36 @@
     <meta name="keywords" content="online games, free games, educational games, racing games, chess, ludo, cards, snake game, puzzle games, browser games">
     <meta name="author" content="AlMaGen-Arena">
     <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="AlMaGen-Arena | 15 Free Online Games">
+    <meta property="og:description" content="Play & Learn with 15 amazing free games! No download required.">
+    <meta property="og:image" content="https://almagen-arena.com/preview.png">
+    <meta property="og:url" content="https://almagen-arena.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BENNC3WGWM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BENNC3WGWM');
+    </script>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6c5ce7">
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -51,6 +76,7 @@
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
+                <button class="share-btn" onclick="shareSite()" title="Share" style="background:none;border:none;font-size:1.2rem;cursor:pointer;">📤</button>
                 <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
             </div>
         </div>
@@ -86,6 +112,12 @@
         </div>
         <div class="scroll-indicator"><span>Scroll Down</span><div class="scroll-mouse"><div class="scroll-wheel"></div></div></div>
     </section>
+
+    <!-- ==================== AD: Leaderboard ==================== -->
+    <div style="max-width:728px;margin:20px auto;text-align:center;min-height:90px;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
 
     <!-- Games Section -->
     <section class="games-section" id="games">
@@ -250,6 +282,12 @@
         </div>
     </section>
 
+    <!-- ==================== AD: Rectangle ==================== -->
+    <div style="max-width:336px;margin:20px auto;text-align:center;min-height:280px;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <!-- Features Section -->
     <section class="features-section" id="features">
         <div class="section-header">
@@ -295,6 +333,20 @@
         </div>
     </section>
 
+    <!-- Feedback Section -->
+    <section class="newsletter-section" id="feedback">
+        <div class="newsletter-container">
+            <h2>💬 Share Your Feedback</h2>
+            <p>Help us improve AlMaGen-Arena! What games would you like to see?</p>
+            <form id="feedbackForm" onsubmit="submitFeedback(event)" style="display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto;">
+                <input type="text" id="feedbackName" placeholder="Your Name" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;font-family:'Poppins',sans-serif;">
+                <textarea id="feedbackMsg" placeholder="Your message..." rows="3" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;font-family:'Poppins',sans-serif;resize:vertical;"></textarea>
+                <button type="submit" class="btn btn-primary">Send Feedback ✉️<span class="btn-shine"></span></button>
+            </form>
+            <p id="feedbackSuccess" style="color:#00ff88;margin-top:10px;display:none;">✅ Thank you! Feedback sent successfully!</p>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="newsletter-section">
         <div class="newsletter-container">
@@ -313,6 +365,27 @@
         </div>
         <div class="footer-bottom"><p>Made with ❤️ | AlMaGen-Arena © 2024 | All Rights Reserved</p><p class="footer-quote">"Play, Learn, and Grow!" 🚀</p></div>
     </footer>
+
+    <!-- Social Share Popup -->
+    <div id="sharePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;justify-content:center;align-items:center;">
+        <div style="background:#1a1a2e;border-radius:20px;padding:30px;text-align:center;max-width:400px;width:90%;">
+            <h3 style="color:#ffd93d;margin-bottom:15px;">📤 Share AlMaGen-Arena</h3>
+            <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+                <button onclick="shareOn('whatsapp')" style="background:#25D366;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">📱 WhatsApp</button>
+                <button onclick="shareOn('facebook')" style="background:#1877F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">📘 Facebook</button>
+                <button onclick="shareOn('twitter')" style="background:#1DA1F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">🐦 Twitter</button>
+                <button onclick="copyLink()" style="background:#6c5ce7;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">🔗 Copy Link</button>
+            </div>
+            <button onclick="document.getElementById('sharePopup').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:10px 25px;border-radius:10px;cursor:pointer;margin-top:15px;">Close ✕</button>
+        </div>
+    </div>
+
+    <!-- Push Notification -->
+    <div id="pushPrompt" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c5ce7,#00d4ff);color:#fff;padding:15px 25px;border-radius:15px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center;max-width:400px;width:90%;">
+        <p style="margin-bottom:10px;font-weight:600;">🔔 Get notified about new games!</p>
+        <button onclick="subscribePush()" style="background:#fff;color:#6c5ce7;border:none;padding:10px 25px;border-radius:25px;cursor:pointer;font-weight:bold;margin-right:10px;">Allow Notifications</button>
+        <button onclick="document.getElementById('pushPrompt').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);padding:10px 20px;border-radius:25px;cursor:pointer;">Maybe Later</button>
+    </div>
 
     <script src="js/soundengine.js"></script>
     <script>
@@ -459,6 +532,75 @@
             else { streak = 1; }
             localStorage.setItem('almagen_streak', streak);
             localStorage.setItem('almagen_last_played', today);
+        }
+
+        // ==================== SOCIAL SHARE ====================
+        function shareSite() { document.getElementById('sharePopup').style.display = 'flex'; }
+        function shareOn(platform) {
+            const url = encodeURIComponent('https://almagen-arena.com');
+            const text = encodeURIComponent('🎮 Check out AlMaGen-Arena! 15 free online games - Play & Learn! No download required!');
+            let shareUrl = '';
+            switch(platform) {
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${text}%20${url}`; break;
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+            document.getElementById('sharePopup').style.display = 'none';
+        }
+        function copyLink() {
+            navigator.clipboard.writeText('https://almagen-arena.com').then(() => {
+                alert('✅ Link copied! Share it with friends!');
+            });
+            document.getElementById('sharePopup').style.display = 'none';
+        }
+
+        // ==================== FEEDBACK ====================
+        function submitFeedback(e) {
+            e.preventDefault();
+            const name = document.getElementById('feedbackName').value;
+            const msg = document.getElementById('feedbackMsg').value;
+            const feedbacks = JSON.parse(localStorage.getItem('almagen_feedbacks') || '[]');
+            feedbacks.push({ name, msg, date: new Date().toISOString() });
+            localStorage.setItem('almagen_feedbacks', JSON.stringify(feedbacks));
+            document.getElementById('feedbackSuccess').style.display = 'block';
+            document.getElementById('feedbackForm').reset();
+            setTimeout(() => document.getElementById('feedbackSuccess').style.display = 'none', 3000);
+            gtag('event', 'feedback_submitted', { event_category: 'engagement' });
+        }
+
+        // ==================== PUSH NOTIFICATIONS ====================
+        function subscribePush() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification('🔔 AlMaGen-Arena', {
+                            body: 'You will now receive updates about new games!',
+                            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">⚔️</text></svg>'
+                        });
+                        gtag('event', 'push_notification_subscribed', { event_category: 'engagement' });
+                    }
+                });
+            }
+            document.getElementById('pushPrompt').style.display = 'none';
+            localStorage.setItem('almagen_push_prompted', 'true');
+        }
+
+        // Show push prompt after 10 seconds
+        setTimeout(() => {
+            const prompted = localStorage.getItem('almagen_push_prompted');
+            if (!prompted && 'Notification' in window && Notification.permission === 'default') {
+                document.getElementById('pushPrompt').style.display = 'block';
+            }
+        }, 10000);
+
+        // ==================== PWA SERVICE WORKER ====================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('Service Worker registered');
+                }).catch(err => console.log('SW registration failed'));
+            });
         }
     </script>
 </body>
