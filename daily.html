@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Daily Challenges - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a1a;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 650px; margin: 0 auto; }
+
+        .back-btn {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .date-display {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .streak-banner {
+            background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,217,61,0.2));
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .streak-fire { font-size: 2rem; animation: pulse 1s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+        .challenge-grid { display: grid; gap: 15px; }
+
+        .challenge-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .challenge-card:hover {
+            border-color: rgba(108,92,231,0.4);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .challenge-card.completed {
+            border-color: rgba(0,255,136,0.4);
+            background: rgba(0,255,136,0.05);
+        }
+
+        .challenge-icon { font-size: 2.5rem; min-width: 55px; text-align: center; }
+        .challenge-info { flex: 1; }
+        .challenge-info h3 { font-size: 1rem; margin-bottom: 4px; }
+        .challenge-info p { font-size: 0.8rem; color: #aaa; margin-bottom: 6px; }
+
+        .progress-bar {
+            width: 100%; height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .challenge-reward { font-size: 0.75rem; color: #ffd93d; }
+        .progress-count { font-size: 0.7rem; color: #aaa; }
+
+        .completed-badge {
+            background: #00ff88;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 500px) {
+            .challenge-card { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Arena</a>
+        <h1>📅 Daily Challenges</h1>
+        <p class="date-display" id="dateDisplay"></p>
+
+        <div class="streak-banner">
+            <span class="streak-fire">🔥</span>
+            <div>
+                <strong id="streakCount">0 Day Streak</strong>
+                <p style="font-size:0.75rem;color:#aaa;">Come back tomorrow to keep your streak!</p>
+            </div>
+        </div>
+
+        <div class="challenge-grid" id="challengeGrid"></div>
+    </div>
+
+    <script>
+        const challenges = [
+            { id: 1, game: 'snake', icon: '🐍', title: 'Snake Master', desc: 'Score 50+ in Math Snake', target: 50, reward: '🏆 100 XP' },
+            { id: 2, game: 'runner', icon: '🏃', title: 'Marathon Runner', desc: 'Score 100+ in Life Runner', target: 100, reward: '⭐ 150 XP' },
+            { id: 3, game: 'wordblitz', icon: '⚡', title: 'Speed Typer', desc: 'Score 60+ in Word Blitz', target: 60, reward: '🎯 120 XP' },
+            { id: 4, game: 'streetracer', icon: '🏎️', title: 'Speed Demon', desc: 'Score 80+ in Street Racer', target: 80, reward: '🔥 200 XP' },
+            { id: 5, game: 'all', icon: '🎮', title: 'Game Explorer', desc: 'Play 3 different games today', target: 3, reward: '🌟 150 XP' },
+        ];
+
+        function getToday() { return new Date().toISOString().split('T')[0]; }
+
+        function loadChallenges() {
+            document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+
+            const today = getToday();
+            const streak = parseInt(localStorage.getItem('almagen_streak') || '0');
+            document.getElementById('streakCount').textContent = streak + ' Day Streak 🔥';
+
+            const dailyData = JSON.parse(localStorage.getItem('almagen_daily_' + today) || '{}');
+
+            const grid = document.getElementById('challengeGrid');
+            grid.innerHTML = challenges.map(c => {
+                const progress = dailyData[c.id] || 0;
+                const completed = progress >= c.target;
+                const percent = Math.min(100, (progress / c.target) * 100);
+
+                return `
+                    <div class="challenge-card ${completed ? 'completed' : ''}">
+                        <div class="challenge-icon">${c.icon}</div>
+                        <div class="challenge-info">
+                            <h3>${c.title}</h3>
+                            <p>${c.desc}</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:${percent}%"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span class="challenge-reward">${c.reward}</span>
+                                <span class="progress-count">${progress}/${c.target}</span>
+                            </div>
+                        </div>
+                        ${completed ? '<span class="completed-badge">✅ Done</span>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadChallenges();
+    </script>
+</body>
+</html>

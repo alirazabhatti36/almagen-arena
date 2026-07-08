@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AlMaGen-Arena | 15 Free Online Games - Play & Learn</title>
+    <meta name="description" content="AlMaGen-Arena - Free online gaming platform with 15 amazing games. Play Snake, Racer, Chess, Ludo, Cards & more! No download, no signup. Learn while playing!">
+    <meta name="keywords" content="online games, free games, educational games, racing games, chess, ludo, cards, snake game, puzzle games, browser games">
+    <meta name="author" content="AlMaGen-Arena">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader-content">
+            <div class="loader-logo"><span class="logo-sword">⚔️</span></div>
+            <h1 class="loader-title">AlMaGen<span class="highlight">-Arena</span></h1>
+            <div class="loader-bar-container"><div class="loader-bar"></div></div>
+            <p class="loader-text">Preparing Your Arena...</p>
+        </div>
+    </div>
+
+    <!-- Particle Background -->
+    <div class="particles-bg" id="particlesBg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#games" class="nav-link">Games</a></li>
+                <li><a href="daily.html" class="nav-link">📅 Daily</a></li>
+                <li><a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a></li>
+                <li><a href="achievements.html" class="nav-link">🏅 Achievements</a></li>
+                <li><a href="profile.html" class="nav-link">👤 Profile</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
+                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge"><span class="badge-dot"></span>15 Games • No Download • Play Instantly</div>
+                <h1 class="hero-title">Play & Learn at<br><span class="gradient-text">AlMaGen-Arena</span></h1>
+                <p class="hero-subtitle">Where Gaming Meets Education</p>
+                <p class="hero-desc">Discover <span class="text-highlight">15 incredible games</span> that make learning fun & exciting. Sharpen your mind while playing — no downloads, no signup, just pure entertainment!</p>
+                <div class="hero-buttons">
+                    <a href="#games" class="btn btn-primary">🎮 Explore Games<span class="btn-shine"></span></a>
+                    <a href="daily.html" class="btn btn-secondary">📅 Daily Challenges →</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><span class="stat-number" data-count="15">0</span><span class="stat-label">Unique Games</span></div>
+                    <div class="hero-stat"><span class="stat-number" data-count="100">0</span><span class="stat-label">% Free</span></div>
+                    <div class="hero-stat"><span class="stat-number" data-count="24">0</span><span class="stat-label">/7 Available</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-orb"></div>
+                <div class="hero-orb-small"></div>
+                <div class="floating-elements">
+                    <span class="float-icon icon-1">🎮</span><span class="float-icon icon-2">🧠</span>
+                    <span class="float-icon icon-3">🏆</span><span class="float-icon icon-4">⚡</span>
+                    <span class="float-icon icon-5">🎯</span><span class="float-icon icon-6">🌟</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator"><span>Scroll Down</span><div class="scroll-mouse"><div class="scroll-wheel"></div></div></div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games">
+        <div class="section-header">
+            <span class="section-badge">🎯 Choose Your Arena</span>
+            <h2 class="section-title">Explore Our <span class="gradient-text">Games</span></h2>
+            <p class="section-desc">15 amazing games — each designed to teach you something new!</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="gameSearch" placeholder="🔍 Search games by name, category, or description...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="games-filter">
+            <button class="filter-btn active" data-filter="all">All Games</button>
+            <button class="filter-btn" data-filter="math">🧮 Math</button>
+            <button class="filter-btn" data-filter="action">⚡ Action</button>
+            <button class="filter-btn" data-filter="puzzle">🧩 Puzzle</button>
+            <button class="filter-btn" data-filter="racing">🏎️ Racing</button>
+            <button class="filter-btn" data-filter="board">♟️ Board</button>
+            <button class="filter-btn" data-filter="typing">⌨️ Typing</button>
+        </div>
+
+        <div class="games-grid" id="gamesGrid">
+            <!-- 1. Math Snake -->
+            <div class="game-card" data-category="math" onclick="window.location.href='games/snake.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper snake-icon"><span class="game-icon">🐍</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-easy">Easy</span></div>
+                        <h3>Math Snake</h3><p>Solve arithmetic while growing your snake. Master addition & subtraction!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 1.2k Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 2. Life Runner -->
+            <div class="game-card" data-category="action" onclick="window.location.href='games/runner.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper runner-icon"><span class="game-icon">🏃</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-action">Action</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Life Runner</h3><p>Endless runner with life lessons! Collect good habits, dodge bad ones!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 980 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 3. Number Blaster -->
+            <div class="game-card" data-category="math action" onclick="window.location.href='games/shooter.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper shooter-icon"><span class="game-icon">🔫</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-action">Action</span></div>
+                        <h3>Number Blaster</h3><p>Space shooter meets math! Solve problems, shoot the right answer!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 756 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 4. Gravity Quest -->
+            <div class="game-card" data-category="physics" onclick="window.location.href='games/ball.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper ball-icon"><span class="game-icon">⚽</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-physics">Physics</span><span class="tag tag-hard">Hard</span></div>
+                        <h3>Gravity Quest</h3><p>Navigate obstacles with realistic physics. Learn gravity & momentum!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 620 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 5. Mirror Match -->
+            <div class="game-card" data-category="puzzle" onclick="window.location.href='games/puzzle.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper puzzle-icon"><span class="game-icon">🧩</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-puzzle">Puzzle</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Mirror Match</h3><p>Symmetry puzzle challenge! Train spatial reasoning & pattern recognition!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 510 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 6. Word Blitz -->
+            <div class="game-card" data-category="typing puzzle" onclick="window.location.href='games/wordblitz.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(0,212,255,0.1);"><span class="game-icon">⚡</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag" style="background:rgba(0,212,255,0.15);color:#00d4ff;">Typing</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Word Blitz</h3><p>Type falling words fast! Improve vocabulary, spelling & typing speed!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 480 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 7. Color Switch -->
+            <div class="game-card" data-category="action" onclick="window.location.href='games/colorswitch.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🎨</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-action">Action</span><span class="tag tag-hard">Hard</span></div>
+                        <h3>Color Switch</h3><p>Match colors to pass obstacles! Test reflexes & color recognition!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 430 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 8. Memory Master -->
+            <div class="game-card" data-category="puzzle board" onclick="window.location.href='games/memory.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🧠</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-puzzle">Memory</span><span class="tag tag-easy">Easy-Hard</span></div>
+                        <h3>Memory Master</h3><p>Flip & match emoji pairs! Train your memory, focus & concentration!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 390 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 9. Math Defense -->
+            <div class="game-card" data-category="math action" onclick="window.location.href='games/mathdefense.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏰</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-action">Strategy</span></div>
+                        <h3>Math Defense</h3><p>Tower defense! Solve math to fire at enemies. Protect your wall!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 350 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 10. Block Breaker -->
+            <div class="game-card" data-category="action physics" onclick="window.location.href='games/blockbreaker.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,136,0,0.1);"><span class="game-icon">🧱</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-physics">Physics</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Block Breaker</h3><p>Classic brick breaker! Learn angles, physics & strategic aiming!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">👥 320 Plays</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 11. Street Racer -->
+            <div class="game-card" data-category="racing action" onclick="window.location.href='games/streetracer.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🏎️</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-action">Racing</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Street Racer</h3><p>Dodge traffic at high speed! Test your reflexes and driving skills!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">🆕 New!</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 12. Moto Stunt -->
+            <div class="game-card" data-category="racing action" onclick="window.location.href='games/motostunt.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏍️</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-action">Racing</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Moto Stunt</h3><p>Ride through obstacles, collect coins! Master bike control & timing!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">🆕 New!</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 13. Ludo Dice -->
+            <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/ludo.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🎲</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-puzzle">Board</span><span class="tag tag-easy">Easy</span></div>
+                        <h3>Ludo Dice</h3><p>Roll dice & race against AI! Get a 6 for bonus roll. First to 30 wins!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">🆕 New!</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 14. Mini Chess -->
+            <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/chess.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,255,255,0.1);"><span class="game-icon">♟️</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-puzzle">Strategy</span><span class="tag tag-medium">Medium</span></div>
+                        <h3>Mini Chess</h3><p>Capture all enemy pieces! Simple 6x6 chess with easy-to-learn rules!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">🆕 New!</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+            <!-- 15. Card Match -->
+            <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/cardmatch.html'">
+                <div class="game-card-glow"></div><div class="game-card-content">
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🃏</span><div class="icon-pulse"></div></div>
+                    <div class="game-info"><div class="game-tags"><span class="tag tag-puzzle">Cards</span><span class="tag tag-easy">Easy</span></div>
+                        <h3>Card Match</h3><p>Classic card matching! Flip & find pairs of the same suit and value!</p></div>
+                    <div class="game-card-footer"><span class="game-stat">🆕 New!</span><span class="play-now">Play Now →</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <span class="section-badge">✨ Why Choose Us</span>
+            <h2 class="section-title">Amazing <span class="gradient-text">Features</span></h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">🎮</div><h3>15 Games & Growing</h3><p>Diverse collection — racing, board games, puzzles, action & more!</p></div>
+            <div class="feature-card"><div class="feature-icon">📚</div><h3>Learn While Playing</h3><p>Math, typing, physics, strategy — every game teaches valuable skills!</p></div>
+            <div class="feature-card"><div class="feature-icon">📱</div><h3>All Devices Supported</h3><p>Desktop, tablet, or mobile — play anywhere with responsive design!</p></div>
+            <div class="feature-card"><div class="feature-icon">🚫</div><h3>No Downloads</h3><p>Play instantly in your browser. Zero installation required!</p></div>
+            <div class="feature-card"><div class="feature-icon">🏆</div><h3>Track Progress</h3><p>Beat high scores, earn achievements, and challenge yourself!</p></div>
+            <div class="feature-card"><div class="feature-icon">🔓</div><h3>100% Free Forever</h3><p>No hidden fees, no subscriptions. Pure unlimited fun!</p></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="section-header">
+            <span class="section-badge">📊 Our Impact</span>
+            <h2 class="section-title">Growing <span class="gradient-text">Numbers</span></h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-icon">👥</span><div class="stat-content"><span class="stat-big" data-count="15000">0</span><span class="stat-plus">+</span></div><span class="stat-name">Happy Players</span></div>
+            <div class="stat-card"><span class="stat-icon">🎮</span><div class="stat-content"><span class="stat-big" data-count="15">0</span></div><span class="stat-name">Unique Games</span></div>
+            <div class="stat-card"><span class="stat-icon">⭐</span><div class="stat-content"><span class="stat-big" data-count="4.9">0</span></div><span class="stat-name">User Rating</span></div>
+            <div class="stat-card"><span class="stat-icon">📚</span><div class="stat-content"><span class="stat-big" data-count="25">0</span><span class="stat-plus">+</span></div><span class="stat-name">Skills Taught</span></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="section-header">
+            <span class="section-badge">💡 Our Mission</span>
+            <h2 class="section-title">About <span class="gradient-text">AlMaGen-Arena</span></h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>AlMaGen-Arena is a revolutionary gaming platform blending <strong>entertainment with education</strong>. We believe learning should be exciting, competitive, and rewarding!</p>
+                <p>Our 15 carefully crafted games develop <strong>critical thinking</strong>, <strong>problem-solving</strong>, and <strong>quick reflexes</strong> — all while having the time of your life.</p>
+                <div class="about-quote"><span class="quote-icon">❝</span><p>"Play, Learn, and Grow! Every game is a new adventure waiting to teach you something amazing."</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>🚀 Ready to Play All 15 Games?</h2>
+            <p>Free, instant, no signup required — jump right in!</p>
+            <a href="#games" class="btn btn-primary btn-large">Start Playing Now<span class="btn-shine"></span></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand"><span class="footer-logo">⚔️ AlMaGen-Arena</span><p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p></div>
+            <div class="footer-links"><h4>Quick Links</h4><a href="#home">Home</a><a href="#games">Games</a><a href="daily.html">Daily Challenges</a><a href="leaderboard.html">Leaderboard</a><a href="profile.html">Profile</a></div>
+            <div class="footer-links"><h4>Popular Games</h4><a href="games/snake.html">Math Snake</a><a href="games/streetracer.html">Street Racer</a><a href="games/ludo.html">Ludo Dice</a><a href="games/chess.html">Mini Chess</a><a href="games/cardmatch.html">Card Match</a></div>
+        </div>
+        <div class="footer-bottom"><p>Made with ❤️ | AlMaGen-Arena © 2024 | All Rights Reserved</p><p class="footer-quote">"Play, Learn, and Grow!" 🚀</p></div>
+    </footer>
+
+    <script src="js/soundengine.js"></script>
+    <script>
+        // ==================== LOADING SCREEN ====================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                document.getElementById('loadingScreen').style.transition = 'opacity 0.6s ease';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 600);
+            }, 2000);
+        });
+
+        // ==================== CUSTOM CURSOR ====================
+        const cursor = document.querySelector('.cursor'), cursorFollower = document.querySelector('.cursor-follower');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+            setTimeout(() => { cursorFollower.style.left = e.clientX + 'px'; cursorFollower.style.top = e.clientY + 'px'; }, 80);
+        });
+        document.addEventListener('mousedown', () => { cursor.style.transform = 'translate(-50%, -50%) scale(0.7)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)'; });
+        document.addEventListener('mouseup', () => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)'; });
+
+        // ==================== THEME ====================
+        const savedTheme = localStorage.getItem('almagen_theme');
+        if (savedTheme === 'light') document.body.classList.add('light-theme');
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌓';
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            themeToggle.textContent = isLight ? '☀️' : '🌓';
+            localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
+        });
+
+        // ==================== NAVBAR SCROLL ====================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+        // ==================== MOBILE MENU ====================
+        const hamburger = document.getElementById('hamburger'), navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); });
+        document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => { hamburger.classList.remove('active'); navMenu.classList.remove('active'); }));
+
+        // ==================== ACTIVE NAV ====================
+        const sections = document.querySelectorAll('section'), navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+            navLinks.forEach(l => { l.classList.remove('active'); if (l.getAttribute('href') === '#' + current) l.classList.add('active'); });
+        });
+
+        // ==================== GAME FILTER ====================
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                document.querySelectorAll('.game-card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                        card.style.display = 'block'; setTimeout(() => card.style.opacity = '1', 10);
+                    } else { card.style.opacity = '0'; setTimeout(() => card.style.display = 'none', 300); }
+                });
+            });
+        });
+
+        // ==================== GAME SEARCH ====================
+        const searchInput = document.getElementById('gameSearch');
+        if (searchInput) {
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase().trim();
+                document.querySelectorAll('.game-card').forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const desc = card.querySelector('p').textContent.toLowerCase();
+                    const tags = card.getAttribute('data-category').toLowerCase();
+                    if (title.includes(query) || desc.includes(query) || tags.includes(query) || query === '') {
+                        card.style.display = 'block'; setTimeout(() => card.style.opacity = '1', 10);
+                    } else { card.style.opacity = '0'; setTimeout(() => card.style.display = 'none', 300); }
+                });
+            });
+        }
+
+        // ==================== COUNTER ANIMATION ====================
+        const statNums = document.querySelectorAll('.stat-number, .stat-big');
+        const animateCounter = (el) => {
+            const target = parseFloat(el.getAttribute('data-count')), duration = 2000, step = target / (duration / 16);
+            let current = 0;
+            const update = () => {
+                current += step;
+                if (current < target) { el.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1); requestAnimationFrame(update); }
+                else el.textContent = target;
+            };
+            update();
+        };
+        const observer = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); observer.unobserve(e.target); } }), { threshold: 0.5 });
+        statNums.forEach(n => observer.observe(n));
+
+        // ==================== PARTICLES BG ====================
+        const particlesBg = document.getElementById('particlesBg');
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div'); p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+            p.style.animationDuration = (Math.random() * 20 + 10) + 's'; p.style.animationDelay = Math.random() * 10 + 's';
+            p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+            particlesBg.appendChild(p);
+        }
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }));
+
+        // ==================== DAILY PROGRESS ====================
+        function getToday() { return new Date().toISOString().split('T')[0]; }
+        window.updateDailyProgress = function(gameName, score) {
+            const today = getToday();
+            const dailyData = JSON.parse(localStorage.getItem('almagen_daily_' + today) || '{}');
+            const challenges = [
+                { id: 1, game: 'snake', target: 50 },
+                { id: 2, game: 'runner', target: 100 },
+                { id: 3, game: 'wordblitz', target: 60 },
+                { id: 4, game: 'streetracer', target: 80 },
+                { id: 5, game: 'all', target: 3 }
+            ];
+            challenges.forEach(c => {
+                if (c.game === gameName || c.game === 'all') {
+                    if (c.game === 'all') {
+                        const gamesToday = JSON.parse(localStorage.getItem('almagen_games_today_' + today) || '[]');
+                        if (!gamesToday.includes(gameName)) { gamesToday.push(gameName); localStorage.setItem('almagen_games_today_' + today, JSON.stringify(gamesToday)); dailyData[c.id] = gamesToday.length; }
+                    } else { if (score > (dailyData[c.id] || 0)) { dailyData[c.id] = score; } }
+                }
+            });
+            localStorage.setItem('almagen_daily_' + today, JSON.stringify(dailyData));
+        };
+
+        // ==================== STREAK TRACKING ====================
+        function getYesterday() { const d = new Date(); d.setDate(d.getDate() - 1); return d.toISOString().split('T')[0]; }
+        const today = getToday();
+        const lastPlayed = localStorage.getItem('almagen_last_played');
+        let streak = parseInt(localStorage.getItem('almagen_streak') || '0');
+        if (lastPlayed !== today) {
+            if (lastPlayed === getYesterday()) { streak++; }
+            else if (lastPlayed) { streak = 1; }
+            else { streak = 1; }
+            localStorage.setItem('almagen_streak', streak);
+            localStorage.setItem('almagen_last_played', today);
+        }
+    </script>
+</body>
+</html>

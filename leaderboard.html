@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Leaderboard - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a1a;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 750px; margin: 0 auto; }
+
+        .back-btn {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+
+        .top-three {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .top-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 140px;
+            transition: all 0.3s;
+        }
+
+        .top-card.first { border-color: #ffd700; box-shadow: 0 0 30px rgba(255,215,0,0.2); width: 160px; }
+        .top-card.second { border-color: #c0c0c0; }
+        .top-card.third { border-color: #cd7f32; }
+
+        .top-avatar {
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 10px;
+        }
+
+        .top-card.first .top-avatar { width: 65px; height: 65px; font-size: 2rem; }
+
+        .crown { font-size: 2rem; }
+        .top-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 3px; }
+        .top-score { color: #00ff88; font-weight: 700; font-size: 1.1rem; }
+        .top-game { font-size: 0.7rem; color: #aaa; margin-top: 2px; }
+
+        .game-selector {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .game-btn {
+            padding: 7px 14px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+        }
+
+        .game-btn:hover, .game-btn.active {
+            background: linear-gradient(135deg, #6c5ce7, #00d4ff);
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.02);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .leaderboard-table th {
+            background: rgba(255,255,255,0.06);
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        .leaderboard-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.9rem;
+        }
+
+        .rank { font-weight: 700; font-size: 1rem; }
+        .rank-1 { color: #ffd700; }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        .player-cell { display: flex; align-items: center; gap: 10px; }
+
+        .mini-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .score-cell { color: #00ff88; font-weight: 700; }
+        .date-cell { color: #666; font-size: 0.75rem; }
+
+        .no-scores {
+            text-align: center;
+            padding: 50px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .refresh-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .refresh-btn {
+            padding: 10px 22px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .refresh-btn:hover { background: rgba(255,255,255,0.15); }
+
+        .total-scores { color: #666; font-size: 0.8rem; }
+
+        @media (max-width: 500px) {
+            .top-card { width: 100px; padding: 15px; }
+            .top-card.first { width: 120px; }
+            .leaderboard-table th, .leaderboard-table td { padding: 8px 10px; font-size: 0.75rem; }
+            .game-btn { padding: 6px 10px; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Arena</a>
+        <h1>🏆 Global Leaderboard</h1>
+        <p class="subtitle">Top players across all games</p>
+
+        <div id="topThree" class="top-three"></div>
+
+        <div class="game-selector" id="gameSelector">
+            <button class="game-btn active" data-game="all">🌟 All Games</button>
+            <button class="game-btn" data-game="snake">🐍 Snake</button>
+            <button class="game-btn" data-game="runner">🏃 Runner</button>
+            <button class="game-btn" data-game="shooter">🔫 Blaster</button>
+            <button class="game-btn" data-game="ball">⚽ Gravity</button>
+            <button class="game-btn" data-game="puzzle">🧩 Mirror</button>
+            <button class="game-btn" data-game="wordblitz">⚡ Word</button>
+            <button class="game-btn" data-game="colorswitch">🎨 Color</button>
+            <button class="game-btn" data-game="memory">🧠 Memory</button>
+            <button class="game-btn" data-game="mathdefense">🏰 Defense</button>
+            <button class="game-btn" data-game="blockbreaker">🧱 Breaker</button>
+            <button class="game-btn" data-game="streetracer">🏎️ Racer</button>
+            <button class="game-btn" data-game="motostunt">🏍️ Moto</button>
+            <button class="game-btn" data-game="ludo">🎲 Ludo</button>
+            <button class="game-btn" data-game="chess">♟️ Chess</button>
+            <button class="game-btn" data-game="cardmatch">🃏 Cards</button>
+        </div>
+
+        <div id="leaderboardContent">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>Game</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody"></tbody>
+            </table>
+        </div>
+
+        <div class="refresh-bar">
+            <span class="total-scores" id="totalScores"></span>
+            <button class="refresh-btn" onclick="loadLeaderboard()">🔄 Refresh Scores</button>
+        </div>
+    </div>
+
+    <script>
+        const gameNames = {
+            'snake': '🐍 Math Snake', 'runner': '🏃 Life Runner', 'shooter': '🔫 Number Blaster',
+            'ball': '⚽ Gravity Quest', 'puzzle': '🧩 Mirror Match', 'wordblitz': '⚡ Word Blitz',
+            'colorswitch': '🎨 Color Switch', 'memory': '🧠 Memory Master', 'mathdefense': '🏰 Math Defense',
+            'blockbreaker': '🧱 Block Breaker', 'streetracer': '🏎️ Street Racer', 'motostunt': '🏍️ Moto Stunt',
+            'ludo': '🎲 Ludo Dice', 'chess': '♟️ Mini Chess', 'cardmatch': '🃏 Card Match'
+        };
+
+        const avatarColors = ['#ff6b6b','#ffd93d','#00d4ff','#00ff88','#a29bfe','#ff8800','#ff4444','#6c5ce7'];
+        let currentGame = 'all';
+
+        function getAvatarColor(name) {
+            const index = (name || 'A').split('').reduce((a,c) => a + c.charCodeAt(0), 0) % avatarColors.length;
+            return avatarColors[index];
+        }
+
+        function loadLeaderboard() {
+            let allScores = [];
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('almagen_score_')) {
+                    try {
+                        const data = JSON.parse(localStorage.getItem(key));
+                        if (data && data.score !== undefined) allScores.push(data);
+                    } catch(e) {}
+                }
+            }
+
+            if (currentGame !== 'all') {
+                allScores = allScores.filter(s => s.game === currentGame);
+            }
+
+            allScores.sort((a, b) => b.score - a.score);
+            document.getElementById('totalScores').textContent = `${allScores.length} scores recorded`;
+
+            // Top 3
+            const top3 = allScores.slice(0, 3);
+            const topDiv = document.getElementById('topThree');
+            
+            if (top3.length >= 3) {
+                topDiv.innerHTML = `
+                    <div class="top-card second">
+                        <div class="crown">🥈</div>
+                        <div class="top-avatar" style="background:${getAvatarColor(top3[1].name)}">${(top3[1].name||'?')[0].toUpperCase()}</div>
+                        <div class="top-name">${top3[1].name||'Player'}</div>
+                        <div class="top-score">${top3[1].score.toLocaleString()}</div>
+                        <div class="top-game">${gameNames[top3[1].game]||top3[1].game}</div>
+                    </div>
+                    <div class="top-card first">
+                        <div class="crown">👑</div>
+                        <div class="top-avatar" style="background:${getAvatarColor(top3[0].name)}">${(top3[0].name||'?')[0].toUpperCase()}</div>
+                        <div class="top-name">${top3[0].name||'Player'}</div>
+                        <div class="top-score">${top3[0].score.toLocaleString()}</div>
+                        <div class="top-game">${gameNames[top3[0].game]||top3[0].game}</div>
+                    </div>
+                    <div class="top-card third">
+                        <div class="crown">🥉</div>
+                        <div class="top-avatar" style="background:${getAvatarColor(top3[2].name)}">${(top3[2].name||'?')[0].toUpperCase()}</div>
+                        <div class="top-name">${top3[2].name||'Player'}</div>
+                        <div class="top-score">${top3[2].score.toLocaleString()}</div>
+                        <div class="top-game">${gameNames[top3[2].game]||top3[2].game}</div>
+                    </div>
+                `;
+            } else {
+                topDiv.innerHTML = `<p class="no-scores" style="width:100%;">Play games to fill the leaderboard! 🎮</p>`;
+            }
+
+            // Table
+            const tbody = document.getElementById('leaderboardBody');
+            const tableScores = allScores.slice(3, 53);
+            
+            if (tableScores.length === 0 && top3.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="no-scores">Be the first to set a record! 🏆</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = tableScores.map((entry, i) => {
+                const rank = i + 4;
+                const rankClass = rank <= 10 ? 'rank-1' : '';
+                const date = new Date(entry.date).toLocaleDateString('en-US', { month:'short', day:'numeric' });
+                return `
+                    <tr>
+                        <td class="rank ${rank <= 3 ? 'rank-' + rank : ''}">#${rank}</td>
+                        <td>
+                            <div class="player-cell">
+                                <div class="mini-avatar" style="background:${getAvatarColor(entry.name)}">${(entry.name||'?')[0].toUpperCase()}</div>
+                                ${entry.name||'Anonymous'}
+                            </div>
+                        </td>
+                        <td>${gameNames[entry.game]||entry.game}</td>
+                        <td class="score-cell">${entry.score.toLocaleString()}</td>
+                        <td class="date-cell">${date}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.querySelectorAll('.game-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentGame = btn.getAttribute('data-game');
+                loadLeaderboard();
+            });
+        });
+
+        loadLeaderboard();
+        setInterval(loadLeaderboard, 30000);
+    </script>
+</body>
+</html>

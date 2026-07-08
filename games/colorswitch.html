@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Color Switch - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Poppins', sans-serif; overflow: hidden; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 420px; padding: 10px 20px; margin-bottom: 10px; }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        .stats { display: flex; gap: 10px; align-items: center; }
+        .sound-btn { background: rgba(255,255,255,0.1); border: none; font-size: 1rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); }
+        .stat-label { font-size: 0.6rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { font-size: 1.3rem; font-weight: bold; color: #ffd93d; }
+        canvas { border: 2px solid #ff6b6b; border-radius: 10px; box-shadow: 0 0 30px rgba(255,107,107,0.3); max-width: 95vw; max-height: 70vh; }
+        #gameContainer { position: relative; }
+        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
+        #gameOverScreen h2 { font-size: 2.5rem; color: #ff6b6b; margin-bottom: 10px; }
+        #gameOverScreen p { color: #fff; font-size: 1rem; margin-bottom: 15px; text-align: center; padding: 0 20px; }
+        .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ff6b6b; color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .play-again-btn:hover { background: #e55a5a; transform: scale(1.05); }
+        .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="../index.html" class="back-btn">← Back</a>
+        <div class="stats">
+            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
+            <div class="stat-box"><div class="stat-label">🏆 Best</div><div class="stat-value" id="bestDisplay" style="color:#00ff88;">0</div></div>
+        </div>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameOverScreen">
+            <h2>💥 Game Over!</h2><p id="gameOverMsg"></p>
+            <div style="color:#ffd93d;font-size:1.5rem;margin-bottom:15px;">Score: <span id="finalScore" style="font-weight:bold;">0</span></div>
+            <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
+        </div>
+    </div>
+    <p class="instructions">🖱️ Click / 👆 Tap / ⌨️ Space = Jump & Switch Color | Match colors to pass!</p>
+
+    <script src="../js/soundengine.js"></script>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 420); canvas.height = Math.min(window.innerHeight-240, 650); }
+        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
+        function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+
+        const colors = ['#ff4444','#00d4ff','#ffd93d','#00ff88','#ff6b6b','#a29bfe'];
+        const colorNames = ['Red','Blue','Yellow','Green','Pink','Purple'];
+        let ball = { x: 0, y: 0, radius: 16, vy: 0, colorIndex: 0 };
+        let obstacles = [], particles = [], score = 0, bestScore = 0, gameRunning = true, gameStarted = false;
+        let gravity = 0.6, jumpForce = -9, obstacleSpeed = 2.5, spawnTimer = 0, spawnRate = 70;
+
+        class Obstacle {
+            constructor() {
+                this.gapSize = 90+Math.random()*40; this.gapY = 80+Math.random()*(canvas.height-160);
+                this.x = canvas.width+40; this.width = 45; this.speed = obstacleSpeed+Math.random()*0.8; this.passed = false;
+                this.segments = []; const ac = [...colors]; for(let i=0;i<4;i++) this.segments.push(ac.splice(Math.floor(Math.random()*ac.length),1)[0]);
+            }
+            update() { this.x -= this.speed; }
+            draw() {
+                const sh = (canvas.height-this.gapSize)/2;
+                for(let i=0;i<4;i++){const sy=i*sh;ctx.fillStyle=this.segments[i];ctx.fillRect(this.x,sy,this.width,sh);ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(this.x,sy,this.width,sh/2);}
+                const bs=this.gapY+this.gapSize;for(let i=0;i<4;i++){const sy=bs+i*sh;if(sy<canvas.height){ctx.fillStyle=this.segments[3-i];ctx.fillRect(this.x,sy,this.width,sh);ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(this.x,sy,this.width,sh/2);}}
+            }
+            isOffScreen() { return this.x < -60; }
+            checkCollision(bx, by, br) {
+                if(by>this.gapY && by<this.gapY+this.gapSize) return false;
+                if(bx+br>this.x && bx-br<this.x+this.width) {
+                    let si; if(by<this.gapY) si=Math.floor(by/((canvas.height-this.gapSize)/2)); else si=3-Math.floor((by-this.gapY-this.gapSize)/((canvas.height-this.gapSize)/2));
+                    si=Math.max(0,Math.min(3,si)); return this.segments[si]!==colors[ball.colorIndex];
+                }
+                return false;
+            }
+        }
+
+        class Particle {
+            constructor(x,y,color){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*5;this.vy=(Math.random()-0.5)*5-3;this.life=1;this.decay=0.03;this.color=color;this.size=Math.random()*4+2;}
+            update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;this.vy+=0.1;}
+            draw(){ctx.globalAlpha=this.life;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
+        }
+        function spawnParticles(x,y,color,count=10){for(let i=0;i<count;i++)particles.push(new Particle(x,y,color));}
+
+        function startGame() {
+            ball.x=canvas.width/4; ball.y=canvas.height/2; ball.vy=0; ball.colorIndex=Math.floor(Math.random()*colors.length);
+            obstacles=[]; particles=[]; score=0; gameRunning=true; gameStarted=false; spawnTimer=0; obstacleSpeed=2.5; spawnRate=70;
+            const saved=localStorage.getItem('colorswitchBest'); bestScore=saved?parseInt(saved):0;
+            document.getElementById('gameOverScreen').style.display='none'; document.getElementById('scoreDisplay').textContent='0'; document.getElementById('bestDisplay').textContent=bestScore;
+        }
+        function gameOver(msg) {
+            sound.playLose(); gameRunning=false; spawnParticles(ball.x,ball.y,'#ff4444',20);
+            if(score>bestScore){bestScore=score;localStorage.setItem('colorswitchBest',bestScore);}
+            document.getElementById('finalScore').textContent=score; document.getElementById('bestDisplay').textContent=bestScore;
+            document.getElementById('gameOverMsg').textContent=msg; document.getElementById('gameOverScreen').style.display='flex';
+            const pn=localStorage.getItem('almagen_name')||'Player';
+            localStorage.setItem('almagen_score_'+Date.now()+'_'+Math.random().toString(36).substr(2,5),JSON.stringify({game:'colorswitch',name:pn,score:score,date:new Date().toISOString()}));
+            if(typeof updateDailyProgress==='function')updateDailyProgress('colorswitch',score);
+        }
+        function jump() { if(!gameRunning)return; if(!gameStarted)gameStarted=true; sound.playJump(); ball.vy=jumpForce; ball.colorIndex=(ball.colorIndex+1)%colors.length; spawnParticles(ball.x,ball.y+ball.radius,colors[ball.colorIndex],5); }
+        function update() {
+            if(!gameRunning)return;
+            if(gameStarted){ball.vy+=gravity;ball.y+=ball.vy;if(ball.y-ball.radius<0){ball.y=ball.radius;ball.vy=0;}if(ball.y+ball.radius>canvas.height){gameOver('Ball hit the ground!');return;}
+                spawnTimer++;if(spawnTimer>=spawnRate){spawnTimer=0;obstacles.push(new Obstacle());obstacleSpeed+=0.03;spawnRate=Math.max(40,spawnRate-0.5);}
+                for(let i=obstacles.length-1;i>=0;i--){obstacles[i].update();if(obstacles[i].checkCollision(ball.x,ball.y,ball.radius)){sound.playCrash();gameOver('Wrong color! Match the obstacle color!');return;}if(!obstacles[i].passed&&obstacles[i].x+obstacles[i].width<ball.x){obstacles[i].passed=true;sound.playScore();score++;document.getElementById('scoreDisplay').textContent=score;spawnParticles(ball.x,ball.y,'#ffd93d',8);}if(obstacles[i].isOffScreen())obstacles.splice(i,1);}}
+            for(let i=particles.length-1;i>=0;i--){particles[i].update();if(particles[i].life<=0)particles.splice(i,1);}
+        }
+        function draw() {
+            ctx.fillStyle='#0a0a1a';ctx.fillRect(0,0,canvas.width,canvas.height);
+            for(let obs of obstacles)obs.draw();
+            for(let p of particles)p.draw();
+            const bc=colors[ball.colorIndex];ctx.shadowColor=bc;ctx.shadowBlur=20;
+            const bg=ctx.createRadialGradient(ball.x-3,ball.y-3,3,ball.x,ball.y,ball.radius);bg.addColorStop(0,'#fff');bg.addColorStop(0.4,bc);bg.addColorStop(1,'#000');
+            ctx.fillStyle=bg;ctx.beginPath();ctx.arc(ball.x,ball.y,ball.radius,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+            ctx.fillStyle='rgba(255,255,255,0.4)';ctx.beginPath();ctx.arc(ball.x-4,ball.y-4,ball.radius*0.3,0,Math.PI*2);ctx.fill();
+            ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(ball.x,ball.y,ball.radius+2,0,Math.PI*2);ctx.stroke();
+            if(!gameStarted){ctx.fillStyle='#fff';ctx.font='bold 18px Poppins,Arial';ctx.textAlign='center';ctx.fillText('Tap to Start!',canvas.width/2,canvas.height/2-50);}
+            ctx.fillStyle=bc;ctx.font='bold 14px Poppins,Arial';ctx.textAlign='center';ctx.fillText(`Ball: ${colorNames[ball.colorIndex]}`,ball.x,ball.y-30);
+        }
+        function gameLoop(){update();draw();requestAnimationFrame(gameLoop);}
+        canvas.addEventListener('click',jump);
+        canvas.addEventListener('touchstart',(e)=>{e.preventDefault();jump();});
+        document.addEventListener('keydown',(e)=>{if(e.key===' '||e.key==='ArrowUp'||e.key==='w'){e.preventDefault();jump();}if(!gameRunning&&e.key===' ')startGame();});
+        document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
+        startGame(); gameLoop();
+    </script>
+</body>
+</html>

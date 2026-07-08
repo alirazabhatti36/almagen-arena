@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Achievements - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a1a;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 650px; margin: 0 auto; }
+
+        .back-btn {
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+
+        .progress-summary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .trophy-big { font-size: 2.5rem; }
+        .progress-text { flex: 1; }
+        .progress-text strong { display: block; font-size: 1.1rem; }
+
+        .achievement-list { display: grid; gap: 12px; }
+
+        .achievement-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .achievement-card.unlocked {
+            border-color: rgba(255,215,0,0.5);
+            background: rgba(255,215,0,0.08);
+        }
+
+        .ach-icon {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .ach-info { flex: 1; }
+        .ach-info h3 { font-size: 0.95rem; margin-bottom: 3px; }
+        .ach-info p { font-size: 0.75rem; color: #aaa; }
+
+        .ach-status {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-locked { background: rgba(255,255,255,0.1); color: #666; }
+        .status-unlocked { background: rgba(0,255,136,0.2); color: #00ff88; }
+
+        @media (max-width: 500px) {
+            .achievement-card { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Arena</a>
+        <h1>🏅 Achievements</h1>
+        <p class="subtitle">Unlock badges by playing games!</p>
+
+        <div class="progress-summary">
+            <span class="trophy-big">🏆</span>
+            <div class="progress-text">
+                <strong id="unlockedCount">0 / 12 Unlocked</strong>
+                <p style="color:#aaa;font-size:0.8rem;">Keep playing to unlock more!</p>
+            </div>
+        </div>
+
+        <div class="achievement-list" id="achievementList"></div>
+    </div>
+
+    <script>
+        const achievements = [
+            { id: 'first_game', icon: '🎮', title: 'First Steps', desc: 'Play your first game', emoji: '🎉' },
+            { id: 'score_100', icon: '⭐', title: 'Centurion', desc: 'Score 100+ in any game', emoji: '💯' },
+            { id: 'score_500', icon: '🌟', title: 'High Roller', desc: 'Score 500+ in any game', emoji: '🔥' },
+            { id: 'play_5', icon: '🎯', title: 'Explorer', desc: 'Play 5 different games', emoji: '🗺️' },
+            { id: 'play_10', icon: '🏆', title: 'Veteran', desc: 'Play 10 different games', emoji: '👑' },
+            { id: 'play_15', icon: '💎', title: 'Completionist', desc: 'Play all 15 games', emoji: '💎' },
+            { id: 'streak_3', icon: '🔥', title: '3 Day Streak', desc: 'Play for 3 consecutive days', emoji: '📅' },
+            { id: 'streak_7', icon: '💪', title: 'Weekly Warrior', desc: 'Play for 7 consecutive days', emoji: '⚔️' },
+            { id: 'snake_200', icon: '🐍', title: 'Snake Charmer', desc: 'Score 200+ in Math Snake', emoji: '🎵' },
+            { id: 'racer_100', icon: '🏎️', title: 'Speed King', desc: 'Score 100+ in Street Racer', emoji: '💨' },
+            { id: 'word_80', icon: '⚡', title: 'Wordsmith', desc: 'Score 80+ in Word Blitz', emoji: '📝' },
+            { id: 'total_1000', icon: '💰', title: 'Diamond Player', desc: 'Accumulate 1000+ total score', emoji: '💎' },
+        ];
+
+        function getAchievements() {
+            return JSON.parse(localStorage.getItem('almagen_achievements') || '{}');
+        }
+
+        function checkAchievements() {
+            const ach = getAchievements();
+            let allScores = [];
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('almagen_score_')) {
+                    try { allScores.push(JSON.parse(localStorage.getItem(key))); } catch(e) {}
+                }
+            }
+
+            const totalScore = allScores.reduce((s, sc) => s + (sc.score||0), 0);
+            const gamesPlayed = [...new Set(allScores.map(s => s.game))];
+            const streak = parseInt(localStorage.getItem('almagen_streak') || '0');
+            const maxScore = allScores.length > 0 ? Math.max(...allScores.map(s => s.score)) : 0;
+
+            if (allScores.length >= 1) ach.first_game = true;
+            if (maxScore >= 100) ach.score_100 = true;
+            if (maxScore >= 500) ach.score_500 = true;
+            if (gamesPlayed.length >= 5) ach.play_5 = true;
+            if (gamesPlayed.length >= 10) ach.play_10 = true;
+            if (gamesPlayed.length >= 15) ach.play_15 = true;
+            if (streak >= 3) ach.streak_3 = true;
+            if (streak >= 7) ach.streak_7 = true;
+            if (allScores.some(s => s.game === 'snake' && s.score >= 200)) ach.snake_200 = true;
+            if (allScores.some(s => s.game === 'streetracer' && s.score >= 100)) ach.racer_100 = true;
+            if (allScores.some(s => s.game === 'wordblitz' && s.score >= 80)) ach.word_80 = true;
+            if (totalScore >= 1000) ach.total_1000 = true;
+
+            localStorage.setItem('almagen_achievements', JSON.stringify(ach));
+            return ach;
+        }
+
+        function displayAchievements() {
+            const ach = checkAchievements();
+            const unlocked = Object.values(ach).filter(v => v === true).length;
+            document.getElementById('unlockedCount').textContent = `${unlocked} / ${achievements.length} Unlocked`;
+
+            const list = document.getElementById('achievementList');
+            list.innerHTML = achievements.map(a => {
+                const isUnlocked = ach[a.id];
+                return `
+                    <div class="achievement-card ${isUnlocked ? 'unlocked' : ''}">
+                        <div class="ach-icon">${isUnlocked ? a.emoji : '🔒'}</div>
+                        <div class="ach-info">
+                            <h3>${a.title}</h3>
+                            <p>${a.desc}</p>
+                        </div>
+                        <span class="ach-status ${isUnlocked ? 'status-unlocked' : 'status-locked'}">
+                            ${isUnlocked ? 'Unlocked' : 'Locked'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        displayAchievements();
+    </script>
+</body>
+</html>

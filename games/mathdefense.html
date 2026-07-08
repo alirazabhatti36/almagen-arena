@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Math Defense - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Poppins', sans-serif; overflow: hidden; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; padding: 10px 20px; margin-bottom: 10px; }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
+        .stats { display: flex; gap: 10px; align-items: center; }
+        .sound-btn { background: rgba(255,255,255,0.1); border: none; font-size: 1rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.1); padding: 8px 12px; border-radius: 10px; text-align: center; }
+        .stat-label { font-size: 0.55rem; color: #aaa; text-transform: uppercase; }
+        .stat-value { font-size: 1.2rem; font-weight: bold; }
+        canvas { border: 2px solid #ffd93d; border-radius: 10px; box-shadow: 0 0 30px rgba(255,217,61,0.3); max-width: 95vw; max-height: 55vh; }
+        #gameContainer { position: relative; }
+        #questionBox { width: 100%; max-width: 600px; margin-top: 10px; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        #questionText { color: #fff; font-size: 1.3rem; font-weight: bold; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(255,217,61,0.3); }
+        .answer-btn { width: 55px; height: 55px; border-radius: 50%; border: 2px solid rgba(255,217,61,0.5); background: rgba(255,217,61,0.1); color: #fff; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .answer-btn:hover { background: rgba(255,217,61,0.3); }
+        .answer-btn:active { transform: scale(0.9); }
+        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
+        #gameOverScreen h2 { font-size: 2.5rem; color: #ff6b6b; margin-bottom: 10px; }
+        .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ffd93d; color: #000; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="../index.html" class="back-btn">← Back</a>
+        <div class="stats">
+            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay" style="color:#ffd93d;">0</div></div>
+            <div class="stat-box"><div class="stat-label">🏰 Wall</div><div class="stat-value" id="wallDisplay" style="color:#00ff88;">100%</div></div>
+            <div class="stat-box"><div class="stat-label">🌊 Wave</div><div class="stat-value" id="waveDisplay" style="color:#00d4ff;">1</div></div>
+        </div>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameOverScreen">
+            <h2>💥 Wall Breached!</h2><p id="gameOverMsg"></p>
+            <div style="color:#ffd93d;font-size:1.5rem;margin-bottom:15px;">Score: <span id="finalScore" style="font-weight:bold;">0</span></div>
+            <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
+        </div>
+    </div>
+    <div id="questionBox"><span id="questionText">5 + 3 = ?</span></div>
+    <p class="instructions">🧮 Solve the math problem & tap the correct answer to fire!</p>
+
+    <script src="../js/soundengine.js"></script>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 600); canvas.height = Math.min(window.innerHeight-300, 400); }
+        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
+        function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+
+        let enemies=[], bullets=[], particles=[], score=0, wallHealth=100, wave=1, gameRunning=true, currentQuestion=null, answers=[], frameCount=0, spawnTimer=0;
+
+        function generateQuestion() {
+            const a=Math.floor(Math.random()*12)+2,b=Math.floor(Math.random()*12)+2;
+            const ops=['+','-','×'];const op=ops[Math.floor(Math.random()*ops.length)];
+            let ca;switch(op){case'+':ca=a+b;break;case'-':ca=Math.max(a,b)-Math.min(a,b);break;case'×':ca=a*b;break;}
+            currentQuestion={text:`${Math.max(a,b)} ${op} ${Math.min(a,b)} = ?`,answer:ca};
+            answers=[ca];while(answers.length<4){const off=Math.floor(Math.random()*10)-5;const w=ca+off;if(w>0&&!answers.includes(w))answers.push(w);}
+            answers.sort(()=>Math.random()-0.5);
+            document.getElementById('questionText').textContent=currentQuestion.text;
+            const box=document.getElementById('questionBox');box.querySelectorAll('.answer-btn').forEach(b=>b.remove());
+            answers.forEach(ans=>{const btn=document.createElement('button');btn.className='answer-btn';btn.textContent=ans;btn.addEventListener('click',()=>submitAnswer(ans,btn));box.appendChild(btn);});
+        }
+        function submitAnswer(answer,btn) {
+            if(!gameRunning)return;
+            if(answer===currentQuestion.answer){sound.playShoot();btn.style.background='rgba(0,255,136,0.4)';setTimeout(()=>btn.style.background='',300);if(enemies.length>0){const t=enemies[0];bullets.push({x:canvas.width-20,y:canvas.height-60,tx:t.x+t.width/2,ty:t.y+t.height/2,speed:10,alive:true});}spawnParticles(canvas.width-20,canvas.height-60,'#ffd93d',5);}
+            else{sound.playCrash();btn.style.background='rgba(255,68,68,0.4)';setTimeout(()=>btn.style.background='',300);spawnParticles(canvas.width-20,canvas.height-60,'#ff4444',5);}
+            generateQuestion();
+        }
+        class Enemy {
+            constructor(){this.width=35;this.height=35;this.x=-50;this.y=40+Math.random()*(canvas.height-100);this.speed=1+wave*0.4+Math.random();this.health=1+Math.floor(wave/3);this.maxHealth=this.health;this.color=`hsl(${Math.random()*60},80%,55%)`;}
+            update(){this.x+=this.speed;}
+            draw(){ctx.fillStyle=this.color;ctx.shadowColor=this.color;ctx.shadowBlur=8;ctx.beginPath();ctx.moveTo(this.x+this.width/2,this.y);ctx.lineTo(this.x+this.width,this.y+this.height/2);ctx.lineTo(this.x+this.width/2,this.y+this.height);ctx.lineTo(this.x,this.y+this.height/2);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#333';ctx.fillRect(this.x,this.y-10,this.width,4);ctx.fillStyle='#00ff88';ctx.fillRect(this.x,this.y-10,this.width*(this.health/this.maxHealth),4);}
+            reachedWall(){return this.x>canvas.width-80;}
+        }
+        class Particle {
+            constructor(x,y,color){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*5;this.vy=(Math.random()-0.5)*5;this.life=1;this.decay=0.04;this.color=color;this.size=Math.random()*3+1;}
+            update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;}
+            draw(){ctx.globalAlpha=this.life;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
+        }
+        function spawnParticles(x,y,color,count=8){for(let i=0;i<count;i++)particles.push(new Particle(x,y,color));}
+
+        function startGame() {
+            enemies=[];bullets=[];particles=[];score=0;wallHealth=100;wave=1;gameRunning=true;frameCount=0;spawnTimer=0;
+            document.getElementById('gameOverScreen').style.display='none';document.getElementById('scoreDisplay').textContent='0';
+            document.getElementById('wallDisplay').textContent='100%';document.getElementById('waveDisplay').textContent='1';
+            generateQuestion();
+        }
+        function update() {
+            if(!gameRunning)return;frameCount++;
+            spawnTimer++;const rate=Math.max(30,80-wave*4);if(spawnTimer>=rate){spawnTimer=0;enemies.push(new Enemy());}
+            for(let i=enemies.length-1;i>=0;i--){enemies[i].update();if(enemies[i].reachedWall()){sound.playCrash();wallHealth-=10;enemies.splice(i,1);spawnParticles(canvas.width-70,enemies[i]?.y||canvas.height/2,'#ff4444',10);document.getElementById('wallDisplay').textContent=Math.max(0,wallHealth)+'%';if(wallHealth<=0){sound.playLose();gameRunning=false;document.getElementById('finalScore').textContent=score;document.getElementById('gameOverMsg').textContent=`Survived ${wave} waves!`;document.getElementById('gameOverScreen').style.display='flex';
+                const pn=localStorage.getItem('almagen_name')||'Player';localStorage.setItem('almagen_score_'+Date.now()+'_'+Math.random().toString(36).substr(2,5),JSON.stringify({game:'mathdefense',name:pn,score:score,date:new Date().toISOString()}));if(typeof updateDailyProgress==='function')updateDailyProgress('mathdefense',score);return;}}}
+            for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];const dx=b.tx-b.x,dy=b.ty-b.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<15){bullets.splice(i,1);if(enemies.length>0){enemies[0].health--;if(enemies[0].health<=0){sound.playScore();score+=10*wave;document.getElementById('scoreDisplay').textContent=score;spawnParticles(enemies[0].x+17,enemies[0].y+17,'#ffd93d',12);enemies.splice(0,1);if(enemies.length===0&&spawnTimer>40){sound.playWin();wave++;document.getElementById('waveDisplay').textContent=wave;wallHealth=Math.min(100,wallHealth+20);document.getElementById('wallDisplay').textContent=wallHealth+'%';spawnParticles(canvas.width/2,canvas.height/2,'#00ff88',20);}}}}else{b.x+=(dx/dist)*b.speed;b.y+=(dy/dist)*b.speed;}}
+            for(let i=particles.length-1;i>=0;i--){particles[i].update();if(particles[i].life<=0)particles.splice(i,1);}
+        }
+        function draw() {
+            ctx.fillStyle='#0a0a1a';ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle='rgba(255,255,255,0.02)';ctx.fillRect(0,canvas.height-40,canvas.width,40);
+            const wx=canvas.width-70;const wg=ctx.createLinearGradient(wx,0,wx+30,0);wg.addColorStop(0,'#6c5ce7');wg.addColorStop(1,'#a29bfe');ctx.fillStyle=wg;ctx.fillRect(wx,20,30,canvas.height-60);
+            const whp=wallHealth/100;ctx.fillStyle=whp>0.5?'#00ff88':whp>0.25?'#ffd93d':'#ff4444';ctx.fillRect(wx,20,30,(canvas.height-60)*whp);
+            ctx.fillStyle='#6c5ce7';ctx.fillRect(canvas.width-30,canvas.height-80,20,40);ctx.fillStyle='#ffd93d';ctx.beginPath();ctx.arc(canvas.width-20,canvas.height-80,10,0,Math.PI*2);ctx.fill();
+            for(let e of enemies)e.draw();
+            for(let b of bullets){ctx.fillStyle='#ffd93d';ctx.shadowColor='#ffd93d';ctx.shadowBlur=6;ctx.beginPath();ctx.arc(b.x,b.y,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+            for(let p of particles)p.draw();
+        }
+        function gameLoop(){update();draw();requestAnimationFrame(gameLoop);}
+        document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
+        startGame(); gameLoop();
+    </script>
+</body>
+</html>

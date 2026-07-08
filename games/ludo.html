@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Ludo Dice - AlMaGen Arena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Poppins', sans-serif; overflow: hidden; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 550px; padding: 10px 20px; margin-bottom: 10px; }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
+        .stats { display: flex; gap: 10px; align-items: center; }
+        .sound-btn { background: rgba(255,255,255,0.1); border: none; font-size: 1rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.1); padding: 8px 12px; border-radius: 10px; text-align: center; }
+        .stat-label { font-size: 0.55rem; color: #aaa; text-transform: uppercase; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; }
+        canvas { border: 2px solid #a29bfe; border-radius: 10px; box-shadow: 0 0 30px rgba(162,155,254,0.3); max-width: 95vw; max-height: 65vh; }
+        #gameContainer { position: relative; }
+        #controls { display: flex; gap: 15px; margin-top: 12px; align-items: center; }
+        #rollBtn { padding: 14px 35px; font-size: 1.1rem; background: linear-gradient(135deg,#6c5ce7,#a29bfe); color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; font-family: 'Poppins',sans-serif; }
+        #rollBtn:hover { transform: scale(1.05); }
+        #rollBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+        #diceDisplay { font-size: 3rem; width: 70px; height: 70px; background: rgba(255,255,255,0.1); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
+        #gameOverScreen h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        .win-title { color: #00ff88; } .lose-title { color: #ff6b6b; }
+        .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #a29bfe; color: #000; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="../index.html" class="back-btn">← Back</a>
+        <div class="stats">
+            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <div class="stat-box"><div class="stat-label">🔴 You</div><div class="stat-value" id="playerPos" style="color:#ff6b6b;">0/30</div></div>
+            <div class="stat-box"><div class="stat-label">🔵 AI</div><div class="stat-value" id="aiPos" style="color:#00d4ff;">0/30</div></div>
+        </div>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameOverScreen"><h2 id="gameOverTitle">🎉 You Win!</h2><p id="gameOverMsg"></p><button class="play-again-btn" onclick="startGame()">🔄 Play Again</button></div>
+    </div>
+    <div id="controls"><div id="diceDisplay">🎲</div><button id="rollBtn" onclick="rollDice()">🎯 Roll Dice</button></div>
+    <p class="instructions">🎲 Roll the dice & race to 30! Get a 6 for bonus roll!</p>
+
+    <script src="../js/soundengine.js"></script>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 550); canvas.height = Math.min(window.innerHeight-320, 350); }
+        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
+        function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+
+        let playerPos=0, aiPos=0, currentDice=1, gameRunning=true, isPlayerTurn=true, rolling=false, boardCells=30, particles=[], diceRolling=false;
+
+        class Particle{constructor(x,y,color){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*4;this.vy=(Math.random()-0.5)*4-2;this.life=1;this.decay=0.03;this.color=color;this.size=Math.random()*4+2;}update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;this.vy+=0.1;}draw(){ctx.globalAlpha=this.life;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
+        function spawnParticles(x,y,color,count=8){for(let i=0;i<count;i++)particles.push(new Particle(x,y,color));}
+        function getDiceEmoji(num){return['','⚀','⚁','⚂','⚃','⚄','⚅'][num];}
+
+        function startGame(){playerPos=0;aiPos=0;currentDice=1;gameRunning=true;isPlayerTurn=true;rolling=false;diceRolling=false;particles=[];document.getElementById('gameOverScreen').style.display='none';document.getElementById('playerPos').textContent='0/30';document.getElementById('aiPos').textContent='0/30';document.getElementById('diceDisplay').textContent='🎲';document.getElementById('rollBtn').disabled=false;}
+
+        function rollDice(){if(!gameRunning||rolling||!isPlayerTurn)return;rolling=true;diceRolling=true;document.getElementById('rollBtn').disabled=true;sound.playDice();let rc=0;const mr=10;const ri=setInterval(()=>{currentDice=Math.floor(Math.random()*6)+1;document.getElementById('diceDisplay').textContent=getDiceEmoji(currentDice);rc++;if(rc>=mr){clearInterval(ri);diceRolling=false;finalizeDice();}},80);}
+
+        function finalizeDice(){playerPos+=currentDice;if(playerPos>=boardCells)playerPos=boardCells;document.getElementById('playerPos').textContent=playerPos+'/30';spawnParticles(canvas.width*(playerPos/boardCells),canvas.height*0.35,'#ff6b6b',8);if(playerPos>=boardCells){endGame(true);return;}if(currentDice===6){sound.playPowerUp();rolling=false;document.getElementById('rollBtn').disabled=false;spawnParticles(canvas.width/2,canvas.height/2,'#ffd93d',12);return;}isPlayerTurn=false;document.getElementById('rollBtn').disabled=true;setTimeout(aiTurn,1000);}
+
+        function aiTurn(){if(!gameRunning)return;const ad=Math.floor(Math.random()*6)+1;currentDice=ad;document.getElementById('diceDisplay').textContent=getDiceEmoji(ad);sound.playDice();aiPos+=ad;if(aiPos>=boardCells)aiPos=boardCells;document.getElementById('aiPos').textContent=aiPos+'/30';spawnParticles(canvas.width*(aiPos/boardCells),canvas.height*0.65,'#00d4ff',8);if(aiPos>=boardCells){endGame(false);return;}if(ad===6){setTimeout(aiTurn,800);return;}isPlayerTurn=true;rolling=false;document.getElementById('rollBtn').disabled=false;}
+
+        function endGame(pw){gameRunning=false;document.getElementById('rollBtn').disabled=true;const t=document.getElementById('gameOverTitle');if(pw){sound.playWin();t.textContent='🎉 You Win!';t.className='win-title';document.getElementById('gameOverMsg').textContent='You reached 30 first!';spawnParticles(canvas.width/2,canvas.height/2,'#00ff88',30);}else{sound.playLose();t.textContent='😢 AI Wins!';t.className='lose-title';document.getElementById('gameOverMsg').textContent='AI reached 30 first!';spawnParticles(canvas.width/2,canvas.height/2,'#ff4444',20);}document.getElementById('gameOverScreen').style.display='flex';const pn=localStorage.getItem('almagen_name')||'Player';localStorage.setItem('almagen_score_'+Date.now()+'_'+Math.random().toString(36).substr(2,5),JSON.stringify({game:'ludo',name:pn,score:playerPos,date:new Date().toISOString()}));if(typeof updateDailyProgress==='function')updateDailyProgress('ludo',playerPos);}
+
+        function draw(){
+            const bg=ctx.createLinearGradient(0,0,0,canvas.height);bg.addColorStop(0,'#1a1a3e');bg.addColorStop(1,'#0a0a1a');ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
+            const ty1=canvas.height*0.3,ty2=canvas.height*0.6,th=25,pad=40;
+            ctx.fillStyle='rgba(255,107,107,0.1)';ctx.fillRect(pad,ty1,canvas.width-pad*2,th);ctx.strokeStyle='rgba(255,107,107,0.3)';ctx.lineWidth=2;ctx.strokeRect(pad,ty1,canvas.width-pad*2,th);
+            ctx.fillStyle='rgba(0,212,255,0.1)';ctx.fillRect(pad,ty2,canvas.width-pad*2,th);ctx.strokeStyle='rgba(0,212,255,0.3)';ctx.strokeRect(pad,ty2,canvas.width-pad*2,th);
+            const cw=(canvas.width-pad*2)/boardCells;
+            const px=pad+(playerPos/boardCells)*(canvas.width-pad*2);ctx.fillStyle='#ff6b6b';ctx.shadowColor='#ff6b6b';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(px,ty1+th/2,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 10px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('P',px,ty1+th/2);ctx.shadowBlur=0;
+            const ax=pad+(aiPos/boardCells)*(canvas.width-pad*2);ctx.fillStyle='#00d4ff';ctx.shadowColor='#00d4ff';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(ax,ty2+th/2,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.fillText('AI',ax,ty2+th/2);ctx.shadowBlur=0;
+            ctx.fillStyle='#fff';ctx.font='bold 14px Poppins,Arial';ctx.textAlign='left';ctx.fillText('🔴 YOU',pad,ty1-10);ctx.fillText('🔵 AI',pad,ty2-10);
+            for(let p of particles)p.draw();
+        }
+        function update(){for(let i=particles.length-1;i>=0;i--){particles[i].update();if(particles[i].life<=0)particles.splice(i,1);}}
+        function gameLoop(){update();draw();requestAnimationFrame(gameLoop);}
+        document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
+        document.addEventListener('keydown',(e)=>{if(e.key===' '&&isPlayerTurn&&gameRunning){e.preventDefault();rollDice();}if(!gameRunning&&e.key===' ')startGame();});
+        startGame(); gameLoop();
+    </script>
+</body>
+</html>
