@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google-adsense-account" content="ca-pub-1373118680696037">
+    <title>Blog - AlMaGen-Arena</title>
+    <meta name="description" content="AlMaGen-Arena Blog - Tips, tricks, gaming guides, and educational content about our free online games">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a1a; color: #fff; font-family: 'Poppins', sans-serif; line-height: 1.8; }
+        
+        .blog-container { max-width: 1000px; margin: 100px auto 50px; padding: 0 20px; }
+        .blog-header { text-align: center; margin-bottom: 40px; }
+        .blog-header h1 { font-size: 2.8rem; background: linear-gradient(135deg, #6c5ce7, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .blog-header p { color: rgba(255,255,255,0.6); font-size: 1.1rem; }
+        
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        
+        .blog-card { background: rgba(255,255,255,0.03); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); transition: 0.4s ease; cursor: pointer; }
+        .blog-card:hover { transform: translateY(-5px); border-color: rgba(108,92,231,0.3); box-shadow: 0 15px 40px rgba(108,92,231,0.1); }
+        
+        .blog-card .thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,212,255,0.05)); }
+        .blog-card .content { padding: 20px; }
+        .blog-card .content .category { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; background: rgba(108,92,231,0.2); color: #a29bfe; margin-bottom: 10px; }
+        .blog-card .content h3 { font-size: 1.1rem; margin-bottom: 8px; color: #fff; }
+        .blog-card .content p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+        .blog-card .content .meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .blog-card .content .meta .read-more { color: #6c5ce7; font-weight: 500; }
+        
+        .blog-sidebar { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .blog-sidebar .widget { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .blog-sidebar .widget h4 { color: #ffd93d; margin-bottom: 12px; font-size: 0.9rem; }
+        .blog-sidebar .widget ul { list-style: none; }
+        .blog-sidebar .widget ul li { margin-bottom: 8px; }
+        .blog-sidebar .widget ul li a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
+        .blog-sidebar .widget ul li a:hover { color: #6c5ce7; }
+        
+        .back-btn { display: inline-block; margin-top: 20px; padding: 12px 30px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(108,92,231,0.3); }
+        
+        /* Blog Post Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #1a1a2e; border-radius: 20px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 35px; position: relative; border: 1px solid rgba(255,255,255,0.05); }
+        .modal-content .close-modal { position: sticky; top: 0; float: right; background: rgba(255,255,255,0.1); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .modal-content .close-modal:hover { background: rgba(255,107,107,0.3); }
+        .modal-content h2 { color: #ffd93d; margin: 15px 0 10px; }
+        .modal-content .post-meta { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-bottom: 15px; }
+        .modal-content .post-body { color: rgba(255,255,255,0.8); }
+        .modal-content .post-body ul { padding-left: 20px; margin: 10px 0; }
+        .modal-content .post-body ul li { margin-bottom: 6px; }
+        
+        @media (max-width: 600px) { 
+            .blog-header h1 { font-size: 2rem; } 
+            .blog-grid { grid-template-columns: 1fr; }
+            .modal-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⚔️</span>
+                <span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#games" class="nav-link">Games</a></li>
+                <li><a href="daily.html" class="nav-link">📅 Daily</a></li>
+                <li><a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a></li>
+                <li><a href="blog.html" class="nav-link active">📝 Blog</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
+                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+
+        <!-- Blog Header -->
+        <div class="blog-header">
+            <h1>📝 AlMaGen-Arena Blog</h1>
+            <p>Tips, guides, and insights about our games and educational gaming</p>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid" id="blogGrid">
+            <!-- Blog posts will be rendered here -->
+        </div>
+
+        <!-- Sidebar Widgets -->
+        <div class="blog-sidebar">
+            <div class="widget">
+                <h4>📂 Categories</h4>
+                <ul>
+                    <li><a href="#" onclick="filterPosts('all')">All Posts</a></li>
+                    <li><a href="#" onclick="filterPosts('guides')">🎮 Game Guides</a></li>
+                    <li><a href="#" onclick="filterPosts('tips')">💡 Tips & Tricks</a></li>
+                    <li><a href="#" onclick="filterPosts('educational')">📚 Educational</a></li>
+                    <li><a href="#" onclick="filterPosts('news')">📰 News</a></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h4>🎯 Popular Games</h4>
+                <ul>
+                    <li><a href="games/snake.html">🐍 Math Snake</a></li>
+                    <li><a href="games/streetracer.html">🏎️ Street Racer</a></li>
+                    <li><a href="games/chess.html">♟️ Mini Chess</a></li>
+                    <li><a href="games/ludo.html">🎲 Ludo Dice</a></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h4>🔗 Quick Links</h4>
+                <ul>
+                    <li><a href="index.html#games">🎮 All Games</a></li>
+                    <li><a href="leaderboard.html">🏆 Leaderboard</a></li>
+                    <li><a href="daily.html">📅 Daily Challenges</a></li>
+                    <li><a href="privacy.html">🔒 Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">⬅️ Back to Home</a>
+    </div>
+
+    <!-- Blog Post Modal -->
+    <div class="modal-overlay" id="postModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top:50px;">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo">⚔️ AlMaGen-Arena</span>
+                <p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html#home">Home</a>
+                <a href="index.html#games">Games</a>
+                <a href="daily.html">Daily Challenges</a>
+                <a href="leaderboard.html">Leaderboard</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p>
+            <p class="footer-quote">"Play, Learn, and Grow!" 🚀</p>
+        </div>
+    </footer>
+
+    <script src="js/soundengine.js"></script>
+    <script>
+        // ==================== BLOG DATA ====================
+        const blogPosts = [{
+            id: 1,
+            title: "10 Best Educational Games for Kids in 2026",
+            category: "educational",
+            emoji: "📚",
+            date: "July 9, 2026",
+            readTime: "5 min read",
+            excerpt: "Discover the top educational games that make learning fun for children of all ages.",
+            content: `
+                <h2>🎮 Why Educational Games Matter</h2>
+                <p>In 2026, educational games have become essential tools for learning. They combine fun with education, making children excited to learn new concepts. Here are 10 of the best educational games for kids:</p>
+                <ul>
+                    <li><strong>Math Snake</strong> - Learn arithmetic while playing</li>
+                    <li><strong>Memory Master</strong> - Improve concentration and memory</li>
+                    <li><strong>Word Blitz</strong> - Enhance vocabulary and typing skills</li>
+                    <li><strong>Number Blaster</strong> - Quick math problem solving</li>
+                    <li><strong>Mirror Match</strong> - Spatial reasoning and pattern recognition</li>
+                    <li><strong>Mini Chess</strong> - Strategy and critical thinking</li>
+                    <li><strong>Gravity Quest</strong> - Physics and momentum concepts</li>
+                    <li><strong>Color Switch</strong> - Reflexes and color recognition</li>
+                    <li><strong>Life Runner</strong> - Life lessons and decision making</li>
+                    <li><strong>Math Defense</strong> - Math and strategic thinking</li>
+                </ul>
+                <p>All these games are available for free on AlMaGen-Arena. No downloads, no signups, just pure learning fun!</p>
+            `
+        }, {
+            id: 2,
+            title: "How to Improve Your Typing Speed with Word Blitz",
+            category: "guides",
+            emoji: "⌨️",
+            date: "July 8, 2026",
+            readTime: "4 min read",
+            excerpt: "Master the art of typing fast with these proven tips and Word Blitz game strategies.",
+            content: `
+                <h2>⌨️ Typing Tips for Beginners</h2>
+                <p>Word Blitz is an exciting game that helps improve typing speed while building vocabulary. Here are some proven tips to get better:</p>
+                <ul>
+                    <li><strong>Keep your fingers on home row:</strong> A S D F and J K L ;</li>
+                    <li><strong>Look at the screen, not your keyboard:</strong> Trust your muscle memory</li>
+                    <li><strong>Start slow, aim for accuracy first:</strong> Speed will come naturally</li>
+                    <li><strong>Practice daily:</strong> Even 5 minutes a day makes a difference</li>
+                    <li><strong>Learn common words:</strong> Recognize patterns in common English words</li>
+                </ul>
+                <p>Play Word Blitz regularly and track your progress. You'll be surprised how fast you improve!</p>
+            `
+        }, {
+            id: 3,
+            title: "5 Mental Benefits of Playing Puzzle Games",
+            category: "educational",
+            emoji: "🧩",
+            date: "July 7, 2026",
+            readTime: "6 min read",
+            excerpt: "Puzzle games aren't just fun—they're great for your brain too! Learn about the cognitive benefits.",
+            content: `
+                <h2>🧠 Brain Benefits of Puzzle Games</h2>
+                <p>Playing puzzle games on AlMaGen-Arena offers amazing cognitive benefits. Here are 5 key benefits:</p>
+                <ul>
+                    <li><strong>Improves Memory:</strong> Games like Memory Master strengthen your short-term memory</li>
+                    <li><strong>Enhances Problem-Solving:</strong> Mirror Match develops spatial reasoning skills</li>
+                    <li><strong>Boosts Attention Span:</strong> Concentration improves with regular puzzle practice</li>
+                    <li><strong>Reduces Stress:</strong> Puzzle games are proven to reduce anxiety and stress</li>
+                    <li><strong>Slows Cognitive Decline:</strong> Mental exercises keep your brain sharp as you age</li>
+                </ul>
+                <p>Start playing puzzle games today and give your brain the workout it deserves!</p>
+            `
+        }, {
+            id: 4,
+            title: "Top 5 Strategies to Win at Mini Chess",
+            category: "guides",
+            emoji: "♟️",
+            date: "July 6, 2026",
+            readTime: "5 min read",
+            excerpt: "Master Mini Chess with these winning strategies that will help you defeat the AI every time.",
+            content: `
+                <h2>♟️ Winning Chess Strategies</h2>
+                <p>Mini Chess is a simplified 6x6 chess game that's perfect for beginners and experts alike. Here are winning strategies:</p>
+                <ul>
+                    <li><strong>Control the center:</strong> Occupy the middle 2 columns for better mobility</li>
+                    <li><strong>Protect your king:</strong> Always keep your king safe with pawns around it</li>
+                    <li><strong>Think 2 moves ahead:</strong> Anticipate your opponent's moves</li>
+                    <li><strong>Use your queen wisely:</strong> The queen is powerful but can be captured</li>
+                    <li><strong>Sacrifice when necessary:</strong> Sometimes giving up a piece leads to winning</li>
+                </ul>
+                <p>Practice these strategies and watch your winning rate improve dramatically!</p>
+            `
+        }, {
+            id: 5,
+            title: "Gaming and Learning: A Perfect Combination",
+            category: "educational",
+            emoji: "🎮",
+            date: "July 5, 2026",
+            readTime: "4 min read",
+            excerpt: "Why gaming is one of the most effective ways to learn new skills and concepts.",
+            content: `
+                <h2>📚 The Science of Learning Through Gaming</h2>
+                <p>Research shows that gaming is an effective educational tool. Here's why gaming enhances learning:</p>
+                <ul>
+                    <li><strong>Engagement:</strong> Games keep learners interested and motivated</li>
+                    <li><strong>Feedback:</strong> Instant feedback helps understand concepts faster</li>
+                    <li><strong>Practice:</strong> Games allow repetition in a fun, non-intimidating way</li>
+                    <li><strong>Problem-Solving:</strong> Games teach critical thinking naturally</li>
+                    <li><strong>Collaboration:</strong> Multiplayer games develop social skills</li>
+                </ul>
+                <p>AlMaGen-Arena's 15 games are designed to teach valuable skills while keeping users entertained. It's the perfect learning platform!</p>
+            `
+        }];
+
+        // ==================== RENDER BLOG POSTS ====================
+        function renderPosts(posts) {
+            const grid = document.getElementById('blogGrid');
+            grid.innerHTML = posts.map(post => `
+                <div class="blog-card" onclick="openPost(${post.id})" data-category="${post.category}">
+                    <div class="thumb">${post.emoji}</div>
+                    <div class="content">
+                        <span class="category">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                        <h3>${post.title}</h3>
+                        <p>${post.excerpt}</p>
+                        <div class="meta">
+                            <span>📅 ${post.date}</span>
+                            <span>⏱️ ${post.readTime}</span>
+                            <span class="read-more">Read More →</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== OPEN POST MODAL ====================
+        function openPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+            
+            const modal = document.getElementById('postModal');
+            const body = document.getElementById('modalBody');
+            
+            body.innerHTML = `
+                <h2>${post.emoji} ${post.title}</h2>
+                <div class="post-meta">📅 ${post.date} • ⏱️ ${post.readTime} • 🏷️ ${post.category}</div>
+                <div class="post-body">${post.content}</div>
+                <p style="margin-top:20px;color:rgba(255,255,255,0.4);font-size:0.85rem;border-top:1px solid rgba(255,255,255,0.05);padding-top:15px;">
+                    📧 For questions, contact us at <a href="mailto:info@almagen-arena.com" style="color:#6c5ce7;">info@almagen-arena.com</a>
+                </p>
+            `;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('postModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal clicking outside content
+        document.getElementById('postModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+
+        // ==================== FILTER POSTS ====================
+        let currentFilter = 'all';
+        
+        function filterPosts(category) {
+            currentFilter = category;
+            const posts = category === 'all' 
+                ? blogPosts 
+                : blogPosts.filter(p => p.category === category);
+            renderPosts(posts);
+            
+            // Highlight active filter (manual)
+            document.querySelectorAll('.sidebar-widget a').forEach(a => a.style.color = '');
+        }
+
+        // ==================== THEME TOGGLE ====================
+        const savedTheme = localStorage.getItem('almagen_theme');
+        if (savedTheme === 'light') document.body.classList.add('light-theme');
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌓';
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                themeToggle.textContent = isLight ? '☀️' : '🌓';
+                localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
+            });
+        }
+
+        // ==================== MOBILE MENU ====================
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // ==================== INITIAL RENDER ====================
+        renderPosts(blogPosts);
+    </script>
+</body>
+</html>
