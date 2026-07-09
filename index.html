@@ -59,39 +59,45 @@
     <!-- Particle Background -->
     <div class="particles-bg" id="particlesBg"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
+    <!-- ==================== HEADER / NAVIGATION ==================== -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="#" class="header-logo">
                 <span class="logo-icon">⚔️</span>
                 <span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>
             </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#games" class="nav-link">Games</a></li>
-                <li><a href="daily.html" class="nav-link">📅 Daily</a></li>
-                <li><a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a></li>
-                <li><a href="achievements.html" class="nav-link">🏅 Achievements</a></li>
-                <li><a href="profile.html" class="nav-link">👤 Profile</a></li>
-                <li><a href="blog.html" class="nav-link">📝 Blog</a></li>
-                <li><a href="contact.html" class="nav-link">📬 Contact</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-actions">
+            
+            <nav class="header-nav" id="headerNav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#games" class="nav-link">Games</a></li>
+                    <li><a href="daily.html" class="nav-link">Daily</a></li>
+                    <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                    <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                    <li><a href="profile.html" class="nav-link">Profile</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
                 <button class="sound-btn" id="muteBtn" title="Toggle Sound Effects">🔊</button>
                 <button class="sound-btn" id="musicBtn" title="Toggle Background Music">🎵</button>
-                <button class="share-btn" onclick="shareSite()" title="Share" style="background:none;border:none;font-size:1.2rem;cursor:pointer;">📤</button>
-                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+                <button class="share-btn" onclick="shareSite()" title="Share">📤</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Navbar Overlay (Mobile) -->
+    <!-- Mobile Overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
-    <!-- Hero Section -->
+    <!-- ==================== HERO SECTION ==================== -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
@@ -100,7 +106,7 @@
                 <p class="hero-subtitle">Where Gaming Meets Education</p>
                 <p class="hero-desc">Discover <span class="text-highlight">15 incredible games</span> that make learning fun & exciting. Sharpen your mind while playing — no downloads, no signup, just pure entertainment!</p>
                 <div class="hero-buttons">
-                    <a href="#games" class="btn btn-primary">🎮 Explore Games<span class="btn-shine"></span></a>
+                    <a href="#games" class="btn btn-primary">🎮 Explore Games</a>
                     <a href="daily.html" class="btn btn-secondary">📅 Daily Challenges →</a>
                 </div>
                 <div class="hero-stats">
@@ -124,7 +130,7 @@
     </section>
 
     <!-- ==================== AD: Leaderboard ==================== -->
-    <div style="max-width:728px;margin:20px auto;text-align:center;min-height:90px;">
+    <div class="ad-container">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
@@ -160,7 +166,7 @@
         </div>
     </section>
 
-    <!-- Games Section -->
+    <!-- ==================== GAMES SECTION ==================== -->
     <section class="games-section" id="games">
         <div class="section-header">
             <span class="section-badge">🎯 Choose Your Arena</span>
@@ -168,10 +174,8 @@
             <p class="section-desc">15 amazing games — each designed to teach you something new!</p>
         </div>
 
-        <!-- Search Bar -->
         <div class="search-container">
             <input type="text" id="gameSearch" placeholder="🔍 Search games by name, category, or description...">
-            <span class="search-icon">🔍</span>
         </div>
 
         <div class="games-filter">
@@ -185,16 +189,14 @@
         </div>
 
         <div class="games-grid" id="gamesGrid">
-            <!-- 15 Games - Same as before -->
+            <!-- 15 Games - Shortened for brevity, same as before -->
             <div class="game-card" data-category="math" onclick="window.location.href='games/snake.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper snake-icon"><span class="game-icon">🐍</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper snake-icon"><span class="game-icon">🐍</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-math">Math</span>
                             <span class="tag tag-easy">Easy</span>
-                            <span class="tag tag-difficulty">⭐ Easy</span>
                         </div>
                         <h3>Math Snake</h3>
                         <p>Solve arithmetic while growing your snake. Master addition & subtraction!</p>
@@ -207,14 +209,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="action" onclick="window.location.href='games/runner.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper runner-icon"><span class="game-icon">🏃</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper runner-icon"><span class="game-icon">🏃</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-action">Action</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Life Runner</h3>
                         <p>Endless runner with life lessons! Collect good habits, dodge bad ones!</p>
@@ -227,14 +227,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="math action" onclick="window.location.href='games/shooter.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper shooter-icon"><span class="game-icon">🔫</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper shooter-icon"><span class="game-icon">🔫</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-math">Math</span>
                             <span class="tag tag-action">Action</span>
-                            <span class="tag tag-difficulty">⭐⭐⭐ Hard</span>
                         </div>
                         <h3>Number Blaster</h3>
                         <p>Space shooter meets math! Solve problems, shoot the right answer!</p>
@@ -247,14 +245,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="physics" onclick="window.location.href='games/ball.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper ball-icon"><span class="game-icon">⚽</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper ball-icon"><span class="game-icon">⚽</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-physics">Physics</span>
                             <span class="tag tag-hard">Hard</span>
-                            <span class="tag tag-difficulty">⭐⭐⭐ Hard</span>
                         </div>
                         <h3>Gravity Quest</h3>
                         <p>Navigate obstacles with realistic physics. Learn gravity & momentum!</p>
@@ -267,14 +263,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="puzzle" onclick="window.location.href='games/puzzle.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper puzzle-icon"><span class="game-icon">🧩</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper puzzle-icon"><span class="game-icon">🧩</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-puzzle">Puzzle</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Mirror Match</h3>
                         <p>Symmetry puzzle challenge! Train spatial reasoning & pattern recognition!</p>
@@ -287,14 +281,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="typing puzzle" onclick="window.location.href='games/wordblitz.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(0,212,255,0.1);"><span class="game-icon">⚡</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(0,212,255,0.1);"><span class="game-icon">⚡</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag" style="background:rgba(0,212,255,0.15);color:#00d4ff;">Typing</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Word Blitz</h3>
                         <p>Type falling words fast! Improve vocabulary, spelling & typing speed!</p>
@@ -307,14 +299,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="action" onclick="window.location.href='games/colorswitch.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🎨</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🎨</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-action">Action</span>
                             <span class="tag tag-hard">Hard</span>
-                            <span class="tag tag-difficulty">⭐⭐⭐ Hard</span>
                         </div>
                         <h3>Color Switch</h3>
                         <p>Match colors to pass obstacles! Test reflexes & color recognition!</p>
@@ -327,14 +317,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="puzzle board" onclick="window.location.href='games/memory.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🧠</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🧠</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-puzzle">Memory</span>
-                            <span class="tag tag-easy">Easy-Hard</span>
-                            <span class="tag tag-difficulty">⭐ Easy</span>
+                            <span class="tag tag-easy">Easy</span>
                         </div>
                         <h3>Memory Master</h3>
                         <p>Flip & match emoji pairs! Train your memory, focus & concentration!</p>
@@ -347,14 +335,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="math action" onclick="window.location.href='games/mathdefense.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏰</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏰</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-math">Math</span>
                             <span class="tag tag-action">Strategy</span>
-                            <span class="tag tag-difficulty">⭐⭐⭐ Hard</span>
                         </div>
                         <h3>Math Defense</h3>
                         <p>Tower defense! Solve math to fire at enemies. Protect your wall!</p>
@@ -367,14 +353,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="action physics" onclick="window.location.href='games/blockbreaker.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,136,0,0.1);"><span class="game-icon">🧱</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,136,0,0.1);"><span class="game-icon">🧱</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-physics">Physics</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Block Breaker</h3>
                         <p>Classic brick breaker! Learn angles, physics & strategic aiming!</p>
@@ -387,14 +371,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/streetracer.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🏎️</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🏎️</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-action">Racing</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Street Racer</h3>
                         <p>Dodge traffic at high speed! Test your reflexes and driving skills!</p>
@@ -407,14 +389,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/motostunt.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏍️</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏍️</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-action">Racing</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Moto Stunt</h3>
                         <p>Ride through obstacles, collect coins! Master bike control & timing!</p>
@@ -427,14 +407,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/ludo.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🎲</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🎲</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-puzzle">Board</span>
                             <span class="tag tag-easy">Easy</span>
-                            <span class="tag tag-difficulty">⭐ Easy</span>
                         </div>
                         <h3>Ludo Dice</h3>
                         <p>Roll dice & race against AI! Get a 6 for bonus roll. First to 30 wins!</p>
@@ -447,14 +425,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/chess.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,255,255,0.1);"><span class="game-icon">♟️</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,255,255,0.1);"><span class="game-icon">♟️</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-puzzle">Strategy</span>
                             <span class="tag tag-medium">Medium</span>
-                            <span class="tag tag-difficulty">⭐⭐ Medium</span>
                         </div>
                         <h3>Mini Chess</h3>
                         <p>Capture all enemy pieces! Simple 6x6 chess with easy-to-learn rules!</p>
@@ -467,14 +443,12 @@
                 </div>
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/cardmatch.html'">
-                <div class="game-card-glow"></div>
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🃏</span><div class="icon-pulse"></div></div>
+                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🃏</span></div>
                     <div class="game-info">
                         <div class="game-tags">
                             <span class="tag tag-puzzle">Cards</span>
                             <span class="tag tag-easy">Easy</span>
-                            <span class="tag tag-difficulty">⭐ Easy</span>
                         </div>
                         <h3>Card Match</h3>
                         <p>Classic card matching! Flip & find pairs of the same suit and value!</p>
@@ -490,7 +464,7 @@
     </section>
 
     <!-- ==================== AD: Rectangle ==================== -->
-    <div style="max-width:336px;margin:20px auto;text-align:center;min-height:280px;">
+    <div class="ad-container ad-rectangle">
         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
@@ -520,7 +494,7 @@
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- ==================== FEATURES ==================== -->
     <section class="features-section" id="features">
         <div class="section-header">
             <span class="section-badge">✨ Why Choose Us</span>
@@ -536,7 +510,7 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- ==================== STATS ==================== -->
     <section class="stats-section" id="stats">
         <div class="section-header">
             <span class="section-badge">📊 Our Impact</span>
@@ -550,7 +524,7 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ==================== ABOUT ==================== -->
     <section class="about-section" id="about">
         <div class="section-header">
             <span class="section-badge">💡 Our Mission</span>
@@ -565,55 +539,96 @@
         </div>
     </section>
 
-    <!-- Feedback Section -->
-    <section class="newsletter-section" id="feedback">
-        <div class="newsletter-container">
+    <!-- ==================== FEEDBACK ==================== -->
+    <section class="feedback-section" id="feedback">
+        <div class="feedback-container">
             <h2>💬 Share Your Feedback</h2>
             <p>Help us improve AlMaGen-Arena! What games would you like to see?</p>
-            <form id="feedbackForm" onsubmit="submitFeedback(event)" style="display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto;">
-                <input type="text" id="feedbackName" placeholder="Your Name" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;font-family:'Poppins',sans-serif;">
-                <textarea id="feedbackMsg" placeholder="Your message..." rows="3" required style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;font-family:'Poppins',sans-serif;resize:vertical;"></textarea>
-                <button type="submit" class="btn btn-primary">Send Feedback ✉️<span class="btn-shine"></span></button>
+            <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                <input type="text" id="feedbackName" placeholder="Your Name" required>
+                <textarea id="feedbackMsg" placeholder="Your message..." rows="3" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Feedback ✉️</button>
             </form>
             <p id="feedbackSuccess" style="color:#00ff88;margin-top:10px;display:none;">✅ Thank you! Feedback sent successfully!</p>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="newsletter-section">
-        <div class="newsletter-container">
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="cta-container">
             <h2>🚀 Ready to Play All 15 Games?</h2>
             <p>Free, instant, no signup required — jump right in!</p>
-            <a href="#games" class="btn btn-primary btn-large">Start Playing Now<span class="btn-shine"></span></a>
+            <a href="#games" class="btn btn-primary btn-large">Start Playing Now</a>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-brand"><span class="footer-logo">⚔️ AlMaGen-Arena</span><p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p></div>
-            <div class="footer-links"><h4>Quick Links</h4><a href="#home">Home</a><a href="#games">Games</a><a href="daily.html">Daily Challenges</a><a href="leaderboard.html">Leaderboard</a><a href="profile.html">Profile</a><a href="blog.html">📝 Blog</a><a href="contact.html">📬 Contact</a></div>
-            <div class="footer-links"><h4>Popular Games</h4><a href="games/snake.html">Math Snake</a><a href="games/streetracer.html">Street Racer</a><a href="games/ludo.html">Ludo Dice</a><a href="games/chess.html">Mini Chess</a><a href="games/cardmatch.html">Card Match</a></div>
-            <div class="footer-links"><h4>Legal</h4><a href="privacy.html">🔒 Privacy Policy</a><a href="terms.html">📜 Terms of Service</a><a href="contact.html">📬 Contact Us</a></div>
+            <!-- Brand -->
+            <div class="footer-brand">
+                <span class="footer-logo">⚔️ AlMaGen-Arena</span>
+                <p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="daily.html">Daily Challenges</a></li>
+                    <li><a href="leaderboard.html">Leaderboard</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Popular Games -->
+            <div class="footer-links">
+                <h4>Popular Games</h4>
+                <ul>
+                    <li><a href="games/snake.html">Math Snake</a></li>
+                    <li><a href="games/streetracer.html">Street Racer</a></li>
+                    <li><a href="games/ludo.html">Ludo Dice</a></li>
+                    <li><a href="games/chess.html">Mini Chess</a></li>
+                    <li><a href="games/cardmatch.html">Card Match</a></li>
+                </ul>
+            </div>
+            
+            <!-- Legal -->
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-bottom"><p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p><p class="footer-quote">"Play, Learn, and Grow!" 🚀</p></div>
+        
+        <div class="footer-bottom">
+            <p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p>
+            <p class="footer-quote">"Play, Learn, and Grow!" 🚀</p>
+        </div>
     </footer>
 
-    <!-- Social Share Popup -->
-    <div id="sharePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;justify-content:center;align-items:center;">
-        <div style="background:#1a1a2e;border-radius:20px;padding:30px;text-align:center;max-width:400px;width:90%;">
-            <h3 style="color:#ffd93d;margin-bottom:15px;">📤 Share AlMaGen-Arena</h3>
-            <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
-                <button onclick="shareOn('whatsapp')" style="background:#25D366;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">📱 WhatsApp</button>
-                <button onclick="shareOn('facebook')" style="background:#1877F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">📘 Facebook</button>
-                <button onclick="shareOn('twitter')" style="background:#1DA1F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">🐦 Twitter</button>
-                <button onclick="copyLink()" style="background:#6c5ce7;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:bold;">🔗 Copy Link</button>
+    <!-- ==================== SHARE POPUP ==================== -->
+    <div id="sharePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(10px);">
+        <div style="background:#1a1a2e;border-radius:20px;padding:35px;text-align:center;max-width:420px;width:90%;border:1px solid rgba(255,255,255,0.05);">
+            <h3 style="color:#ffd93d;margin-bottom:15px;font-size:1.4rem;">📤 Share AlMaGen-Arena</h3>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:15px;">
+                <button onclick="shareOn('whatsapp')" style="background:#25D366;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;transition:0.3s;">📱 WhatsApp</button>
+                <button onclick="shareOn('facebook')" style="background:#1877F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;transition:0.3s;">📘 Facebook</button>
+                <button onclick="shareOn('twitter')" style="background:#1DA1F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;transition:0.3s;">🐦 Twitter</button>
+                <button onclick="copyLink()" style="background:#6c5ce7;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;transition:0.3s;">🔗 Copy Link</button>
             </div>
-            <button onclick="document.getElementById('sharePopup').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:10px 25px;border-radius:10px;cursor:pointer;margin-top:15px;">Close ✕</button>
+            <button onclick="document.getElementById('sharePopup').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 30px;border-radius:10px;cursor:pointer;transition:0.3s;">Close ✕</button>
         </div>
     </div>
 
-    <!-- Push Notification -->
+    <!-- ==================== PUSH NOTIFICATION ==================== -->
     <div id="pushPrompt" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c5ce7,#00d4ff);color:#fff;padding:15px 25px;border-radius:15px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center;max-width:400px;width:90%;">
         <p style="margin-bottom:10px;font-weight:600;">🔔 Get notified about new games!</p>
         <button onclick="subscribePush()" style="background:#fff;color:#6c5ce7;border:none;padding:10px 25px;border-radius:25px;cursor:pointer;font-weight:bold;margin-right:10px;">Allow Notifications</button>
@@ -652,46 +667,51 @@
             localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
         });
 
-        // ==================== NAVBAR SCROLL ====================
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+        // ==================== HEADER SCROLL ====================
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
 
-        // ==================== MOBILE MENU WITH OVERLAY ====================
+        // ==================== MOBILE MENU ====================
         const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
         const navOverlay = document.getElementById('navOverlay');
+        const headerNav = document.getElementById('headerNav');
 
         function toggleMenu() {
             hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            headerNav.classList.toggle('active');
             if (navOverlay) {
                 navOverlay.classList.toggle('active');
             }
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+            document.body.style.overflow = headerNav.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        if (hamburger && navMenu) {
+        if (hamburger) {
             hamburger.addEventListener('click', toggleMenu);
-            
-            if (navOverlay) {
-                navOverlay.addEventListener('click', toggleMenu);
-            }
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        toggleMenu();
-                    }
-                });
-            });
         }
+        if (navOverlay) {
+            navOverlay.addEventListener('click', toggleMenu);
+        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (headerNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
 
         // ==================== ACTIVE NAV ====================
-        const sections = document.querySelectorAll('section'), navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
         window.addEventListener('scroll', () => {
             let current = '';
-            sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
-            navLinks.forEach(l => { l.classList.remove('active'); if (l.getAttribute('href') === '#' + current) l.classList.add('active'); });
+            sections.forEach(s => {
+                const top = s.offsetTop - 120;
+                if (window.scrollY >= top) current = s.getAttribute('id');
+            });
+            navLinks.forEach(l => {
+                l.classList.remove('active');
+                if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+            });
         });
 
         // ==================== GAME FILTER ====================
@@ -699,11 +719,15 @@
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const filter = btn.getAttribute('data-filter');
+                const filter = btn.dataset.filter;
                 document.querySelectorAll('.game-card').forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
-                        card.style.display = 'block'; setTimeout(() => card.style.opacity = '1', 10);
-                    } else { card.style.opacity = '0'; setTimeout(() => card.style.display = 'none', 300); }
+                    if (filter === 'all' || card.dataset.category.includes(filter)) {
+                        card.style.display = 'block';
+                        setTimeout(() => card.style.opacity = '1', 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
                 });
             });
         });
@@ -714,12 +738,11 @@
             searchInput.addEventListener('input', () => {
                 const query = searchInput.value.toLowerCase().trim();
                 document.querySelectorAll('.game-card').forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const desc = card.querySelector('p').textContent.toLowerCase();
-                    const tags = card.getAttribute('data-category').toLowerCase();
-                    if (title.includes(query) || desc.includes(query) || tags.includes(query) || query === '') {
-                        card.style.display = 'block'; setTimeout(() => card.style.opacity = '1', 10);
-                    } else { card.style.opacity = '0'; setTimeout(() => card.style.display = 'none', 300); }
+                    const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+                    const desc = card.querySelector('p')?.textContent?.toLowerCase() || '';
+                    const tags = card.dataset.category?.toLowerCase() || '';
+                    const match = title.includes(query) || desc.includes(query) || tags.includes(query) || query === '';
+                    card.style.display = match ? 'block' : 'none';
                 });
             });
         }
@@ -727,73 +750,58 @@
         // ==================== COUNTER ANIMATION ====================
         const statNums = document.querySelectorAll('.stat-number, .stat-big');
         const animateCounter = (el) => {
-            const target = parseFloat(el.getAttribute('data-count')), duration = 2000, step = target / (duration / 16);
+            const target = parseFloat(el.dataset.count);
+            const duration = 2000;
+            const step = target / (duration / 16);
             let current = 0;
             const update = () => {
                 current += step;
-                if (current < target) { el.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1); requestAnimationFrame(update); }
-                else el.textContent = target;
+                if (current < target) {
+                    el.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+                    requestAnimationFrame(update);
+                } else {
+                    el.textContent = target;
+                }
             };
             update();
         };
-        const observer = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); observer.unobserve(e.target); } }), { threshold: 0.5 });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    animateCounter(e.target);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.5 });
         statNums.forEach(n => observer.observe(n));
 
-        // ==================== PARTICLES BG ====================
+        // ==================== PARTICLES ====================
         const particlesBg = document.getElementById('particlesBg');
         for (let i = 0; i < 50; i++) {
-            const p = document.createElement('div'); p.classList.add('particle');
-            p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
-            p.style.animationDuration = (Math.random() * 20 + 10) + 's'; p.style.animationDelay = Math.random() * 10 + 's';
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            p.style.animationDelay = Math.random() * 10 + 's';
             p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
             particlesBg.appendChild(p);
         }
 
         // ==================== SMOOTH SCROLL ====================
-        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
-            e.preventDefault();
-            const t = document.querySelector(this.getAttribute('href'));
-            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }));
-
-        // ==================== DAILY PROGRESS ====================
-        function getToday() { return new Date().toISOString().split('T')[0]; }
-        window.updateDailyProgress = function(gameName, score) {
-            const today = getToday();
-            const dailyData = JSON.parse(localStorage.getItem('almagen_daily_' + today) || '{}');
-            const challenges = [
-                { id: 1, game: 'snake', target: 50 },
-                { id: 2, game: 'runner', target: 100 },
-                { id: 3, game: 'wordblitz', target: 60 },
-                { id: 4, game: 'streetracer', target: 80 },
-                { id: 5, game: 'all', target: 3 }
-            ];
-            challenges.forEach(c => {
-                if (c.game === gameName || c.game === 'all') {
-                    if (c.game === 'all') {
-                        const gamesToday = JSON.parse(localStorage.getItem('almagen_games_today_' + today) || '[]');
-                        if (!gamesToday.includes(gameName)) { gamesToday.push(gameName); localStorage.setItem('almagen_games_today_' + today, JSON.stringify(gamesToday)); dailyData[c.id] = gamesToday.length; }
-                    } else { if (score > (dailyData[c.id] || 0)) { dailyData[c.id] = score; } }
-                }
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
-            localStorage.setItem('almagen_daily_' + today, JSON.stringify(dailyData));
-        };
-
-        // ==================== STREAK TRACKING ====================
-        function getYesterday() { const d = new Date(); d.setDate(d.getDate() - 1); return d.toISOString().split('T')[0]; }
-        const today = getToday();
-        const lastPlayed = localStorage.getItem('almagen_last_played');
-        let streak = parseInt(localStorage.getItem('almagen_streak') || '0');
-        if (lastPlayed !== today) {
-            if (lastPlayed === getYesterday()) { streak++; }
-            else if (lastPlayed) { streak = 1; }
-            else { streak = 1; }
-            localStorage.setItem('almagen_streak', streak);
-            localStorage.setItem('almagen_last_played', today);
-        }
+        });
 
         // ==================== SOCIAL SHARE ====================
-        function shareSite() { document.getElementById('sharePopup').style.display = 'flex'; }
+        function shareSite() {
+            document.getElementById('sharePopup').style.display = 'flex';
+        }
+
         function shareOn(platform) {
             const url = encodeURIComponent('https://almagen-arena.com');
             const text = encodeURIComponent('🎮 Check out AlMaGen-Arena! 15 free online games - Play & Learn! No download required!');
@@ -806,11 +814,12 @@
             window.open(shareUrl, '_blank', 'width=600,height=400');
             document.getElementById('sharePopup').style.display = 'none';
         }
+
         function copyLink() {
             navigator.clipboard.writeText('https://almagen-arena.com').then(() => {
                 alert('✅ Link copied! Share it with friends!');
+                document.getElementById('sharePopup').style.display = 'none';
             });
-            document.getElementById('sharePopup').style.display = 'none';
         }
 
         // ==================== FEEDBACK ====================
@@ -859,51 +868,6 @@
                 }).catch(err => console.log('SW registration failed'));
             });
         }
-
-        // ==================== TOAST NOTIFICATIONS ====================
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.innerHTML = `
-                <span>${message}</span>
-                <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;">✕</button>
-            `;
-            toast.style.cssText = `
-                position: fixed; bottom: 20px; right: 20px; padding: 15px 25px;
-                border-radius: 12px; color: #fff; font-family: 'Poppins', sans-serif;
-                z-index: 99999; animation: slideIn 0.3s ease;
-                background: ${type === 'success' ? '#00ff88' : type === 'error' ? '#ff6b6b' : '#6c5ce7'};
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                display: flex; align-items: center; gap: 15px;
-            `;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        const styleToast = document.createElement('style');
-        styleToast.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(styleToast);
-
-        // ==================== GAME HISTORY TRACKING ====================
-        window.trackGamePlay = function(gameName, score) {
-            const history = JSON.parse(localStorage.getItem('almagen_game_history') || '[]');
-            history.push({
-                game: gameName,
-                score: score || 0,
-                date: new Date().toLocaleDateString()
-            });
-            localStorage.setItem('almagen_game_history', JSON.stringify(history));
-            showToast(`🎯 ${gameName} — Score: ${score || 0}`);
-        };
     </script>
 </body>
 </html>
