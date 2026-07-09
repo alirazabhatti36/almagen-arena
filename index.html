@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037"
-     crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-1373118680696037">
     <meta name="google-site-verification" content="TAhfYnktDKYhQhLts9S-mjcWhvFSyRHMfOq2fyrHg04">
     <title>AlMaGen-Arena | 15 Free Online Games - Play & Learn</title>
@@ -21,7 +19,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     
-    <!-- Google AdSense -->
+    <!-- Google AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     
     <!-- Google Analytics -->
@@ -82,11 +80,16 @@
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
+                <button class="sound-btn" id="muteBtn" title="Toggle Sound Effects">🔊</button>
+                <button class="sound-btn" id="musicBtn" title="Toggle Background Music">🎵</button>
                 <button class="share-btn" onclick="shareSite()" title="Share" style="background:none;border:none;font-size:1.2rem;cursor:pointer;">📤</button>
                 <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
             </div>
         </div>
     </nav>
+
+    <!-- Navbar Overlay (Mobile) -->
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -182,7 +185,7 @@
         </div>
 
         <div class="games-grid" id="gamesGrid">
-            <!-- 1. Math Snake -->
+            <!-- 15 Games - Same as before -->
             <div class="game-card" data-category="math" onclick="window.location.href='games/snake.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -203,7 +206,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 2. Life Runner -->
             <div class="game-card" data-category="action" onclick="window.location.href='games/runner.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -224,7 +226,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 3. Number Blaster -->
             <div class="game-card" data-category="math action" onclick="window.location.href='games/shooter.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -245,7 +246,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 4. Gravity Quest -->
             <div class="game-card" data-category="physics" onclick="window.location.href='games/ball.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -266,7 +266,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 5. Mirror Match -->
             <div class="game-card" data-category="puzzle" onclick="window.location.href='games/puzzle.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -287,7 +286,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 6. Word Blitz -->
             <div class="game-card" data-category="typing puzzle" onclick="window.location.href='games/wordblitz.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -308,7 +306,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 7. Color Switch -->
             <div class="game-card" data-category="action" onclick="window.location.href='games/colorswitch.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -329,7 +326,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 8. Memory Master -->
             <div class="game-card" data-category="puzzle board" onclick="window.location.href='games/memory.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -350,7 +346,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 9. Math Defense -->
             <div class="game-card" data-category="math action" onclick="window.location.href='games/mathdefense.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -371,7 +366,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 10. Block Breaker -->
             <div class="game-card" data-category="action physics" onclick="window.location.href='games/blockbreaker.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -392,7 +386,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 11. Street Racer -->
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/streetracer.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -413,7 +406,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 12. Moto Stunt -->
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/motostunt.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -434,7 +426,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 13. Ludo Dice -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/ludo.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -455,7 +446,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 14. Mini Chess -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/chess.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -476,7 +466,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 15. Card Match -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/cardmatch.html'">
                 <div class="game-card-glow"></div>
                 <div class="game-card-content">
@@ -667,10 +656,35 @@
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
 
-        // ==================== MOBILE MENU ====================
-        const hamburger = document.getElementById('hamburger'), navMenu = document.getElementById('navMenu');
-        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('active'); });
-        document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => { hamburger.classList.remove('active'); navMenu.classList.remove('active'); }));
+        // ==================== MOBILE MENU WITH OVERLAY ====================
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            if (navOverlay) {
+                navOverlay.classList.toggle('active');
+            }
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', toggleMenu);
+            
+            if (navOverlay) {
+                navOverlay.addEventListener('click', toggleMenu);
+            }
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+        }
 
         // ==================== ACTIVE NAV ====================
         const sections = document.querySelectorAll('section'), navLinks = document.querySelectorAll('.nav-link[href^="#"]');
@@ -830,7 +844,6 @@
             localStorage.setItem('almagen_push_prompted', 'true');
         }
 
-        // Show push prompt after 10 seconds
         setTimeout(() => {
             const prompted = localStorage.getItem('almagen_push_prompted');
             if (!prompted && 'Notification' in window && Notification.permission === 'default') {
@@ -871,7 +884,6 @@
             }, 3000);
         }
 
-        // Add toast styles
         const styleToast = document.createElement('style');
         styleToast.textContent = `
             @keyframes slideIn {
@@ -880,9 +892,6 @@
             }
         `;
         document.head.appendChild(styleToast);
-
-        // Example: Show welcome toast
-        setTimeout(() => showToast('🎮 Welcome to AlMaGen-Arena!'), 3000);
 
         // ==================== GAME HISTORY TRACKING ====================
         window.trackGamePlay = function(gameName, score) {
