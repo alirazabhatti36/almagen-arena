@@ -59,14 +59,16 @@
     <!-- Particle Background -->
     <div class="particles-bg" id="particlesBg"></div>
 
-    <!-- ==================== HEADER / NAVIGATION ==================== -->
+    <!-- ==================== HEADER ==================== -->
     <header class="header" id="header">
         <div class="header-container">
+            <!-- Logo -->
             <a href="#" class="header-logo">
                 <span class="logo-icon">⚔️</span>
                 <span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>
             </a>
             
+            <!-- Navigation -->
             <nav class="header-nav" id="headerNav">
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-link active">Home</a></li>
@@ -82,10 +84,11 @@
                 </ul>
             </nav>
             
+            <!-- Actions -->
             <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
-                <button class="sound-btn" id="muteBtn" title="Toggle Sound Effects">🔊</button>
-                <button class="sound-btn" id="musicBtn" title="Toggle Background Music">🎵</button>
+                <button class="sound-btn" id="muteBtn" title="Toggle Sound">🔊</button>
+                <button class="sound-btn" id="musicBtn" title="Toggle Music">🎵</button>
                 <button class="share-btn" onclick="shareSite()" title="Share">📤</button>
                 <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
                     <span></span><span></span><span></span>
@@ -97,11 +100,14 @@
     <!-- Mobile Overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
-    <!-- ==================== HERO SECTION ==================== -->
+    <!-- ==================== HERO ==================== -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
-                <div class="hero-badge"><span class="badge-dot"></span>15 Games • No Download • Play Instantly</div>
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    15 Games • No Download • Play Instantly
+                </div>
                 <h1 class="hero-title">Play & Learn at<br><span class="gradient-text">AlMaGen-Arena</span></h1>
                 <p class="hero-subtitle">Where Gaming Meets Education</p>
                 <p class="hero-desc">Discover <span class="text-highlight">15 incredible games</span> that make learning fun & exciting. Sharpen your mind while playing — no downloads, no signup, just pure entertainment!</p>
@@ -110,23 +116,41 @@
                     <a href="daily.html" class="btn btn-secondary">📅 Daily Challenges →</a>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat"><span class="stat-number" data-count="15">0</span><span class="stat-label">Unique Games</span></div>
-                    <div class="hero-stat"><span class="stat-number" data-count="100">0</span><span class="stat-label">% Free</span></div>
-                    <div class="hero-stat"><span class="stat-number" data-count="24">0</span><span class="stat-label">/7 Available</span></div>
-                    <div class="hero-stat"><span class="stat-number" data-count="15000">0</span><span class="stat-label">👥 Players</span></div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="15">0</span>
+                        <span class="stat-label">Unique Games</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="100">0</span>
+                        <span class="stat-label">% Free</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="24">0</span>
+                        <span class="stat-label">/7 Available</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number" data-count="15000">0</span>
+                        <span class="stat-label">👥 Players</span>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
                 <div class="hero-orb"></div>
                 <div class="hero-orb-small"></div>
                 <div class="floating-elements">
-                    <span class="float-icon icon-1">🎮</span><span class="float-icon icon-2">🧠</span>
-                    <span class="float-icon icon-3">🏆</span><span class="float-icon icon-4">⚡</span>
-                    <span class="float-icon icon-5">🎯</span><span class="float-icon icon-6">🌟</span>
+                    <span class="float-icon icon-1">🎮</span>
+                    <span class="float-icon icon-2">🧠</span>
+                    <span class="float-icon icon-3">🏆</span>
+                    <span class="float-icon icon-4">⚡</span>
+                    <span class="float-icon icon-5">🎯</span>
+                    <span class="float-icon icon-6">🌟</span>
                 </div>
             </div>
         </div>
-        <div class="scroll-indicator"><span>Scroll Down</span><div class="scroll-mouse"><div class="scroll-wheel"></div></div></div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+        </div>
     </section>
 
     <!-- ==================== AD: Leaderboard ==================== -->
@@ -189,15 +213,12 @@
         </div>
 
         <div class="games-grid" id="gamesGrid">
-            <!-- 15 Games - Shortened for brevity, same as before -->
+            <!-- 15 Games -->
             <div class="game-card" data-category="math" onclick="window.location.href='games/snake.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper snake-icon"><span class="game-icon">🐍</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-math">Math</span>
-                            <span class="tag tag-easy">Easy</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-easy">Easy</span></div>
                         <h3>Math Snake</h3>
                         <p>Solve arithmetic while growing your snake. Master addition & subtraction!</p>
                     </div>
@@ -212,10 +233,7 @@
                 <div class="game-card-content">
                     <div class="game-icon-wrapper runner-icon"><span class="game-icon">🏃</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-action">Action</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-action">Action</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Life Runner</h3>
                         <p>Endless runner with life lessons! Collect good habits, dodge bad ones!</p>
                     </div>
@@ -230,10 +248,7 @@
                 <div class="game-card-content">
                     <div class="game-icon-wrapper shooter-icon"><span class="game-icon">🔫</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-math">Math</span>
-                            <span class="tag tag-action">Action</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-action">Action</span></div>
                         <h3>Number Blaster</h3>
                         <p>Space shooter meets math! Solve problems, shoot the right answer!</p>
                     </div>
@@ -248,10 +263,7 @@
                 <div class="game-card-content">
                     <div class="game-icon-wrapper ball-icon"><span class="game-icon">⚽</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-physics">Physics</span>
-                            <span class="tag tag-hard">Hard</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-physics">Physics</span><span class="tag tag-hard">Hard</span></div>
                         <h3>Gravity Quest</h3>
                         <p>Navigate obstacles with realistic physics. Learn gravity & momentum!</p>
                     </div>
@@ -266,10 +278,7 @@
                 <div class="game-card-content">
                     <div class="game-icon-wrapper puzzle-icon"><span class="game-icon">🧩</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-puzzle">Puzzle</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-puzzle">Puzzle</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Mirror Match</h3>
                         <p>Symmetry puzzle challenge! Train spatial reasoning & pattern recognition!</p>
                     </div>
@@ -282,12 +291,9 @@
             </div>
             <div class="game-card" data-category="typing puzzle" onclick="window.location.href='games/wordblitz.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(0,212,255,0.1);"><span class="game-icon">⚡</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">⚡</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag" style="background:rgba(0,212,255,0.15);color:#00d4ff;">Typing</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-typing">Typing</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Word Blitz</h3>
                         <p>Type falling words fast! Improve vocabulary, spelling & typing speed!</p>
                     </div>
@@ -300,12 +306,9 @@
             </div>
             <div class="game-card" data-category="action" onclick="window.location.href='games/colorswitch.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🎨</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🎨</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-action">Action</span>
-                            <span class="tag tag-hard">Hard</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-action">Action</span><span class="tag tag-hard">Hard</span></div>
                         <h3>Color Switch</h3>
                         <p>Match colors to pass obstacles! Test reflexes & color recognition!</p>
                     </div>
@@ -318,12 +321,9 @@
             </div>
             <div class="game-card" data-category="puzzle board" onclick="window.location.href='games/memory.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🧠</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🧠</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-puzzle">Memory</span>
-                            <span class="tag tag-easy">Easy</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-puzzle">Memory</span><span class="tag tag-easy">Easy</span></div>
                         <h3>Memory Master</h3>
                         <p>Flip & match emoji pairs! Train your memory, focus & concentration!</p>
                     </div>
@@ -336,12 +336,9 @@
             </div>
             <div class="game-card" data-category="math action" onclick="window.location.href='games/mathdefense.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏰</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🏰</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-math">Math</span>
-                            <span class="tag tag-action">Strategy</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-math">Math</span><span class="tag tag-action">Strategy</span></div>
                         <h3>Math Defense</h3>
                         <p>Tower defense! Solve math to fire at enemies. Protect your wall!</p>
                     </div>
@@ -354,12 +351,9 @@
             </div>
             <div class="game-card" data-category="action physics" onclick="window.location.href='games/blockbreaker.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,136,0,0.1);"><span class="game-icon">🧱</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🧱</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-physics">Physics</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-physics">Physics</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Block Breaker</h3>
                         <p>Classic brick breaker! Learn angles, physics & strategic aiming!</p>
                     </div>
@@ -372,12 +366,9 @@
             </div>
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/streetracer.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🏎️</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🏎️</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-action">Racing</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-action">Racing</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Street Racer</h3>
                         <p>Dodge traffic at high speed! Test your reflexes and driving skills!</p>
                     </div>
@@ -390,12 +381,9 @@
             </div>
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/motostunt.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,217,61,0.1);"><span class="game-icon">🏍️</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🏍️</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-action">Racing</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-action">Racing</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Moto Stunt</h3>
                         <p>Ride through obstacles, collect coins! Master bike control & timing!</p>
                     </div>
@@ -408,12 +396,9 @@
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/ludo.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(162,155,254,0.1);"><span class="game-icon">🎲</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🎲</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-puzzle">Board</span>
-                            <span class="tag tag-easy">Easy</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-puzzle">Board</span><span class="tag tag-easy">Easy</span></div>
                         <h3>Ludo Dice</h3>
                         <p>Roll dice & race against AI! Get a 6 for bonus roll. First to 30 wins!</p>
                     </div>
@@ -426,12 +411,9 @@
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/chess.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,255,255,0.1);"><span class="game-icon">♟️</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">♟️</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-puzzle">Strategy</span>
-                            <span class="tag tag-medium">Medium</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-puzzle">Strategy</span><span class="tag tag-medium">Medium</span></div>
                         <h3>Mini Chess</h3>
                         <p>Capture all enemy pieces! Simple 6x6 chess with easy-to-learn rules!</p>
                     </div>
@@ -444,12 +426,9 @@
             </div>
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/cardmatch.html'">
                 <div class="game-card-content">
-                    <div class="game-icon-wrapper" style="background:rgba(255,107,107,0.1);"><span class="game-icon">🃏</span></div>
+                    <div class="game-icon-wrapper"><span class="game-icon">🃏</span></div>
                     <div class="game-info">
-                        <div class="game-tags">
-                            <span class="tag tag-puzzle">Cards</span>
-                            <span class="tag tag-easy">Easy</span>
-                        </div>
+                        <div class="game-tags"><span class="tag tag-puzzle">Cards</span><span class="tag tag-easy">Easy</span></div>
                         <h3>Card Match</h3>
                         <p>Classic card matching! Flip & find pairs of the same suit and value!</p>
                     </div>
@@ -534,7 +513,10 @@
             <div class="about-text">
                 <p>AlMaGen-Arena is a revolutionary gaming platform blending <strong>entertainment with education</strong>. We believe learning should be exciting, competitive, and rewarding!</p>
                 <p>Our 15 carefully crafted games develop <strong>critical thinking</strong>, <strong>problem-solving</strong>, and <strong>quick reflexes</strong> — all while having the time of your life.</p>
-                <div class="about-quote"><span class="quote-icon">❝</span><p>"Play, Learn, and Grow! Every game is a new adventure waiting to teach you something amazing."</p></div>
+                <div class="about-quote">
+                    <span class="quote-icon">❝</span>
+                    <p>"Play, Learn, and Grow! Every game is a new adventure waiting to teach you something amazing."</p>
+                </div>
             </div>
         </div>
     </section>
