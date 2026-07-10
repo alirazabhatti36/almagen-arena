@@ -81,17 +81,28 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                     <li><a href="#features" class="nav-link">Features</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
+                    <!-- Mobile Actions (inside menu) -->
+                    <li class="mobile-actions">
+                        <span class="mobile-label">Settings</span>
+                        <div class="mobile-buttons">
+                            <button class="theme-toggle-mobile" id="themeToggleMobile" title="Toggle Theme">🌓</button>
+                            <button class="sound-btn-mobile" id="muteBtnMobile" title="Toggle Sound">🔊</button>
+                            <button class="sound-btn-mobile" id="musicBtnMobile" title="Toggle Music">🎵</button>
+                            <button class="share-btn-mobile" onclick="shareSite()" title="Share">📤</button>
+                        </div>
+                    </li>
                 </ul>
             </nav>
             
-            <!-- Actions -->
+            <!-- Desktop Actions -->
             <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
                 <button class="sound-btn" id="muteBtn" title="Toggle Sound">🔊</button>
                 <button class="sound-btn" id="musicBtn" title="Toggle Music">🎵</button>
                 <button class="share-btn" onclick="shareSite()" title="Share">📤</button>
-                <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
-                    <span></span><span></span><span></span>
+                <!-- 3-DOT Button (Mobile Only) -->
+                <button class="menu-dots" id="menuDots" aria-label="Toggle Menu">
+                    <span>⋮</span>
                 </button>
             </div>
         </div>
@@ -213,7 +224,7 @@
         </div>
 
         <div class="games-grid" id="gamesGrid">
-            <!-- 15 Games -->
+            <!-- Game 1 -->
             <div class="game-card" data-category="math" onclick="window.location.href='games/snake.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper snake-icon"><span class="game-icon">🐍</span></div>
@@ -229,6 +240,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 2 -->
             <div class="game-card" data-category="action" onclick="window.location.href='games/runner.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper runner-icon"><span class="game-icon">🏃</span></div>
@@ -244,6 +256,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 3 -->
             <div class="game-card" data-category="math action" onclick="window.location.href='games/shooter.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper shooter-icon"><span class="game-icon">🔫</span></div>
@@ -259,6 +272,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 4 -->
             <div class="game-card" data-category="physics" onclick="window.location.href='games/ball.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper ball-icon"><span class="game-icon">⚽</span></div>
@@ -274,6 +288,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 5 -->
             <div class="game-card" data-category="puzzle" onclick="window.location.href='games/puzzle.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper puzzle-icon"><span class="game-icon">🧩</span></div>
@@ -289,6 +304,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 6 -->
             <div class="game-card" data-category="typing puzzle" onclick="window.location.href='games/wordblitz.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">⚡</span></div>
@@ -304,6 +320,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 7 -->
             <div class="game-card" data-category="action" onclick="window.location.href='games/colorswitch.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🎨</span></div>
@@ -319,6 +336,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 8 -->
             <div class="game-card" data-category="puzzle board" onclick="window.location.href='games/memory.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🧠</span></div>
@@ -334,6 +352,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 9 -->
             <div class="game-card" data-category="math action" onclick="window.location.href='games/mathdefense.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🏰</span></div>
@@ -349,6 +368,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 10 -->
             <div class="game-card" data-category="action physics" onclick="window.location.href='games/blockbreaker.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🧱</span></div>
@@ -364,6 +384,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 11 -->
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/streetracer.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🏎️</span></div>
@@ -379,6 +400,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 12 -->
             <div class="game-card" data-category="racing action" onclick="window.location.href='games/motostunt.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🏍️</span></div>
@@ -394,6 +416,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 13 -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/ludo.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🎲</span></div>
@@ -409,6 +432,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 14 -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/chess.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">♟️</span></div>
@@ -424,6 +448,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Game 15 -->
             <div class="game-card" data-category="board puzzle" onclick="window.location.href='games/cardmatch.html'">
                 <div class="game-card-content">
                     <div class="game-icon-wrapper"><span class="game-icon">🃏</span></div>
@@ -641,25 +666,38 @@
         const savedTheme = localStorage.getItem('almagen_theme');
         if (savedTheme === 'light') document.body.classList.add('light-theme');
         const themeToggle = document.getElementById('themeToggle');
-        themeToggle.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌓';
-        themeToggle.addEventListener('click', () => {
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        
+        function updateThemeButtons() {
+            const isLight = document.body.classList.contains('light-theme');
+            const icon = isLight ? '☀️' : '🌓';
+            if (themeToggle) themeToggle.textContent = icon;
+            if (themeToggleMobile) themeToggleMobile.textContent = icon;
+        }
+        
+        updateThemeButtons();
+        
+        function toggleTheme() {
             document.body.classList.toggle('light-theme');
             const isLight = document.body.classList.contains('light-theme');
-            themeToggle.textContent = isLight ? '☀️' : '🌓';
             localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
-        });
+            updateThemeButtons();
+        }
+        
+        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
 
         // ==================== HEADER SCROLL ====================
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
 
-        // ==================== MOBILE MENU ====================
-        const hamburger = document.getElementById('hamburger');
+        // ==================== 3-DOT MENU ====================
+        const menuDots = document.getElementById('menuDots');
         const navOverlay = document.getElementById('navOverlay');
         const headerNav = document.getElementById('headerNav');
 
         function toggleMenu() {
-            hamburger.classList.toggle('active');
+            menuDots.classList.toggle('active');
             headerNav.classList.toggle('active');
             if (navOverlay) {
                 navOverlay.classList.toggle('active');
@@ -667,8 +705,8 @@
             document.body.style.overflow = headerNav.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        if (hamburger) {
-            hamburger.addEventListener('click', toggleMenu);
+        if (menuDots) {
+            menuDots.addEventListener('click', toggleMenu);
         }
         if (navOverlay) {
             navOverlay.addEventListener('click', toggleMenu);
@@ -680,6 +718,47 @@
                 }
             });
         });
+
+        // ==================== SOUND BUTTONS (Mobile + Desktop Sync) ====================
+        const muteBtn = document.getElementById('muteBtn');
+        const muteBtnMobile = document.getElementById('muteBtnMobile');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicBtnMobile = document.getElementById('musicBtnMobile');
+
+        function updateSoundButtons(isMuted) {
+            const icon = isMuted ? '🔇' : '🔊';
+            if (muteBtn) muteBtn.textContent = icon;
+            if (muteBtnMobile) muteBtnMobile.textContent = icon;
+        }
+
+        function updateMusicButtons(isMuted) {
+            const icon = isMuted ? '🎵❌' : '🎵';
+            if (musicBtn) musicBtn.textContent = icon;
+            if (musicBtnMobile) musicBtnMobile.textContent = icon;
+        }
+
+        // Load saved states
+        const isMuted = localStorage.getItem('almagen_muted') === 'true';
+        const isMusicMuted = localStorage.getItem('almagen_music_muted') === 'true';
+        updateSoundButtons(isMuted);
+        updateMusicButtons(isMusicMuted);
+
+        function toggleMute() {
+            const muted = musicEngine ? musicEngine.toggleMute() : !isMuted;
+            updateSoundButtons(muted);
+            localStorage.setItem('almagen_muted', muted ? 'true' : 'false');
+        }
+
+        function toggleMusic() {
+            const muted = musicEngine ? musicEngine.toggleMusic() : !isMusicMuted;
+            updateMusicButtons(muted);
+            localStorage.setItem('almagen_music_muted', muted ? 'true' : 'false');
+        }
+
+        if (muteBtn) muteBtn.addEventListener('click', toggleMute);
+        if (muteBtnMobile) muteBtnMobile.addEventListener('click', toggleMute);
+        if (musicBtn) musicBtn.addEventListener('click', toggleMusic);
+        if (musicBtnMobile) musicBtnMobile.addEventListener('click', toggleMusic);
 
         // ==================== ACTIVE NAV ====================
         const sections = document.querySelectorAll('section[id]');
