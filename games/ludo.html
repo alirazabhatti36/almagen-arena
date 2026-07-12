@@ -33,6 +33,8 @@
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+            <button class="sound-btn" id="restartBtn" onclick="startGame()" title="Restart Game">🔄</button>
             <div class="stat-box"><div class="stat-label">🔴 You</div><div class="stat-value" id="playerPos" style="color:#ff6b6b;">0/30</div></div>
             <div class="stat-box"><div class="stat-label">🔵 AI</div><div class="stat-value" id="aiPos" style="color:#00d4ff;">0/30</div></div>
         </div>
@@ -51,6 +53,7 @@
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 550); canvas.height = Math.min(window.innerHeight-320, 350); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
 
         let playerPos=0, aiPos=0, currentDice=1, gameRunning=true, isPlayerTurn=true, rolling=false, boardCells=30, particles=[], diceRolling=false;
 

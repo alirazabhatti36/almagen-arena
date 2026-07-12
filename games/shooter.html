@@ -32,6 +32,8 @@
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+            <button class="sound-btn" id="restartBtn" onclick="startGame()" title="Restart Game">🔄</button>
             <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay" style="color:#ffd93d;">0</div></div>
             <div class="stat-box"><div class="stat-label">❤️ Lives</div><div class="stat-value" id="livesDisplay" style="color:#ff6b6b;">3</div></div>
         </div>
@@ -54,6 +56,7 @@
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth - 30, 500); canvas.height = Math.min(window.innerHeight - 230, 650); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
 
         let player = { x: 0, y: 0, width: 40, height: 45 };
         let enemies = [], bullets = [], particles = [], score = 0, lives = 3, gameRunning = true, frameCount = 0, spawnTimer = 0, currentQuestion = null, invincible = 0, shakeAmount = 0;

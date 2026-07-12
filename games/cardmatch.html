@@ -27,6 +27,8 @@
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
+            <button class="sound-btn" id="restartBtn" onclick="startGame()" title="Restart Game">🔄</button>
             <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay" style="color:#ffd93d;">0</div></div>
             <div class="stat-box"><div class="stat-label">🎯 Pairs</div><div class="stat-value" id="pairsDisplay" style="color:#00ff88;">0/8</div></div>
             <div class="stat-box"><div class="stat-label">⏱️ Time</div><div class="stat-value" id="timerDisplay" style="color:#ff6b6b;">0s</div></div>
@@ -45,6 +47,7 @@
         function setCanvasSize() { const s=Math.min(window.innerWidth-30,window.innerHeight-230,480);canvas.width=s;canvas.height=s; }
         setCanvasSize(); window.addEventListener('resize',setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
 
         const suits=['♥','♦','♠','♣'];const suitColors={'♥':'#ff4444','♦':'#ff4444','♠':'#fff','♣':'#fff'};const values=['A','K','Q','J'];
         let cards=[],gridCols=4,gridRows=4,cellSize=0,flippedCards=[],matchedPairs=0,totalPairs=8,score=0,timer=0,timerInterval=null,gameRunning=true,particles=[];

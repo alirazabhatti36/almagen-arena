@@ -8,6 +8,9 @@ class SoundEngine {
         this.volume = 0.6;
         this.musicVolume = 0.3;
         this.loadSounds();
+        window.sound = this;
+        window.musicEngine = this;
+        window.soundEngine = this;
     }
 
     // ==================== LOAD SOUNDS ====================
@@ -325,14 +328,24 @@ class SoundEngine {
         }
     }
 
+    playClick() { this.play('click'); }
+    playCollect() { this.play('collect'); }
+    playScore() { this.play('collect'); }
+    playCrash() { this.play('hit'); }
+    playLose() { this.play('gameOver'); }
+    playWin() { this.play('win'); }
+    playJump() { this.play('jump'); }
+    playExplosion() { this.play('explosion'); }
+    playCoin() { this.play('coin'); }
+    playPowerUp() { this.play('powerup'); }
+    playDice() { this.play('levelUp'); }
+    playShoot() { this.play('click'); }
+    playFlip() { this.play('click'); }
+
     // ==================== MUTE CONTROLS ====================
     toggleMute() {
         this.isMuted = !this.isMuted;
-        if (this.isMuted) {
-            this.music.stop();
-        } else if (!this.isMusicMuted) {
-            this.music.start();
-        }
+        this.syncUiButtons();
         return this.isMuted;
     }
 
@@ -343,7 +356,23 @@ class SoundEngine {
         } else {
             this.music.start();
         }
+        this.syncUiButtons();
         return this.isMusicMuted;
+    }
+
+    toggle() {
+        return this.toggleMute();
+    }
+
+    syncUiButtons() {
+        const soundBtn = document.getElementById('soundToggle') || document.getElementById('muteBtn') || document.getElementById('muteBtnMobile');
+        if (soundBtn) {
+            soundBtn.textContent = this.isMuted ? '🔇' : '🔊';
+        }
+        const musicBtn = document.getElementById('musicToggle') || document.getElementById('musicBtn') || document.getElementById('musicBtnMobile');
+        if (musicBtn) {
+            musicBtn.textContent = this.isMusicMuted ? '🎵❌' : '🎵';
+        }
     }
 
     // ==================== VOLUME CONTROL ====================
@@ -363,41 +392,40 @@ function playSound(soundName) {
 
 function toggleMute() {
     const muted = musicEngine.toggleMute();
-    const btn = document.getElementById('muteBtn');
-    if (btn) {
-        btn.textContent = muted ? '🔇' : '🔊';
-    }
     localStorage.setItem('almagen_muted', muted ? 'true' : 'false');
+    if (document.getElementById('soundToggle')) {
+        document.getElementById('soundToggle').textContent = muted ? '🔇' : '🔊';
+    }
 }
 
 function toggleMusic() {
     const muted = musicEngine.toggleMusic();
-    const btn = document.getElementById('musicBtn');
-    if (btn) {
-        btn.textContent = muted ? '🎵❌' : '🎵';
-    }
     localStorage.setItem('almagen_music_muted', muted ? 'true' : 'false');
+    if (document.getElementById('musicToggle')) {
+        document.getElementById('musicToggle').textContent = muted ? '🎵❌' : '🎵';
+    }
 }
 
 // ==================== AUTO-START MUSIC ====================
 document.addEventListener('DOMContentLoaded', () => {
-    // Check mute state from localStorage
     const isMuted = localStorage.getItem('almagen_muted') === 'true';
     const isMusicMuted = localStorage.getItem('almagen_music_muted') === 'true';
-    
-    if (isMuted) {
-        musicEngine.isMuted = true;
-        musicEngine.isMusicMuted = true;
-    } else if (!isMusicMuted) {
-        // Start music after user interaction
+
+    musicEngine.isMuted = isMuted;
+    musicEngine.isMusicMuted = isMusicMuted;
+
+    if (!isMuted && !isMusicMuted) {
         const startMusic = () => {
             musicEngine.music.start();
             document.removeEventListener('click', startMusic);
             document.removeEventListener('touchstart', startMusic);
+            musicEngine.syncUiButtons();
         };
-        document.addEventListener('click', startMusic);
-        document.addEventListener('touchstart', startMusic);
+        document.addEventListener('click', startMusic, { once: true });
+        document.addEventListener('touchstart', startMusic, { once: true });
     }
+
+    musicEngine.syncUiButtons();
 
     // Add mute buttons to navigation
     const navActions = document.querySelector('.nav-actions');
