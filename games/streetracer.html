@@ -24,6 +24,7 @@
         .ctrl-btn { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #ff6b6b; background: rgba(255,107,107,0.15); color: #fff; font-size: 1.5rem; cursor: pointer; touch-action: manipulation; }
         .ctrl-btn:active { background: rgba(255,107,107,0.4); transform: scale(0.9); }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+        .guide-pill { display: inline-block; margin-top: 6px; padding: 6px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 0.68rem; color: rgba(255,255,255,0.8); }
         @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
@@ -49,8 +50,9 @@
         <button class="ctrl-btn" id="btnLeft">⬅️</button>
         <button class="ctrl-btn" id="btnRight">➡️</button>
     </div>
-    <p class="instructions desktop">⌨️ Arrow Keys or A/D to move | Avoid traffic!</p>
-    <p class="instructions mobile">👆 Tap buttons to steer | Avoid traffic!</p>
+    <p class="instructions desktop">Desktop: use the Left/Right Arrow keys or A/D. Mobile/Tablet/iPhone: tap the buttons or drag left/right on the screen to steer.</p>
+    <p class="instructions mobile">👆 Tap buttons to steer, or drag left/right on the screen.</p>
+    <div class="guide-pill">Avoid traffic and stay on the road.</div>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -60,6 +62,10 @@
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
         function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
+        function moveCarBy(delta) {
+            if (!gameRunning) return;
+            car.x = Math.max(22, Math.min(canvas.width - car.width - 22, car.x + delta));
+        }
 
         let car = { x:0, y:0, width:45, height:80 };
         let obstacles=[], particles=[], score=0, gameSpeed=4, gameRunning=true, frameCount=0, spawnTimer=0, roadLines=[];
@@ -113,7 +119,9 @@
         function handleMovement(){if(!gameRunning)return;const ms=6;if(keys['ArrowLeft']||keys['a'])car.x-=ms;if(keys['ArrowRight']||keys['d'])car.x+=ms;car.x=Math.max(22,Math.min(canvas.width-car.width-22,car.x));requestAnimationFrame(handleMovement);}handleMovement();
         document.getElementById('btnLeft').addEventListener('pointerdown',(e)=>{e.preventDefault();keys['ArrowLeft']=true;});document.getElementById('btnLeft').addEventListener('pointerup',()=>{keys['ArrowLeft']=false;});
         document.getElementById('btnRight').addEventListener('pointerdown',(e)=>{e.preventDefault();keys['ArrowRight']=true;});document.getElementById('btnRight').addEventListener('pointerup',()=>{keys['ArrowRight']=false;});
-        canvas.addEventListener('touchmove',(e)=>{e.preventDefault();if(!gameRunning)return;const r=canvas.getBoundingClientRect();car.x=(e.touches[0].clientX-r.left)*(canvas.width/r.width)-car.width/2;car.x=Math.max(22,Math.min(canvas.width-car.width-22,car.x));},{passive:false});
+        let touchStartX = 0;
+        canvas.addEventListener('touchstart',(e)=>{touchStartX=e.touches[0].clientX;},{passive:true});
+        canvas.addEventListener('touchmove',(e)=>{e.preventDefault();if(!gameRunning)return;const r=canvas.getBoundingClientRect();const touchX=e.touches[0].clientX;const delta=(touchX-touchStartX)/2;moveCarBy(delta);touchStartX=touchX;},{passive:false});
         document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
         startGame(); gameLoop();
     </script>

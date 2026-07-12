@@ -26,6 +26,7 @@
         .ctrl-btn { width: 70px; height: 70px; border-radius: 50%; border: 2px solid #ff6b6b; background: rgba(255,107,107,0.15); color: #fff; font-size: 1.8rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
         .ctrl-btn:active { background: rgba(255,107,107,0.4); transform: scale(0.9); }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+        .guide-pill { display: inline-block; margin-top: 6px; padding: 6px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 0.68rem; color: rgba(255,255,255,0.8); }
         @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
@@ -51,8 +52,9 @@
         <button class="ctrl-btn" id="btnUp">⬆️</button>
         <button class="ctrl-btn" id="btnDown">⬇️</button>
     </div>
-    <p class="instructions desktop">⌨️ UP/DOWN Arrow Keys | Collect ✅ Good, Avoid ❌ Bad</p>
-    <p class="instructions mobile">👆 Tap buttons to switch lanes</p>
+    <p class="instructions desktop">Desktop: use the Up/Down Arrow keys or W/S. Mobile/Tablet/iPhone: tap the buttons or swipe up/down to switch lanes.</p>
+    <p class="instructions mobile">👆 Tap buttons to switch lanes, or swipe up/down on the screen.</p>
+    <div class="guide-pill">Collect ✅ Good deeds. Avoid ❌ Bad ones.</div>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -62,6 +64,11 @@
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { const btn = document.getElementById('soundToggle'); btn.textContent = sound.toggle() ? '🔊' : '🔇'; }
         function toggleMusic() { const btn = document.getElementById('musicToggle'); btn.textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
+        function movePlayerLane(change) {
+            if (!gameRunning) return;
+            const nextLane = Math.max(0, Math.min(2, player.lane + change));
+            if (nextLane !== player.lane) player.lane = nextLane;
+        }
 
         let player = { x: 80, y: 0, lane: 1, targetY: 0 };
         let items = [], score = 0, gameRunning = true, gameSpeed = 4, frameCount = 0, spawnTimer = 0, particles = [];
@@ -149,12 +156,13 @@
             ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='10px Poppins,Arial'; ctx.textAlign='right'; ctx.fillText(`Speed: ${Math.floor(gameSpeed*10)} km/h`,canvas.width-15,20);
         }
         function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
-        document.addEventListener('keydown',(e)=>{ if(!gameRunning)return; if((e.key==='ArrowUp'||e.key==='w')&&player.lane>0) player.lane--; if((e.key==='ArrowDown'||e.key==='s')&&player.lane<2) player.lane++; });
-        document.getElementById('btnUp').addEventListener('pointerdown',(e)=>{ e.preventDefault(); if(gameRunning&&player.lane>0) player.lane--; });
-        document.getElementById('btnDown').addEventListener('pointerdown',(e)=>{ e.preventDefault(); if(gameRunning&&player.lane<2) player.lane++; });
-        let touchStartY=0; canvas.addEventListener('touchstart',(e)=>{ touchStartY=e.touches[0].clientY; });
+        document.addEventListener('keydown',(e)=>{ if(!gameRunning)return; if((e.key==='ArrowUp'||e.key==='w')&&player.lane>0) movePlayerLane(-1); if((e.key==='ArrowDown'||e.key==='s')&&player.lane<2) movePlayerLane(1); });
+        document.getElementById('btnUp').addEventListener('pointerdown',(e)=>{e.preventDefault();movePlayerLane(-1);});
+        document.getElementById('btnDown').addEventListener('pointerdown',(e)=>{e.preventDefault();movePlayerLane(1);});
+        let touchStartY = 0;
+        canvas.addEventListener('touchstart',(e)=>{touchStartY=e.touches[0].clientY;},{passive:true});
         canvas.addEventListener('touchmove',(e)=>e.preventDefault(),{passive:false});
-        canvas.addEventListener('touchend',(e)=>{ if(!gameRunning){startGame();return;} const dy=e.changedTouches[0].clientY-touchStartY; if(dy<-30&&player.lane>0)player.lane--; if(dy>30&&player.lane<2)player.lane++; });
+        canvas.addEventListener('touchend',(e)=>{if(!gameRunning){startGame();return;}const dy=e.changedTouches[0].clientY-touchStartY;if(dy<-30)movePlayerLane(-1);if(dy>30)movePlayerLane(1);});
         document.getElementById('gameOverScreen').addEventListener('click',function(e){ if(e.target===this) startGame(); });
         startGame(); gameLoop();
     </script>

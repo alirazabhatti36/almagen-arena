@@ -23,6 +23,10 @@
         .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #6c5ce7; color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
         .play-again-btn:hover { background: #5a4bd1; transform: scale(1.05); }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+        .mobile-controls { display: none; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .ctrl-btn { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #6c5ce7; background: rgba(108,92,231,0.18); color: #fff; font-size: 1.2rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ctrl-btn:active { background: rgba(108,92,231,0.4); transform: scale(0.92); }
+        @media (max-width: 768px) { .mobile-controls { display: flex; } }
     </style>
 </head>
 <body>
@@ -42,7 +46,13 @@
             <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
         </div>
     </div>
-    <p class="instructions">🖱️ Click/Hold & Drag | 👆 Touch & Drag | Control the ball through gaps!</p>
+    <div class="mobile-controls">
+        <button class="ctrl-btn" id="btnUp">⬆️</button>
+        <button class="ctrl-btn" id="btnLeft">⬅️</button>
+        <button class="ctrl-btn" id="btnDown">⬇️</button>
+        <button class="ctrl-btn" id="btnRight">➡️</button>
+    </div>
+    <p class="instructions">Desktop: Arrow keys / WASD to move. Mobile/Tablet/iPhone: use the on-screen buttons or drag your finger across the game area.</p>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -51,6 +61,23 @@
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth - 30, 500); canvas.height = Math.min(window.innerHeight - 230, 650); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function moveTarget(dx, dy) {
+            if (!gameRunning) return;
+            targetX = Math.max(ball.radius, Math.min(canvas.width - ball.radius, targetX + dx));
+            targetY = Math.max(ball.radius, Math.min(canvas.height - ball.radius, targetY + dy));
+            if (!gameStarted) gameStarted = true;
+        }
+        function bindDirectionalButton(id, dx, dy) {
+            const button = document.getElementById(id);
+            if (!button) return;
+            const handle = (e) => { e.preventDefault(); moveTarget(dx, dy); };
+            button.addEventListener('pointerdown', handle);
+            button.addEventListener('touchstart', handle, { passive: false });
+        }
+        bindDirectionalButton('btnUp', 0, -28);
+        bindDirectionalButton('btnDown', 0, 28);
+        bindDirectionalButton('btnLeft', -28, 0);
+        bindDirectionalButton('btnRight', 28, 0);
 
         let ball = { x: 0, y: 0, radius: 16, vx: 0, vy: 0 };
         let obstacles = [], particles = [], score = 0, bestScore = 0, gameRunning = true, gameStarted = false, frameCount = 0;
