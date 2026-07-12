@@ -1,5 +1,5 @@
 // ==================== AlMaGen-Arena Service Worker ====================
-const CACHE_NAME = 'almagen-arena-v1';
+const CACHE_NAME = 'almagen-arena-v2';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -54,31 +54,39 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch - Serve from cache, fallback to network
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+});
+
+// Fetch - Prefer network first for HTML and JS, then cache fallback
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            // Return cached response if available
-            if (cachedResponse) {
-                return cachedResponse;
-            }
-            // Otherwise fetch from network
-            return fetch(event.request).then((response) => {
-                // Cache new responses (except external APIs)
-                if (event.request.url.includes('almagen-arena.com') || event.request.url.includes('localhost')) {
-                    const responseClone = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
-                }
+    const request = event.request;
+    const url = new URL(request.url);
+
+    if (request.method !== 'GET') return;
+    if (url.origin !== self.location.origin) return;
+
+    if (request.mode === 'navigate' || request.destination === 'document') {
+        event.respondWith(
+            fetch(request).then((response) => {
+                const copy = response.clone();
+                caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
                 return response;
-            }).catch(() => {
-                // Offline fallback for HTML pages
-                if (event.request.headers.get('accept').includes('text/html')) {
-                    return caches.match('/index.html');
-                }
-            });
-        })
+            }).catch(() => caches.match('/index.html'))
+        );
+        return;
+    }
+
+    event.respondWith(
+        fetch(request).then((response) => {
+            if (response.ok) {
+                const copy = response.clone();
+                caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+            }
+            return response;
+        }).catch(() => caches.match(request).then((cached) => cached || caches.match('/index.html')))
     );
 });
 
