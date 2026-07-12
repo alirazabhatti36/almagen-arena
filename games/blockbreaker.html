@@ -23,6 +23,11 @@
         .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ffd93d; color: #000; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
         .play-again-btn:hover { background: #ffc800; transform: scale(1.05); }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+        .mobile-controls { display: none; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .ctrl-btn { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #ffd93d; background: rgba(255,217,61,0.16); color: #fff; font-size: 1.2rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ctrl-btn:active { background: rgba(255,217,61,0.35); transform: scale(0.92); }
+        .ctrl-btn.launch-btn { width: auto; padding: 0 14px; border-radius: 999px; font-size: 0.9rem; }
+        @media (max-width: 768px) { .mobile-controls { display: flex; } }
     </style>
 </head>
 <body>
@@ -45,7 +50,12 @@
             <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
         </div>
     </div>
-    <p class="instructions">🖱️ Move Mouse / 👆 Touch Drag / ⌨️ Arrow Keys | Break all blocks!</p>
+    <div class="mobile-controls">
+        <button class="ctrl-btn" id="btnLeft">⬅️</button>
+        <button class="ctrl-btn launch-btn" id="btnLaunch">🚀 Launch</button>
+        <button class="ctrl-btn" id="btnRight">➡️</button>
+    </div>
+    <p class="instructions">Desktop: use the Left/Right Arrow keys or A/D. Mobile/Tablet/iPhone: use the on-screen buttons or drag/tap the game area to play.</p>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -55,6 +65,10 @@
         setCanvasSize(); window.addEventListener('resize',()=>{setCanvasSize();if(gameRunning)resetBall();});
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
         function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
+        function movePaddleBy(delta) {
+            if (!gameRunning) return;
+            paddle.x = Math.max(0, Math.min(canvas.width - paddle.width, paddle.x + delta));
+        }
 
         let paddle = { x:0, y:0, width:100, height:15, speed:8 };
         let ball = { x:0, y:0, radius:10, vx:0, vy:0, speed:6 };
@@ -111,6 +125,9 @@
         canvas.addEventListener('click',()=>{if(gameRunning&&!ballLaunched)launchBall();if(!gameRunning)startGame();});
         canvas.addEventListener('touchmove',(e)=>{e.preventDefault();const r=canvas.getBoundingClientRect();paddle.x=(e.touches[0].clientX-r.left)*(canvas.width/r.width)-paddle.width/2;paddle.x=Math.max(0,Math.min(canvas.width-paddle.width,paddle.x));},{passive:false});
         canvas.addEventListener('touchstart',(e)=>{e.preventDefault();if(gameRunning&&!ballLaunched)launchBall();if(!gameRunning)startGame();});
+        document.getElementById('btnLeft').addEventListener('pointerdown',(e)=>{e.preventDefault();movePaddleBy(-paddle.speed);});
+        document.getElementById('btnRight').addEventListener('pointerdown',(e)=>{e.preventDefault();movePaddleBy(paddle.speed);});
+        document.getElementById('btnLaunch').addEventListener('pointerdown',(e)=>{e.preventDefault();if(gameRunning&&!ballLaunched)launchBall();if(!gameRunning)startGame();});
         document.addEventListener('keydown',(e)=>{switch(e.key){case'ArrowLeft':case'a':paddle.x-=paddle.speed;break;case'ArrowRight':case'd':paddle.x+=paddle.speed;break;case' ':if(gameRunning&&!ballLaunched)launchBall();if(!gameRunning)startGame();e.preventDefault();break;}paddle.x=Math.max(0,Math.min(canvas.width-paddle.width,paddle.x));});
         document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
         startGame(); gameLoop();

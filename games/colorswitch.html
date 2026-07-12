@@ -23,6 +23,10 @@
         .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ff6b6b; color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
         .play-again-btn:hover { background: #e55a5a; transform: scale(1.05); }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
+        .mobile-controls { display: none; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .ctrl-btn { width: 70px; height: 54px; border-radius: 999px; border: 2px solid #ff6b6b; background: rgba(255,107,107,0.16); color: #fff; font-size: 0.95rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ctrl-btn:active { background: rgba(255,107,107,0.35); transform: scale(0.96); }
+        @media (max-width: 768px) { .mobile-controls { display: flex; } }
     </style>
 </head>
 <body>
@@ -44,7 +48,10 @@
             <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
         </div>
     </div>
-    <p class="instructions">🖱️ Click / 👆 Tap / ⌨️ Space = Jump & Switch Color | Match colors to pass!</p>
+    <div class="mobile-controls">
+        <button class="ctrl-btn" id="btnJump">⬆️ Jump</button>
+    </div>
+    <p class="instructions">Desktop: press Space, Up Arrow, or W to jump and switch color. Mobile/Tablet/iPhone: tap the button or the game area.</p>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -129,6 +136,7 @@
         function gameLoop(){update();draw();requestAnimationFrame(gameLoop);}
         canvas.addEventListener('click',jump);
         canvas.addEventListener('touchstart',(e)=>{e.preventDefault();jump();});
+        document.getElementById('btnJump').addEventListener('pointerdown',(e)=>{e.preventDefault();jump();});
         document.addEventListener('keydown',(e)=>{if(e.key===' '||e.key==='ArrowUp'||e.key==='w'){e.preventDefault();jump();}if(!gameRunning&&e.key===' ')startGame();});
         document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
         startGame(); gameLoop();
