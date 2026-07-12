@@ -34,20 +34,38 @@
         .stat-box { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); }
         .stat-label { font-size: 0.6rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
         .stat-value { font-size: 1.3rem; font-weight: bold; color: #00ff88; }
-        canvas { border: 2px solid #00ff88; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); max-width: 95vw; max-height: 70vh; touch-action: none; }
+        canvas { border: 2px solid #00ff88; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); max-width: 95vw; max-height: 70vh; touch-action: none; display: block; }
         #gameContainer { position: relative; }
-        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
+        
+        /* ===== PAUSE OVERLAY ===== */
+        #pauseOverlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
+        #pauseOverlay h2 { font-size: 2.5rem; color: #ffd93d; margin-bottom: 10px; }
+        #pauseOverlay p { color: #fff; font-size: 1rem; margin-bottom: 15px; text-align: center; padding: 0 20px; }
+        #pauseOverlay .resume-btn { padding: 12px 35px; font-size: 1.1rem; background: #ffd93d; color: #000; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        #pauseOverlay .resume-btn:hover { background: #ffc800; transform: scale(1.05); }
+        #pauseOverlay .restart-from-pause-btn { padding: 10px 25px; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; cursor: pointer; font-weight: 500; transition: all 0.3s; margin-top: 10px; }
+        #pauseOverlay .restart-from-pause-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        /* ===== GAME OVER OVERLAY ===== */
+        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 11; }
         #gameOverScreen h2 { font-size: 2.5rem; color: #ff4444; margin-bottom: 10px; }
         #gameOverScreen p { color: #fff; font-size: 1rem; margin-bottom: 15px; text-align: center; padding: 0 20px; }
         #gameOverScreen .win-title { color: #00ff88; }
         .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #00ff88; color: #000; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
         .play-again-btn:hover { background: #00cc6a; transform: scale(1.05); }
-        #mobileControls { display: none; gap: 15px; margin-top: 15px; }
-        .ctrl-btn { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #00ff88; background: rgba(0,255,136,0.15); color: #fff; font-size: 1.5rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+        
+        /* ===== MOBILE CONTROLS ===== */
+        .controls-row { display: flex; gap: 12px; align-items: center; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .ctrl-btn { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #00ff88; background: rgba(0,255,136,0.15); color: #fff; font-size: 1.5rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; transition: all 0.15s; }
         .ctrl-btn:active { background: rgba(0,255,136,0.4); transform: scale(0.9); }
+        .ctrl-btn.pause-btn { border-color: #ffd93d; background: rgba(255,217,61,0.15); font-size: 1.2rem; width: 50px; height: 50px; }
+        .ctrl-btn.pause-btn:active { background: rgba(255,217,61,0.4); }
+        
+        #mobileControls { display: none; gap: 15px; margin-top: 15px; }
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
         .progress-container { width: 100%; max-width: 400px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 8px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #00ff88, #00ffff); border-radius: 3px; transition: width 0.3s; }
+        
         @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
@@ -63,10 +81,21 @@
     </div>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
+        
         <!-- Progress Bar -->
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
         </div>
+        
+        <!-- PAUSE OVERLAY -->
+        <div id="pauseOverlay">
+            <h2>⏸️ Paused</h2>
+            <p>Take a break! Press Resume to continue.</p>
+            <button class="resume-btn" onclick="resumeGame()">▶️ Resume</button>
+            <button class="restart-from-pause-btn" onclick="startGame()">🔄 Restart</button>
+        </div>
+        
+        <!-- GAME OVER OVERLAY -->
         <div id="gameOverScreen">
             <h2 id="gameOverTitle">💀 Game Over!</h2>
             <div style="display:flex;gap:20px;margin-bottom:15px;">
@@ -78,6 +107,8 @@
             <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
         </div>
     </div>
+    
+    <!-- MOBILE CONTROLS -->
     <div id="mobileControls">
         <div style="display:grid;grid-template-columns:55px 55px 55px;grid-template-rows:55px 55px;gap:8px;">
             <div></div>
@@ -88,8 +119,15 @@
             <button class="ctrl-btn" id="btnRight">➡️</button>
         </div>
     </div>
+    
+    <!-- CONTROLS ROW (Desktop + Mobile) -->
+    <div class="controls-row">
+        <button class="ctrl-btn pause-btn" id="pauseBtn" onclick="togglePause()">⏸️</button>
+        <button class="ctrl-btn pause-btn" onclick="startGame()" title="Restart">🔄</button>
+    </div>
+    
     <p class="instructions desktop">⌨️ Arrow Keys / WASD to move | Solve math & eat correct answers!</p>
-    <p class="instructions mobile">👆 Use buttons to move</p>
+    <p class="instructions mobile">👆 Use buttons to move | ⏸️ to Pause</p>
 
     <script src="../js/soundengine.js"></script>
     <script>
@@ -101,7 +139,7 @@
         const gridSize = 20;
 
         function setCanvasSize() {
-            const size = Math.min(window.innerWidth - 30, window.innerHeight - 280, 420);
+            const size = Math.min(window.innerWidth - 30, window.innerHeight - 300, 420);
             canvas.width = size;
             canvas.height = size;
             gridCols = Math.floor(canvas.width / gridSize);
@@ -125,17 +163,16 @@
         let mathScore = 0;
         let foods = [];
         let gameRunning = true;
+        let isPaused = false;
         let gameSpeed = 120;
         let gameLoopTimeout;
         let particles = [];
         let isWin = false;
         let gameOverMsg = '';
+        let lastFrameTime = 0;
+        let animationId = null;
 
         // ==================== GRID UTILITY ====================
-        function getGridPos(x, y) {
-            return { x: Math.floor(x / gridSize) * gridSize, y: Math.floor(y / gridSize) * gridSize };
-        }
-
         function getRandomGridPos() {
             return {
                 x: Math.floor(Math.random() * gridCols) * gridSize,
@@ -167,10 +204,8 @@
                 this.x = pos.x;
                 this.y = pos.y;
 
-                // Generate math problem
                 const rand = Math.random();
                 if (rand < 0.4) {
-                    // Addition
                     this.num1 = Math.floor(Math.random() * 8) + 2;
                     this.num2 = Math.floor(Math.random() * 8) + 2;
                     this.answer = this.num1 + this.num2;
@@ -178,7 +213,6 @@
                     this.isCorrect = true;
                     this.value = this.answer;
                 } else if (rand < 0.7) {
-                    // Subtraction
                     this.num1 = Math.floor(Math.random() * 10) + 5;
                     this.num2 = Math.floor(Math.random() * this.num1);
                     this.answer = this.num1 - this.num2;
@@ -186,7 +220,6 @@
                     this.isCorrect = true;
                     this.value = this.answer;
                 } else {
-                    // Trick question
                     this.num1 = Math.floor(Math.random() * 8) + 2;
                     this.num2 = Math.floor(Math.random() * 8) + 2;
                     this.answer = this.num1 + this.num2;
@@ -202,11 +235,9 @@
                 const cy = this.y + gridSize / 2;
                 const radius = gridSize / 2 - 2;
 
-                // Glow
                 ctx.shadowColor = this.isCorrect ? '#00ff88' : '#ff4444';
                 ctx.shadowBlur = 15;
 
-                // Circle background
                 const gradient = ctx.createRadialGradient(cx - 3, cy - 3, 2, cx, cy, radius);
                 if (this.isCorrect) {
                     gradient.addColorStop(0, '#00ff88');
@@ -223,19 +254,22 @@
                 ctx.shadowColor = 'transparent';
                 ctx.shadowBlur = 0;
 
-                // Text
                 ctx.fillStyle = '#000';
                 ctx.font = `bold ${gridSize * 0.4}px Arial, sans-serif`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(this.display, cx, cy + 1);
 
-                // Icon for correct answer
                 if (this.isCorrect) {
                     ctx.fillStyle = '#fff';
                     ctx.font = `${gridSize * 0.25}px Arial`;
                     ctx.fillText('✓', cx + gridSize * 0.35, cy - gridSize * 0.35);
                 }
+            }
+
+            // Collision detection with snake head
+            collidesWith(head) {
+                return head.x === this.x && head.y === this.y;
             }
         }
 
@@ -280,16 +314,26 @@
 
         // ==================== GAME LOGIC ====================
         function startGame() {
+            // Cancel any existing animation
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            if (gameLoopTimeout) {
+                clearTimeout(gameLoopTimeout);
+                gameLoopTimeout = null;
+            }
+
             snake = [];
             snakeLength = 3;
             mathScore = 0;
             gameRunning = true;
+            isPaused = false;
             gameSpeed = 120;
             particles = [];
             isWin = false;
             gameOverMsg = '';
 
-            // Initialize snake in center
             const startX = Math.floor(gridCols / 2) * gridSize;
             const startY = Math.floor(gridRows / 2) * gridSize;
             for (let i = 0; i < snakeLength; i++) {
@@ -299,40 +343,66 @@
             direction = { x: gridSize, y: 0 };
             nextDirection = { x: gridSize, y: 0 };
 
-            // Spawn foods
             foods = [];
             for (let i = 0; i < 3; i++) {
                 foods.push(new MathFood());
             }
 
             document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('pauseOverlay').style.display = 'none';
             document.getElementById('gameOverTitle').textContent = '💀 Game Over!';
+            document.getElementById('gameOverTitle').style.color = '#ff4444';
             document.getElementById('gameOverMsg').textContent = '';
             document.getElementById('mathScore').textContent = '0';
             document.getElementById('lengthScore').textContent = '1';
+            document.getElementById('pauseBtn').textContent = '⏸️';
 
-            clearTimeout(gameLoopTimeout);
+            // Start game loop with requestAnimationFrame for smooth updates
+            lastFrameTime = performance.now();
             gameLoop();
         }
 
         function gameLoop() {
-            if (!gameRunning) return;
+            if (!gameRunning) {
+                draw();
+                animationId = requestAnimationFrame(gameLoop);
+                return;
+            }
 
+            if (isPaused) {
+                draw();
+                animationId = requestAnimationFrame(gameLoop);
+                return;
+            }
+
+            // Update game at fixed speed
+            const now = performance.now();
+            const delta = now - lastFrameTime;
+
+            if (delta >= gameSpeed) {
+                updateGame();
+                lastFrameTime = now;
+            }
+
+            draw();
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function updateGame() {
             // Update direction
             if (!isOppositeDirection(direction, nextDirection)) {
                 direction = { ...nextDirection };
             }
 
-            // Calculate new head position
             const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
 
-            // Check wall collision
+            // Wall collision
             if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
                 gameOver('You hit the wall!');
                 return;
             }
 
-            // Check self collision
+            // Self collision
             for (let i = 0; i < snake.length; i++) {
                 if (head.x === snake[i].x && head.y === snake[i].y) {
                     gameOver('You hit yourself!');
@@ -340,26 +410,22 @@
                 }
             }
 
-            // Move snake
             snake.unshift(head);
 
             // Check food collision
             let ateFood = false;
             for (let i = foods.length - 1; i >= 0; i--) {
-                if (head.x === foods[i].x && head.y === foods[i].y) {
+                if (foods[i].collidesWith(head)) {
                     if (foods[i].isCorrect) {
-                        // Correct answer
                         mathScore += foods[i].value;
                         snakeLength++;
                         spawnParticles(foods[i].x + gridSize / 2, foods[i].y + gridSize / 2, '#00ff88', 15);
                         sound.playCoin();
 
-                        // Increase speed
                         if (gameSpeed > 50) {
                             gameSpeed = Math.max(50, gameSpeed - 2);
                         }
                     } else {
-                        // Wrong answer
                         spawnParticles(foods[i].x + gridSize / 2, foods[i].y + gridSize / 2, '#ff4444', 20);
                         sound.playCrash();
                         gameOver('Wrong answer! ' + foods[i].display);
@@ -373,17 +439,15 @@
                 }
             }
 
-            // If no food eaten, remove tail
             if (!ateFood && snake.length > snakeLength) {
                 snake.pop();
             }
 
-            // Trim snake if too long
             while (snake.length > snakeLength) {
                 snake.pop();
             }
 
-            // Check if snake has filled the entire grid (WIN CONDITION!)
+            // WIN CONDITION
             if (snake.length >= gridCols * gridRows) {
                 isWin = true;
                 spawnParticles(canvas.width / 2, canvas.height / 2, '#ffd93d', 40);
@@ -405,24 +469,39 @@
             document.getElementById('mathScore').textContent = mathScore;
             document.getElementById('lengthScore').textContent = snake.length;
 
-            // Update progress bar
             const totalCells = gridCols * gridRows;
             const filled = snake.length;
             const progress = Math.min(100, (filled / totalCells) * 100);
             document.getElementById('progressBar').style.width = progress + '%';
-
-            draw();
-            gameLoopTimeout = setTimeout(gameLoop, gameSpeed);
         }
 
         function isOppositeDirection(dir1, dir2) {
             return (dir1.x === -dir2.x && dir1.y === -dir2.y);
         }
 
+        // ==================== PAUSE / RESUME ====================
+        function togglePause() {
+            if (!gameRunning || isWin) return;
+            isPaused = !isPaused;
+            document.getElementById('pauseOverlay').style.display = isPaused ? 'flex' : 'none';
+            document.getElementById('pauseBtn').textContent = isPaused ? '▶️' : '⏸️';
+            if (isPaused) {
+                sound.playClick();
+            } else {
+                lastFrameTime = performance.now();
+            }
+        }
+
+        function resumeGame() {
+            if (isPaused) {
+                togglePause();
+            }
+        }
+
+        // ==================== GAME OVER ====================
         function gameOver(message) {
             gameRunning = false;
             gameOverMsg = message;
-            clearTimeout(gameLoopTimeout);
             sound.playLose();
 
             if (isWin) {
@@ -463,7 +542,6 @@
 
         // ==================== DRAW FUNCTION ====================
         function draw() {
-            // Background
             ctx.fillStyle = '#0a0a1a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -497,9 +575,7 @@
             for (let i = snake.length - 1; i >= 0; i--) {
                 const seg = snake[i];
                 const progress = i / snake.length;
-                const glow = i === 0 ? 20 : 5;
 
-                // Glow effect for head
                 if (i === 0) {
                     ctx.shadowColor = '#00ff88';
                     ctx.shadowBlur = 15;
@@ -543,7 +619,19 @@
             if (!gameRunning) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     startGame();
+                    e.preventDefault();
                 }
+                return;
+            }
+
+            if (e.key === 'p' || e.key === 'P' || e.key === 'Escape') {
+                togglePause();
+                e.preventDefault();
+                return;
+            }
+
+            if (isPaused) {
+                e.preventDefault();
                 return;
             }
 
@@ -581,19 +669,19 @@
         // ==================== TOUCH CONTROLS ====================
         document.getElementById('btnUp').addEventListener('pointerdown', (e) => {
             e.preventDefault();
-            if (gameRunning && direction.y === 0) nextDirection = { x: 0, y: -gridSize };
+            if (gameRunning && !isPaused && direction.y === 0) nextDirection = { x: 0, y: -gridSize };
         });
         document.getElementById('btnDown').addEventListener('pointerdown', (e) => {
             e.preventDefault();
-            if (gameRunning && direction.y === 0) nextDirection = { x: 0, y: gridSize };
+            if (gameRunning && !isPaused && direction.y === 0) nextDirection = { x: 0, y: gridSize };
         });
         document.getElementById('btnLeft').addEventListener('pointerdown', (e) => {
             e.preventDefault();
-            if (gameRunning && direction.x === 0) nextDirection = { x: -gridSize, y: 0 };
+            if (gameRunning && !isPaused && direction.x === 0) nextDirection = { x: -gridSize, y: 0 };
         });
         document.getElementById('btnRight').addEventListener('pointerdown', (e) => {
             e.preventDefault();
-            if (gameRunning && direction.x === 0) nextDirection = { x: gridSize, y: 0 };
+            if (gameRunning && !isPaused && direction.x === 0) nextDirection = { x: gridSize, y: 0 };
         });
 
         // Swipe on canvas
@@ -615,6 +703,7 @@
                 startGame();
                 return;
             }
+            if (isPaused) return;
 
             const touch = e.changedTouches[0];
             const dx = touch.clientX - touchStartX;
@@ -632,6 +721,11 @@
         // Click on game over to restart
         document.getElementById('gameOverScreen').addEventListener('click', function(e) {
             if (e.target === this) startGame();
+        });
+
+        // Click on pause overlay to resume
+        document.getElementById('pauseOverlay').addEventListener('click', function(e) {
+            if (e.target === this) resumeGame();
         });
 
         // ==================== ROUND RECT POLYFILL ====================
