@@ -26,6 +26,36 @@
         <changefreq>weekly</changefreq>
     </url>
     <url>
+        <loc>https://almagen-arena.com/blog.html</loc>
+        <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/contact.html</loc>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/about.html</loc>
+        <priority>0.7</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/disclaimer.html</loc>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/privacy.html</loc>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/terms.html</loc>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
         <loc>https://almagen-arena.com/games/snake.html</loc>
         <priority>0.8</priority>
     </url>
