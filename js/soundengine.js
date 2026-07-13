@@ -408,6 +408,161 @@ function toggleMusic() {
 
 // ==================== AUTO-START MUSIC ====================
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure manifest exists for installability on pages that don't include it.
+    if (!document.querySelector('link[rel="manifest"]')) {
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        manifestLink.href = location.pathname.includes('/games/') ? '../manifest.json' : 'manifest.json';
+        document.head.appendChild(manifestLink);
+    }
+
+    if (!document.querySelector('meta[name="theme-color"]')) {
+        const themeMeta = document.createElement('meta');
+        themeMeta.name = 'theme-color';
+        themeMeta.content = '#0a0a1a';
+        document.head.appendChild(themeMeta);
+    }
+
+    // Register service worker globally (fallback when app-updater.js isn't loaded).
+    if ('serviceWorker' in navigator) {
+        const swPath = '/sw.js';
+        navigator.serviceWorker.getRegistration(swPath).then((registration) => {
+            if (!registration) {
+                navigator.serviceWorker.register(swPath).catch(() => {});
+            }
+        }).catch(() => {});
+    }
+
+    // ==================== GLOBAL PWA INSTALL CTA ====================
+    let deferredInstallPrompt = null;
+    const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    const styleId = 'almagen-install-style';
+    if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+            .almagen-install-cta {
+                position: fixed;
+                left: 50%;
+                bottom: max(16px, env(safe-area-inset-bottom));
+                transform: translateX(-50%);
+                z-index: 9996;
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                pointer-events: none;
+            }
+            .almagen-install-btn {
+                pointer-events: auto;
+                border: none;
+                border-radius: 999px;
+                padding: 12px 18px;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 0.9rem;
+                color: #042018;
+                background: linear-gradient(135deg, #00ff88, #7dffbf);
+                box-shadow: 0 10px 28px rgba(0, 255, 136, 0.25);
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            .almagen-install-hint {
+                pointer-events: auto;
+                color: rgba(255,255,255,0.9);
+                background: rgba(0,0,0,0.45);
+                border: 1px solid rgba(255,255,255,0.12);
+                backdrop-filter: blur(10px);
+                border-radius: 10px;
+                padding: 7px 10px;
+                font-size: 0.75rem;
+                text-align: center;
+                max-width: 92vw;
+            }
+            @media (max-width: 480px) {
+                .almagen-install-btn {
+                    width: calc(100vw - 24px);
+                    max-width: 360px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    let installWrap = document.getElementById('almagenInstallCta');
+    if (!installWrap) {
+        installWrap = document.createElement('div');
+        installWrap.id = 'almagenInstallCta';
+        installWrap.className = 'almagen-install-cta';
+
+        const installBtn = document.createElement('button');
+        installBtn.className = 'almagen-install-btn';
+        installBtn.id = 'almagenInstallBtn';
+        installBtn.type = 'button';
+        installBtn.textContent = '⬇ Install App';
+
+        const installHint = document.createElement('div');
+        installHint.className = 'almagen-install-hint';
+        installHint.id = 'almagenInstallHint';
+        installHint.textContent = 'On iPhone/iPad: Share > Add to Home Screen';
+
+        installWrap.appendChild(installBtn);
+        installWrap.appendChild(installHint);
+        document.body.appendChild(installWrap);
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                try {
+                    await deferredInstallPrompt.userChoice;
+                } catch (e) {
+                    // Ignore user dismissal.
+                }
+                deferredInstallPrompt = null;
+                updateInstallCta();
+                return;
+            }
+
+            if (isIos) {
+                alert('Install steps: tap Share and choose "Add to Home Screen".');
+                return;
+            }
+
+            alert('Install option will appear after browser enables app install prompt. You can also use browser menu > Install App.');
+        });
+    }
+
+    function updateInstallCta() {
+        const installBtn = document.getElementById('almagenInstallBtn');
+        const installHint = document.getElementById('almagenInstallHint');
+        if (!installWrap || !installBtn || !installHint) return;
+
+        if (isStandalone) {
+            installWrap.style.display = 'none';
+            return;
+        }
+
+        installBtn.style.display = 'inline-flex';
+        installBtn.textContent = deferredInstallPrompt ? '⬇ Install App' : (isIos ? '📲 Add to Home Screen' : '⬇ Install App');
+        installHint.style.display = isIos ? 'block' : 'none';
+        installWrap.style.display = 'flex';
+    }
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        updateInstallCta();
+    });
+
+    window.addEventListener('appinstalled', () => {
+        deferredInstallPrompt = null;
+        updateInstallCta();
+    });
+
+    updateInstallCta();
+
     const isMuted = localStorage.getItem('almagen_muted') === 'true';
     const isMusicMuted = localStorage.getItem('almagen_music_muted') === 'true';
 

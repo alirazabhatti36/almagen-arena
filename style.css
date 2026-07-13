@@ -36,6 +36,20 @@ body {
     padding-top: 0;
 }
 
+img,
+canvas,
+video,
+iframe {
+    max-width: 100%;
+}
+
+input,
+button,
+select,
+textarea {
+    font: inherit;
+}
+
 /* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
     width: 8px;
@@ -1546,5 +1560,16 @@ body.light-theme .game-rating {
     .menu-dots {
         font-size: 1.6rem;
         padding: 0 4px;
+    }
+}
+
+@media (pointer: coarse) {
+    .cursor,
+    .cursor-follower {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
     }
 }
