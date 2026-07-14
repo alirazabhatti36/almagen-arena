@@ -1,0 +1,92 @@
+name: IndexNow Submit
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  SITE_HOST: almagen-arena.com
+  SITE_BASE_URL: https://almagen-arena.com
+  INDEXNOW_KEY: 9f5f4d0a7c5b4ea2b6d4896e2f7d3c1a
+  INDEXNOW_KEY_LOCATION: https://almagen-arena.com/9f5f4d0a7c5b4ea2b6d4896e2f7d3c1a.txt
+
+jobs:
+  submit-indexnow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Build URL list from changed files
+        id: urls
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BEFORE_SHA="${{ github.event.before }}"
+          AFTER_SHA="${{ github.sha }}"
+
+          if [ -z "$BEFORE_SHA" ] || [ "$BEFORE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE_SHA="$(git rev-list --max-count=1 "$AFTER_SHA"^ 2>/dev/null || true)"
+          fi
+
+          if [ -n "$BEFORE_SHA" ]; then
+            CHANGED_FILES=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" || true)
+          else
+            CHANGED_FILES=$(git ls-files)
+          fi
+
+          URLS=()
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            case "$file" in
+              *.html|*.xml)
+                if [ "$file" = "index.html" ]; then
+                  URLS+=("${SITE_BASE_URL}/")
+                else
+                  URLS+=("${SITE_BASE_URL}/${file}")
+                fi
+                ;;
+            esac
+          done <<< "$CHANGED_FILES"
+
+          if [ ${#URLS[@]} -eq 0 ]; then
+            URLS=("${SITE_BASE_URL}/" "${SITE_BASE_URL}/sitemap.xml")
+          fi
+
+          mapfile -t UNIQUE_URLS < <(printf '%s\n' "${URLS[@]}" | sort -u)
+
+          {
+            echo "url_count=${#UNIQUE_URLS[@]}"
+            echo "url_list<<EOF"
+            printf '%s\n' "${UNIQUE_URLS[@]}"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Submit URLs to IndexNow
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mapfile -t URL_ARRAY <<< "${{ steps.urls.outputs.url_list }}"
+
+          JSON_URL_LIST=$(printf '%s\n' "${URL_ARRAY[@]}" | jq -R . | jq -s .)
+
+          jq -n \
+            --arg host "$SITE_HOST" \
+            --arg key "$INDEXNOW_KEY" \
+            --arg keyLocation "$INDEXNOW_KEY_LOCATION" \
+            --argjson urlList "$JSON_URL_LIST" \
+            '{host: $host, key: $key, keyLocation: $keyLocation, urlList: $urlList}' \
+            > indexnow-payload.json
+
+          echo "Submitting ${{ steps.urls.outputs.url_count }} URLs to IndexNow"
+          cat indexnow-payload.json
+
+          curl -sS -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @indexnow-payload.json
