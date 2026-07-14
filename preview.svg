@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">AlMaGen-Arena social preview</title>
+  <desc id="desc">A colorful banner for AlMaGen-Arena highlighting free online educational games.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#120f2f"/>
+      <stop offset="55%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#041826"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c5ce7"/>
+      <stop offset="50%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#ffd93d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="32" fill="url(#bg)"/>
+  <circle cx="975" cy="110" r="140" fill="#6c5ce7" opacity="0.2"/>
+  <circle cx="1030" cy="470" r="190" fill="#00d4ff" opacity="0.15"/>
+  <circle cx="210" cy="535" r="150" fill="#ffd93d" opacity="0.12"/>
+  <rect x="72" y="68" width="1056" height="494" rx="28" fill="#ffffff" opacity="0.04" stroke="#ffffff" stroke-opacity="0.09"/>
+  <text x="110" y="180" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="42" font-weight="700" fill="#ffffff">⚔️ AlMaGen-Arena</text>
+  <text x="110" y="270" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800" fill="#ffffff">15 Free Online Games</text>
+  <text x="110" y="344" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="78" font-weight="800" fill="url(#accent)">Play, Learn, and Grow</text>
+  <text x="110" y="418" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="30" fill="#d9dcff">Educational browser games for math, memory, typing, racing, strategy, and more.</text>
+  <g transform="translate(110 468)">
+    <rect width="212" height="54" rx="27" fill="#6c5ce7"/>
+    <text x="30" y="35" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#ffffff">No Download</text>
+  </g>
+  <g transform="translate(344 468)">
+    <rect width="192" height="54" rx="27" fill="#00d4ff"/>
+    <text x="36" y="35" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#06131d">Play Instantly</text>
+  </g>
+  <g transform="translate(560 468)">
+    <rect width="188" height="54" rx="27" fill="#ffd93d"/>
+    <text x="35" y="35" font-family="Poppins, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#231500">Family Safe</text>
+  </g>
+</svg>

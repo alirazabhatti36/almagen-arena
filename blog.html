@@ -6,16 +6,43 @@
     <meta name="google-adsense-account" content="ca-pub-1373118680696037">
     <meta name="google-site-verification" content="TAhfYnktDKYhQhLts9S-mjcWhvFSyRHMfOq2fyrHg04">
     <title>Blog - AlMaGen-Arena | Game Guides & Educational Tips</title>
-    <meta name="description" content="AlMaGen-Arena Blog - Tips, tricks, gaming guides, and educational content about our free online games. Learn while playing!">
-    <meta name="keywords" content="gaming blog, educational games, game guides, chess tips, ludo strategy, memory games, typing games">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Read AlMaGen-Arena blog posts with game guides, educational tips, strategy ideas, and practical advice for free browser games.">
+    <meta name="keywords" content="gaming blog, educational games blog, browser game guides, chess tips, ludo strategy, typing game tips, memory game tips">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="AlMaGen-Arena">
+    <meta name="theme-color" content="#6c5ce7">
+    <link rel="canonical" href="https://almagen-arena.com/blog.html">
+    <link rel="alternate" hreflang="en" href="https://almagen-arena.com/blog.html">
     
     <!-- Open Graph -->
     <meta property="og:title" content="AlMaGen-Arena Blog - Game Guides & Educational Tips">
-    <meta property="og:description" content="Read our latest articles on gaming strategies, educational benefits, and tips for mastering your favorite games.">
-    <meta property="og:image" content="https://almagen-arena.com/preview.png">
+    <meta property="og:description" content="Read actionable guides on educational browser games, strategy, memory training, and skill-building play.">
+    <meta property="og:image" content="https://almagen-arena.com/preview.svg">
+    <meta property="og:image:alt" content="AlMaGen-Arena social preview banner.">
     <meta property="og:url" content="https://almagen-arena.com/blog.html">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="blog">
+    <meta property="og:site_name" content="AlMaGen-Arena">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AlMaGen-Arena Blog - Game Guides & Educational Tips">
+    <meta name="twitter:description" content="Tips, educational insights, and strategy guides for AlMaGen-Arena games.">
+    <meta name="twitter:image" content="https://almagen-arena.com/preview.svg">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "AlMaGen-Arena Blog",
+            "url": "https://almagen-arena.com/blog.html",
+            "description": "Game guides, educational tips, and strategy content for AlMaGen-Arena players.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "AlMaGen-Arena",
+                "url": "https://almagen-arena.com/"
+            }
+        }
+    </script>
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
@@ -34,6 +61,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    <link rel="manifest" href="manifest.json">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,7 +69,7 @@
         
         .blog-container { max-width: 1100px; margin: 100px auto 50px; padding: 0 20px; }
         .blog-header { text-align: center; margin-bottom: 40px; }
-        .blog-header h1 { font-size: 2.8rem; background: linear-gradient(135deg, #6c5ce7, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .blog-header h1 { font-size: 2.8rem; background: linear-gradient(135deg, #6c5ce7, #00d4ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .blog-header p { color: rgba(255,255,255,0.6); font-size: 1.1rem; }
         
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -53,7 +81,7 @@
         .blog-card .content { padding: 20px; }
         .blog-card .content .category { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; background: rgba(108,92,231,0.2); color: #a29bfe; margin-bottom: 10px; }
         .blog-card .content h3 { font-size: 1.1rem; margin-bottom: 8px; color: #fff; line-height: 1.4; }
-        .blog-card .content p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .blog-card .content p { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 12px; display: -webkit-box; line-clamp: 2; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .blog-card .content .meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
         .blog-card .content .meta .read-more { color: #6c5ce7; font-weight: 500; }
         

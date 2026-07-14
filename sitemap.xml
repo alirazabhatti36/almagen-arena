@@ -2,117 +2,158 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://almagen-arena.com/</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>1.0</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/daily.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.9</priority>
         <changefreq>daily</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/leaderboard.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.9</priority>
         <changefreq>daily</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/profile.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.7</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/achievements.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.7</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/blog.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/contact.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.7</priority>
         <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/about.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.7</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/disclaimer.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.6</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/privacy.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.6</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/terms.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.6</priority>
         <changefreq>monthly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/snake.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/runner.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/shooter.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/ball.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/puzzle.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/wordblitz.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/colorswitch.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/memory.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/mathdefense.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/blockbreaker.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/streetracer.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/motostunt.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/ludo.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/chess.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
     <url>
         <loc>https://almagen-arena.com/games/cardmatch.html</loc>
+        <lastmod>2026-07-14</lastmod>
         <priority>0.8</priority>
+        <changefreq>weekly</changefreq>
     </url>
 </urlset>

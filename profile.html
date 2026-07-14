@@ -6,8 +6,42 @@
     <meta name="google-adsense-account" content="ca-pub-1373118680696037">
     <meta name="google-site-verification" content="TAhfYnktDKYhQhLts9S-mjcWhvFSyRHMfOq2fyrHg04">
     <title>Profile Dashboard - AlMaGen-Arena</title>
-    <meta name="description" content="Your gaming profile at AlMaGen-Arena - Track your progress, scores, and achievements.">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Use the AlMaGen-Arena profile dashboard to track scores, recent games, progress, and achievement milestones.">
+    <meta name="keywords" content="gaming profile, player dashboard, score tracker, AlMaGen-Arena stats, browser game progress">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="AlMaGen-Arena">
+    <meta name="theme-color" content="#6c5ce7">
+    <link rel="canonical" href="https://almagen-arena.com/profile.html">
+    <link rel="alternate" hreflang="en" href="https://almagen-arena.com/profile.html">
+
+    <meta property="og:title" content="Profile Dashboard | AlMaGen-Arena">
+    <meta property="og:description" content="Track recent games, scores, and progress milestones from your AlMaGen-Arena dashboard.">
+    <meta property="og:image" content="https://almagen-arena.com/preview.svg">
+    <meta property="og:image:alt" content="AlMaGen-Arena social preview banner.">
+    <meta property="og:url" content="https://almagen-arena.com/profile.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AlMaGen-Arena">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Profile Dashboard | AlMaGen-Arena">
+    <meta name="twitter:description" content="View recent activity, top scores, and progress on the AlMaGen-Arena profile dashboard.">
+    <meta name="twitter:image" content="https://almagen-arena.com/preview.svg">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Profile Dashboard",
+            "url": "https://almagen-arena.com/profile.html",
+            "description": "A player dashboard for scores, activity, and achievements on AlMaGen-Arena.",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "AlMaGen-Arena",
+                "url": "https://almagen-arena.com/"
+            }
+        }
+    </script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -24,6 +58,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    <link rel="manifest" href="manifest.json">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,7 +66,7 @@
         
         .profile-container { max-width: 1000px; margin: 100px auto 50px; padding: 0 20px; }
         .profile-header { text-align: center; margin-bottom: 40px; }
-        .profile-header h1 { font-size: 2.8rem; background: linear-gradient(135deg, #6c5ce7, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-header h1 { font-size: 2.8rem; background: linear-gradient(135deg, #6c5ce7, #00d4ff); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .profile-header p { color: rgba(255,255,255,0.6); }
         
         /* Dashboard Stats */
@@ -39,7 +74,7 @@
         .stat-box { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
         .stat-box:hover { transform: translateY(-3px); border-color: rgba(108,92,231,0.3); }
         .stat-box .stat-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
-        .stat-box .stat-number { font-size: 2.2rem; font-weight: 700; background: linear-gradient(135deg, #ffd93d, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-box .stat-number { font-size: 2.2rem; font-weight: 700; background: linear-gradient(135deg, #ffd93d, #ff6b6b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .stat-box .stat-label { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 5px; }
         
         /* Recent Games */
