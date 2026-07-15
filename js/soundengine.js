@@ -423,6 +423,61 @@ document.addEventListener('DOMContentLoaded', () => {
         document.head.appendChild(themeMeta);
     }
 
+    // Add crawlable H1 + descriptive intro for game pages.
+    if (window.location.pathname.includes('/games/') && !document.querySelector('.seo-intro')) {
+        const titleText = document.title
+            .replace(/\s*\|\s*AlMaGen-Arena\s*$/i, '')
+            .replace(/\s*-\s*Play Free Online\s*$/i, '')
+            .trim();
+        const descMeta = document.querySelector('meta[name="description"]');
+        const description = descMeta
+            ? descMeta.getAttribute('content')
+            : 'Play free online on AlMaGen-Arena with desktop keyboard controls or mobile touch navigation.';
+
+        if (!document.getElementById('almagen-seo-intro-style')) {
+            const seoStyle = document.createElement('style');
+            seoStyle.id = 'almagen-seo-intro-style';
+            seoStyle.textContent = `
+                .seo-intro {
+                    max-width: 820px;
+                    margin: 0 16px 10px;
+                    text-align: center;
+                }
+                .seo-intro h1 {
+                    margin: 0 0 6px;
+                    font-size: 1.1rem;
+                    line-height: 1.3;
+                    color: #ffffff;
+                    font-weight: 700;
+                }
+                .seo-intro p {
+                    margin: 0;
+                    font-size: 0.78rem;
+                    line-height: 1.55;
+                    color: rgba(255,255,255,0.72);
+                }
+            `;
+            document.head.appendChild(seoStyle);
+        }
+
+        const seoSection = document.createElement('section');
+        seoSection.className = 'seo-intro';
+
+        const h1 = document.createElement('h1');
+        h1.textContent = titleText || 'Play Free Online Game';
+
+        const intro = document.createElement('p');
+        intro.textContent = `${description} Desktop players can use arrow keys or keyboard controls, while mobile, tablet, and iPhone users can use on-screen buttons and touch drag or swipe movement.`;
+
+        seoSection.appendChild(h1);
+        seoSection.appendChild(intro);
+
+        const gameContainer = document.getElementById('gameContainer');
+        if (gameContainer && gameContainer.parentNode) {
+            gameContainer.parentNode.insertBefore(seoSection, gameContainer);
+        }
+    }
+
     // Register service worker globally (fallback when app-updater.js isn't loaded).
     if ('serviceWorker' in navigator) {
         const swPath = '/sw.js';

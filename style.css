@@ -1,4 +1,4 @@
-/* ==================== ROOT VARIABLES ==================== */
+﻿/* ==================== ROOT VARIABLES ==================== */
 :root {
     --primary: #6c5ce7;
     --primary-light: #a29bfe;
@@ -918,6 +918,8 @@ textarea {
     font-weight: 600;
     color: var(--primary-light);
     transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .game-card:hover .play-now {
