@@ -149,6 +149,17 @@
         .status-locked { background: rgba(255,255,255,0.1); color: #666; }
         .status-unlocked { background: rgba(0,255,136,0.2); color: #00ff88; }
 
+        .page-intro {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+        .page-intro h1 { margin-bottom: 8px; }
+        .page-intro p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
         @media (max-width: 500px) {
             .achievement-card { flex-wrap: wrap; }
         }
@@ -157,18 +168,23 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-btn">← Back to Arena</a>
-        <h1>🏅 Achievements</h1>
-        <p class="subtitle">Unlock badges by playing games!</p>
+        <main>
+            <section class="page-intro">
+                <h1>🏅 Achievements</h1>
+                <p class="subtitle">Unlock badges by playing games!</p>
+                <p>Track your milestones, streaks, and score goals across the full game library.</p>
+            </section>
 
-        <div class="progress-summary">
-            <span class="trophy-big">🏆</span>
-            <div class="progress-text">
-                <strong id="unlockedCount">0 / 12 Unlocked</strong>
-                <p style="color:#aaa;font-size:0.8rem;">Keep playing to unlock more!</p>
+            <div class="progress-summary">
+                <span class="trophy-big">🏆</span>
+                <div class="progress-text">
+                    <strong id="unlockedCount">0 / 12 Unlocked</strong>
+                    <p style="color:#aaa;font-size:0.8rem;">Keep playing to unlock more!</p>
+                </div>
             </div>
-        </div>
 
-        <div class="achievement-list" id="achievementList"></div>
+            <div class="achievement-list" id="achievementList"></div>
+        </main>
     </div>
 
     <script>

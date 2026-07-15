@@ -43,7 +43,13 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Poppins', sans-serif; overflow: hidden; flex-direction: column; }
+        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Poppins', sans-serif; overflow-y: auto; overflow-x: hidden; flex-direction: column; }
+        .game-page { width: 100%; max-width: 760px; padding: 18px 18px 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .game-intro { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(18px); }
+        .game-intro h1 { font-size: 1.9rem; margin-bottom: 8px; color: #fff; }
+        .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.96rem; margin-bottom: 10px; }
+        .game-features { display: flex; flex-wrap: wrap; gap: 8px; }
+        .game-features span { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.86); font-size: 0.78rem; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 650px; padding: 10px 20px; margin-bottom: 10px; gap: 10px; flex-wrap: wrap; }
         .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
         .back-btn:hover { background: rgba(255,255,255,0.2); }
@@ -69,13 +75,24 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">
+    <main class="game-page">
+        <header class="game-intro">
+            <h1>Life Runner</h1>
+            <p>Collect good deeds, dodge bad habits, and build a higher score in a fast endless runner designed to reward quick decisions and positive choices.</p>
+            <div class="game-features">
+                <span>Educational runner game</span>
+                <span>Good vs bad choices</span>
+                <span>Works on desktop and mobile</span>
+            </div>
+        </header>
+
+        <div class="top-bar">
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
             <div class="stat-box"><div class="stat-label">🌟 Good Deeds</div><div class="stat-value" id="scoreDisplay">0</div></div>
         </div>
-    </div>
+        </div>
     <div id="gameContainer">
         <canvas id="gameCanvas"></canvas>
         <div id="gameOverScreen">
@@ -92,6 +109,7 @@
     <p class="instructions desktop">Desktop: use the Up/Down Arrow keys or W/S. Mobile/Tablet/iPhone: tap the buttons or swipe up/down to switch lanes.</p>
     <p class="instructions mobile">👆 Tap buttons to switch lanes, or swipe up/down on the screen.</p>
     <div class="guide-pill">Collect ✅ Good deeds. Avoid ❌ Bad ones.</div>
+    </main>
 
     <script src="../js/soundengine.js"></script>
     <script>

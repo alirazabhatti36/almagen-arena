@@ -163,6 +163,16 @@
         .challenge-reward { font-size: 0.75rem; color: #ffd93d; }
         .progress-count { font-size: 0.7rem; color: #aaa; }
 
+        .page-intro {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+        }
+        .page-intro h1 { margin-bottom: 8px; }
+        .page-intro p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
         .completed-badge {
             background: #00ff88;
             color: #000;
@@ -180,18 +190,23 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-btn">← Back to Arena</a>
-        <h1>📅 Daily Challenges</h1>
-        <p class="date-display" id="dateDisplay"></p>
+        <main>
+            <section class="page-intro">
+                <h1>📅 Daily Challenges</h1>
+                <p>Return each day for rotating missions across math, typing, racing, and arcade games.</p>
+                <p class="date-display" id="dateDisplay"></p>
+            </section>
 
-        <div class="streak-banner">
-            <span class="streak-fire">🔥</span>
-            <div>
-                <strong id="streakCount">0 Day Streak</strong>
-                <p style="font-size:0.75rem;color:#aaa;">Come back tomorrow to keep your streak!</p>
+            <div class="streak-banner">
+                <span class="streak-fire">🔥</span>
+                <div>
+                    <strong id="streakCount">0 Day Streak</strong>
+                    <p style="font-size:0.75rem;color:#aaa;">Come back tomorrow to keep your streak!</p>
+                </div>
             </div>
-        </div>
 
-        <div class="challenge-grid" id="challengeGrid"></div>
+            <div class="challenge-grid" id="challengeGrid"></div>
+        </main>
     </div>
 
     <script>

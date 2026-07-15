@@ -96,6 +96,17 @@
         
         .back-btn { display: inline-block; margin-top: 20px; padding: 12px 30px; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .back-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(108,92,231,0.3); }
+
+        .page-intro {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+        .page-intro h1 { margin-bottom: 8px; }
+        .page-intro p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
         
         @media (max-width: 600px) { 
             .profile-header h1 { font-size: 2rem; }
@@ -130,68 +141,71 @@
     </nav>
 
     <div class="profile-container">
-        <!-- Header -->
-        <div class="profile-header">
-            <h1>👤 My Dashboard</h1>
-            <p>Track your gaming progress, scores, and achievements</p>
-        </div>
+        <main>
+            <!-- Header -->
+            <section class="page-intro">
+                <h1>👤 My Dashboard</h1>
+                <p>Track your gaming progress, scores, and achievements</p>
+                <p>Use this page to review recent games, streaks, and your unlockable milestones.</p>
+            </section>
 
-        <!-- Stats -->
-        <div class="dashboard-stats">
-            <div class="stat-box">
-                <span class="stat-icon">🎮</span>
-                <span class="stat-number" id="totalGames">0</span>
-                <span class="stat-label">Games Played</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-icon">⭐</span>
-                <span class="stat-number" id="totalScore">0</span>
-                <span class="stat-label">Total Score</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-icon">🔥</span>
-                <span class="stat-number" id="streakDays">0</span>
-                <span class="stat-label">Day Streak</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-icon">🏅</span>
-                <span class="stat-number" id="achievementsCount">0</span>
-                <span class="stat-label">Achievements</span>
-            </div>
-        </div>
-
-        <!-- Recent Games -->
-        <div class="recent-games">
-            <h3>📜 Recent Games</h3>
-            <ul id="recentGamesList">
-                <li style="color:rgba(255,255,255,0.4);text-align:center;padding:20px;">No games played yet. Start playing!</li>
-            </ul>
-        </div>
-
-        <!-- Achievements -->
-        <div class="recent-games">
-            <h3>🏅 Your Achievements</h3>
-            <div class="achievements-grid" id="achievementsGrid">
-                <div class="achievement-item locked">
-                    <div class="ach-icon">🎯</div>
-                    <div class="ach-name">First Game</div>
+            <!-- Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-box">
+                    <span class="stat-icon">🎮</span>
+                    <span class="stat-number" id="totalGames">0</span>
+                    <span class="stat-label">Games Played</span>
                 </div>
-                <div class="achievement-item locked">
-                    <div class="ach-icon">⭐</div>
-                    <div class="ach-name">Score 100</div>
+                <div class="stat-box">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-number" id="totalScore">0</span>
+                    <span class="stat-label">Total Score</span>
                 </div>
-                <div class="achievement-item locked">
-                    <div class="ach-icon">🔥</div>
-                    <div class="ach-name">7-Day Streak</div>
+                <div class="stat-box">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-number" id="streakDays">0</span>
+                    <span class="stat-label">Day Streak</span>
                 </div>
-                <div class="achievement-item locked">
-                    <div class="ach-icon">🏆</div>
-                    <div class="ach-name">Top Player</div>
+                <div class="stat-box">
+                    <span class="stat-icon">🏅</span>
+                    <span class="stat-number" id="achievementsCount">0</span>
+                    <span class="stat-label">Achievements</span>
                 </div>
             </div>
-        </div>
 
-        <a href="index.html" class="back-btn">⬅️ Back to Home</a>
+            <!-- Recent Games -->
+            <div class="recent-games">
+                <h3>📜 Recent Games</h3>
+                <ul id="recentGamesList">
+                    <li style="color:rgba(255,255,255,0.4);text-align:center;padding:20px;">No games played yet. Start playing!</li>
+                </ul>
+            </div>
+
+            <!-- Achievements -->
+            <div class="recent-games">
+                <h3>🏅 Your Achievements</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <div class="achievement-item locked">
+                        <div class="ach-icon">🎯</div>
+                        <div class="ach-name">First Game</div>
+                    </div>
+                    <div class="achievement-item locked">
+                        <div class="ach-icon">⭐</div>
+                        <div class="ach-name">Score 100</div>
+                    </div>
+                    <div class="achievement-item locked">
+                        <div class="ach-icon">🔥</div>
+                        <div class="ach-name">7-Day Streak</div>
+                    </div>
+                    <div class="achievement-item locked">
+                        <div class="ach-icon">🏆</div>
+                        <div class="ach-name">Top Player</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-btn">⬅️ Back to Home</a>
+        </main>
     </div>
 
     <!-- Footer -->

@@ -237,6 +237,17 @@
 
         .total-scores { color: #666; font-size: 0.8rem; }
 
+        .page-intro {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+        .page-intro h1 { margin-bottom: 8px; }
+        .page-intro p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
         @media (max-width: 500px) {
             .top-card { width: 100px; padding: 15px; }
             .top-card.first { width: 120px; }
@@ -248,49 +259,54 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-btn">← Back to Arena</a>
-        <h1>🏆 Global Leaderboard</h1>
-        <p class="subtitle">Top players across all games</p>
+        <main>
+            <section class="page-intro">
+                <h1>🏆 Global Leaderboard</h1>
+                <p class="subtitle">Top players across all games</p>
+                <p>Compare scores and track the best runs across the full AlMaGen-Arena library.</p>
+            </section>
 
-        <div id="topThree" class="top-three"></div>
+            <div id="topThree" class="top-three"></div>
 
-        <div class="game-selector" id="gameSelector">
-            <button class="game-btn active" data-game="all">🌟 All Games</button>
-            <button class="game-btn" data-game="snake">🐍 Snake</button>
-            <button class="game-btn" data-game="runner">🏃 Runner</button>
-            <button class="game-btn" data-game="shooter">🔫 Blaster</button>
-            <button class="game-btn" data-game="ball">⚽ Gravity</button>
-            <button class="game-btn" data-game="puzzle">🧩 Mirror</button>
-            <button class="game-btn" data-game="wordblitz">⚡ Word</button>
-            <button class="game-btn" data-game="colorswitch">🎨 Color</button>
-            <button class="game-btn" data-game="memory">🧠 Memory</button>
-            <button class="game-btn" data-game="mathdefense">🏰 Defense</button>
-            <button class="game-btn" data-game="blockbreaker">🧱 Breaker</button>
-            <button class="game-btn" data-game="streetracer">🏎️ Racer</button>
-            <button class="game-btn" data-game="motostunt">🏍️ Moto</button>
-            <button class="game-btn" data-game="ludo">🎲 Ludo</button>
-            <button class="game-btn" data-game="chess">♟️ Chess</button>
-            <button class="game-btn" data-game="cardmatch">🃏 Cards</button>
-        </div>
+            <div class="game-selector" id="gameSelector">
+                <button class="game-btn active" data-game="all">🌟 All Games</button>
+                <button class="game-btn" data-game="snake">🐍 Snake</button>
+                <button class="game-btn" data-game="runner">🏃 Runner</button>
+                <button class="game-btn" data-game="shooter">🔫 Blaster</button>
+                <button class="game-btn" data-game="ball">⚽ Gravity</button>
+                <button class="game-btn" data-game="puzzle">🧩 Mirror</button>
+                <button class="game-btn" data-game="wordblitz">⚡ Word</button>
+                <button class="game-btn" data-game="colorswitch">🎨 Color</button>
+                <button class="game-btn" data-game="memory">🧠 Memory</button>
+                <button class="game-btn" data-game="mathdefense">🏰 Defense</button>
+                <button class="game-btn" data-game="blockbreaker">🧱 Breaker</button>
+                <button class="game-btn" data-game="streetracer">🏎️ Racer</button>
+                <button class="game-btn" data-game="motostunt">🏍️ Moto</button>
+                <button class="game-btn" data-game="ludo">🎲 Ludo</button>
+                <button class="game-btn" data-game="chess">♟️ Chess</button>
+                <button class="game-btn" data-game="cardmatch">🃏 Cards</button>
+            </div>
 
-        <div id="leaderboardContent">
-            <table class="leaderboard-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Player</th>
-                        <th>Game</th>
-                        <th>Score</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboardBody"></tbody>
-            </table>
-        </div>
+            <div id="leaderboardContent">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Game</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody"></tbody>
+                </table>
+            </div>
 
-        <div class="refresh-bar">
-            <span class="total-scores" id="totalScores"></span>
-            <button class="refresh-btn" onclick="loadLeaderboard()">🔄 Refresh Scores</button>
-        </div>
+            <div class="refresh-bar">
+                <span class="total-scores" id="totalScores"></span>
+                <button class="refresh-btn" onclick="loadLeaderboard()">🔄 Refresh Scores</button>
+            </div>
+        </main>
     </div>
 
     <script>
