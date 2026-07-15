@@ -119,6 +119,7 @@ textarea {
 
 .loader-title .highlight {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -204,21 +205,21 @@ textarea {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 76px;
-    gap: 16px;
+    height: 84px;
+    gap: 18px;
 }
 
 /* Logo */
 .header-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-primary);
     flex-shrink: 0;
@@ -226,11 +227,12 @@ textarea {
 }
 
 .header-logo .logo-icon {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 }
 
 .header-logo .logo-highlight {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -248,17 +250,17 @@ textarea {
     flex-wrap: wrap;
     justify-content: flex-end;
     list-style: none;
-    gap: 4px;
+    gap: 8px;
     align-items: center;
 }
 
 .nav-list li a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.84rem;
+    font-size: 0.96rem;
     font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 10px 14px;
+    border-radius: 14px;
     transition: var(--transition);
     white-space: nowrap;
 }
@@ -266,25 +268,26 @@ textarea {
 .nav-list li a:hover,
 .nav-list li a.active {
     color: var(--text-primary);
-    background: rgba(108, 92, 231, 0.15);
+    background: rgba(108, 92, 231, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(108, 92, 231, 0.08);
 }
 
 .nav-list li a.active::after {
     content: '';
     display: block;
     width: 20px;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: 10px;
+    border-radius: 999px;
     margin: 0 auto;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 /* Desktop Actions */
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
     flex-shrink: 0;
 }
 
@@ -292,10 +295,10 @@ textarea {
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 8px;
+    padding: 8px 10px;
+    border-radius: 999px;
     transition: var(--transition);
 }
 
@@ -448,6 +451,7 @@ textarea {
 
 .gradient-text {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -536,6 +540,7 @@ textarea {
     font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--accent), #ff6b6b);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1063,6 +1068,7 @@ textarea {
     font-size: 2.5rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--accent), #ff6b6b);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1200,36 +1206,101 @@ textarea {
 
 /* ==================== FOOTER ==================== */
 .footer {
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(180deg, rgba(8, 8, 24, 0.72) 0%, rgba(6, 6, 18, 0.94) 100%);
     border-top: 1px solid var(--border-color);
-    padding: 50px 20px 20px;
-    margin-top: 60px;
+    padding: 72px 20px 28px;
+    margin-top: 72px;
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.25fr 0.9fr 0.9fr 0.9fr;
+    gap: 36px;
+    align-items: start;
 }
 
 .footer-brand .footer-logo {
-    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.6rem;
     font-weight: 700;
 }
 
 .footer-brand p {
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-top: 8px;
-    max-width: 300px;
+    font-size: 0.98rem;
+    margin-top: 12px;
+    max-width: 360px;
+}
+
+.footer-spotlight {
+    margin-top: 26px;
+    border: 1px solid rgba(132, 122, 255, 0.28);
+    background: rgba(110, 96, 235, 0.08);
+    border-radius: 18px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.footer-spotlight-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: rgba(138, 126, 255, 0.16);
+    border: 1px solid rgba(138, 126, 255, 0.35);
+    font-size: 1.5rem;
+}
+
+.footer-spotlight-title {
+    color: var(--text-primary) !important;
+    font-size: 1rem !important;
+    margin: 0 !important;
+}
+
+.footer-spotlight-subtitle {
+    color: var(--text-secondary) !important;
+    font-size: 0.82rem !important;
+    margin: 4px 0 0 !important;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+    margin-top: 26px;
+}
+
+.footer-socials a {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: var(--primary-light);
+    border: 1px solid rgba(132, 122, 255, 0.28);
+    background: rgba(110, 96, 235, 0.08);
+    transition: var(--transition);
+}
+
+.footer-socials a:hover {
+    transform: translateY(-2px);
+    color: var(--text-primary);
+    border-color: rgba(132, 122, 255, 0.5);
 }
 
 .footer-links h4 {
     color: var(--text-primary);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    font-size: 1.05rem;
+    margin-bottom: 18px;
 }
 
 .footer-links ul {
@@ -1243,7 +1314,7 @@ textarea {
 .footer-links ul li a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     transition: var(--transition);
 }
 
@@ -1253,17 +1324,17 @@ textarea {
 
 .footer-bottom {
     max-width: 1200px;
-    margin: 30px auto 0;
-    padding-top: 20px;
+    margin: 34px auto 0;
+    padding-top: 24px;
     border-top: 1px solid var(--border-color);
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
 }
 
 .footer-quote {
     color: var(--primary-light);
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 /* ==================== LIGHT THEME ==================== */
