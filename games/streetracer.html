@@ -98,7 +98,6 @@
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 450); canvas.height = Math.min(window.innerHeight-260, 650); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
-        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
         function moveCarBy(delta) {
             if (!gameRunning) return;
             car.x = Math.max(22, Math.min(canvas.width - car.width - 22, car.x + delta));

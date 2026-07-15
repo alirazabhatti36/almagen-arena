@@ -89,7 +89,6 @@
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
-            <button class="sound-btn" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
             <button class="sound-btn" id="restartBtn" onclick="startGame()" title="Restart Game">🔄</button>
             <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
             <div class="stat-box"><div class="stat-label">💀 Missed</div><div class="stat-value" id="missedDisplay" style="color:#ff6b6b;">0</div></div>
@@ -121,7 +120,6 @@
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 600); canvas.height = Math.min(window.innerHeight-280, 450); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
-        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
 
         const wordLists = {
             easy: ['CAT','DOG','SUN','HAT','BIG','RED','FUN','RUN','HOP','TOP','PEN','BOX','CUP','BED','MAP','JAM','ZIP','FOX','OWL','BAT','CAR','BUS','TOY','KEY','PIE','SKY','SEA','HIT','SIT','WIN'],

@@ -369,10 +369,6 @@ class SoundEngine {
         if (soundBtn) {
             soundBtn.textContent = this.isMuted ? '🔇' : '🔊';
         }
-        const musicBtn = document.getElementById('musicToggle') || document.getElementById('musicBtn') || document.getElementById('musicBtnMobile');
-        if (musicBtn) {
-            musicBtn.textContent = this.isMusicMuted ? '🎵❌' : '🎵';
-        }
     }
 
     // ==================== VOLUME CONTROL ====================
@@ -392,7 +388,6 @@ function playSound(soundName) {
 
 function toggleMute() {
     const muted = musicEngine.toggleMute();
-    localStorage.setItem('almagen_muted', muted ? 'true' : 'false');
     if (document.getElementById('soundToggle')) {
         document.getElementById('soundToggle').textContent = muted ? '🔇' : '🔊';
     }
@@ -400,10 +395,6 @@ function toggleMute() {
 
 function toggleMusic() {
     const muted = musicEngine.toggleMusic();
-    localStorage.setItem('almagen_music_muted', muted ? 'true' : 'false');
-    if (document.getElementById('musicToggle')) {
-        document.getElementById('musicToggle').textContent = muted ? '🎵❌' : '🎵';
-    }
 }
 
 // ==================== AUTO-START MUSIC ====================
@@ -618,13 +609,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateInstallCta();
 
-    const isMuted = localStorage.getItem('almagen_muted') === 'true';
-    const isMusicMuted = localStorage.getItem('almagen_music_muted') === 'true';
+    musicEngine.isMuted = false;
+    musicEngine.isMusicMuted = false;
 
-    musicEngine.isMuted = isMuted;
-    musicEngine.isMusicMuted = isMusicMuted;
-
-    if (!isMuted && !isMusicMuted) {
+    if (!musicEngine.isMuted && !musicEngine.isMusicMuted) {
         const startMusic = () => {
             musicEngine.music.start();
             document.removeEventListener('click', startMusic);
@@ -643,20 +631,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const muteBtn = document.createElement('button');
         muteBtn.id = 'muteBtn';
         muteBtn.className = 'sound-btn';
-        muteBtn.textContent = isMuted ? '🔇' : '🔊';
+        muteBtn.textContent = '🔊';
         muteBtn.title = 'Toggle Sound Effects';
         muteBtn.style.cssText = 'background:none;border:none;font-size:1.2rem;cursor:pointer;padding:0 8px;';
         muteBtn.onclick = toggleMute;
         navActions.appendChild(muteBtn);
 
-        const musicBtn = document.createElement('button');
-        musicBtn.id = 'musicBtn';
-        musicBtn.className = 'sound-btn';
-        musicBtn.textContent = isMusicMuted ? '🎵❌' : '🎵';
-        musicBtn.title = 'Toggle Background Music';
-        musicBtn.style.cssText = 'background:none;border:none;font-size:1.2rem;cursor:pointer;padding:0 8px;';
-        musicBtn.onclick = toggleMusic;
-        navActions.appendChild(musicBtn);
     }
 });
 

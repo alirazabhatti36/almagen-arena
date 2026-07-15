@@ -67,7 +67,6 @@
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
             <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
-            <button class="sound-btn" id="musicToggle" onclick="toggleMusic()" title="Toggle Music">🎵</button>
             <button class="sound-btn" id="restartBtn" onclick="startGame()" title="Restart Game">🔄</button>
             <div class="stat-box"><div class="stat-label">🎯 Level</div><div class="stat-value" id="levelDisplay" style="color:#a8e6cf;">1</div></div>
             <div class="stat-box"><div class="stat-label">👆 Moves</div><div class="stat-value" id="movesDisplay" style="color:#ffd93d;">0</div></div>
@@ -94,7 +93,6 @@
         function setCanvasSize() { const s = Math.min(window.innerWidth-30, window.innerHeight-240, 480); canvas.width = s; canvas.height = s; }
         setCanvasSize(); window.addEventListener('resize', () => { setCanvasSize(); if(gameRunning) setupGrid(); });
         function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
-        function toggleMusic() { document.getElementById('musicToggle').textContent = sound.toggleMusic() ? '🎵❌' : '🎵'; }
 
         let gridSize = 4, cellSize = 0, leftGrid = [], rightGrid = [], targetPattern = [];
         let gameRunning = true, level = 1, moves = 0, timer = 0, timerInterval = null, particles = [];
