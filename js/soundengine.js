@@ -399,6 +399,26 @@ function toggleMusic() {
 
 // ==================== AUTO-START MUSIC ====================
 document.addEventListener('DOMContentLoaded', () => {
+    // Load shared static UI enhancements without editing every HTML file.
+    const isGamePage = window.location.pathname.includes('/games/');
+    const isHomePage = /\/$/.test(window.location.pathname) || /\/index\.html$/.test(window.location.pathname);
+    const scriptBase = isGamePage ? '../js/' : 'js/';
+
+    function loadScriptIfMissing(src) {
+        if (document.querySelector(`script[src="${src}"]`)) return;
+        const script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        document.body.appendChild(script);
+    }
+
+    if (!isHomePage) {
+        loadScriptIfMissing(`${scriptBase}global-layout.js`);
+    }
+    if (isGamePage) {
+        loadScriptIfMissing(`${scriptBase}game-meta.js`);
+    }
+
     // Ensure manifest exists for installability on pages that don't include it.
     if (!document.querySelector('link[rel="manifest"]')) {
         const manifestLink = document.createElement('link');

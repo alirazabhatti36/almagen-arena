@@ -42,6 +42,27 @@
             }
         }
     </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://almagen-arena.com/"},
+                        {"@type": "ListItem", "position": 2, "name": "Leaderboard", "item": "https://almagen-arena.com/leaderboard.html"}
+                    ]
+                },
+                {
+                    "@type": "ItemList",
+                    "name": "Top Player Rankings",
+                    "url": "https://almagen-arena.com/leaderboard.html",
+                    "numberOfItems": 50,
+                    "itemListOrder": "https://schema.org/ItemListOrderDescending"
+                }
+            ]
+        }
+    </script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <!-- Google Analytics -->

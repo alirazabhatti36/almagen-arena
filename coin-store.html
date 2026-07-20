@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Store | AlMaGen-Arena</title>
+    <meta name="description" content="Static coin store UI for coin packs, avatars, themes, frames, and badges.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://almagen-arena.com/coin-store.html">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #0a0a1a; color: #fff; font-family: 'Poppins', sans-serif; }
+        .wrap { max-width: 1080px; margin: 96px auto 40px; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 10px; margin-top: 10px; }
+        .item { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.04); padding: 12px; }
+        .item button { margin-top: 8px; width: 100%; border: 0; border-radius: 10px; background: linear-gradient(135deg,#6c5ce7,#00d4ff); color: #fff; padding: 8px; }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <h1>Coin Store</h1>
+        <p>Static marketplace UI for profile customization.</p>
+        <section class="grid">
+            <article class="item"><h3>Coin Pack 500</h3><p>Price: $2.99</p><button type="button">Buy</button></article>
+            <article class="item"><h3>Coin Pack 1200</h3><p>Price: $5.99</p><button type="button">Buy</button></article>
+            <article class="item"><h3>Avatar: Neon Fox</h3><p>250 coins</p><button type="button">Unlock</button></article>
+            <article class="item"><h3>Theme: Midnight Grid</h3><p>400 coins</p><button type="button">Unlock</button></article>
+            <article class="item"><h3>Frame: Crystal</h3><p>180 coins</p><button type="button">Unlock</button></article>
+            <article class="item"><h3>Badge: Win Streak</h3><p>220 coins</p><button type="button">Unlock</button></article>
+        </section>
+    </main>
+    <script src="js/global-layout.js" defer></script>
+</body>
+</html>

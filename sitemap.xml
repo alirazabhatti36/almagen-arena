@@ -67,6 +67,66 @@
         <changefreq>monthly</changefreq>
     </url>
     <url>
+        <loc>https://almagen-arena.com/dmca.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/faq.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/search.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/categories.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/notifications.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/coin-store.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/coming-soon.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/cookies.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/advertise.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/developers.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
         <loc>https://almagen-arena.com/games/snake.html</loc>
             <lastmod>2026-07-16</lastmod>
         <priority>0.8</priority>

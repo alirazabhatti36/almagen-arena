@@ -146,6 +146,46 @@
     </header>
     <div class="nav-overlay" id="navOverlay"></div>
 
+    <nav class="mega-nav" aria-label="Mega navigation">
+        <a href="#games">Games</a>
+        <a href="#newGamesGrid">New Games</a>
+        <a href="#trendingGamesGrid">Trending</a>
+        <a href="#collections">Multiplayer</a>
+        <a href="categories.html">Categories</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="blog.html">News</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <section class="top-utility-bar" aria-label="Quick navigation tools">
+        <div class="utility-wrap">
+            <div class="utility-search">
+                <label for="headerQuickSearch" class="utility-label">Search</label>
+                <input type="search" id="headerQuickSearch" placeholder="Search games, genres, or tags..." aria-label="Search games">
+            </div>
+            <div class="utility-categories">
+                <label for="quickCategory" class="utility-label">Category</label>
+                <select id="quickCategory" aria-label="Quick category filter">
+                    <option value="all">All Categories</option>
+                    <option value="math">Math</option>
+                    <option value="action">Action</option>
+                    <option value="puzzle">Puzzle</option>
+                    <option value="racing">Racing</option>
+                    <option value="board">Board</option>
+                    <option value="typing">Typing</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <nav class="breadcrumbs" aria-label="Breadcrumb" id="breadcrumbNav">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li aria-current="page">Arena</li>
+        </ol>
+    </nav>
+
     <!-- ==================== HERO ==================== -->
     <section class="hero" id="home">
         <div class="hero-container">
@@ -163,6 +203,19 @@
                     <div class="hero-stat"><span class="stat-number" data-count="100">0</span><span class="stat-label">% Free</span></div>
                     <div class="hero-stat"><span class="stat-number" data-count="24">0</span><span class="stat-label">/7 Available</span></div>
                     <div class="hero-stat"><span class="stat-number" data-count="3200">0</span><span class="stat-label">👥 Players</span></div>
+                </div>
+
+                <div id="heroFeatureSlider" class="hero-feature-slider" aria-label="Featured game slider">
+                    <span class="slider-badge" data-hero-badge>FEATURED</span>
+                    <p class="slider-kicker" data-hero-kicker>Featured Game</p>
+                    <h3 data-hero-title>Street Racer Turbo Week</h3>
+                    <p data-hero-desc>Burn through traffic, unlock combo streaks, and beat this week's speed challenge.</p>
+                    <a class="btn btn-secondary" data-hero-cta href="games/streetracer.html">Play Street Racer</a>
+                    <div class="slider-dots" aria-label="Slider controls">
+                        <button data-slide-dot="0" class="active" type="button" aria-label="Slide 1"></button>
+                        <button data-slide-dot="1" type="button" aria-label="Slide 2"></button>
+                        <button data-slide-dot="2" type="button" aria-label="Slide 3"></button>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -215,6 +268,130 @@
                 <p>Test your reflexes!</p>
                 <a href="games/streetracer.html" class="btn btn-primary">Play Now →</a>
             </div>
+        </div>
+    </section>
+
+    <section class="collections-section" id="collections">
+        <div class="section-header">
+            <span class="section-badge">📚 Curated Collections</span>
+            <h2 class="section-title">Featured <span class="gradient-text">Collections</span></h2>
+        </div>
+        <div class="collection-pills" aria-label="Game collections">
+            <a href="#games" class="collection-pill" data-collection="trending">Trending</a>
+            <a href="#games" class="collection-pill" data-collection="editors">Editor's Choice</a>
+            <a href="#games" class="collection-pill" data-collection="new">New</a>
+            <a href="#games" class="collection-pill" data-collection="mostplayed">Most Played</a>
+            <a href="#games" class="collection-pill" data-collection="multiplayer">Multiplayer</a>
+            <a href="#games" class="collection-pill" data-collection="family">Family</a>
+            <a href="#games" class="collection-pill" data-collection="brain">Brain</a>
+            <a href="#games" class="collection-pill" data-collection="puzzle">Puzzle</a>
+            <a href="#games" class="collection-pill" data-collection="racing">Racing</a>
+            <a href="#games" class="collection-pill" data-collection="kids">Kids</a>
+            <a href="#games" class="collection-pill" data-collection="action">Action</a>
+        </div>
+    </section>
+
+    <section class="home-lanes" aria-label="Homepage game lanes">
+        <div class="lane-wrap">
+            <div class="lane-head">
+                <h2>Continue Playing</h2>
+                <span>Static preview (account sync coming later)</span>
+            </div>
+            <div class="lane-grid" id="continuePlayingGrid"></div>
+        </div>
+
+        <div class="lane-wrap">
+            <div class="lane-head">
+                <h2>Recently Added</h2>
+                <span>Latest game entries</span>
+            </div>
+            <div class="lane-grid" id="recentlyAddedGrid"></div>
+        </div>
+
+        <div class="lane-wrap">
+            <div class="lane-head">
+                <h2>Trending Games</h2>
+                <span>Most active picks this week</span>
+            </div>
+            <div class="lane-grid" id="trendingGamesGrid"></div>
+        </div>
+
+        <div class="lane-wrap">
+            <div class="lane-head">
+                <h2>New Games</h2>
+                <span>Freshly launched game cards</span>
+            </div>
+            <div class="lane-grid" id="newGamesGrid"></div>
+        </div>
+
+        <div class="lane-wrap" id="favoritesLane">
+            <div class="lane-head">
+                <h2>Favorites</h2>
+                <span>UI placeholder (save/sync backend later)</span>
+            </div>
+            <div class="lane-grid" id="favoritesGrid"></div>
+            <p class="favorites-empty" id="favoritesEmpty">No favorites selected yet. Tap the heart icon on any game card.</p>
+        </div>
+    </section>
+
+    <section class="daily-panel" id="dailyChallengeSection">
+        <div class="daily-card">
+            <div>
+                <p class="daily-kicker">Daily Challenge</p>
+                <h3 id="dailyChallengeTitle">Word Blitz Speed Round</h3>
+                <p id="dailyChallengeDesc">Score 250+ points in 2 minutes to unlock a streak bonus badge.</p>
+                <a href="daily.html" class="btn btn-primary">Play Daily Challenge</a>
+            </div>
+            <div class="daily-points">
+                <span>Reward</span>
+                <strong>+120 XP</strong>
+                <small>+45 Coins</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="recently-played-strip" aria-label="Recently played games">
+        <div class="lane-head">
+            <h2>Recently Played</h2>
+            <span>Horizontal slider preview</span>
+        </div>
+        <div id="recentlyPlayedStrip" class="recently-slider"></div>
+    </section>
+
+    <section class="popular-week" aria-label="Popular this week">
+        <div class="section-header">
+            <span class="section-badge">🔥 Weekly Hits</span>
+            <h2 class="section-title">Popular This <span class="gradient-text">Week</span></h2>
+        </div>
+        <div class="popular-grid">
+            <article><h3>Street Racer</h3><p>+36% players this week</p><a href="games/streetracer.html">Play</a></article>
+            <article><h3>Word Blitz</h3><p>Top typing challenge</p><a href="games/wordblitz.html">Play</a></article>
+            <article><h3>Math Snake</h3><p>Most completed missions</p><a href="games/snake.html">Play</a></article>
+            <article><h3>Mini Chess</h3><p>Highest average session time</p><a href="games/chess.html">Play</a></article>
+        </div>
+    </section>
+
+    <section class="coming-soon" aria-label="Coming soon games">
+        <div class="section-header">
+            <span class="section-badge">🛸 Upcoming</span>
+            <h2 class="section-title">Coming <span class="gradient-text">Soon</span></h2>
+        </div>
+        <div class="coming-grid">
+            <article>
+                <div class="poster">Galaxy Kart</div>
+                <p>Release: Aug 12, 2026</p>
+                <button type="button">Notify Me</button>
+            </article>
+            <article>
+                <div class="poster">Tower Tactics</div>
+                <p>Release: Sep 02, 2026</p>
+                <button type="button">Notify Me</button>
+            </article>
+            <article>
+                <div class="poster">Pixel Striker</div>
+                <p>Release: Sep 21, 2026</p>
+                <button type="button">Notify Me</button>
+            </article>
         </div>
     </section>
 
@@ -614,8 +791,14 @@
             <div class="footer-links">
                 <h4>🛡️ Legal</h4>
                 <ul>
+                    <li><a href="about.html">About</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="cookies.html">Cookies</a></li>
+                    <li><a href="dmca.html">DMCA</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="advertise.html">Advertise</a></li>
+                    <li><a href="developers.html">Developers</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
@@ -647,7 +830,22 @@
         <button onclick="document.getElementById('pushPrompt').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);padding:10px 20px;border-radius:25px;cursor:pointer;">Maybe Later</button>
     </div>
 
+    <div id="dailyRewardPopup" class="daily-reward-popup" aria-hidden="true">
+        <div class="daily-reward-card">
+            <h3>Daily Reward Unlocked</h3>
+            <p>Welcome back! Claim your static reward and keep your streak active.</p>
+            <div class="reward-chips">
+                <span>+75 XP</span>
+                <span>+25 Coins</span>
+                <span>Streak +1</span>
+            </div>
+            <button id="claimRewardBtn" class="btn btn-primary" type="button">Claim Reward</button>
+        </div>
+    </div>
+
     <script src="js/soundengine.js"></script>
+    <script src="js/phase1.js" defer></script>
+    <script src="js/phase2.js" defer></script>
     <script>
         // ==================== CANONICAL PATH NORMALIZATION ====================
         if (window.location.pathname.endsWith('/index.html')) {

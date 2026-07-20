@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon Games | AlMaGen-Arena</title>
+    <meta name="description" content="Preview upcoming games and release dates with static notify me buttons.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://almagen-arena.com/coming-soon.html">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #0a0a1a; color: #fff; font-family: 'Poppins', sans-serif; }
+        .wrap { max-width: 980px; margin: 96px auto 40px; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 12px; }
+        .card { border: 1px solid rgba(255,255,255,.1); border-radius: 14px; background: rgba(255,255,255,.04); padding: 12px; }
+        .poster { height: 150px; border-radius: 10px; background: linear-gradient(135deg,rgba(108,92,231,.45),rgba(0,212,255,.3)); display: grid; place-items: center; font-weight: 700; margin-bottom: 10px; }
+        button { border: 0; border-radius: 10px; background: linear-gradient(135deg,#6c5ce7,#00d4ff); color: #fff; padding: 8px 12px; }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <h1>Coming Soon</h1>
+        <p>Upcoming launches and release windows.</p>
+        <section class="grid">
+            <article class="card"><div class="poster">Galaxy Kart</div><p>Release: Aug 12, 2026</p><button type="button">Notify Me</button></article>
+            <article class="card"><div class="poster">Tower Tactics</div><p>Release: Sep 02, 2026</p><button type="button">Notify Me</button></article>
+            <article class="card"><div class="poster">Pixel Striker</div><p>Release: Sep 21, 2026</p><button type="button">Notify Me</button></article>
+        </section>
+    </main>
+    <script src="js/global-layout.js" defer></script>
+</body>
+</html>

@@ -42,6 +42,26 @@
             }
         }
     </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://almagen-arena.com/"},
+                        {"@type": "ListItem", "position": 2, "name": "Profile", "item": "https://almagen-arena.com/profile.html"}
+                    ]
+                },
+                {
+                    "@type": "ProfilePage",
+                    "name": "Player Profile Dashboard",
+                    "url": "https://almagen-arena.com/profile.html",
+                    "description": "Static profile UI for player level, XP, coins, and game progress placeholders."
+                }
+            ]
+        }
+    </script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <!-- Google Analytics -->
@@ -107,6 +127,25 @@
         }
         .page-intro h1 { margin-bottom: 8px; }
         .page-intro p { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+
+        .profile-banner {
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 18px;
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(108,92,231,0.25), rgba(0,212,255,0.14));
+            display: grid;
+            gap: 10px;
+        }
+        .profile-banner-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .profile-avatar { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem; background: rgba(255,255,255,0.16); }
+        .profile-banner small { color: rgba(255,255,255,0.68); }
+        .progress-row { display: grid; gap: 6px; }
+        .progress-row .bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.14); overflow: hidden; }
+        .progress-row .bar b { display: block; height: 100%; width: 62%; background: linear-gradient(135deg, #ffd93d, #ff6b6b); }
+        .profile-sections { display: grid; gap: 20px; }
+        .profile-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px; }
+        .empty-state { border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; padding: 12px; color: rgba(255,255,255,0.62); }
         
         @media (max-width: 600px) { 
             .profile-header h1 { font-size: 2rem; }
@@ -149,6 +188,21 @@
                 <p>Use this page to review recent games, streaks, and your unlockable milestones.</p>
             </section>
 
+            <section class="profile-banner">
+                <div class="profile-banner-top">
+                    <div class="profile-avatar">🛡️</div>
+                    <div>
+                        <h2>AliTheGamer</h2>
+                        <small>Level 12 • XP 6,240 • Coins 1,890</small>
+                    </div>
+                </div>
+                <p>Bio: Puzzle lover, strategy fan, and weekend racer.</p>
+                <div class="progress-row">
+                    <small>XP Progress to Level 13</small>
+                    <div class="bar"><b></b></div>
+                </div>
+            </section>
+
             <!-- Stats -->
             <div class="dashboard-stats">
                 <div class="stat-box">
@@ -180,6 +234,17 @@
                     <li style="color:rgba(255,255,255,0.4);text-align:center;padding:20px;">No games played yet. Start playing!</li>
                 </ul>
             </div>
+
+            <section class="profile-sections">
+                <article class="profile-block">
+                    <h3>⭐ Favorites</h3>
+                    <p class="empty-state" data-empty-state>No favorites added yet.</p>
+                </article>
+                <article class="profile-block">
+                    <h3>🧾 History</h3>
+                    <p class="empty-state" data-empty-state>No recent history yet.</p>
+                </article>
+            </section>
 
             <!-- Achievements -->
             <div class="recent-games">
