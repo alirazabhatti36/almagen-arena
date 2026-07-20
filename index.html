@@ -395,6 +395,88 @@
         </div>
     </section>
 
+    <section class="phase3-lists" aria-label="Homepage curated lists">
+        <div class="list-card">
+            <h2>Most Played</h2>
+            <ul>
+                <li><a href="games/snake.html">Math Snake</a><span>1.2k plays</span></li>
+                <li><a href="games/streetracer.html">Street Racer</a><span>1.1k plays</span></li>
+                <li><a href="games/runner.html">Life Runner</a><span>980 plays</span></li>
+            </ul>
+        </div>
+        <div class="list-card">
+            <h2>Top Rated</h2>
+            <ul>
+                <li><a href="games/streetracer.html">Street Racer</a><span>⭐ 4.9</span></li>
+                <li><a href="games/wordblitz.html">Word Blitz</a><span>⭐ 4.9</span></li>
+                <li><a href="games/chess.html">Mini Chess</a><span>⭐ 4.8</span></li>
+            </ul>
+        </div>
+        <div class="list-card">
+            <h2>Recommended</h2>
+            <ul>
+                <li><a href="games/puzzle.html">Mirror Match</a><span>Logic boost</span></li>
+                <li><a href="games/cardmatch.html">Card Match</a><span>Memory focus</span></li>
+                <li><a href="games/mathdefense.html">Math Defense</a><span>Fast arithmetic</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="promo-strip" aria-label="Promotional platform highlights">
+        <article><h3>Cross Platform Support</h3><p>Desktop, tablet, and mobile gameplay with adaptive controls.</p></article>
+        <article><h3>Safe For Kids</h3><p>Educational-first catalog with family-friendly game themes.</p></article>
+        <article><h3>Multiplayer Coming Soon</h3><p>Real-time and turn-based multiplayer modes are in planning.</p></article>
+    </section>
+
+    <section class="visual-components" aria-label="Visual component showcase">
+        <div class="section-header">
+            <span class="section-badge">🧩 UI Kit Preview</span>
+            <h2 class="section-title">Reusable <span class="gradient-text">Components</span></h2>
+        </div>
+        <div class="visual-grid">
+            <article>
+                <h4>Loading Skeleton</h4>
+                <div class="skeleton-card"></div>
+            </article>
+            <article>
+                <h4>Custom Loader</h4>
+                <div class="custom-loader" aria-hidden="true"></div>
+            </article>
+            <article>
+                <h4>Empty State</h4>
+                <div class="empty-illustration">🗂️</div>
+                <p>No items to display yet.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="social-banners" aria-label="Social integration banners">
+        <a href="#" class="social-banner discord">Discord Community</a>
+        <a href="#" class="social-banner youtube">YouTube Channel</a>
+        <a href="#" class="social-banner facebook">Facebook Updates</a>
+        <a href="#" class="social-banner x">X (Twitter) News</a>
+    </section>
+
+    <section class="newsletter-section" aria-label="Newsletter subscription">
+        <div class="newsletter-card">
+            <h3>Latest Updates</h3>
+            <p>Get game launches, tournaments, and challenge drops in your inbox.</p>
+            <form id="newsletterForm" class="newsletter-form">
+                <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterSuccess" class="newsletter-success" hidden>Subscribed! Updates banner enabled.</p>
+        </div>
+    </section>
+
+    <div id="comingSoonPopup" class="coming-popup" aria-hidden="true">
+        <div class="coming-popup-card">
+            <h3>Coming Soon Update</h3>
+            <p>Multiplayer events and new ranked modes are under development.</p>
+            <button type="button" id="closeComingSoonPopup">Got it</button>
+        </div>
+    </div>
+
     <!-- ==================== GAMES SECTION ==================== -->
     <section class="games-section" id="games">
         <div class="section-header">
@@ -771,6 +853,8 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#games">Games</a></li>
+                    <li><a href="all-games.html">All Games</a></li>
+                    <li><a href="categories.html">Categories</a></li>
                     <li><a href="daily.html">Daily Challenges</a></li>
                     <li><a href="leaderboard.html">Leaderboard</a></li>
                     <li><a href="profile.html">Profile</a></li>
@@ -792,6 +876,10 @@
                 <h4>🛡️ Legal</h4>
                 <ul>
                     <li><a href="about.html">About</a></li>
+                    <li><a href="community-guidelines.html">Community Guidelines</a></li>
+                    <li><a href="help-center.html">Help Center</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="press-kit.html">Press Kit</a></li>
                     <li><a href="privacy.html">Privacy Policy</a></li>
                     <li><a href="terms.html">Terms of Service</a></li>
                     <li><a href="cookies.html">Cookies</a></li>
@@ -846,6 +934,7 @@
     <script src="js/soundengine.js"></script>
     <script src="js/phase1.js" defer></script>
     <script src="js/phase2.js" defer></script>
+    <script src="js/phase3.js" defer></script>
     <script>
         // ==================== CANONICAL PATH NORMALIZATION ====================
         if (window.location.pathname.endsWith('/index.html')) {

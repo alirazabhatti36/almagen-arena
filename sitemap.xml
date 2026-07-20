@@ -127,6 +127,72 @@
         <changefreq>monthly</changefreq>
     </url>
     <url>
+        <loc>https://almagen-arena.com/community-guidelines.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/careers.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/press-kit.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/all-games.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/new-games.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/trending-games.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/top-rated-games.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/editors-choice.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/featured-games.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/help-center.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.6</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/ui-components.html</loc>
+            <lastmod>2026-07-21</lastmod>
+        <priority>0.5</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+    <url>
         <loc>https://almagen-arena.com/games/snake.html</loc>
             <lastmod>2026-07-16</lastmod>
         <priority>0.8</priority>

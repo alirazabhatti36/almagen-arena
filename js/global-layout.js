@@ -31,14 +31,25 @@
     footer.className = 'global-footer-links';
     footer.innerHTML = [
         '<nav aria-label="Global footer links">',
+        '<a href="' + prefix + 'about.html">Company</a>',
+        '<a href="' + prefix + 'all-games.html">Games</a>',
+        '<a href="' + prefix + 'categories.html">Categories</a>',
         '<a href="' + prefix + 'faq.html">FAQ</a>',
+        '<a href="' + prefix + 'help-center.html">Resources</a>',
         '<a href="' + prefix + 'privacy.html">Privacy</a>',
         '<a href="' + prefix + 'terms.html">Terms</a>',
         '<a href="' + prefix + 'cookies.html">Cookies</a>',
         '<a href="' + prefix + 'dmca.html">DMCA</a>',
+        '<a href="' + prefix + 'community-guidelines.html">Guidelines</a>',
+        '<a href="' + prefix + 'careers.html">Careers</a>',
+        '<a href="' + prefix + 'press-kit.html">Press Kit</a>',
         '<a href="' + prefix + 'advertise.html">Advertise</a>',
         '<a href="' + prefix + 'developers.html">Developers</a>',
         '<a href="' + prefix + 'contact.html">Contact</a>',
+        '<a href="#">Discord</a>',
+        '<a href="#">YouTube</a>',
+        '<a href="#">Facebook</a>',
+        '<a href="#">X</a>',
         '</nav>',
         '<p>AlMaGen-Arena © 2026</p>'
     ].join('');
