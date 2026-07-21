@@ -150,7 +150,7 @@
         '.recommend-scroller{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;}',
         '.recommend-scroller a{text-decoration:none;min-width:170px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.04);color:#fff;display:flex;flex-direction:column;gap:4px;}',
         '.recommend-scroller a span{font-size:.74rem;color:rgba(255,255,255,.62);}',
-        '@media (max-width:768px){.game-meta-panel{max-width:100%;padding:0 12px;}.game-banner{grid-template-columns:1fr;}}'
+        '@media (max-width:768px){.game-meta-panel{display:none;max-width:100%;padding:0 12px;}.game-banner{grid-template-columns:1fr;}}'
     ].join('');
     document.head.appendChild(style);
 
