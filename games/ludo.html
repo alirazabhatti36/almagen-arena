@@ -140,5 +140,7 @@
         document.addEventListener('keydown',(e)=>{if(e.key===' '&&isPlayerTurn&&gameRunning){e.preventDefault();rollDice();}if(!gameRunning&&e.key===' ')startGame();});
         startGame(); gameLoop();
     </script>
+
+    <script src="../js/global-layout.js" defer></script>
 </body>
 </html>
