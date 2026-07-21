@@ -403,11 +403,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const isGamePage = window.location.pathname.includes('/games/');
     const isHomePage = /\/$/.test(window.location.pathname) || /\/index\.html$/.test(window.location.pathname);
     const scriptBase = isGamePage ? '../js/' : 'js/';
+    const sharedUiVersion = '20260722-1';
 
     function loadScriptIfMissing(src) {
-        if (document.querySelector(`script[src="${src}"]`)) return;
+        if (document.querySelector(`script[src^="${src}"]`)) return;
         const script = document.createElement('script');
-        script.src = src;
+        script.src = `${src}?v=${sharedUiVersion}`;
         script.defer = true;
         document.body.appendChild(script);
     }
