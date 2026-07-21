@@ -187,12 +187,6 @@
         <changefreq>monthly</changefreq>
     </url>
     <url>
-        <loc>https://almagen-arena.com/ui-components.html</loc>
-            <lastmod>2026-07-21</lastmod>
-        <priority>0.5</priority>
-        <changefreq>monthly</changefreq>
-    </url>
-    <url>
         <loc>https://almagen-arena.com/games/snake.html</loc>
             <lastmod>2026-07-16</lastmod>
         <priority>0.8</priority>
