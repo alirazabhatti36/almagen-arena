@@ -116,7 +116,7 @@
 
     const style = document.createElement('style');
     style.textContent = [
-        '.game-meta-panel{max-width:1020px;margin:18px auto 36px;padding:0 16px;font-family:\'Poppins\',sans-serif;}',
+        '.game-meta-panel{width:100%;max-width:1020px;margin:18px auto 36px;padding:0 16px;font-family:\'Poppins\',sans-serif;}',
         '.game-breadcrumbs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.83rem;color:rgba(255,255,255,.6);margin-bottom:12px;}',
         '.game-breadcrumbs a{color:#a29bfe;text-decoration:none;}',
         '.game-banner{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;padding:14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:linear-gradient(135deg,rgba(108,92,231,.2),rgba(0,212,255,.09));margin-bottom:12px;}',
@@ -150,7 +150,7 @@
         '.recommend-scroller{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;}',
         '.recommend-scroller a{text-decoration:none;min-width:170px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.04);color:#fff;display:flex;flex-direction:column;gap:4px;}',
         '.recommend-scroller a span{font-size:.74rem;color:rgba(255,255,255,.62);}',
-        '@media (max-width:768px){.game-meta-panel{padding:0 12px;}.game-banner{grid-template-columns:1fr;}}'
+        '@media (max-width:768px){.game-meta-panel{max-width:100%;padding:0 12px;}.game-banner{grid-template-columns:1fr;}}'
     ].join('');
     document.head.appendChild(style);
 
