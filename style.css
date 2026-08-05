@@ -736,6 +736,21 @@ textarea {
     min-height: 280px;
 }
 
+/* Keep third-party ad wrappers from causing horizontal overflow on responsive screens */
+[id^="aswift_"] {
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+iframe[id^="aswift_"] {
+    max-width: 100% !important;
+}
+
+.adsbygoogle,
+ins.adsbygoogle {
+    max-width: 100% !important;
+}
+
 /* ==================== SECTION HEADER ==================== */
 .section-header {
     text-align: center;

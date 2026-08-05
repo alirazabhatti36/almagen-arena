@@ -71,9 +71,15 @@
     document.body.insertBefore(overlay, document.body.firstChild);
     document.body.insertBefore(header, overlay);
 
-    const footer = document.createElement('footer');
-    footer.className = 'footer global-home-footer';
-    footer.innerHTML = [
+    document.body.classList.add('has-global-header');
+    if (isGamePage) {
+        document.body.classList.add('global-game-page');
+    }
+
+    if (!isGamePage) {
+        const footer = document.createElement('footer');
+        footer.className = 'footer global-home-footer';
+        footer.innerHTML = [
         '<div class="footer-container">',
         '<div class="footer-brand">',
         '<span class="footer-logo">⚔️ AlMaGen<span class="logo-highlight">-Arena</span></span>',
@@ -139,9 +145,10 @@
         '<p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p>',
         '<p class="footer-quote">"Play, Learn, and Grow!" 🚀</p>',
         '</div>'
-    ].join('');
+        ].join('');
 
-    document.body.appendChild(footer);
+        document.body.appendChild(footer);
+    }
 
     document.querySelectorAll('[data-empty-state]').forEach(function (node) {
         if (!node.textContent.trim()) {
@@ -184,7 +191,15 @@
         menuDots.classList.toggle('active');
         headerNav.classList.toggle('active');
         navOverlay.classList.toggle('active');
-        document.body.style.overflow = headerNav.classList.contains('active') ? 'hidden' : 'auto';
+
+        const menuOpen = headerNav.classList.contains('active');
+        if (menuOpen) {
+            document.body.dataset.prevOverflow = document.body.style.overflow || '';
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = document.body.dataset.prevOverflow || '';
+            delete document.body.dataset.prevOverflow;
+        }
     }
 
     if (menuDots) menuDots.addEventListener('click', toggleMenu);
@@ -224,16 +239,29 @@
 
     const style = document.createElement('style');
     style.textContent = [
-        '.global-home-header{position:sticky;top:0;z-index:1000;}',
-        '.global-home-header .header-container{max-width:1200px;margin:0 auto;}',
-        '.global-home-header .nav-list{list-style:none;}',
+        '.global-home-header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,26,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08);}',
+        '.has-global-header{padding-top:76px;}',
+        '.global-game-page{padding-top:86px!important;}',
+        '.global-home-header .header-container{max-width:1200px;margin:0 auto;padding:0 16px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:12px;}',
+        '.global-home-header .header-logo{text-decoration:none;color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:700;}',
+        '.global-home-header .header-nav{flex:1;display:flex;justify-content:flex-end;align-items:center;}',
+        '.global-home-header .nav-list{list-style:none;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;align-items:center;margin:0;padding:0;}',
+        '.global-home-header .nav-link{display:block;color:rgba(255,255,255,.82);text-decoration:none;font-size:.84rem;font-weight:500;padding:8px 12px;border-radius:8px;line-height:1.2;}',
+        '.global-home-header .nav-link:hover,.global-home-header .nav-link.active{background:rgba(108,92,231,.2);color:#fff;}',
+        '.global-home-header .header-actions{display:flex;align-items:center;gap:6px;}',
+        '.global-home-header .header-actions button{background:none;border:none;color:rgba(255,255,255,.85);padding:6px 8px;border-radius:8px;}',
+        '.global-home-header .menu-dots{display:none;font-size:1.9rem;line-height:1;padding:0 6px;}',
+        '.global-home-header .nav-overlay{display:none;}',
+        '.global-home-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;}',
+        '.global-home-overlay.active{display:block;}',
+        '.global-home-header .mobile-actions{display:none;}',
         '.global-home-header .nav-link{transition:all .25s ease;}',
         '.global-home-header .nav-link:hover{opacity:1;transform:translateY(-1px);}',
         '.global-home-footer{margin-top:36px;}',
-        '.global-home-overlay{z-index:999;}',
         '.global-home-header .menu-dots,.global-home-header .theme-toggle,.global-home-header .sound-btn,.global-home-header .theme-toggle-mobile,.global-home-header .sound-btn-mobile{cursor:pointer;}',
         '.empty-placeholder{border:1px dashed rgba(255,255,255,.22);border-radius:12px;padding:14px;color:rgba(255,255,255,.64);font-size:.85rem;}',
-        '@media (max-width:640px){.global-home-header .header-container{padding:10px 12px;}.global-home-footer{margin-top:22px;}}'
+        '@media (max-width:1100px){.global-home-header .menu-dots{display:block}.global-home-header .theme-toggle,.global-home-header .sound-btn{display:none}.global-home-header .header-nav{position:fixed;top:0;left:-100%;width:82%;max-width:320px;height:100vh;background:rgba(10,10,26,.98);backdrop-filter:blur(20px);padding:78px 24px 26px;border-right:1px solid rgba(255,255,255,.1);display:block;overflow-y:auto;transition:left .35s ease;z-index:1001}.global-home-header .header-nav.active{left:0}.global-home-header .nav-list{display:block}.global-home-header .nav-list li{width:100%}.global-home-header .nav-link{width:100%;font-size:.95rem;padding:10px 12px}.global-home-header .mobile-actions{display:flex;flex-direction:column;gap:10px;padding:14px 0;border-top:1px solid rgba(255,255,255,.12);margin-top:8px}.global-home-header .mobile-label{font-size:.75rem;color:rgba(255,255,255,.58);text-transform:uppercase;letter-spacing:.8px}.global-home-header .mobile-buttons{display:flex;gap:10px}.global-home-header .mobile-buttons button{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;padding:10px 12px}}',
+        '@media (max-width:640px){.global-home-header .header-container{height:68px;padding:0 12px}.has-global-header{padding-top:68px}.global-game-page{padding-top:74px!important}.global-home-footer{margin-top:22px;}}'
     ].join('');
     document.head.appendChild(style);
 })();
