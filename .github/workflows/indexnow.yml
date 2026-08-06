@@ -8,7 +8,7 @@ on:
 env:
   SITE_HOST: almagen-arena.com
   SITE_BASE_URL: https://almagen-arena.com
-  INDEXNOW_KEY: 9f5f4d0a7c5b4ea2b6d4896e2f7d3c1a
+  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY || '9f5f4d0a7c5b4ea2b6d4896e2f7d3c1a' }}
   INDEXNOW_KEY_LOCATION: https://almagen-arena.com/9f5f4d0a7c5b4ea2b6d4896e2f7d3c1a.txt
 
 jobs:
@@ -44,18 +44,36 @@ jobs:
           while IFS= read -r file; do
             [ -z "$file" ] && continue
             case "$file" in
-              *.html|*.xml)
+              *.html|*.xml|*.json)
+                # Handle special cases
                 if [ "$file" = "index.html" ]; then
                   URLS+=("${SITE_BASE_URL}/")
+                # Skip the key verification file itself
+                elif [[ "$file" != *.txt ]] && [[ "$file" != "sitemap.xml" ]]; then
+                  # Remove .html extension for cleaner URLs
+                  clean_file="${file%.html}"
+                  if [[ "$clean_file" == */index ]]; then
+                    dir="${clean_file%/index}"
+                    URLS+=("${SITE_BASE_URL}/${dir}/")
+                  else
+                    URLS+=("${SITE_BASE_URL}/${clean_file}")
+                  fi
                 else
+                  # For XML files and others
                   URLS+=("${SITE_BASE_URL}/${file}")
                 fi
                 ;;
             esac
           done <<< "$CHANGED_FILES"
 
+          # If no HTML/XML files changed, submit homepage and sitemap
           if [ ${#URLS[@]} -eq 0 ]; then
             URLS=("${SITE_BASE_URL}/" "${SITE_BASE_URL}/sitemap.xml")
+          fi
+
+          # Also always include sitemap.xml if it exists
+          if git ls-files | grep -q "sitemap.xml"; then
+            URLS+=("${SITE_BASE_URL}/sitemap.xml")
           fi
 
           mapfile -t UNIQUE_URLS < <(printf '%s\n' "${URLS[@]}" | sort -u)
@@ -71,6 +89,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          if [ -z "$INDEXNOW_KEY" ]; then
+            echo "⚠️ INDEXNOW_KEY is not set. Skipping submission."
+            exit 0
+          fi
 
           mapfile -t URL_ARRAY <<< "${{ steps.urls.outputs.url_list }}"
 
