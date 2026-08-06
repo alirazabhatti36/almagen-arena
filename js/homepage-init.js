@@ -38,6 +38,7 @@
 
         requestIdle(function () {
             loadDeferredScript('js/phase1.js');
+            loadDeferredScript('js/phase2.js');
             loadDeferredScript('js/phase3.js');
         });
     });
@@ -256,13 +257,17 @@
                 loadAdsenseScript();
                 adObserver.disconnect();
             }
-        }, { rootMargin: '240px 0px' }) : null;
+        }, { rootMargin: '40px 0px' }) : null;
 
         adSlots.forEach(function (slot) {
             if (adObserver) adObserver.observe(slot);
         });
 
-        requestIdle(loadAdsenseScript);
+        if (!adObserver) {
+            window.addEventListener('load', function () {
+                setTimeout(loadAdsenseScript, 4000);
+            }, { once: true });
+        }
     }
 
     // ==================== SMOOTH SCROLL ====================
