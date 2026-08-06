@@ -241,7 +241,8 @@
     style.textContent = [
         '.global-home-header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(10,10,26,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08);}',
         '.has-global-header{padding-top:76px;}',
-        '.global-game-page{padding-top:86px!important;}',
+        '.global-game-page{padding-top:86px!important;height:auto!important;min-height:100vh!important;overflow-y:auto!important;overflow-x:hidden!important;}',
+        '.global-game-page main.game-page{max-width:100%;}',
         '.global-home-header .header-container{max-width:1200px;margin:0 auto;padding:0 16px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:12px;}',
         '.global-home-header .header-logo{text-decoration:none;color:#fff;display:inline-flex;align-items:center;gap:8px;font-weight:700;}',
         '.global-home-header .header-nav{flex:1;display:flex;justify-content:flex-end;align-items:center;}',
