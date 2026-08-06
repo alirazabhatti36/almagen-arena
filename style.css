@@ -736,6 +736,10 @@ textarea {
     min-height: 280px;
 }
 
+.ad-slot {
+    display: block;
+}
+
 /* Keep third-party ad wrappers from causing horizontal overflow on responsive screens */
 [id^="aswift_"] {
     max-width: 100% !important;
@@ -1503,6 +1507,128 @@ ins.adsbygoogle {
 
 .feedback-container textarea {
     resize: vertical;
+}
+
+.feedback-success {
+    color: #00ff88;
+    margin-top: 10px;
+}
+
+.site-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    padding: 20px;
+}
+
+.site-modal.is-visible {
+    display: flex;
+}
+
+.site-modal-card {
+    width: min(420px, 90%);
+    background: #1a1a2e;
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.site-modal-title {
+    color: #ffd93d;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.site-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.site-share-btn,
+.site-modal-close,
+.push-btn {
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.site-share-btn {
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+.site-share-btn.is-whatsapp { background: #25D366; }
+.site-share-btn.is-facebook { background: #1877F2; }
+.site-share-btn.is-twitter { background: #1DA1F2; }
+.site-share-btn.is-copy { background: #6c5ce7; }
+
+.site-modal-close {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+.push-prompt {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    width: min(400px, 90%);
+    display: none;
+    text-align: center;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #6c5ce7, #00d4ff);
+}
+
+.push-prompt.is-visible {
+    display: block;
+}
+
+.push-prompt-text {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.push-prompt-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.push-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.push-btn-primary {
+    background: #fff;
+    color: #6c5ce7;
+    font-weight: 700;
+}
+
+.push-btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 /* ==================== CTA ==================== */

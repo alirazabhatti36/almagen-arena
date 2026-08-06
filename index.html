@@ -137,7 +137,7 @@
                         <div class="mobile-buttons">
                             <button class="theme-toggle-mobile" id="themeToggleMobile">🌓</button>
                             <button class="sound-btn-mobile" id="muteBtnMobile">🔊</button>
-                            <button class="share-btn-mobile" onclick="shareSite()">📤</button>
+                            <button class="share-btn-mobile" id="shareBtnMobile" type="button">📤</button>
                         </div>
                     </li>
                 </ul>
@@ -145,7 +145,7 @@
             <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle">🌓</button>
                 <button class="sound-btn" id="muteBtn">🔊</button>
-                <button class="share-btn" onclick="shareSite()">📤</button>
+                <button class="share-btn" id="shareBtn" type="button">📤</button>
                 <button class="menu-dots" id="menuDots">⋮</button>
             </div>
         </div>
@@ -242,7 +242,7 @@
 
     <!-- AD: Leaderboard -->
     <div class="ad-container">
-        <ins class="adsbygoogle" style="display:block" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <ins class="adsbygoogle ad-slot" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
 
     <!-- ==================== FEATURED GAMES ==================== -->
@@ -736,7 +736,7 @@
 
     <!-- AD: Rectangle -->
     <div class="ad-container ad-rectangle">
-        <ins class="adsbygoogle" style="display:block" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <ins class="adsbygoogle ad-slot" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
 
     <!-- ==================== TESTIMONIALS ==================== -->
@@ -814,12 +814,12 @@
         <div class="feedback-container">
             <h2>💬 Share Your Feedback</h2>
             <p>Help us improve AlMaGen-Arena! What games would you like to see?</p>
-            <form id="feedbackForm" onsubmit="submitFeedback(event)">
+            <form id="feedbackForm">
                 <input type="text" id="feedbackName" placeholder="Your Name" required>
                 <textarea id="feedbackMsg" placeholder="Your message..." rows="3" required></textarea>
                 <button type="submit" class="btn btn-primary">Send Feedback ✉️</button>
             </form>
-            <p id="feedbackSuccess" style="color:#00ff88;margin-top:10px;display:none;">✅ Thank you! Feedback sent successfully!</p>
+            <p id="feedbackSuccess" class="feedback-success" hidden>✅ Thank you! Feedback sent successfully!</p>
         </div>
     </section>
 
@@ -902,24 +902,26 @@
     </footer>
 
     <!-- Share Popup -->
-    <div id="sharePopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(10px);">
-        <div style="background:#1a1a2e;border-radius:20px;padding:35px;text-align:center;max-width:420px;width:90%;border:1px solid rgba(255,255,255,0.05);">
-            <h3 style="color:#ffd93d;margin-bottom:15px;font-size:1.4rem;">📤 Share AlMaGen-Arena</h3>
-            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:15px;">
-                <button onclick="shareOn('whatsapp')" style="background:#25D366;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;">📱 WhatsApp</button>
-                <button onclick="shareOn('facebook')" style="background:#1877F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;">📘 Facebook</button>
-                <button onclick="shareOn('twitter')" style="background:#1DA1F2;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;">🐦 Twitter</button>
-                <button onclick="copyLink()" style="background:#6c5ce7;color:#fff;border:none;padding:12px 20px;border-radius:10px;cursor:pointer;font-weight:600;">🔗 Copy Link</button>
+    <div id="sharePopup" class="site-modal" hidden>
+        <div class="site-modal-card">
+            <h3 class="site-modal-title">📤 Share AlMaGen-Arena</h3>
+            <div class="site-modal-actions">
+                <button type="button" class="site-share-btn is-whatsapp" data-share-platform="whatsapp">📱 WhatsApp</button>
+                <button type="button" class="site-share-btn is-facebook" data-share-platform="facebook">📘 Facebook</button>
+                <button type="button" class="site-share-btn is-twitter" data-share-platform="twitter">🐦 Twitter</button>
+                <button type="button" class="site-share-btn is-copy" id="copyLinkBtn">🔗 Copy Link</button>
             </div>
-            <button onclick="document.getElementById('sharePopup').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:10px 30px;border-radius:10px;cursor:pointer;">Close ✕</button>
+            <button type="button" id="closeSharePopup" class="site-modal-close">Close ✕</button>
         </div>
     </div>
 
     <!-- Push Notification -->
-    <div id="pushPrompt" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6c5ce7,#00d4ff);color:#fff;padding:15px 25px;border-radius:15px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center;max-width:400px;width:90%;">
-        <p style="margin-bottom:10px;font-weight:600;">🔔 Get notified about new games!</p>
-        <button onclick="subscribePush()" style="background:#fff;color:#6c5ce7;border:none;padding:10px 25px;border-radius:25px;cursor:pointer;font-weight:bold;margin-right:10px;">Allow Notifications</button>
-        <button onclick="document.getElementById('pushPrompt').style.display='none'" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);padding:10px 20px;border-radius:25px;cursor:pointer;">Maybe Later</button>
+    <div id="pushPrompt" class="push-prompt" hidden>
+        <p class="push-prompt-text">🔔 Get notified about new games!</p>
+        <div class="push-prompt-actions">
+            <button type="button" id="pushAllowBtn" class="push-btn push-btn-primary">Allow Notifications</button>
+            <button type="button" id="pushDismissBtn" class="push-btn push-btn-secondary">Maybe Later</button>
+        </div>
     </div>
 
     <div id="dailyRewardPopup" class="daily-reward-popup" aria-hidden="true">
@@ -947,6 +949,8 @@
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
         const isMobile = window.innerWidth <= 768;
+        const sharePopup = document.getElementById('sharePopup');
+        const pushPrompt = document.getElementById('pushPrompt');
 
         function requestIdle(callback) {
             if ('requestIdleCallback' in window) {
@@ -1177,7 +1181,16 @@
         });
 
         // ==================== SOCIAL SHARE ====================
-        function shareSite() { document.getElementById('sharePopup').style.display = 'flex'; }
+        function shareSite() {
+            if (!sharePopup) return;
+            sharePopup.hidden = false;
+            sharePopup.classList.add('is-visible');
+        }
+        function closeSharePopup() {
+            if (!sharePopup) return;
+            sharePopup.classList.remove('is-visible');
+            sharePopup.hidden = true;
+        }
         function shareOn(platform) {
             const url = encodeURIComponent('https://almagen-arena.com');
             const text = encodeURIComponent('🎮 Check out AlMaGen-Arena! 15 free online games - Play & Learn! No download required!');
@@ -1188,12 +1201,30 @@
                 case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
             }
             window.open(shareUrl, '_blank', 'width=600,height=400');
-            document.getElementById('sharePopup').style.display = 'none';
+            closeSharePopup();
         }
         function copyLink() {
             navigator.clipboard.writeText('https://almagen-arena.com').then(() => {
                 alert('✅ Link copied! Share it with friends!');
-                document.getElementById('sharePopup').style.display = 'none';
+                closeSharePopup();
+            });
+        }
+
+        document.querySelectorAll('#shareBtn, #shareBtnMobile').forEach((button) => {
+            button.addEventListener('click', shareSite);
+        });
+        document.querySelectorAll('[data-share-platform]').forEach((button) => {
+            button.addEventListener('click', function () {
+                shareOn(button.getAttribute('data-share-platform'));
+            });
+        });
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        if (copyLinkBtn) copyLinkBtn.addEventListener('click', copyLink);
+        const closeShareBtn = document.getElementById('closeSharePopup');
+        if (closeShareBtn) closeShareBtn.addEventListener('click', closeSharePopup);
+        if (sharePopup) {
+            sharePopup.addEventListener('click', function (event) {
+                if (event.target === sharePopup) closeSharePopup();
             });
         }
 
@@ -1205,11 +1236,14 @@
             const feedbacks = JSON.parse(localStorage.getItem('almagen_feedbacks') || '[]');
             feedbacks.push({ name, msg, date: new Date().toISOString() });
             localStorage.setItem('almagen_feedbacks', JSON.stringify(feedbacks));
-            document.getElementById('feedbackSuccess').style.display = 'block';
+            const feedbackSuccess = document.getElementById('feedbackSuccess');
+            if (feedbackSuccess) feedbackSuccess.hidden = false;
             document.getElementById('feedbackForm').reset();
-            setTimeout(() => document.getElementById('feedbackSuccess').style.display = 'none', 3000);
+            setTimeout(() => { if (feedbackSuccess) feedbackSuccess.hidden = true; }, 3000);
             gtag('event', 'feedback_submitted', { event_category: 'engagement' });
         }
+        const feedbackForm = document.getElementById('feedbackForm');
+        if (feedbackForm) feedbackForm.addEventListener('submit', submitFeedback);
 
         // ==================== PUSH NOTIFICATIONS ====================
         function subscribePush() {
@@ -1224,13 +1258,29 @@
                     }
                 });
             }
-            document.getElementById('pushPrompt').style.display = 'none';
+            if (pushPrompt) {
+                pushPrompt.classList.remove('is-visible');
+                pushPrompt.hidden = true;
+            }
             localStorage.setItem('almagen_push_prompted', 'true');
         }
+        const pushAllowBtn = document.getElementById('pushAllowBtn');
+        if (pushAllowBtn) pushAllowBtn.addEventListener('click', subscribePush);
+        const pushDismissBtn = document.getElementById('pushDismissBtn');
+        if (pushDismissBtn) pushDismissBtn.addEventListener('click', function () {
+            if (pushPrompt) {
+                pushPrompt.classList.remove('is-visible');
+                pushPrompt.hidden = true;
+            }
+            localStorage.setItem('almagen_push_prompted', 'true');
+        });
         setTimeout(() => {
             const prompted = localStorage.getItem('almagen_push_prompted');
             if (!prompted && 'Notification' in window && Notification.permission === 'default') {
-                document.getElementById('pushPrompt').style.display = 'block';
+                if (pushPrompt) {
+                    pushPrompt.hidden = false;
+                    pushPrompt.classList.add('is-visible');
+                }
             }
         }, 10000);
 
