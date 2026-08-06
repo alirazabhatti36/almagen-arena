@@ -14,6 +14,7 @@ env:
 jobs:
   submit-indexnow:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
 
     steps:
       - name: Checkout repository
@@ -110,6 +111,6 @@ jobs:
           echo "Submitting ${{ steps.urls.outputs.url_count }} URLs to IndexNow"
           cat indexnow-payload.json
 
-          curl -sS -X POST "https://api.indexnow.org/indexnow" \
+          curl -sS --connect-timeout 10 --max-time 30 -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json; charset=utf-8" \
-            --data-binary @indexnow-payload.json
+            --data-binary @indexnow-payload.json || echo "⚠️ IndexNow API request finished or timed out."
