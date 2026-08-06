@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-1373118680696037">
     <meta name="google-site-verification" content="TAhfYnktDKYhQhLts9S-mjcWhvFSyRHMfOq2fyrHg04">
     <title>AlMaGen-Arena | 15 Free Online Games - Play & Learn</title>
@@ -15,6 +15,7 @@
     <link rel="canonical" href="https://almagen-arena.com/">
     <link rel="alternate" hreflang="en" href="https://almagen-arena.com/">
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="preview.svg">
     
     <!-- Open Graph -->
     <meta property="og:title" content="AlMaGen-Arena | 15 Free Online Games - Play & Learn">
@@ -76,9 +77,6 @@
         }
     </script>
     
-    <!-- Google AdSense Auto Ads -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
-    
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BENNC3WGWM"></script>
     <script>
@@ -91,7 +89,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
     
     <!-- PWA Manifest -->
@@ -243,8 +242,7 @@
 
     <!-- AD: Leaderboard -->
     <div class="ad-container">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <ins class="adsbygoogle" style="display:block" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
 
     <!-- ==================== FEATURED GAMES ==================== -->
@@ -738,8 +736,7 @@
 
     <!-- AD: Rectangle -->
     <div class="ad-container ad-rectangle">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <ins class="adsbygoogle" style="display:block" data-lazy-ad="true" data-ad-client="ca-pub-1373118680696037" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
 
     <!-- ==================== TESTIMONIALS ==================== -->
@@ -938,7 +935,7 @@
         </div>
     </div>
 
-    <script src="js/soundengine.js"></script>
+    <script src="js/soundengine.js" defer></script>
     <script src="js/phase1.js" defer></script>
     <script src="js/phase2.js" defer></script>
     <script src="js/phase3.js" defer></script>
@@ -949,9 +946,11 @@
         }
 
         // ==================== LOADING SCREEN ====================
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isMobile = window.innerWidth <= 768;
+
         window.addEventListener('load', () => {
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const isMobile = window.innerWidth <= 768;
             const hideDelay = prefersReducedMotion || isMobile ? 100 : 450;
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.opacity = '0';
@@ -961,13 +960,15 @@
         });
 
         // ==================== CUSTOM CURSOR ====================
-        const cursor = document.querySelector('.cursor'), cursorFollower = document.querySelector('.cursor-follower');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-            setTimeout(() => { cursorFollower.style.left = e.clientX + 'px'; cursorFollower.style.top = e.clientY + 'px'; }, 80);
-        });
-        document.addEventListener('mousedown', () => { cursor.style.transform = 'translate(-50%, -50%) scale(0.7)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)'; });
-        document.addEventListener('mouseup', () => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)'; });
+        if (!isCoarsePointer && !prefersReducedMotion) {
+            const cursor = document.querySelector('.cursor'), cursorFollower = document.querySelector('.cursor-follower');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+                setTimeout(() => { cursorFollower.style.left = e.clientX + 'px'; cursorFollower.style.top = e.clientY + 'px'; }, 80);
+            });
+            document.addEventListener('mousedown', () => { cursor.style.transform = 'translate(-50%, -50%) scale(0.7)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)'; });
+            document.addEventListener('mouseup', () => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)'; });
+        }
 
         // ==================== THEME ====================
         const savedTheme = localStorage.getItem('almagen_theme');
@@ -1024,7 +1025,7 @@
         updateSoundButtons(false);
 
         function toggleMute() {
-            const muted = musicEngine ? musicEngine.toggleMute() : false;
+            const muted = window.musicEngine && typeof window.musicEngine.toggleMute === 'function' ? window.musicEngine.toggleMute() : false;
             updateSoundButtons(muted);
         }
         if (muteBtn) muteBtn.addEventListener('click', toggleMute);
@@ -1097,15 +1098,63 @@
 
         // ==================== PARTICLES ====================
         const particlesBg = document.getElementById('particlesBg');
-        for (let i = 0; i < 50; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.style.left = Math.random() * 100 + '%';
-            p.style.top = Math.random() * 100 + '%';
-            p.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            p.style.animationDelay = Math.random() * 10 + 's';
-            p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
-            particlesBg.appendChild(p);
+        if (particlesBg && !isMobile && !prefersReducedMotion) {
+            for (let i = 0; i < 24; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                p.style.animationDelay = Math.random() * 10 + 's';
+                p.style.width = p.style.height = (Math.random() * 4 + 2) + 'px';
+                particlesBg.appendChild(p);
+            }
+        }
+
+        // ==================== LAZY ADSENSE ====================
+        let adsenseRequested = false;
+        function requestIdle(callback) {
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(callback, { timeout: 2500 });
+                return;
+            }
+            window.setTimeout(callback, 1200);
+        }
+
+        function loadAdsenseScript() {
+            if (adsenseRequested) return;
+            adsenseRequested = true;
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037';
+            script.crossOrigin = 'anonymous';
+            script.onload = function () {
+                document.querySelectorAll('ins.adsbygoogle[data-lazy-ad="true"]').forEach(function (slot) {
+                    if (slot.dataset.adLoaded === 'true') return;
+                    try {
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        slot.dataset.adLoaded = 'true';
+                    } catch (error) {
+                    }
+                });
+            };
+            document.head.appendChild(script);
+        }
+
+        const adSlots = document.querySelectorAll('ins.adsbygoogle[data-lazy-ad="true"]');
+        if (adSlots.length) {
+            const observer = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+                if (entries.some(function (entry) { return entry.isIntersecting; })) {
+                    loadAdsenseScript();
+                    observer.disconnect();
+                }
+            }, { rootMargin: '240px 0px' }) : null;
+
+            adSlots.forEach(function (slot) {
+                if (observer) observer.observe(slot);
+            });
+
+            requestIdle(loadAdsenseScript);
         }
 
         // ==================== SMOOTH SCROLL ====================
