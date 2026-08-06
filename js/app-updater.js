@@ -45,11 +45,19 @@
         }
     });
 
-    setInterval(() => {
+    function checkForUpdate() {
         navigator.serviceWorker.getRegistration('/sw.js').then((registration) => {
             if (registration) {
                 registration.update();
             }
         }).catch(() => {});
-    }, 10000);
+    }
+
+    // Check periodically every 15 minutes and when page becomes visible
+    setInterval(checkForUpdate, 15 * 60 * 1000);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            checkForUpdate();
+        }
+    });
 })();

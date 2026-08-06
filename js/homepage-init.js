@@ -29,11 +29,14 @@
     window.addEventListener('load', function () {
         const hideDelay = prefersReducedMotion || isMobile ? 100 : 450;
         setTimeout(function () {
-            document.getElementById('loadingScreen').style.opacity = '0';
-            document.getElementById('loadingScreen').style.transition = 'opacity 0.35s ease';
-            setTimeout(function () {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 350);
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 0.35s ease';
+                setTimeout(function () {
+                    if (loadingScreen) loadingScreen.style.display = 'none';
+                }, 350);
+            }
         }, hideDelay);
 
         requestIdle(function () {
@@ -333,14 +336,17 @@
     // ==================== FEEDBACK ====================
     function submitFeedback(e) {
         e.preventDefault();
-        const name = document.getElementById('feedbackName').value;
-        const msg = document.getElementById('feedbackMsg').value;
+        const nameEl = document.getElementById('feedbackName');
+        const msgEl = document.getElementById('feedbackMsg');
+        const name = nameEl ? nameEl.value : '';
+        const msg = msgEl ? msgEl.value : '';
         const feedbacks = JSON.parse(localStorage.getItem('almagen_feedbacks') || '[]');
         feedbacks.push({ name, msg, date: new Date().toISOString() });
         localStorage.setItem('almagen_feedbacks', JSON.stringify(feedbacks));
         const feedbackSuccess = document.getElementById('feedbackSuccess');
         if (feedbackSuccess) feedbackSuccess.hidden = false;
-        document.getElementById('feedbackForm').reset();
+        const feedbackForm = document.getElementById('feedbackForm');
+        if (feedbackForm) feedbackForm.reset();
         setTimeout(function () {
             if (feedbackSuccess) feedbackSuccess.hidden = true;
         }, 3000);

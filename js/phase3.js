@@ -10,7 +10,7 @@
             const email = document.getElementById('newsletterEmail');
             if (!email || !email.value.trim()) return;
             localStorage.setItem('almagen_newsletter_email', email.value.trim());
-            newsletterSuccess.hidden = false;
+            if (newsletterSuccess) newsletterSuccess.hidden = false;
             showToast('Newsletter subscription saved');
             newsletterForm.reset();
         });

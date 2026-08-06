@@ -23,7 +23,8 @@ const ASSETS_TO_CACHE = [
     '/games/motostunt.html',
     '/games/ludo.html',
     '/games/chess.html',
-    '/games/cardmatch.html'
+    '/games/cardmatch.html',
+    '/offline.html'
 ];
 
 // Install - Cache all assets
@@ -74,7 +75,7 @@ self.addEventListener('fetch', (event) => {
                 const copy = response.clone();
                 caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
                 return response;
-            }).catch(() => caches.match('/index.html'))
+            }).catch(() => caches.match('/offline.html').then((res) => res || caches.match('/index.html')))
         );
         return;
     }
