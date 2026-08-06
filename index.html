@@ -936,9 +936,7 @@
     </div>
 
     <script src="js/soundengine.js" defer></script>
-    <script src="js/phase1.js" defer></script>
     <script src="js/phase2.js" defer></script>
-    <script src="js/phase3.js" defer></script>
     <script>
         // ==================== CANONICAL PATH NORMALIZATION ====================
         if (window.location.pathname.endsWith('/index.html')) {
@@ -950,6 +948,21 @@
         const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
         const isMobile = window.innerWidth <= 768;
 
+        function requestIdle(callback) {
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(callback, { timeout: 2500 });
+                return;
+            }
+            window.setTimeout(callback, 1200);
+        }
+
+        function loadDeferredScript(src) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+
         window.addEventListener('load', () => {
             const hideDelay = prefersReducedMotion || isMobile ? 100 : 450;
             setTimeout(() => {
@@ -957,6 +970,11 @@
                 document.getElementById('loadingScreen').style.transition = 'opacity 0.35s ease';
                 setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 350);
             }, hideDelay);
+
+            requestIdle(function () {
+                loadDeferredScript('js/phase1.js');
+                loadDeferredScript('js/phase3.js');
+            });
         });
 
         // ==================== CUSTOM CURSOR ====================
@@ -995,7 +1013,7 @@
 
         // ==================== HEADER SCROLL ====================
         const header = document.getElementById('header');
-        window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+        window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50), { passive: true });
 
         // ==================== 3-DOT MENU ====================
         const menuDots = document.getElementById('menuDots');
@@ -1038,7 +1056,7 @@
             let current = '';
             sections.forEach(s => { const top = s.offsetTop - 120; if (window.scrollY >= top) current = s.getAttribute('id'); });
             navLinks.forEach(l => { l.classList.remove('active'); if (l.getAttribute('href') === '#' + current) l.classList.add('active'); });
-        });
+        }, { passive: true });
 
         // ==================== GAME FILTER ====================
         document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1113,14 +1131,6 @@
 
         // ==================== LAZY ADSENSE ====================
         let adsenseRequested = false;
-        function requestIdle(callback) {
-            if ('requestIdleCallback' in window) {
-                window.requestIdleCallback(callback, { timeout: 2500 });
-                return;
-            }
-            window.setTimeout(callback, 1200);
-        }
-
         function loadAdsenseScript() {
             if (adsenseRequested) return;
             adsenseRequested = true;
