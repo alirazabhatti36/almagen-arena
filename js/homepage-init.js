@@ -57,7 +57,7 @@
                 cursorFollower.style.left = e.clientX + 'px';
                 cursorFollower.style.top = e.clientY + 'px';
             }, 80);
-        });
+        }, { passive: true });
         document.addEventListener('mousedown', function () {
             cursor.style.transform = 'translate(-50%, -50%) scale(0.7)';
             cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
