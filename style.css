@@ -1,4 +1,4 @@
-﻿/* ==================== ROOT VARIABLES ==================== */
+/* ==================== ROOT VARIABLES ==================== */
 :root {
     --primary: #6c5ce7;
     --primary-light: #a29bfe;
@@ -633,6 +633,8 @@ textarea {
 .hero-orb {
     width: 350px;
     height: 350px;
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(108, 92, 231, 0.2), transparent 70%);
     animation: orbFloat 8s ease-in-out infinite;
