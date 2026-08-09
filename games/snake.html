@@ -565,8 +565,14 @@
             document.getElementById('pauseBtn').textContent = '⏸️';
         }
 
-        // Controls
+        // Controls & Prevent Arrow Key Page Scrolling During Gameplay
         window.addEventListener('keydown', e => {
+            const keysToBlock = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'];
+            if (keysToBlock.includes(e.code) || ['KeyW', 'KeyS', 'KeyA', 'KeyD'].includes(e.code)) {
+                if (gameRunning && !isPaused) {
+                    e.preventDefault(); // Stop webpage from scrolling up/down while playing!
+                }
+            }
             if (['ArrowUp', 'KeyW'].includes(e.code) && direction.y === 0) nextDirection = { x: 0, y: -gridSize };
             if (['ArrowDown', 'KeyS'].includes(e.code) && direction.y === 0) nextDirection = { x: 0, y: gridSize };
             if (['ArrowLeft', 'KeyA'].includes(e.code) && direction.x === 0) nextDirection = { x: -gridSize, y: 0 };
@@ -582,8 +588,18 @@
         if (btnLeft) btnLeft.onclick = () => { if (direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; };
         if (btnRight) btnRight.onclick = () => { if (direction.x === 0) nextDirection = { x: gridSize, y: 0 }; };
 
+        // Auto-pause game when player scrolls canvas out of view
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting && gameRunning && !isPaused) {
+                    togglePause();
+                }
+            });
+        }, { threshold: 0.3 });
+
         document.addEventListener('DOMContentLoaded', () => {
             setGameMode(gameMode);
+            if (canvas) scrollObserver.observe(canvas);
             startGame();
         });
     </script>
