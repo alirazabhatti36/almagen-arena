@@ -76,10 +76,9 @@
         document.body.classList.add('global-game-page');
     }
 
-    if (!isGamePage) {
-        const footer = document.createElement('footer');
-        footer.className = 'footer global-home-footer';
-        footer.innerHTML = [
+    const footer = document.createElement('footer');
+    footer.className = 'footer global-home-footer';
+    footer.innerHTML = [
         '<div class="footer-container">',
         '<div class="footer-brand">',
         '<span class="footer-logo">⚔️ AlMaGen<span class="logo-highlight">-Arena</span></span>',
@@ -148,7 +147,6 @@
         ].join('');
 
         document.body.appendChild(footer);
-    }
 
     document.querySelectorAll('[data-empty-state]').forEach(function (node) {
         if (!node.textContent.trim()) {
