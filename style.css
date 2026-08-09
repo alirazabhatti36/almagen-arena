@@ -408,10 +408,8 @@ a, button, input, select, textarea, label, [role="button"], .game-card, .collect
 
 /* ==================== TOP UTILITY + BREADCRUMBS ==================== */
 .top-utility-bar {
-    margin-top: 76px;
-    padding: 14px 20px 10px;
-    position: relative;
-    z-index: 3;
+    padding: 0;
+    margin-bottom: 20px;
 }
 
 .utility-wrap {
@@ -482,7 +480,7 @@ a, button, input, select, textarea, label, [role="button"], .game-card, .collect
 
 /* ==================== HERO ==================== */
 .hero {
-    padding: 130px 20px 60px;
+    padding: 100px 20px 40px;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -1926,7 +1924,8 @@ body.light-theme .mega-nav a:hover {
 }
 
 body.light-theme .top-utility-bar {
-    background: transparent;
+    padding: 0;
+    margin-bottom: 20px;
 }
 
 body.light-theme .utility-search,
@@ -2163,14 +2162,14 @@ body.light-theme .daily-reward-card {
     }
     
     .hero {
-        padding: 28px 15px 40px;
+    padding: 100px 20px 40px;
         min-height: auto;
     }
 
     .top-utility-bar {
-        margin-top: 72px;
-        padding: 10px 14px;
-    }
+    padding: 0;
+    margin-bottom: 20px;
+}
 
     .utility-wrap {
         grid-template-columns: 1fr;
