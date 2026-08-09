@@ -409,4 +409,141 @@
         script.defer = true;
         document.head.appendChild(script);
     }
+
+    // ==================== HERO SLIDER ====================
+    const heroSlides = [
+        {
+            badge: 'FEATURED',
+            kicker: 'Featured Game',
+            title: 'Street Racer Turbo Week',
+            desc: 'Burn through traffic, unlock combo streaks, and beat this week\'s speed challenge.',
+            cta: 'Play Street Racer',
+            href: 'games/streetracer.html'
+        },
+        {
+            badge: 'POPULAR',
+            kicker: 'Math & Reflexes',
+            title: 'Math Snake Challenge',
+            desc: 'Grow your snake by solving math problems. Master addition, subtraction & multiplication!',
+            cta: 'Play Math Snake',
+            href: 'games/snake.html'
+        },
+        {
+            badge: 'STRATEGY',
+            kicker: 'Brain Master',
+            title: 'Mini Chess Tactics',
+            desc: 'Outsmart AI on a fast-paced 6x6 board. Easy rules, endless tactical depth!',
+            cta: 'Play Mini Chess',
+            href: 'games/chess.html'
+        }
+    ];
+
+    let currentSlide = 0;
+    const heroSlider = document.getElementById('heroFeatureSlider');
+    if (heroSlider) {
+        function showSlide(index) {
+            currentSlide = (index + heroSlides.length) % heroSlides.length;
+            const slide = heroSlides[currentSlide];
+            const badgeEl = heroSlider.querySelector('[data-hero-badge]');
+            const kickerEl = heroSlider.querySelector('[data-hero-kicker]');
+            const titleEl = heroSlider.querySelector('[data-hero-title]');
+            const descEl = heroSlider.querySelector('[data-hero-desc]');
+            const ctaEl = heroSlider.querySelector('[data-hero-cta]');
+
+            if (badgeEl) badgeEl.textContent = slide.badge;
+            if (kickerEl) kickerEl.textContent = slide.kicker;
+            if (titleEl) titleEl.textContent = slide.title;
+            if (descEl) descEl.textContent = slide.desc;
+            if (ctaEl) {
+                ctaEl.textContent = slide.cta;
+                ctaEl.setAttribute('href', slide.href);
+            }
+
+            heroSlider.querySelectorAll('[data-slide-dot]').forEach(function (dot, idx) {
+                dot.classList.toggle('active', idx === currentSlide);
+            });
+        }
+
+        heroSlider.querySelectorAll('[data-slide-dot]').forEach(function (dot) {
+            dot.addEventListener('click', function () {
+                const idx = parseInt(dot.getAttribute('data-slide-dot'), 10);
+                showSlide(idx);
+            });
+        });
+
+        setInterval(function () {
+            showSlide(currentSlide + 1);
+        }, 4500);
+    }
+
+    // ==================== QUICK SEARCH & CATEGORIES ====================
+    const headerQuickSearch = document.getElementById('headerQuickSearch');
+    if (headerQuickSearch) {
+        headerQuickSearch.addEventListener('input', function () {
+            const query = headerQuickSearch.value.toLowerCase().trim();
+            const mainSearch = document.getElementById('gameSearch');
+            if (mainSearch) mainSearch.value = query;
+            document.querySelectorAll('.game-card').forEach(function (card) {
+                const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+                const desc = card.querySelector('p')?.textContent?.toLowerCase() || '';
+                const tags = card.dataset.category?.toLowerCase() || '';
+                const match = title.includes(query) || desc.includes(query) || tags.includes(query) || query === '';
+                card.style.display = match ? 'block' : 'none';
+            });
+        });
+    }
+
+    const quickCategorySelect = document.getElementById('quickCategory');
+    if (quickCategorySelect) {
+        quickCategorySelect.addEventListener('change', function () {
+            const cat = quickCategorySelect.value;
+            document.querySelectorAll('.filter-btn').forEach(function (btn) {
+                btn.classList.toggle('active', btn.dataset.filter === cat);
+            });
+            document.querySelectorAll('.game-card').forEach(function (card) {
+                if (cat === 'all' || card.dataset.category.includes(cat)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    document.querySelectorAll('.collection-pill').forEach(function (pill) {
+        pill.addEventListener('click', function (e) {
+            const collection = pill.dataset.collection;
+            if (!collection) return;
+            document.querySelectorAll('.filter-btn').forEach(function (btn) {
+                btn.classList.toggle('active', btn.dataset.filter === collection);
+            });
+            document.querySelectorAll('.game-card').forEach(function (card) {
+                if (collection === 'all' || card.dataset.category.includes(collection)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ==================== DAILY REWARD CLAIM ====================
+    const claimRewardBtn = document.getElementById('claimRewardBtn');
+    if (claimRewardBtn) {
+        claimRewardBtn.addEventListener('click', function () {
+            if (window.musicEngine && typeof window.musicEngine.playCoin === 'function') {
+                window.musicEngine.playCoin();
+            }
+            const currentXP = parseInt(localStorage.getItem('almagen_xp') || '0', 10);
+            const currentCoins = parseInt(localStorage.getItem('almagen_coins') || '0', 10);
+            localStorage.setItem('almagen_xp', (currentXP + 75).toString());
+            localStorage.setItem('almagen_coins', (currentCoins + 25).toString());
+            
+            const popup = document.getElementById('dailyRewardPopup');
+            if (popup) popup.setAttribute('aria-hidden', 'true');
+            
+            alert('🎉 Daily Reward Claimed! +75 XP and +25 Coins added to your profile!');
+        });
+    }
+
 })();
