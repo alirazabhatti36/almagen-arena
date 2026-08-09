@@ -230,7 +230,7 @@
         const gridSize = 20;
 
         function setCanvasSize() {
-            const size = Math.min(window.innerWidth - 30, window.innerHeight - 320, 420);
+            const size = Math.min(window.innerWidth - 30, window.innerHeight - 240, 520);
             canvas.width = size;
             canvas.height = size;
             gridCols = Math.floor(canvas.width / gridSize);
@@ -309,8 +309,8 @@
         }
 
         class MathFood {
-            constructor() { this.spawn(); }
-            spawn() {
+            constructor(forceCorrect = false) { this.spawn(forceCorrect); }
+            spawn(forceCorrect = false) {
                 let pos, attempts = 0;
                 do {
                     pos = getRandomGridPos();
@@ -319,7 +319,7 @@
 
                 this.x = pos.x;
                 this.y = pos.y;
-                const rand = Math.random();
+                const rand = forceCorrect ? 0.2 : Math.random();
                 if (rand < 0.45) {
                     this.num1 = Math.floor(Math.random() * 8) + 2;
                     this.num2 = Math.floor(Math.random() * 8) + 2;
@@ -368,6 +368,17 @@
             }
         }
 
+        
+        function ensureCorrectFoodExists() {
+            if (!foods || foods.length === 0) return;
+            const hasGreen = foods.some(f => f && f.isCorrect);
+            if (!hasGreen) {
+                // Guaranteed at least 1 green correct answer ball on screen!
+                foods[0] = new MathFood(true);
+            }
+        }
+
+
         function startGame() {
             if (animationId) cancelAnimationFrame(animationId);
 
@@ -392,7 +403,8 @@
             direction = { x: gridSize, y: 0 };
             nextDirection = { x: gridSize, y: 0 };
 
-            foods = [new MathFood(), new MathFood(), new MathFood()];
+            foods = [new MathFood(true), new MathFood(), new MathFood()];
+            ensureCorrectFoodExists();
 
             document.getElementById('gameOverScreen').style.display = 'none';
             document.getElementById('pauseOverlay').style.display = 'none';
@@ -489,6 +501,7 @@
                     }
                     foods.splice(i, 1);
                     foods.push(new MathFood());
+                    ensureCorrectFoodExists();
                     ateFood = true;
                     break;
                 }
