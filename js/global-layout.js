@@ -146,11 +146,23 @@
         '</div>'
         ].join('');
 
+        function attachFooter() {
+        const existingFooter = document.querySelector('footer.global-home-footer');
+        if (existingFooter) existingFooter.remove();
+
         const moreGamesSec = document.querySelector('.more-games-section');
-    if (moreGamesSec && moreGamesSec.parentNode) {
-        moreGamesSec.parentNode.insertBefore(footer, moreGamesSec.nextSibling);
+        if (moreGamesSec && moreGamesSec.parentNode) {
+            moreGamesSec.parentNode.insertBefore(footer, moreGamesSec.nextSibling);
+        } else {
+            document.body.appendChild(footer);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', attachFooter);
     } else {
-        document.body.appendChild(footer);
+        attachFooter();
+    }
     }
 
     document.querySelectorAll('[data-empty-state]').forEach(function (node) {

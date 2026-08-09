@@ -390,21 +390,9 @@ class SoundEngine {
 
     syncUiButtons() {
         const icon = this.isMuted ? '🔇' : '🔊';
-        // Attach click listeners to sound buttons
-    document.querySelectorAll('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile').forEach(btn => {
-        btn.onclick = null; // Clear any old handlers
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMute();
+        document.querySelectorAll('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile').forEach(btn => {
+            if (btn) btn.textContent = icon;
         });
-    });
-    }
-
-    setVolume(vol) {
-        this.volume = Math.max(0, Math.min(1, vol));
-        this.musicVolume = this.volume * 0.5;
-        this.updateMasterVolume();
     }
 }
 
@@ -454,3 +442,17 @@ window.playSound = playSound;
 window.toggleMute = toggleMute;
 window.toggleMusic = toggleMusic;
 window.musicEngine = musicEngine;
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.musicEngine) window.musicEngine.syncUiButtons();
+
+    document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile');
+        if (btn) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.toggleMute) window.toggleMute();
+        }
+    });
+});
