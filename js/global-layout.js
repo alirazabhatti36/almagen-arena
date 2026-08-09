@@ -210,7 +210,8 @@
         });
     });
 
-    function updateSoundButtons(isMuted) {
+    function updateSoundButtons() {
+        const isMuted = window.musicEngine ? window.musicEngine.isMuted : (localStorage.getItem('almagen_muted') === 'true');
         const icon = isMuted ? '🔇' : '🔊';
         const muteBtn = document.getElementById('muteBtn');
         const muteBtnMobile = document.getElementById('muteBtnMobile');
@@ -218,16 +219,17 @@
         if (muteBtnMobile) muteBtnMobile.textContent = icon;
     }
 
-    updateSoundButtons(false);
+    updateSoundButtons();
+    window.addEventListener('soundmutechanged', updateSoundButtons);
 
     function toggleMute() {
         if (window.musicEngine && typeof window.musicEngine.toggleMute === 'function') {
-            const muted = window.musicEngine.toggleMute();
-            updateSoundButtons(muted);
-            return;
+            window.musicEngine.toggleMute();
+        } else {
+            const curr = localStorage.getItem('almagen_muted') === 'true';
+            localStorage.setItem('almagen_muted', (!curr) ? 'true' : 'false');
+            updateSoundButtons();
         }
-        const nowMuted = document.getElementById('muteBtn') && document.getElementById('muteBtn').textContent === '🔊';
-        updateSoundButtons(nowMuted);
     }
 
     const muteBtn = document.getElementById('muteBtn');
