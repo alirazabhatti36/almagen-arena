@@ -62,10 +62,43 @@ textarea {
     border-radius: 10px;
 }
 
-/* ==================== STANDARD CURSOR RESTORED ==================== */
-.cursor,
+/* ==================== PREMIUM GLOWING GAMING CURSOR ==================== */
+body {
+    cursor: default;
+}
+
+a, button, input, select, textarea, label, [role="button"], .game-card, .collection-pill, .filter-btn {
+    cursor: pointer;
+}
+
 .cursor-follower {
-    display: none !important;
+    width: 26px;
+    height: 26px;
+    border: 2px solid rgba(0, 212, 255, 0.7);
+    background: rgba(108, 92, 231, 0.12);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(108, 92, 231, 0.2);
+    display: block;
+}
+
+.cursor-follower.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.2);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.7), inset 0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+@media (pointer: coarse) {
+    .cursor-follower {
+        display: none !important;
+    }
 }
 
 /* ==================== LOADING SCREEN ==================== */

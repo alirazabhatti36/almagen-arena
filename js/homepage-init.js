@@ -46,7 +46,55 @@
         });
     });
 
-    // Standard mouse cursor restored site-wide
+    // ==================== PREMIUM GLOWING GAMING CURSOR ====================
+    (function initPremiumCursor() {
+        if (isCoarsePointer) return;
+        let follower = document.querySelector('.cursor-follower');
+        if (!follower) {
+            follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+        }
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let followerX = mouseX, followerY = mouseY;
+        let isMoving = false;
+
+        document.addEventListener('mousemove', function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!isMoving) {
+                isMoving = true;
+                requestAnimationFrame(animateFollower);
+            }
+        }, { passive: true });
+
+        function animateFollower() {
+            followerX += (mouseX - followerX) * 0.2;
+            followerY += (mouseY - followerY) * 0.2;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+
+            if (Math.abs(mouseX - followerX) > 0.1 || Math.abs(mouseY - followerY) > 0.1) {
+                requestAnimationFrame(animateFollower);
+            } else {
+                isMoving = false;
+            }
+        }
+
+        const interactiveSelectors = 'a, button, input, select, textarea, .game-card, .collection-pill, .filter-btn, .mini-game-card, .avatar-option';
+        document.addEventListener('mouseover', function (e) {
+            if (e.target.closest(interactiveSelectors)) {
+                follower.classList.add('hovering');
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseout', function (e) {
+            if (e.target.closest(interactiveSelectors)) {
+                follower.classList.remove('hovering');
+            }
+        }, { passive: true });
+    })();
 
     // ==================== THEME ====================
     const savedTheme = localStorage.getItem('almagen_theme');

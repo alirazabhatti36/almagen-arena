@@ -263,4 +263,46 @@
         '@media (max-width:640px){.global-home-header .header-container{height:68px;padding:0 12px}.has-global-header{padding-top:68px}.global-game-page{padding-top:74px!important}.global-home-footer{margin-top:22px;}}'
     ].join('');
     document.head.appendChild(style);
+
+    // Initialize Premium Glowing Cursor Follower on subpages
+    if (window.matchMedia && !window.matchMedia('(pointer: coarse)').matches) {
+        let follower = document.querySelector('.cursor-follower');
+        if (!follower) {
+            follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+        }
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let followerX = mouseX, followerY = mouseY;
+        let isMoving = false;
+
+        document.addEventListener('mousemove', function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!isMoving) {
+                isMoving = true;
+                requestAnimationFrame(function animate() {
+                    followerX += (mouseX - followerX) * 0.2;
+                    followerY += (mouseY - followerY) * 0.2;
+                    follower.style.left = followerX + 'px';
+                    follower.style.top = followerY + 'px';
+                    if (Math.abs(mouseX - followerX) > 0.1 || Math.abs(mouseY - followerY) > 0.1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        isMoving = false;
+                    }
+                });
+            }
+        }, { passive: true });
+
+        const selectors = 'a, button, input, select, textarea, .game-card, .collection-pill, .filter-btn, .mini-game-card, .avatar-option';
+        document.addEventListener('mouseover', function (e) {
+            if (e.target.closest(selectors)) follower.classList.add('hovering');
+        }, { passive: true });
+
+        document.addEventListener('mouseout', function (e) {
+            if (e.target.closest(selectors)) follower.classList.remove('hovering');
+        }, { passive: true });
+    }
 })();
