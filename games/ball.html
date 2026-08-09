@@ -89,7 +89,7 @@
     <div class="top-bar">
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
-            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="soundToggle"  title="Toggle Sound">🔊</button>
             <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
             <div class="stat-box"><div class="stat-label">🔥 Best</div><div class="stat-value" id="bestDisplay">0</div></div>
         </div>
@@ -117,7 +117,13 @@
         const ctx = canvas.getContext('2d');
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth - 30, 500); canvas.height = Math.min(window.innerHeight - 230, 650); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
-        function toggleSound() { document.getElementById('soundToggle').textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function syncInGameSoundBtn() {
+        const btn = document.getElementById('soundToggle');
+        const isMuted = localStorage.getItem('almagen_muted') === 'true';
+        if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+    }
+    window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+    document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
         function moveTarget(dx, dy) {
             if (!gameRunning) return;
             targetX = Math.max(ball.radius, Math.min(canvas.width - ball.radius, targetX + dx));

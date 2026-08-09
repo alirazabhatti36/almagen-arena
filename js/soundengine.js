@@ -390,9 +390,15 @@ class SoundEngine {
 
     syncUiButtons() {
         const icon = this.isMuted ? '🔇' : '🔊';
-        document.querySelectorAll('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile').forEach(btn => {
-            if (btn) btn.textContent = icon;
+        // Attach click listeners to sound buttons
+    document.querySelectorAll('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile').forEach(btn => {
+        btn.onclick = null; // Clear any old handlers
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMute();
         });
+    });
     }
 
     setVolume(vol) {
@@ -433,12 +439,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Attach click listeners to sound buttons
+    // Attach click listeners to sound buttons
     document.querySelectorAll('#soundToggle, #muteBtn, #muteBtnMobile, .sound-btn, .sound-btn-mobile').forEach(btn => {
-        btn.onclick = (e) => {
+        btn.onclick = null; // Clear any old handlers
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             toggleMute();
-        };
+        });
     });
 });
 

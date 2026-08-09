@@ -146,7 +146,12 @@
         '</div>'
         ].join('');
 
+        const moreGamesSec = document.querySelector('.more-games-section');
+    if (moreGamesSec && moreGamesSec.parentNode) {
+        moreGamesSec.parentNode.insertBefore(footer, moreGamesSec.nextSibling);
+    } else {
         document.body.appendChild(footer);
+    }
 
     document.querySelectorAll('[data-empty-state]').forEach(function (node) {
         if (!node.textContent.trim()) {

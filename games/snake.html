@@ -113,7 +113,7 @@
     <div class="top-bar">
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
-            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="soundToggle"  title="Toggle Sound">🔊</button>
             <div class="stat-box"><div class="stat-label">🧠 Score</div><div class="stat-value" id="mathScore">0</div></div>
             <div class="stat-box"><div class="stat-label">📏 Length</div><div class="stat-value" id="lengthScore">1</div></div>
         </div>
@@ -188,10 +188,13 @@
         window.addEventListener('resize', () => { setCanvasSize(); });
 
         // ==================== SOUND ====================
-        function toggleSound() {
-            const isMuted = window.toggleMute ? window.toggleMute() : (window.sound ? window.sound.toggle() : false);
-            syncInGameSoundBtn();
-        }
+        function syncInGameSoundBtn() {
+        const btn = document.getElementById('soundToggle');
+        const isMuted = localStorage.getItem('almagen_muted') === 'true';
+        if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+    }
+    window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+    document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
         function syncInGameSoundBtn() {
             const btn = document.getElementById('soundToggle');
             const isMuted = localStorage.getItem('almagen_muted') === 'true';

@@ -91,7 +91,7 @@
         <div class="top-bar">
         <a href="../index.html" class="back-btn">← Back</a>
         <div class="stats">
-            <button class="sound-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Sound">🔊</button>
+            <button class="sound-btn" id="soundToggle"  title="Toggle Sound">🔊</button>
             <div class="stat-box"><div class="stat-label">🌟 Good Deeds</div><div class="stat-value" id="scoreDisplay">0</div></div>
         </div>
         </div>
@@ -119,7 +119,13 @@
         const ctx = canvas.getContext('2d');
         function setCanvasSize() { canvas.width = Math.min(window.innerWidth - 30, 650); canvas.height = Math.min(window.innerHeight - 250, 400); }
         setCanvasSize(); window.addEventListener('resize', setCanvasSize);
-        function toggleSound() { const btn = document.getElementById('soundToggle'); btn.textContent = sound.toggle() ? '🔊' : '🔇'; }
+        function syncInGameSoundBtn() {
+        const btn = document.getElementById('soundToggle');
+        const isMuted = localStorage.getItem('almagen_muted') === 'true';
+        if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+    }
+    window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+    document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
         function movePlayerLane(change) {
             if (!gameRunning) return;
             const nextLane = Math.max(0, Math.min(2, player.lane + change));
