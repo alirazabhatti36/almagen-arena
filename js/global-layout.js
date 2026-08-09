@@ -243,6 +243,6 @@
 
     const muteBtn = document.getElementById('muteBtn');
     const muteBtnMobile = document.getElementById('muteBtnMobile');
-    if (muteBtn) muteBtn.addEventListener('click', toggleMute);
-    if (muteBtnMobile) muteBtnMobile.addEventListener('click', toggleMute);
+    // Handled by SoundEngine master delegation listener
+    // Handled by SoundEngine master delegation listener
 })();
