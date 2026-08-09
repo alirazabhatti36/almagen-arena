@@ -57,7 +57,23 @@
             justify-content: center;
         }
 
-        canvas { border: 2px solid #00ff88; border-radius: 14px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.25); max-width: 95vw; max-height: 60vh; touch-action: none; display: block; }
+        /* ===== HOW TO PLAY TUTORIAL BADGE ===== */
+        .how-to-play-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(0, 255, 136, 0.6);
+            border-radius: 12px;
+            padding: 8px 16px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        canvas { border: 2px solid #00ff88; border-radius: 14px; box-shadow: 0 0 30px rgba(0, 255, 136, 0.25); max-width: 95vw; max-height: 55vh; touch-action: none; display: block; }
         #gameContainer { position: relative; }
 
         /* ===== PAUSE & GAME OVER OVERLAYS ===== */
@@ -121,16 +137,97 @@
             box-shadow: 0 6px 20px rgba(0, 255, 136, 0.6);
         }
 
-        /* ===== CONTROLS ===== */
-        .controls-row { display: flex; gap: 12px; align-items: center; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
-        .ctrl-btn { width: 55px; height: 55px; border-radius: 50%; border: 2px solid #00ff88; background: rgba(0,255,136,0.15); color: #fff; font-size: 1.5rem; cursor: pointer; touch-action: manipulation; user-select: none; transition: all 0.15s; }
-        .ctrl-btn:active { background: rgba(0,255,136,0.4); transform: scale(0.9); }
-        .ctrl-btn.pause-btn { border-color: #ffd93d; background: rgba(255,217,61,0.15); font-size: 1.2rem; width: 50px; height: 50px; }
+        /* ===== MOBILE CAR STEERING WHEEL CONTROLLER ===== */
+        .steering-console {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            touch-action: manipulation;
+        }
 
-        #mobileControls { display: none; gap: 15px; margin-top: 15px; }
+        .steering-outer-ring {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1a1a3a 20%, #080816 100%);
+            border: 3px solid #00ff88;
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.35), inset 0 0 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+            padding: 8px;
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .steering-wheel-rim {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 6px solid #2d3436;
+            box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.3);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .steering-hub {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d3436, #0984e3);
+            border: 2px solid #00ff88;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .hub-text {
+            font-size: 0.5rem;
+            font-weight: 900;
+            color: #00ff88;
+            letter-spacing: 1px;
+        }
+
+        .steering-spoke {
+            position: absolute;
+            background: rgba(0, 255, 136, 0.12);
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            transition: all 0.15s;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .steering-spoke:active, .steering-spoke.active {
+            background: rgba(0, 255, 136, 0.45);
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        .spoke-up { top: 6px; left: 50%; transform: translateX(-50%); width: 44px; height: 38px; border-top-left-radius: 18px; border-top-right-radius: 18px; }
+        .spoke-down { bottom: 6px; left: 50%; transform: translateX(-50%); width: 44px; height: 38px; border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; }
+        .spoke-left { left: 6px; top: 50%; transform: translateY(-50%); width: 38px; height: 44px; border-top-left-radius: 18px; border-bottom-left-radius: 18px; }
+        .spoke-right { right: 6px; top: 50%; transform: translateY(-50%); width: 38px; height: 44px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; }
+
+        /* ===== CONTROLS ROW ===== */
+        .controls-row { display: flex; gap: 12px; align-items: center; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+        .ctrl-btn { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ffd93d; background: rgba(255,217,61,0.15); color: #fff; font-size: 1.2rem; cursor: pointer; touch-action: manipulation; user-select: none; transition: all 0.15s; }
+        .ctrl-btn:active { background: rgba(255,217,61,0.4); transform: scale(0.9); }
+
         .instructions { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 6px; text-align: center; }
 
-        @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
+        @media (max-width: 768px) { .steering-console { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
     <link rel="stylesheet" href="../style.css">
@@ -148,9 +245,23 @@
     </div>
 
     <!-- MODE SELECTOR -->
-    <div class="mode-selector-row" style="display:flex;gap:10px;margin-bottom:10px;justify-content:center;align-items:center;">
+    <div class="mode-selector-row" style="display:flex;gap:10px;margin-bottom:8px;justify-content:center;align-items:center;">
         <button class="mode-btn" id="easyModeBtn" onclick="setGameMode('easy')" style="padding:6px 16px;border-radius:12px;font-size:0.85rem;font-weight:700;border:1px solid #00ff88;background:rgba(0,255,136,0.2);color:#fff;cursor:pointer;">🟢 Easy (Wrap Walls)</button>
         <button class="mode-btn" id="hardModeBtn" onclick="setGameMode('hard')" style="padding:6px 16px;border-radius:12px;font-size:0.85rem;font-weight:700;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:#aaa;cursor:pointer;">🔥 Hard (Solid Walls)</button>
+    </div>
+
+    <!-- HOW TO PLAY INDICATOR BADGE FOR NEW PLAYERS -->
+    <div id="howToPlayBadge" class="how-to-play-badge">
+        <div style="font-weight:700;color:#00ff88;margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:6px;">
+            💡 <span>How to Play:</span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;font-size:0.8rem;">
+            <span>⌨️ <b>Desktop:</b> Arrow Keys / WASD</span>
+            <span>📱 <b>Mobile:</b> Canvas Swipe OR 🛞 Steering Wheel</span>
+        </div>
+        <div style="margin-top:4px;font-size:0.75rem;color:#ffd93d;">
+            🟢 Eat <b>Green Correct</b> numbers | 💔 Avoid <b>Red Wrong</b> numbers!
+        </div>
     </div>
 
     <!-- TARGET MATH PROBLEM BANNER -->
@@ -181,13 +292,22 @@
         </div>
     </div>
 
-    <!-- MOBILE CONTROLS -->
-    <div id="mobileControls">
-        <div style="display:grid;grid-template-columns:55px 55px 55px;grid-template-rows:55px 55px;gap:8px;">
-            <div></div><button class="ctrl-btn" id="btnUp">⬆️</button><div></div>
-            <button class="ctrl-btn" id="btnLeft">⬅️</button>
-            <button class="ctrl-btn" id="btnDown">⬇️</button>
-            <button class="ctrl-btn" id="btnRight">➡️</button>
+    <!-- MOBILE CAR STEERING WHEEL CONTROLLER -->
+    <div id="mobileControls" class="steering-console">
+        <div class="steering-outer-ring" id="steeringWheelContainer">
+            <div class="steering-wheel-rim" id="steeringWheelRim">
+                <!-- Center Steering Hub -->
+                <div class="steering-hub">
+                    <span style="font-size:1.4rem;">🛞</span>
+                    <span class="hub-text">DRIVE</span>
+                </div>
+                
+                <!-- 4 Directional Touch Spokes -->
+                <button class="steering-spoke spoke-up" id="btnUp" title="Steer Up">▲</button>
+                <button class="steering-spoke spoke-down" id="btnDown" title="Steer Down">▼</button>
+                <button class="steering-spoke spoke-left" id="btnLeft" title="Steer Left">◀</button>
+                <button class="steering-spoke spoke-right" id="btnRight" title="Steer Right">▶</button>
+            </div>
         </div>
     </div>
 
@@ -198,7 +318,7 @@
     </div>
 
     <p class="instructions desktop">⌨️ Arrow Keys / WASD to move | Eat correct green numbers to grow!</p>
-    <p class="instructions mobile">👆 Use buttons to move | ⏸️ to Pause</p>
+    <p class="instructions mobile">📱 Swipe canvas OR use Steering Wheel to turn | ⏸️ to Pause</p>
 
     <!-- RECOMMENDED GAMES SECTION -->
     <section class="more-games-section" style="width:100%;max-width:1100px;margin:40px auto 20px;padding:0 15px;">
@@ -248,10 +368,12 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         let gridCols, gridRows;
-        const gridSize = 24; // Increased cell size for smooth physics & clear text!
+        const gridSize = 24;
 
         function setCanvasSize() {
-            const size = Math.min(window.innerWidth - 30, window.innerHeight - 240, 520);
+            const padding = window.innerWidth < 480 ? 16 : 30;
+            const maxHeight = window.innerHeight - (window.innerWidth < 768 ? 220 : 250);
+            const size = Math.min(window.innerWidth - padding, maxHeight, 520);
             canvas.width = Math.floor(size / gridSize) * gridSize;
             canvas.height = Math.floor(size / gridSize) * gridSize;
             gridCols = canvas.width / gridSize;
@@ -478,7 +600,6 @@
             // Wall collision
             if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
                 if (gameMode === 'easy') {
-                    // Wrap walls smoothly in Easy mode
                     if (head.x < 0) head.x = canvas.width - gridSize;
                     else if (head.x >= canvas.width) head.x = 0;
                     if (head.y < 0) head.y = canvas.height - gridSize;
@@ -527,7 +648,6 @@
                         if (window.playSound) window.playSound('coin');
                         if (gameSpeed > 50) gameSpeed = Math.max(50, gameSpeed - 2);
 
-                        // Generate next math problem
                         generateMathTarget();
                         foods = [new MathFood(true), new MathFood(), new MathFood()];
                     } else {
@@ -550,7 +670,7 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw clean subtle grid
+            // Draw clean grid
             ctx.strokeStyle = 'rgba(255,255,255,0.035)';
             ctx.lineWidth = 1;
             for (let x = 0; x < canvas.width; x += gridSize) {
@@ -639,21 +759,29 @@
             if (['ArrowRight', 'KeyD'].includes(e.code) && direction.x === 0) nextDirection = { x: gridSize, y: 0 };
         });
 
-        // Mobile On-Screen Controls (Instant Pointerdown)
-        const bindControl = (btn, action) => {
+        // Steering Wheel Rotation Animation Helper
+        const wheelContainer = document.getElementById('steeringWheelContainer');
+
+        const bindSteeringControl = (btn, action, angle) => {
             if (!btn) return;
             const handler = (e) => {
                 e.preventDefault();
-                if (gameRunning && !isPaused) action();
+                if (gameRunning && !isPaused) {
+                    action();
+                    if (wheelContainer) {
+                        wheelContainer.style.transform = `rotate(${angle}deg)`;
+                        setTimeout(() => { wheelContainer.style.transform = 'rotate(0deg)'; }, 200);
+                    }
+                }
             };
             btn.addEventListener('pointerdown', handler);
             btn.addEventListener('touchstart', handler, { passive: false });
         };
 
-        bindControl(document.getElementById('btnUp'), () => { if (direction.y === 0) nextDirection = { x: 0, y: -gridSize }; });
-        bindControl(document.getElementById('btnDown'), () => { if (direction.y === 0) nextDirection = { x: 0, y: gridSize }; });
-        bindControl(document.getElementById('btnLeft'), () => { if (direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; });
-        bindControl(document.getElementById('btnRight'), () => { if (direction.x === 0) nextDirection = { x: gridSize, y: 0 }; });
+        bindSteeringControl(document.getElementById('btnUp'), () => { if (direction.y === 0) nextDirection = { x: 0, y: -gridSize }; }, 0);
+        bindSteeringControl(document.getElementById('btnDown'), () => { if (direction.y === 0) nextDirection = { x: 0, y: gridSize }; }, 180);
+        bindSteeringControl(document.getElementById('btnLeft'), () => { if (direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; }, -35);
+        bindSteeringControl(document.getElementById('btnRight'), () => { if (direction.x === 0) nextDirection = { x: gridSize, y: 0 }; }, 35);
 
         // Touch Swipe Gestures Directly on Canvas
         let touchStartX = 0;
@@ -675,11 +803,11 @@
                 const minSwipe = 20;
 
                 if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipe) {
-                    if (dx > 0 && direction.x === 0) nextDirection = { x: gridSize, y: 0 }; // Right
-                    else if (dx < 0 && direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; // Left
+                    if (dx > 0 && direction.x === 0) nextDirection = { x: gridSize, y: 0 };
+                    else if (dx < 0 && direction.x === 0) nextDirection = { x: -gridSize, y: 0 };
                 } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipe) {
-                    if (dy > 0 && direction.y === 0) nextDirection = { x: 0, y: gridSize }; // Down
-                    else if (dy < 0 && direction.y === 0) nextDirection = { x: 0, y: -gridSize }; // Up
+                    if (dy > 0 && direction.y === 0) nextDirection = { x: 0, y: gridSize };
+                    else if (dy < 0 && direction.y === 0) nextDirection = { x: 0, y: -gridSize };
                 }
             }
         }, { passive: true });
