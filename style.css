@@ -32,7 +32,7 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.8;
     overflow-x: hidden;
-    cursor: none;
+    cursor: auto;
     padding-top: 0;
 }
 
@@ -62,29 +62,10 @@ textarea {
     border-radius: 10px;
 }
 
-/* ==================== CUSTOM CURSOR ==================== */
-.cursor {
-    width: 10px;
-    height: 10px;
-    background: var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s;
-}
-
+/* ==================== STANDARD CURSOR RESTORED ==================== */
+.cursor,
 .cursor-follower {
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 99998;
-    transform: translate(-50%, -50%);
-    transition: 0.15s ease;
+    display: none !important;
 }
 
 /* ==================== LOADING SCREEN ==================== */

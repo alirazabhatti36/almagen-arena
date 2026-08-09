@@ -46,27 +46,7 @@
         });
     });
 
-    // ==================== CUSTOM CURSOR ====================
-    if (!isCoarsePointer && !prefersReducedMotion) {
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        document.addEventListener('mousemove', function (e) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            setTimeout(function () {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 80);
-        }, { passive: true });
-        document.addEventListener('mousedown', function () {
-            cursor.style.transform = 'translate(-50%, -50%) scale(0.7)';
-            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        });
-        document.addEventListener('mouseup', function () {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-    }
+    // Standard mouse cursor restored site-wide
 
     // ==================== THEME ====================
     const savedTheme = localStorage.getItem('almagen_theme');
