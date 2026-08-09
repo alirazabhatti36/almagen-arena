@@ -43,7 +43,7 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Poppins', sans-serif; overflow: hidden; flex-direction: column; }
+        body { min-height: 100vh; padding-top: 85px; padding-bottom: 40px; font-family: 'Poppins', sans-serif; overflow-y: auto; display: flex; flex-direction: column; align-items: center; background: #0a0a1a; }
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 500px; padding: 10px 20px; margin-bottom: 10px; gap: 10px; flex-wrap: wrap; }
         .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
         .back-btn:hover { background: rgba(255,255,255,0.2); }
@@ -166,5 +166,49 @@
 
     <script src="../js/global-layout.js"></script>
     <script src="../js/user-profile-engine.js"></script>
+
+    <!-- RECOMMENDED GAMES SECTION -->
+    <section class="more-games-section">
+        <div class="more-games-title-row">
+            <h2 class="more-games-title">🔥 Recommended Games</h2>
+            <a href="../index.html#games" class="more-games-link">View All 15 Games ➔</a>
+        </div>
+        <div class="recommended-games-grid">
+            
+            <a href="snake.html" class="rec-game-card">
+                <div class="rec-card-thumb">🐍</div>
+                <div class="rec-card-info">
+                    <h3>Math Snake</h3>
+                    <p>Solve math & grow your snake!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="runner.html" class="rec-game-card">
+                <div class="rec-card-thumb">🏃</div>
+                <div class="rec-card-info">
+                    <h3>Life Runner</h3>
+                    <p>Run, dodge & answer questions!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="memory.html" class="rec-game-card">
+                <div class="rec-card-thumb">🧠</div>
+                <div class="rec-card-info">
+                    <h3>Memory Master</h3>
+                    <p>Flip cards & boost memory!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="shooter.html" class="rec-game-card">
+                <div class="rec-card-thumb">🚀</div>
+                <div class="rec-card-info">
+                    <h3>Space Defender</h3>
+                    <p>Shoot target math asteroids!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
 </body>
 </html>
