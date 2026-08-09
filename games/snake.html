@@ -639,14 +639,50 @@
             if (['ArrowRight', 'KeyD'].includes(e.code) && direction.x === 0) nextDirection = { x: gridSize, y: 0 };
         });
 
-        const btnUp = document.getElementById('btnUp');
-        const btnDown = document.getElementById('btnDown');
-        const btnLeft = document.getElementById('btnLeft');
-        const btnRight = document.getElementById('btnRight');
-        if (btnUp) btnUp.onclick = () => { if (direction.y === 0) nextDirection = { x: 0, y: -gridSize }; };
-        if (btnDown) btnDown.onclick = () => { if (direction.y === 0) nextDirection = { x: 0, y: gridSize }; };
-        if (btnLeft) btnLeft.onclick = () => { if (direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; };
-        if (btnRight) btnRight.onclick = () => { if (direction.x === 0) nextDirection = { x: gridSize, y: 0 }; };
+        // Mobile On-Screen Controls (Instant Pointerdown)
+        const bindControl = (btn, action) => {
+            if (!btn) return;
+            const handler = (e) => {
+                e.preventDefault();
+                if (gameRunning && !isPaused) action();
+            };
+            btn.addEventListener('pointerdown', handler);
+            btn.addEventListener('touchstart', handler, { passive: false });
+        };
+
+        bindControl(document.getElementById('btnUp'), () => { if (direction.y === 0) nextDirection = { x: 0, y: -gridSize }; });
+        bindControl(document.getElementById('btnDown'), () => { if (direction.y === 0) nextDirection = { x: 0, y: gridSize }; });
+        bindControl(document.getElementById('btnLeft'), () => { if (direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; });
+        bindControl(document.getElementById('btnRight'), () => { if (direction.x === 0) nextDirection = { x: gridSize, y: 0 }; });
+
+        // Touch Swipe Gestures Directly on Canvas
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        canvas.addEventListener('touchend', (e) => {
+            if (e.changedTouches.length === 1 && gameRunning && !isPaused) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                const dx = touchEndX - touchStartX;
+                const dy = touchEndY - touchStartY;
+                const minSwipe = 20;
+
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipe) {
+                    if (dx > 0 && direction.x === 0) nextDirection = { x: gridSize, y: 0 }; // Right
+                    else if (dx < 0 && direction.x === 0) nextDirection = { x: -gridSize, y: 0 }; // Left
+                } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipe) {
+                    if (dy > 0 && direction.y === 0) nextDirection = { x: 0, y: gridSize }; // Down
+                    else if (dy < 0 && direction.y === 0) nextDirection = { x: 0, y: -gridSize }; // Up
+                }
+            }
+        }, { passive: true });
 
         // Auto-pause game when player scrolls canvas out of view
         const scrollObserver = new IntersectionObserver((entries) => {
