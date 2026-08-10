@@ -246,3 +246,41 @@
     // Handled by SoundEngine master delegation listener
     // Handled by SoundEngine master delegation listener
 })();
+
+    // ===== GOOGLE ADSENSE & GDPR COOKIE CONSENT BANNER =====
+    function initCookieConsent() {
+        if (localStorage.getItem('almagen_cookie_consent') === 'accepted') return;
+
+        const banner = document.createElement('div');
+        banner.id = 'cookieConsentBanner';
+        banner.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:90%;max-width:580px;background:rgba(10,10,26,0.96);border:1px solid #00ff88;box-shadow:0 10px 30px rgba(0,255,136,0.25);border-radius:16px;padding:16px 20px;z-index:99999;display:flex;align-items:center;justify-content:space-between;gap:15px;backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);color:#fff;font-family:sans-serif;font-size:0.85rem;line-height:1.4;';
+        
+        banner.innerHTML = `
+            <div style="flex:1;">
+                <div style="font-weight:bold;color:#00ff88;margin-bottom:4px;display:flex;align-items:center;gap:6px;">🍪 Cookie & Privacy Consent</div>
+                <div style="color:rgba(255,255,255,0.85);font-size:0.78rem;">
+                    We use cookies and Google AdSense to personalize ads and analyze traffic for the best gaming experience. By playing, you agree to our <a href="${prefix}privacy.html" style="color:#00ff88;text-decoration:underline;">Privacy Policy</a>.
+                </div>
+            </div>
+            <button id="acceptCookieBtn" style="background:linear-gradient(135deg,#00ff88,#00b894);color:#000;border:none;padding:8px 18px;border-radius:20px;font-weight:bold;font-size:0.85rem;cursor:pointer;white-space:nowrap;box-shadow:0 4px 12px rgba(0,255,136,0.4);transition:transform 0.2s;">Accept All</button>
+        `;
+
+        document.body.appendChild(banner);
+
+        const acceptBtn = document.getElementById('acceptCookieBtn');
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('almagen_cookie_consent', 'accepted');
+                banner.style.opacity = '0';
+                banner.style.transform = 'translateX(-50%) translateY(20px)';
+                banner.style.transition = 'all 0.3s ease';
+                setTimeout(() => banner.remove(), 300);
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCookieConsent);
+    } else {
+        initCookieConsent();
+    }
