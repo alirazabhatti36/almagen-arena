@@ -1,10 +1,8 @@
 (function () {
     const isGamePage = /\/games\//.test(window.location.pathname);
-    const isHome = /\/index\.html$/.test(window.location.pathname) || /\/$/.test(window.location.pathname);
-    if (isHome) return;
-
     const prefix = isGamePage ? '../' : '';
 
+    // Remove any existing duplicate header or footer elements before rendering
     document.querySelectorAll('.global-home-header, .global-home-footer, .global-home-overlay, .global-utility-nav, .global-footer-links').forEach(function (node) {
         node.remove();
     });
@@ -57,9 +55,9 @@
         '</ul>',
         '</nav>',
         '<div class="header-actions">',
-        '<button class="theme-toggle" id="themeToggle">🌓</button>',
-        '<button class="sound-btn" id="muteBtn">🔊</button>',
-        '<button class="menu-dots" id="menuDots">⋮</button>',
+        '<button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>',
+        '<button class="sound-btn" id="muteBtn" title="Toggle Sound">🔊</button>',
+        '<button class="menu-dots" id="menuDots" title="Menu">⋮</button>',
         '</div>',
         '</div>'
     ].join('');
@@ -83,18 +81,11 @@
         '<div class="footer-brand">',
         '<span class="footer-logo">⚔️ AlMaGen<span class="logo-highlight">-Arena</span></span>',
         '<p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p>',
-        '<div class="footer-spotlight">',
-        '<div class="footer-spotlight-icon">🎮</div>',
-        '<div>',
-        '<p class="footer-spotlight-title">15 Games • No Download • Play Instantly</p>',
-        '<p class="footer-spotlight-subtitle">Jump into quick sessions across math, strategy, puzzle, and action games.</p>',
-        '</div>',
-        '</div>',
         '<div class="footer-socials">',
         '<a href="' + prefix + 'index.html#home" aria-label="Home">🏠</a>',
         '<a href="' + prefix + 'index.html#games" aria-label="Games">🎮</a>',
-        '<a href="#" aria-label="Instagram">📸</a>',
-        '<a href="#" aria-label="YouTube">▶</a>',
+        '<a href="https://instagram.com" aria-label="Instagram">📸</a>',
+        '<a href="https://youtube.com" aria-label="YouTube">▶</a>',
         '</div>',
         '</div>',
         '<div class="footer-links">',
@@ -102,13 +93,9 @@
         '<ul>',
         '<li><a href="' + prefix + 'index.html#home">Home</a></li>',
         '<li><a href="' + prefix + 'index.html#games">Games</a></li>',
-        '<li><a href="' + prefix + 'all-games.html">All Games</a></li>',
-        '<li><a href="' + prefix + 'categories.html">Categories</a></li>',
         '<li><a href="' + prefix + 'daily.html">Daily Challenges</a></li>',
         '<li><a href="' + prefix + 'leaderboard.html">Leaderboard</a></li>',
         '<li><a href="' + prefix + 'profile.html">Profile</a></li>',
-        '<li><a href="' + prefix + 'blog.html">Blog</a></li>',
-        '<li><a href="' + prefix + 'contact.html">Contact</a></li>',
         '</ul>',
         '</div>',
         '<div class="footer-links">',
@@ -122,27 +109,17 @@
         '</ul>',
         '</div>',
         '<div class="footer-links">',
-        '<h4>🛡️ Legal</h4>',
+        '<h4>🛡️ Legal & Info</h4>',
         '<ul>',
-        '<li><a href="' + prefix + 'about.html">About</a></li>',
-        '<li><a href="' + prefix + 'community-guidelines.html">Community Guidelines</a></li>',
-        '<li><a href="' + prefix + 'help-center.html">Help Center</a></li>',
-        '<li><a href="' + prefix + 'careers.html">Careers</a></li>',
-        '<li><a href="' + prefix + 'press-kit.html">Press Kit</a></li>',
+        '<li><a href="' + prefix + 'about.html">About Us</a></li>',
         '<li><a href="' + prefix + 'privacy.html">Privacy Policy</a></li>',
         '<li><a href="' + prefix + 'terms.html">Terms of Service</a></li>',
-        '<li><a href="' + prefix + 'cookies.html">Cookies</a></li>',
-        '<li><a href="' + prefix + 'dmca.html">DMCA</a></li>',
-        '<li><a href="' + prefix + 'faq.html">FAQ</a></li>',
-        '<li><a href="' + prefix + 'advertise.html">Advertise</a></li>',
-        '<li><a href="' + prefix + 'developers.html">Developers</a></li>',
         '<li><a href="' + prefix + 'contact.html">Contact Us</a></li>',
         '</ul>',
         '</div>',
         '</div>',
         '<div class="footer-bottom">',
         '<p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p>',
-        '<p class="footer-quote">"Play, Learn, and Grow!" 🚀</p>',
         '</div>'
     ].join('');
 
@@ -163,89 +140,6 @@
     } else {
         attachFooter();
     }
-
-    document.querySelectorAll('[data-empty-state]').forEach(function (node) {
-        if (!node.textContent.trim()) {
-            node.textContent = 'Nothing to show yet. Content will appear after backend integration.';
-        }
-    });
-
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-
-    function updateThemeButtons() {
-        const isLight = document.body.classList.contains('light-theme');
-        const icon = isLight ? '☀️' : '🌓';
-        if (themeToggle) themeToggle.textContent = icon;
-        if (themeToggleMobile) themeToggleMobile.textContent = icon;
-    }
-
-    const savedTheme = localStorage.getItem('almagen_theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-    }
-    updateThemeButtons();
-
-    function toggleTheme() {
-        document.body.classList.toggle('light-theme');
-        const isLight = document.body.classList.contains('light-theme');
-        localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
-        updateThemeButtons();
-    }
-
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-
-    const menuDots = document.getElementById('menuDots');
-    const navOverlay = document.getElementById('navOverlay');
-    const headerNav = document.getElementById('headerNav');
-
-    function toggleMenu() {
-        if (!menuDots || !headerNav || !navOverlay) return;
-        menuDots.classList.toggle('active');
-        headerNav.classList.toggle('active');
-        navOverlay.classList.toggle('active');
-
-        const menuOpen = headerNav.classList.contains('active');
-        if (menuOpen) {
-            document.body.dataset.prevOverflow = document.body.style.overflow || '';
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = document.body.dataset.prevOverflow || '';
-            delete document.body.dataset.prevOverflow;
-        }
-    }
-
-    if (menuDots) menuDots.addEventListener('click', toggleMenu);
-    if (navOverlay) navOverlay.addEventListener('click', toggleMenu);
-
-    function updateSoundButtons() {
-        const isMuted = window.musicEngine ? window.musicEngine.isMuted : (localStorage.getItem('almagen_muted') === 'true');
-        const icon = isMuted ? '🔇' : '🔊';
-        const muteBtn = document.getElementById('muteBtn');
-        const muteBtnMobile = document.getElementById('muteBtnMobile');
-        if (muteBtn) muteBtn.textContent = icon;
-        if (muteBtnMobile) muteBtnMobile.textContent = icon;
-    }
-
-    updateSoundButtons();
-    window.addEventListener('soundmutechanged', updateSoundButtons);
-
-    function toggleMute() {
-        if (window.musicEngine && typeof window.musicEngine.toggleMute === 'function') {
-            window.musicEngine.toggleMute();
-        } else {
-            const curr = localStorage.getItem('almagen_muted') === 'true';
-            localStorage.setItem('almagen_muted', (!curr) ? 'true' : 'false');
-            updateSoundButtons();
-        }
-    }
-
-    const muteBtn = document.getElementById('muteBtn');
-    const muteBtnMobile = document.getElementById('muteBtnMobile');
-    // Handled by SoundEngine master delegation listener
-    // Handled by SoundEngine master delegation listener
-})();
 
     // ===== GOOGLE ADSENSE & GDPR COOKIE CONSENT BANNER =====
     function initCookieConsent() {
@@ -284,3 +178,4 @@
     } else {
         initCookieConsent();
     }
+})();
