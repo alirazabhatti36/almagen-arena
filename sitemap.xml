@@ -276,4 +276,42 @@
         <priority>0.8</priority>
         <changefreq>weekly</changefreq>
     </url>
+
+    <url>
+        <loc>https://almagen-arena.com/games/orbitball.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/games/galaxyshooter.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/games/zombieshooter.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/games/ninjadash.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/games/blockfit.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://almagen-arena.com/games/math2048.html</loc>
+        <lastmod>2026-08-12</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
 </urlset>
