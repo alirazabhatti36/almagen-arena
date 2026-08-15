@@ -2,320 +2,563 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Life Runner - Play Free Online | AlMaGen-Arena</title>
-    <meta name="description" content="Play Life Runner online for free. Collect good deeds, avoid bad habits, and build a higher score in this educational endless runner.">
-    <meta name="keywords" content="Life Runner, free endless runner, educational runner game, browser action game, good habits game">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="author" content="AlMaGen-Arena">
-    <meta name="theme-color" content="#6c5ce7">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Life Runner — Play Free Online Game | AlMaGen-Arena</title>
+    <meta name="description" content="Play Life Runner on AlMaGen-Arena! Complete stages, build healthy habits, dodge distractions, and test your reflexes in this free online runner game.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#7c5cff">
     <link rel="canonical" href="https://almagen-arena.com/games/runner.html">
-    <meta property="og:title" content="Life Runner - Play Free Online | AlMaGen-Arena">
-    <meta property="og:description" content="Run through lanes, collect good deeds, and avoid bad choices in Life Runner.">
+
+    <meta property="og:title" content="Life Runner — Play Free Online Game | AlMaGen-Arena">
+    <meta property="og:description" content="Stage-based educational runner game! Build healthy habits, master mental focus, and dodge bad choices.">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
-    <meta property="og:image:alt" content="AlMaGen-Arena social preview banner.">
     <meta property="og:url" content="https://almagen-arena.com/games/runner.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="AlMaGen-Arena">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Life Runner - Play Free Online | AlMaGen-Arena">
-    <meta name="twitter:description" content="Collect positive choices and dodge bad habits in this educational lane runner.">
-    <meta name="twitter:image" content="https://almagen-arena.com/preview.svg">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
-    <link rel="manifest" href="../manifest.json">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "VideoGame",
-            "name": "Life Runner",
-            "url": "https://almagen-arena.com/games/runner.html",
-            "description": "A free browser endless runner where players collect good deeds and avoid negative choices.",
-            "applicationCategory": "Game",
-            "genre": ["Educational Game", "Runner Game"],
-            "isAccessibleForFree": true,
-            "publisher": {
-                "@type": "Organization",
-                "name": "AlMaGen-Arena",
-                "url": "https://almagen-arena.com/"
-            }
-        }
-    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a1a; display: flex; justify-content: center; align-items: center; min-min-height: 100vh; font-family: 'Poppins', sans-serif; overflow-y: auto; overflow-x: hidden; flex-direction: column; }
-        .game-page { width: 100%; max-width: 760px; padding: 18px 18px 28px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .game-intro { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px 20px; backdrop-filter: blur(18px); }
-        .game-intro h1 { font-size: 1.9rem; margin-bottom: 8px; color: #fff; }
-        .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.96rem; margin-bottom: 10px; }
-        .game-features { display: flex; flex-wrap: wrap; gap: 8px; }
-        .game-features span { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.86); font-size: 0.78rem; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 650px; padding: 10px 20px; margin-bottom: 10px; gap: 10px; flex-wrap: wrap; }
-        .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
-        .back-btn:hover { background: rgba(255,255,255,0.2); }
-        .stats { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-        .sound-btn { background: rgba(255,255,255,0.1); border: none; font-size: 1rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); }
-        .stat-label { font-size: 0.6rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
-        .stat-value { font-size: 1.3rem; font-weight: bold; color: #ffd93d; }
-        canvas { border: 2px solid #ff6b6b; border-radius: 10px; box-shadow: 0 0 30px rgba(255, 107, 107, 0.3); max-width: 95vw; max-height: 70vh; }
-        #gameContainer { position: relative; }
-        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
-        #gameOverScreen h2 { font-size: 2.5rem; color: #ff6b6b; margin-bottom: 10px; }
-        #gameOverScreen p { color: #fff; font-size: 1rem; margin-bottom: 15px; text-align: center; padding: 0 20px; }
-        .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ff6b6b; color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
-        .play-again-btn:hover { background: #e55a5a; transform: scale(1.05); }
-        #mobileControls { display: none; gap: 20px; margin-top: 15px; }
-        .ctrl-btn { width: 70px; height: 70px; border-radius: 50%; border: 2px solid #ff6b6b; background: rgba(255,107,107,0.15); color: #fff; font-size: 1.8rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-        .ctrl-btn:active { background: rgba(255,107,107,0.4); transform: scale(0.9); }
-        .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
-        .guide-pill { display: inline-block; margin-top: 6px; padding: 6px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 0.68rem; color: rgba(255,255,255,0.8); }
+        body { background: #070714; color: #fff; font-family: 'Poppins', sans-serif; min-height: 100vh; touch-action: manipulation; }
+        .game-page { display: flex; flex-direction: column; align-items: center; padding: 15px; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .game-intro { text-align: center; margin-bottom: 12px; }
+        .game-intro h1 { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #00d4ff, #7c5cff, #e84393); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 8px; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 680px; padding: 8px 14px; margin-bottom: 8px; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s; font-weight: 600; }
+        .back-btn:hover { background: rgba(124,92,255,0.3); }
+        
+        .stats { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: flex-end; }
+        .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 1rem; cursor: pointer; padding: 6px 10px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 60px; }
+        .stat-label { font-size: 0.58rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; color: #ffd93d; }
+
+        /* STAGE PROGRESS BAR */
+        .stage-progress-wrapper { width: 100%; max-width: 680px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 10px 14px; }
+        .stage-info-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; }
+        .stage-title { color: #00d4ff; display: flex; align-items: center; gap: 6px; }
+        .stage-target { color: #ffd93d; }
+        .progress-track { height: 10px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00ff88, #00d4ff, #7c5cff); border-radius: 999px; transition: width 0.3s ease; }
+
+        #gameContainer { position: relative; width: 100%; max-width: 680px; display: flex; justify-content: center; }
+        canvas { border: 2px solid rgba(124, 92, 255, 0.4); border-radius: 16px; box-shadow: 0 10px 35px rgba(124, 92, 255, 0.25); width: 100%; max-width: 680px; height: auto; touch-action: none; background: #070714; }
+        
+        /* OVERLAYS */
+        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.92); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(12px); }
+        .overlay-screen h2 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 900; }
+        .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 15px; max-width: 480px; line-height: 1.5; }
+        .action-btn { padding: 12px 32px; font-size: 1.05rem; background: linear-gradient(135deg, #7c5cff, #6c5ce7); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; box-shadow: 0 8px 25px rgba(124, 92, 255, 0.5); }
+        .action-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.7); }
+
+        #mobileControls { display: none; gap: 15px; margin-top: 12px; }
+        .ctrl-btn { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #7c5cff; background: rgba(124,92,255,0.2); color: #fff; font-size: 1.6rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ctrl-btn:active { background: rgba(124,92,255,0.5); transform: scale(0.92); }
+        
+        .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 8px; text-align: center; }
         @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
 </head>
-<body>
+<body class="has-global-header">
     <main class="game-page">
         <header class="game-intro">
-            <h1>Life Runner</h1>
-            <p>Collect good deeds, dodge bad habits, and build a higher score in a fast endless runner designed to reward quick decisions and positive choices.</p>
-            <div class="game-features">
-                <span>Educational runner game</span>
-                <span>Good vs bad choices</span>
-                <span>Works on desktop and mobile</span>
-            </div>
+            <h1>🏃 Life Runner</h1>
+            <p>Complete stages, build healthy habits, master focus, and dodge life distractions in this cyber runner!</p>
         </header>
 
         <div class="top-bar">
-        <a href="../index.html" class="back-btn">← Back</a>
-        <div class="stats">
-            <button class="sound-btn" id="soundToggle"  title="Toggle Sound">🔊</button>
-            <div class="stat-box"><div class="stat-label">🌟 Good Deeds</div><div class="stat-value" id="scoreDisplay">0</div></div>
+            <a href="../index.html" class="back-btn">← Back</a>
+            <div class="stats">
+                <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
+                <div class="stat-box"><div class="stat-label">🛡️ Shield</div><div class="stat-value" id="shieldDisplay" style="color:#00ff88;">OFF</div></div>
+                <div class="stat-box"><div class="stat-label">🌟 Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
+            </div>
         </div>
+
+        <!-- STAGE PROGRESS HUD -->
+        <div class="stage-progress-wrapper">
+            <div class="stage-info-row">
+                <span class="stage-title" id="stageTitle">🚩 STAGE 1: Healthy Habits</span>
+                <span class="stage-target" id="stageTargetText">🎯 Goal: 120 Score</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
-    <div id="gameContainer">
-        <canvas style="touch-action:none;" id="gameCanvas"></canvas>
-        <div id="gameOverScreen">
-            <h2>💔 Game Over!</h2>
-            <p id="gameOverMsg"></p>
-            <div style="color:#ffd93d;font-size:1.5rem;margin-bottom:15px;">Good Deeds: <span id="finalScore" style="font-weight:bold;">0</span></div>
-            <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
+
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="650" height="380" style="touch-action:none;"></canvas>
+
+            <!-- STAGE CLEAR OVERLAY -->
+            <div id="stageClearScreen" class="overlay-screen">
+                <h2 style="color:#00ff88;" id="stageClearTitle">🎉 STAGE CLEAR!</h2>
+                <p id="stageClearMsg">Great job! You mastered Healthy Habits. Ready for Stage 2?</p>
+                <button class="action-btn" onclick="nextStage()">🚀 Start Next Stage ➔</button>
+            </div>
+
+            <!-- GAME OVER OVERLAY -->
+            <div id="gameOverScreen" class="overlay-screen">
+                <h2 style="color:#ff4757;">💔 Game Over!</h2>
+                <p id="gameOverMsg">You got distracted by bad choices!</p>
+                <div style="color:#ffd93d;font-size:1.4rem;margin-bottom:15px;font-weight:bold;">Final Score: <span id="finalScore">0</span></div>
+                <button class="action-btn" onclick="startGame()">🔄 Try Again</button>
+            </div>
+
+            <!-- VICTORY OVERLAY -->
+            <div id="victoryScreen" class="overlay-screen">
+                <h2 style="color:#ffd93d;">🏆 LIFE RUNNER CHAMPION!</h2>
+                <p>Incredible! You achieved 100% Life Mastery & Completed All Stages!</p>
+                <div style="color:#00ff88;font-size:1.6rem;margin-bottom:18px;font-weight:900;">Final Score: <span id="victoryScore">0</span></div>
+                <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
+            </div>
         </div>
-    </div>
-    <div id="mobileControls">
-        <button class="ctrl-btn" id="btnUp">⬆️</button>
-        <button class="ctrl-btn" id="btnDown">⬇️</button>
-    </div>
-    <p class="instructions desktop">Desktop: use the Up/Down Arrow keys or W/S. Mobile/Tablet/iPhone: tap the buttons or swipe up/down to switch lanes.</p>
-    <p class="instructions mobile">👆 Tap buttons to switch lanes, or swipe up/down on the screen.</p>
-    <div class="guide-pill">Collect ✅ Good deeds. Avoid ❌ Bad ones.</div>
+
+        <div id="mobileControls">
+            <button class="ctrl-btn" id="btnUp">⬆️</button>
+            <button class="ctrl-btn" id="btnDown">⬇️</button>
+        </div>
+        <p class="instructions desktop">⌨️ Desktop: Arrow Keys (Up/Down or W/S) to switch lanes | Dodge ❌ Red items & collect 🟢 Green powerups!</p>
+        <p class="instructions mobile">📱 Mobile: Tap ⬆️ / ⬇️ buttons OR Swipe up/down on canvas to switch lanes.</p>
     </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        function setCanvasSize() { canvas.width = Math.min(window.innerWidth - 30, 650); canvas.height = Math.min(window.innerHeight - 250, 400); }
-        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
-        function syncInGameSoundBtn() {
-        const btn = document.getElementById('soundToggle');
-        const isMuted = localStorage.getItem('almagen_muted') === 'true';
-        if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
-    }
-    window.addEventListener('soundmutechanged', syncInGameSoundBtn);
-    document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
-        function movePlayerLane(change) {
-            if (!gameRunning) return;
-            const nextLane = Math.max(0, Math.min(2, player.lane + change));
-            if (nextLane !== player.lane) player.lane = nextLane;
-        }
 
-        let player = { x: 80, y: 0, lane: 1, targetY: 0 };
-        let items = [], score = 0, gameRunning = true, gameSpeed = 4, frameCount = 0, spawnTimer = 0, particles = [];
-        const lanes = [0, 1, 2];
+        function setCanvasSize() {
+            const sizeW = Math.min(window.innerWidth - 30, 650);
+            const sizeH = Math.min(window.innerHeight - 260, 380);
+            canvas.width = Math.max(320, sizeW);
+            canvas.height = Math.max(260, sizeH);
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        function syncInGameSoundBtn() {
+            const btn = document.getElementById('soundToggle');
+            const isMuted = localStorage.getItem('almagen_muted') === 'true';
+            if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+        }
+        window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+        document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
+
+        // ==================== STAGE CONFIGURATION ====================
+        const stagesConfig = [
+            {
+                level: 1,
+                name: "🚩 STAGE 1: Healthy Habits",
+                target: 120,
+                baseSpeed: 4.5,
+                hint: "Goal: Collect 🥗 Salad, 🍎 Fruits & 💧 Water. Avoid 🍔 Junk Food & 🚭 Cigarettes!",
+                good: [
+                    { name: 'Salad', emoji: '🥗', points: 15, color: '#00ff88' },
+                    { name: 'Fruit', emoji: '🍎', points: 10, color: '#ff4757' },
+                    { name: 'Water', emoji: '💧', points: 8, color: '#00d4ff' },
+                    { name: 'Shield', emoji: '🛡️', points: 20, isShield: true, color: '#ffd93d' }
+                ],
+                bad: [
+                    { name: 'Junk Food', emoji: '🍔', penalty: 15, color: '#ff4757' },
+                    { name: 'Smoking', emoji: '🚭', penalty: 20, color: '#ff6b81' },
+                    { name: 'Soda', emoji: '🥤', penalty: 12, color: '#ff9f43' }
+                ]
+            },
+            {
+                level: 2,
+                name: "⭐ STAGE 2: Mental Focus",
+                target: 320,
+                baseSpeed: 6.0,
+                hint: "Goal: Collect 📚 Books, 💡 Ideas & 🧘 Focus. Avoid 📱 Phone Addiction & 🛋️ Laziness!",
+                good: [
+                    { name: 'Books', emoji: '📚', points: 20, color: '#00d4ff' },
+                    { name: 'Idea', emoji: '💡', points: 25, color: '#ffd93d' },
+                    { name: 'Focus', emoji: '🧘', points: 15, color: '#a29bfe' },
+                    { name: 'Shield', emoji: '🛡️', points: 20, isShield: true, color: '#00ff88' }
+                ],
+                bad: [
+                    { name: 'Phone', emoji: '📱', penalty: 20, color: '#ff4757' },
+                    { name: 'Laziness', emoji: '🛋️', penalty: 18, color: '#ff7675' },
+                    { name: 'Gaming', emoji: '🎮', penalty: 15, color: '#e84393' }
+                ]
+            },
+            {
+                level: 3,
+                name: "🔥 STAGE 3: Ultimate Mastery",
+                target: 600,
+                baseSpeed: 7.5,
+                hint: "Goal: Collect 💎 Master Gems & 🏆 Trophies! Dodge 😡 Anger & 💣 Stress Traps!",
+                good: [
+                    { name: 'Master Gem', emoji: '💎', points: 30, color: '#00d4ff' },
+                    { name: 'Trophy', emoji: '🏆', points: 25, color: '#ffd93d' },
+                    { name: 'Zen', emoji: '☯️', points: 20, color: '#00ff88' },
+                    { name: 'Shield', emoji: '🛡️', points: 25, isShield: true, color: '#e84393' }
+                ],
+                bad: [
+                    { name: 'Stress', emoji: '💣', penalty: 25, color: '#ff4757' },
+                    { name: 'Anger', emoji: '😡', penalty: 22, color: '#d63031' },
+                    { name: 'Toxic', emoji: '☣️', penalty: 28, color: '#e17055' }
+                ]
+            }
+        ];
+
+        let currentStageIdx = 0;
+        let player = { x: 80, y: 0, lane: 1, targetY: 0, shield: false };
+        let items = [], score = 0, gameRunning = true, isPaused = false, gameSpeed = 4.5, frameCount = 0, spawnTimer = 0, particles = [];
+
         const laneHeight = () => canvas.height / 3;
         const laneY = (lane) => lane * laneHeight() + laneHeight() / 2;
-        const goodItems = [
-            { name: 'Book', emoji: '📚', points: 10, color: '#00ff88' },
-            { name: 'Water', emoji: '💧', points: 5, color: '#00d4ff' },
-            { name: 'Fruit', emoji: '🍎', points: 8, color: '#ff6b6b' },
-            { name: 'Exercise', emoji: '🏋️', points: 12, color: '#ffd93d' },
-            { name: 'Sleep', emoji: '😴', points: 7, color: '#a29bfe' },
-        ];
-        const badItems = [
-            { name: 'Junk Food', emoji: '🍔', penalty: 15, color: '#ff4444' },
-            { name: 'Phone', emoji: '📱', penalty: 10, color: '#ff8800' },
-            { name: 'Laziness', emoji: '🛋️', penalty: 12, color: '#888888' },
-            { name: 'Anger', emoji: '😡', penalty: 20, color: '#ff0000' },
-        ];
+
+        function movePlayerLane(change) {
+            if (!gameRunning || isPaused) return;
+            const nextLane = Math.max(0, Math.min(2, player.lane + change));
+            if (nextLane !== player.lane) {
+                player.lane = nextLane;
+                spawnParticles(player.x, player.y, '#00d4ff', 8);
+            }
+        }
 
         class Particle {
-            constructor(x, y, color) { this.x=x; this.y=y; this.vx=(Math.random()-0.5)*3; this.vy=(Math.random()-0.5)*3; this.life=1; this.decay=0.04; this.color=color; this.size=Math.random()*3+1; }
-            update() { this.x+=this.vx; this.y+=this.vy; this.life-=this.decay; }
-            draw() { ctx.globalAlpha=this.life; ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; }
+            constructor(x, y, color) {
+                this.x = x; this.y = y;
+                this.vx = (Math.random() - 0.7) * 4;
+                this.vy = (Math.random() - 0.5) * 4;
+                this.life = 1; this.decay = 0.04;
+                this.color = color; this.size = Math.random() * 3 + 1;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
         }
-        function spawnParticles(x, y, color, count=10) { for(let i=0;i<count;i++) particles.push(new Particle(x,y,color)); }
+
+        function spawnParticles(x, y, color, count = 10) {
+            for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
+        }
 
         class GameItem {
-            constructor(lane) {
-                this.lane=lane; this.x=canvas.width+40; this.y=laneY(lane); this.width=40; this.height=40;
-                if(Math.random()<0.6) { const item=goodItems[Math.floor(Math.random()*goodItems.length)]; this.type='good'; this.emoji=item.emoji; this.name=item.name; this.value=item.points; this.color=item.color; }
-                else { const item=badItems[Math.floor(Math.random()*badItems.length)]; this.type='bad'; this.emoji=item.emoji; this.name=item.name; this.penalty=item.penalty; this.color=item.color; }
+            constructor(lane, stage) {
+                this.lane = lane;
+                this.x = canvas.width + 40;
+                this.y = laneY(lane);
+                this.isGood = Math.random() < 0.62;
+
+                if (this.isGood) {
+                    const item = stage.good[Math.floor(Math.random() * stage.good.length)];
+                    this.name = item.name; this.emoji = item.emoji; this.points = item.points;
+                    this.color = item.color; this.isShield = item.isShield || false;
+                } else {
+                    const item = stage.bad[Math.floor(Math.random() * stage.bad.length)];
+                    this.name = item.name; this.emoji = item.emoji; this.penalty = item.penalty;
+                    this.color = item.color;
+                }
             }
-            update() { this.x-=gameSpeed; }
-            draw() { ctx.shadowColor=this.color; ctx.shadowBlur=15; ctx.fillStyle=this.type==='good'?'rgba(0,255,136,0.15)':'rgba(255,68,68,0.15)'; ctx.beginPath(); ctx.arc(this.x,this.y,25,0,Math.PI*2); ctx.fill(); ctx.strokeStyle=this.color; ctx.lineWidth=2; ctx.stroke(); ctx.shadowBlur=0; ctx.font='28px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(this.emoji,this.x,this.y); ctx.fillStyle='#fff'; ctx.font='9px Poppins,Arial'; ctx.fillText(this.name,this.x,this.y+28); }
-            isOffScreen() { return this.x<-60; }
-            collidesWith(px, py) { const dx=this.x-px, dy=this.y-py; return Math.sqrt(dx*dx+dy*dy)<35; }
+            update() { this.x -= gameSpeed; }
+            draw() {
+                ctx.shadowColor = this.color; ctx.shadowBlur = 14;
+                ctx.fillStyle = this.isGood ? 'rgba(0,255,136,0.16)' : 'rgba(255,71,87,0.16)';
+                ctx.beginPath(); ctx.arc(this.x, this.y, 22, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = this.color; ctx.lineWidth = 2; ctx.stroke();
+                ctx.shadowBlur = 0;
+
+                ctx.font = '24px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(this.emoji, this.x, this.y);
+                ctx.fillStyle = '#fff'; ctx.font = '9px Poppins, sans-serif';
+                ctx.fillText(this.name, this.x, this.y + 26);
+            }
+            isOffScreen() { return this.x < -60; }
+            collidesWith(px, py) {
+                const dx = this.x - px, dy = this.y - py;
+                return Math.sqrt(dx * dx + dy * dy) < 36;
+            }
+        }
+
+        function updateUI() {
+            const curStage = stagesConfig[currentStageIdx];
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('shieldDisplay').textContent = player.shield ? 'ON 🛡️' : 'OFF';
+            document.getElementById('shieldDisplay').style.color = player.shield ? '#00ff88' : '#aaa';
+
+            document.getElementById('stageTitle').textContent = curStage.name;
+            document.getElementById('stageTargetText').textContent = `🎯 Goal: ${curStage.target} Score`;
+
+            // Progress Bar
+            const prevTarget = currentStageIdx > 0 ? stagesConfig[currentStageIdx - 1].target : 0;
+            const progress = Math.min(100, Math.max(0, ((score - prevTarget) / (curStage.target - prevTarget)) * 100));
+            document.getElementById('progressFill').style.width = `${progress}%`;
         }
 
         function startGame() {
-            player.lane=1; player.y=laneY(1); player.targetY=player.y; items=[]; score=0; gameRunning=true; gameSpeed=4; frameCount=0; spawnTimer=0; particles=[];
-            document.getElementById('gameOverScreen').style.display='none'; document.getElementById('scoreDisplay').textContent='0';
+            currentStageIdx = 0;
+            initStage(0);
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('stageClearScreen').style.display = 'none';
+            document.getElementById('victoryScreen').style.display = 'none';
         }
-        function gameOver(msg) {
-            sound.playLose(); gameRunning=false;
-            document.getElementById('finalScore').textContent=score; document.getElementById('gameOverMsg').textContent=msg;
-            document.getElementById('gameOverScreen').style.display='flex';
-            const pn=localStorage.getItem('almagen_name')||'Player';
-            localStorage.setItem('almagen_score_'+Date.now()+'_'+Math.random().toString(36).substr(2,5), JSON.stringify({game:'runner',name:pn,score:score,date:new Date().toISOString()}));
-            if(typeof updateDailyProgress==='function') updateDailyProgress('runner',score);
+
+        function initStage(idx) {
+            currentStageIdx = idx;
+            const curStage = stagesConfig[currentStageIdx];
+            gameSpeed = curStage.baseSpeed;
+            player.lane = 1; player.y = laneY(1); player.targetY = player.y; player.shield = false;
+            items = []; particles = []; frameCount = 0; spawnTimer = 0; gameRunning = true; isPaused = false;
+            updateUI();
         }
-        function update() {
-            if(!gameRunning)return; frameCount++; gameSpeed=4+Math.floor(frameCount/500)*0.5; if(gameSpeed>12)gameSpeed=12;
-            player.targetY=laneY(player.lane); player.y+=(player.targetY-player.y)*0.15;
-            spawnTimer++; const spawnRate=Math.max(30,80-frameCount/50);
-            if(spawnTimer>=spawnRate) { spawnTimer=0; const lane=Math.floor(Math.random()*3); if(!items.some(i=>i.lane===lane&&i.x>canvas.width-100)) items.push(new GameItem(lane)); }
-            for(let i=items.length-1;i>=0;i--) {
-                items[i].update();
-                if(items[i].collidesWith(player.x,player.y)) {
-                    if(items[i].type==='good') { sound.playCoin(); score+=items[i].value; spawnParticles(items[i].x,items[i].y,'#00ff88',12); }
-                    else { sound.playCrash(); score-=items[i].penalty; spawnParticles(items[i].x,items[i].y,'#ff4444',15); if(score<0) { gameOver('Too many bad habits!'); return; } }
-                    items.splice(i,1); document.getElementById('scoreDisplay').textContent=score;
-                } else if(items[i].isOffScreen()) items.splice(i,1);
+
+        function triggerStageClear() {
+            gameRunning = false;
+            if (window.playSound) window.playSound('powerup');
+
+            if (currentStageIdx < stagesConfig.length - 1) {
+                const curStage = stagesConfig[currentStageIdx];
+                document.getElementById('stageClearTitle').textContent = `🎉 STAGE ${curStage.level} CLEARED!`;
+                document.getElementById('stageClearMsg').textContent = `Great Job! You reached ${score} Points! Ready for STAGE ${curStage.level + 1}?`;
+                document.getElementById('stageClearScreen').style.display = 'flex';
+            } else {
+                // VICTORY!
+                document.getElementById('victoryScore').textContent = score;
+                document.getElementById('victoryScreen').style.display = 'flex';
             }
-            for(let i=particles.length-1;i>=0;i--) { particles[i].update(); if(particles[i].life<=0) particles.splice(i,1); }
         }
+
+        function nextStage() {
+            document.getElementById('stageClearScreen').style.display = 'none';
+            initStage(currentStageIdx + 1);
+        }
+
+        function gameOver(msg) {
+            if (window.playSound) window.playSound('crash');
+            gameRunning = false;
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOverMsg').textContent = msg;
+            document.getElementById('gameOverScreen').style.display = 'flex';
+
+            const pn = localStorage.getItem('almagen_name') || 'Player';
+            localStorage.setItem('almagen_score_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), JSON.stringify({
+                game: 'runner', name: pn, score: score, date: new Date().toISOString()
+            }));
+            if (typeof updateDailyProgress === 'function') updateDailyProgress('runner', score);
+        }
+
+        function update() {
+            if (!gameRunning || isPaused) return;
+            frameCount++;
+            
+            // Dynamic subtle speed scale
+            gameSpeed = stagesConfig[currentStageIdx].baseSpeed + Math.min(3, Math.floor(frameCount / 400) * 0.4);
+
+            // Smooth player y-interpolation
+            player.targetY = laneY(player.lane);
+            player.y += (player.targetY - player.y) * 0.18;
+
+            // Spawn items
+            spawnTimer++;
+            const spawnRate = Math.max(25, 70 - Math.floor(frameCount / 60));
+            if (spawnTimer >= spawnRate) {
+                spawnTimer = 0;
+                const lane = Math.floor(Math.random() * 3);
+                if (!items.some(i => i.lane === lane && i.x > canvas.width - 110)) {
+                    items.push(new GameItem(lane, stagesConfig[currentStageIdx]));
+                }
+            }
+
+            // Update items & collisions
+            for (let i = items.length - 1; i >= 0; i--) {
+                items[i].update();
+                if (items[i].collidesWith(player.x, player.y)) {
+                    const item = items[i];
+                    if (item.isGood) {
+                        if (window.playSound) window.playSound('coin');
+                        score += item.points;
+                        if (item.isShield) player.shield = true;
+                        spawnParticles(item.x, item.y, item.color, 14);
+                    } else {
+                        if (player.shield) {
+                            player.shield = false;
+                            if (window.playSound) window.playSound('powerup');
+                            spawnParticles(item.x, item.y, '#00d4ff', 20);
+                        } else {
+                            if (window.playSound) window.playSound('crash');
+                            score = Math.max(0, score - item.penalty);
+                            spawnParticles(item.x, item.y, '#ff4757', 18);
+                            if (score <= 0 && frameCount > 100) {
+                                gameOver(`You got hit by ${item.name}!`);
+                                return;
+                            }
+                        }
+                    }
+                    items.splice(i, 1);
+                    updateUI();
+
+                    // Check Stage Goal Progress
+                    if (score >= stagesConfig[currentStageIdx].target) {
+                        triggerStageClear();
+                        return;
+                    }
+                } else if (items[i].isOffScreen()) {
+                    items.splice(i, 1);
+                }
+            }
+
+            // Update particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        // ==================== CYBER RUNNER HERO GRAPHICS ====================
+        function drawCyberRunner(px, py) {
+            // Shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.4)';
+            ctx.beginPath(); ctx.ellipse(px, py + 22, 20, 6, 0, 0, Math.PI * 2); ctx.fill();
+
+            // Shield Forcefield Effect
+            if (player.shield) {
+                ctx.strokeStyle = '#00d4ff'; ctx.lineWidth = 3;
+                ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 18;
+                ctx.beginPath(); ctx.arc(px, py - 2, 32, 0, Math.PI * 2); ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+
+            // Cyber Cape / Trail
+            const capeWave = Math.sin(frameCount * 0.25) * 6;
+            ctx.fillStyle = '#7c5cff';
+            ctx.beginPath();
+            ctx.moveTo(px - 10, py - 12);
+            ctx.lineTo(px - 26, py - 2 + capeWave);
+            ctx.lineTo(px - 22, py + 12);
+            ctx.lineTo(px - 8, py + 4);
+            ctx.fill();
+
+            // Torso (Cyber Suit)
+            const suitGrad = ctx.createLinearGradient(px - 14, py - 18, px + 14, py + 18);
+            suitGrad.addColorStop(0, '#6c5ce7'); suitGrad.addColorStop(1, '#00d4ff');
+            ctx.fillStyle = suitGrad;
+            ctx.beginPath(); ctx.roundRect(px - 12, py - 18, 24, 34, 8); ctx.fill();
+
+            // Chest Core Arc
+            ctx.fillStyle = '#00ff88'; ctx.shadowColor = '#00ff88'; ctx.shadowBlur = 10;
+            ctx.beginPath(); ctx.arc(px + 2, py - 4, 4, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+
+            // Head (Helmet)
+            ctx.fillStyle = '#1e1b4b';
+            ctx.beginPath(); ctx.arc(px, py - 20, 11, 0, Math.PI * 2); ctx.fill();
+
+            // Cyber Visor
+            ctx.fillStyle = '#ffd93d'; ctx.shadowColor = '#ffd93d'; ctx.shadowBlur = 12;
+            ctx.beginPath(); ctx.roundRect(px - 2, py - 23, 11, 6, 3); ctx.fill(); ctx.shadowBlur = 0;
+
+            // Running Boots & Animated Stride
+            const stride = Math.sin(frameCount * 0.35) * 8;
+            ctx.strokeStyle = '#00ff88'; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(px - 5, py + 16); ctx.lineTo(px - 6 - stride, py + 28); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(px + 5, py + 16); ctx.lineTo(px + 6 + stride, py + 28); ctx.stroke();
+
+            // Shoe Sparks
+            if (frameCount % 4 === 0) {
+                spawnParticles(px - 10, py + 26, '#00d4ff', 1);
+            }
+        }
+
         function draw() {
-            const grad=ctx.createLinearGradient(0,0,0,canvas.height); grad.addColorStop(0,'#1a1a3e'); grad.addColorStop(0.5,'#2d1b4e'); grad.addColorStop(1,'#1a1a2e');
-            ctx.fillStyle=grad; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle='#fff'; for(let i=0;i<30;i++) { const sx=(i*137+frameCount*0.5)%canvas.width, sy=(i*97)%canvas.height; ctx.globalAlpha=0.3+Math.sin(frameCount*0.05+i)*0.3; ctx.fillRect(sx,sy,2,2); } ctx.globalAlpha=1;
-            const roadY=canvas.height*0.15, roadH=canvas.height*0.7; ctx.fillStyle='rgba(255,255,255,0.03)'; ctx.fillRect(0,roadY,canvas.width,roadH);
-            for(let i=1;i<3;i++) { const ly=roadY+(roadH/3)*i; ctx.strokeStyle='rgba(255,255,255,0.1)'; ctx.setLineDash([15,20]); ctx.lineDashOffset=-frameCount*gameSpeed; ctx.beginPath(); ctx.moveTo(0,ly); ctx.lineTo(canvas.width,ly); ctx.stroke(); ctx.setLineDash([]); }
-            for(let item of items) item.draw();
-            for(let p of particles) p.draw();
-            const px=player.x, py=player.y;
-            ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.beginPath(); ctx.ellipse(px,py+22,18,6,0,0,Math.PI*2); ctx.fill();
-            ctx.fillStyle='#6c5ce7'; ctx.beginPath(); ctx.roundRect(px-14,py-18,28,36,8); ctx.fill();
-            ctx.fillStyle='#ffd93d'; ctx.beginPath(); ctx.arc(px,py-16,12,0,Math.PI*2); ctx.fill();
-            ctx.fillStyle='#000'; ctx.beginPath(); ctx.arc(px-4,py-18,2.5,0,Math.PI*2); ctx.arc(px+4,py-18,2.5,0,Math.PI*2); ctx.fill();
-            ctx.strokeStyle='#000'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(px,py-12,5,0.1,Math.PI-0.1); ctx.stroke();
-            ctx.fillStyle='#ff4444'; ctx.beginPath(); ctx.moveTo(px-10,py-10); ctx.lineTo(px-18,py+5); ctx.lineTo(px-10,py); ctx.fill();
-            const legOffset=Math.sin(frameCount*0.3)*6; ctx.strokeStyle='#fff'; ctx.lineWidth=3;
-            ctx.beginPath(); ctx.moveTo(px-5,py+18); ctx.lineTo(px-5-legOffset,py+28); ctx.stroke();
-            ctx.beginPath(); ctx.moveTo(px+5,py+18); ctx.lineTo(px+5+legOffset,py+28); ctx.stroke();
-            ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='10px Poppins,Arial'; ctx.textAlign='right'; ctx.fillText(`Speed: ${Math.floor(gameSpeed*10)} km/h`,canvas.width-15,20);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Cyber Highway Background
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bgGrad.addColorStop(0, '#0a0a24'); bgGrad.addColorStop(0.5, '#16103c'); bgGrad.addColorStop(1, '#070714');
+            ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Stars
+            ctx.fillStyle = '#fff';
+            for (let i = 0; i < 25; i++) {
+                const sx = (i * 149 + frameCount * 0.4) % canvas.width;
+                const sy = (i * 83) % canvas.height;
+                ctx.globalAlpha = 0.3 + Math.sin(frameCount * 0.04 + i) * 0.3;
+                ctx.fillRect(sx, sy, 2, 2);
+            }
+            ctx.globalAlpha = 1;
+
+            // Highway Lanes
+            const roadY = canvas.height * 0.08, roadH = canvas.height * 0.84;
+            ctx.fillStyle = 'rgba(255,255,255,0.02)'; ctx.fillRect(0, roadY, canvas.width, roadH);
+
+            for (let i = 1; i < 3; i++) {
+                const ly = roadY + (roadH / 3) * i;
+                ctx.strokeStyle = 'rgba(124, 92, 255, 0.25)'; ctx.setLineDash([20, 25]);
+                ctx.lineDashOffset = -frameCount * gameSpeed;
+                ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(canvas.width, ly); ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // Draw Items & Particles
+            for (let item of items) item.draw();
+            for (let p of particles) p.draw();
+
+            // Draw Cyber Runner Hero
+            drawCyberRunner(player.x, player.y);
+
+            // In-Game Speed Display
+            ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.font = '11px Poppins, sans-serif'; ctx.textAlign = 'right';
+            ctx.fillText(`Speed: ${(gameSpeed * 8).toFixed(0)} km/h`, canvas.width - 15, 22);
         }
+
         function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+
+        // ==================== CONTROLS ====================
         window.addEventListener('keydown', (e) => {
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'Space', 'w', 's', 'a', 'd'].includes(e.key)) {
                 e.preventDefault();
             }
             if (!gameRunning) return;
-            if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === 'ArrowLeft' || e.key === 'a') && player.lane > 0) {
-                movePlayerLane(-1);
-            }
-            if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'ArrowRight' || e.key === 'd') && player.lane < 2) {
-                movePlayerLane(1);
-            }
+            if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === 'ArrowLeft' || e.key === 'a') && player.lane > 0) movePlayerLane(-1);
+            if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'ArrowRight' || e.key === 'd') && player.lane < 2) movePlayerLane(1);
         }, { passive: false });
-        document.getElementById('btnUp').addEventListener('pointerdown',(e)=>{e.preventDefault();movePlayerLane(-1);});
-        document.getElementById('btnDown').addEventListener('pointerdown',(e)=>{e.preventDefault();movePlayerLane(1);});
+
+        document.getElementById('btnUp').addEventListener('pointerdown', (e) => { e.preventDefault(); movePlayerLane(-1); });
+        document.getElementById('btnDown').addEventListener('pointerdown', (e) => { e.preventDefault(); movePlayerLane(1); });
+
         let touchStartY = 0, touchStartX = 0;
-        canvas.style.touchAction = 'none';
         canvas.addEventListener('touchstart', (e) => {
             touchStartY = e.touches[0].clientY;
             touchStartX = e.touches[0].clientX;
         }, { passive: true });
         canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
         canvas.addEventListener('touchend', (e) => {
-            if (!gameRunning) { startGame(); return; }
+            if (!gameRunning) return;
             const dy = e.changedTouches[0].clientY - touchStartY;
             const dx = e.changedTouches[0].clientX - touchStartX;
             if (Math.abs(dy) > Math.abs(dx)) {
-                if (dy < -20 && player.lane > 0) movePlayerLane(-1);
-                if (dy > 20 && player.lane < 2) movePlayerLane(1);
+                if (dy < -18 && player.lane > 0) movePlayerLane(-1);
+                if (dy > 18 && player.lane < 2) movePlayerLane(1);
             } else {
-                if (dx < -20 && player.lane > 0) movePlayerLane(-1);
-                if (dx > 20 && player.lane < 2) movePlayerLane(1);
+                if (dx < -18 && player.lane > 0) movePlayerLane(-1);
+                if (dx > 18 && player.lane < 2) movePlayerLane(1);
             }
         });
-        document.getElementById('gameOverScreen').addEventListener('click',function(e){ if(e.target===this) startGame(); });
-        startGame(); gameLoop();
+
+        startGame();
+        gameLoop();
     </script>
 
     <script src="../js/global-layout.js"></script>
     <script src="../js/user-profile-engine.js"></script>
 
     <!-- RECOMMENDED GAMES SECTION -->
-    
-    <!-- RICH SEO ARTICLE & FAQ CONTENT (300+ Words for Search Engines & AdSense) -->
-    <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
-        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Life Runner — Play Free Online Game</h1>
-        <p style="margin-bottom:16px;">Life Runner is a high-octane 2D endless runner game designed to train reflexes and decision making. Jump, slide, and dodge life obstacles while collecting positive habit powerups.</p>
-
-        <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Life Runner</h2>
-        <p style="margin-bottom:16px;">Press Space / Up Arrow or tap screen to jump. Hold Down Arrow or swipe down to slide under obstacles. Collect positive energy icons to boost your score multiplier.</p>
-
-        <h2 style="font-size:1.3rem;font-weight:700;color:#7c5cff;margin:20px 0 10px;">⚡ Tips & High Score Strategies</h2>
-        <p style="margin-bottom:16px;">Keep your eyes focused on the right edge of the screen to anticipate upcoming double-barriers early.</p>
-
-        <h2 style="font-size:1.3rem;font-weight:700;color:#ffd93d;margin:20px 0 10px;">❓ Frequently Asked Questions (FAQs)</h2>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-            
-                <div style="background:rgba(255,255,255,0.04);padding:12px 15px;border-radius:10px;border-left:3px solid #7c5cff;">
-                    <h3 style="font-size:0.95rem;font-weight:bold;color:#fff;margin-bottom:4px;">Q: Does Life Runner work offline?</h3>
-                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.75);margin:0;">A: Once loaded, Life Runner runs smoothly in your browser cache.</p>
-                </div>
-            
-                <div style="background:rgba(255,255,255,0.04);padding:12px 15px;border-radius:10px;border-left:3px solid #7c5cff;">
-                    <h3 style="font-size:0.95rem;font-weight:bold;color:#fff;margin-bottom:4px;">Q: How do I unlock higher speed tiers?</h3>
-                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.75);margin:0;">A: Your speed increases automatically as your survival score climbs!</p>
-                </div>
-            
-        </div>
-    </article>
-
-    <!-- VideoGame JSON-LD Schema Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Life Runner",
-        "operatingSystem": "Web Browser",
-        "applicationCategory": "GameApplication",
-        "genre": "Action Endless Runner",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.6",
-            "ratingCount": "980"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        }
-    }
-    </script>
-    
-    <section class="more-games-section">
+    <section class="more-games-section" style="width:100%;max-width:1100px;margin:40px auto 20px;padding:0 15px;">
         <div class="more-games-title-row">
             <h2 class="more-games-title">🔥 Recommended Games</h2>
-            <a href="../index.html#games" class="more-games-link">View All 15 Games ➔</a>
+            <a href="../index.html#games" class="more-games-link">View All 21 Games ➔</a>
         </div>
         <div class="recommended-games-grid">
-            
             <a href="snake.html" class="rec-game-card">
                 <div class="rec-card-thumb">🐍</div>
                 <div class="rec-card-info">
@@ -332,18 +575,18 @@
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
             </a>
-            <a href="memory.html" class="rec-game-card">
-                <div class="rec-card-thumb">🧠</div>
+            <a href="orbitball.html" class="rec-game-card">
+                <div class="rec-card-thumb">⭕</div>
                 <div class="rec-card-info">
-                    <h3>Memory Master</h3>
-                    <p>Flip cards & boost memory!</p>
+                    <h3>Neon Orbit Sphere</h3>
+                    <p>Rotating endless orb jumper!</p>
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
             </a>
-            <a href="shooter.html" class="rec-game-card">
-                <div class="rec-card-thumb">🚀</div>
+            <a href="galaxyshooter.html" class="rec-game-card">
+                <div class="rec-card-thumb">🌌</div>
                 <div class="rec-card-info">
-                    <h3>Space Defender</h3>
+                    <h3>Galaxy Defender</h3>
                     <p>Shoot target math asteroids!</p>
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
@@ -351,5 +594,16 @@
         </div>
     </section>
 
+    <!-- RICH SEO ARTICLE & FAQ CONTENT -->
+    <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
+        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Life Runner — Stage-Based Educational Cyber Runner</h1>
+        <p style="margin-bottom:16px;">Life Runner is a high-octane 2D endless cyber runner designed to train reflexes, habit-building, and decision making. Jump, slide, and dodge life distractions across 3 unique stages while collecting positive habit powerups and protective shields.</p>
+
+        <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Life Runner</h2>
+        <p style="margin-bottom:16px;">Use Arrow Up / Down or W/S to switch lanes. Collect green powerups (Salad, Books, Master Gems) and 🛡️ Shields to increase your score and advance through Stage 1, Stage 2, and Stage 3!</p>
+
+        <h2 style="font-size:1.3rem;font-weight:700;color:#7c5cff;margin:20px 0 10px;">⚡ Tips & Stage Completion Strategies</h2>
+        <p style="margin-bottom:16px;">Prioritize collecting 🛡️ Shield powerups to absorb distraction hits without losing your score progress!</p>
+    </article>
 </body>
 </html>
