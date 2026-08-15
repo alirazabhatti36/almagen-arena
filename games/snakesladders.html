@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play Snakes and Ladders online for free on AlMaGen-Arena! Roll dice, climb ladders, slide down snakes, solve math checkpoints, and race your pawn to tile 100!">
+    <meta name="description" content="Play Snakes and Ladders online for free on AlMaGen-Arena! Roll dice, watch step-by-step pawn movement, climb ladders 🪜, slide down snakes 🐍, and race to tile 100!">
     <meta name="keywords" content="Snakes and Ladders, Saanp Seerhi, free board game, online ludo snake, dice board game, browser games">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/snakesladders.html">
 
     <meta property="og:title" content="Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena">
-    <meta property="og:description" content="Roll dice, climb ladders, slide down snakes, and race to 100 in this classic Snakes & Ladders board game!">
+    <meta property="og:description" content="Roll dice, climb ladders 🪜, slide down snakes 🐍, and race to tile 100 in this classic Snakes & Ladders board game!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/snakesladders.html">
 
@@ -59,8 +59,8 @@
 <body class="has-global-header">
     <main class="game-page">
         <header class="game-intro">
-            <h1>🐍 Snakes and Ladders</h1>
-            <p>Roll the dice, climb ladders 🪜 to jump ahead, beware of snakes 🐍 sliding you down, and race your pawn to tile 100!</p>
+            <h1>🪜🐍 Snakes and Ladders</h1>
+            <p>Roll the dice, watch your pawn move step-by-step, climb ladders 🪜 to jump ahead, beware of snakes 🐍 sliding you down, and race your pawn to tile 100!</p>
         </header>
 
         <div class="top-bar">
@@ -97,9 +97,9 @@
         const ctx = canvas.getContext('2d');
 
         function setCanvasSize() {
-            const size = Math.min(window.innerWidth - 30, window.innerHeight - 300, 500);
-            canvas.width = Math.max(300, size);
-            canvas.height = Math.max(300, size);
+            const size = Math.min(window.innerWidth - 20, 500);
+            canvas.width = size;
+            canvas.height = size;
         }
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
@@ -138,6 +138,14 @@
         const TILE_COLORS = ['#ff7675', '#ffd93d', '#a29bfe', '#74b9ff', '#55efc4'];
 
         let playerPos = 1, aiPos = 1, currentDice = 1, gameRunning = true, isPlayerTurn = true, rolling = false, particles = [];
+
+        function showBoardToast(msg, bgGrad) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.cssText = `position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);background:${bgGrad};color:#fff;padding:10px 22px;border-radius:20px;font-weight:bold;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,0.6);font-size:0.95rem;text-align:center;`;
+            document.getElementById('gameContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
 
         function getTileCoords(tileNum) {
             const n = Math.max(1, Math.min(100, tileNum));
@@ -199,39 +207,65 @@
                 rc++;
                 if (rc >= mr) {
                     clearInterval(ri);
-                    finalizePlayerDice();
+                    animatePlayerMovement(currentDice);
                 }
             }, 75);
         }
 
-        function finalizePlayerDice() {
-            let nextPos = playerPos + currentDice;
-            if (nextPos <= 100) playerPos = nextPos;
+        // ==================== STEP-BY-STEP PAWN ANIMATION ====================
+        function animatePlayerMovement(stepsLeft) {
+            if (stepsLeft <= 0 || playerPos >= 100) {
+                checkLaddersAndSnakesPlayer();
+                return;
+            }
+
+            playerPos = Math.min(100, playerPos + 1);
             document.getElementById('playerPos').textContent = playerPos + '/100';
+            if (window.playSound) window.playSound('click');
 
             const pCoords = getTileCoords(playerPos);
-            spawnParticles(pCoords.x, pCoords.y, '#ff4757', 10);
+            spawnParticles(pCoords.x, pCoords.y, '#ff4757', 6);
 
-            // Check Ladder Climb
+            setTimeout(() => animatePlayerMovement(stepsLeft - 1), 220);
+        }
+
+        function checkLaddersAndSnakesPlayer() {
+            const pCoords = getTileCoords(playerPos);
+
             if (LADDERS[playerPos]) {
+                const targetTile = LADDERS[playerPos];
+                showBoardToast(`🪜 LADDER CLIMB! Tile ${playerPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#00b894,#00cec9)');
                 if (window.playSound) window.playSound('powerup');
-                spawnParticles(pCoords.x, pCoords.y, '#00ff88', 18);
-                playerPos = LADDERS[playerPos];
-                document.getElementById('playerPos').textContent = playerPos + '/100';
-            }
-            // Check Snake Slide
-            else if (SNAKES[playerPos]) {
-                if (window.playSound) window.playSound('crash');
-                spawnParticles(pCoords.x, pCoords.y, '#ff4757', 18);
-                playerPos = SNAKES[playerPos];
-                document.getElementById('playerPos').textContent = playerPos + '/100';
-            }
+                spawnParticles(pCoords.x, pCoords.y, '#00ff88', 20);
 
-            if (playerPos === 100) { endGame(true); return; }
+                setTimeout(() => {
+                    playerPos = targetTile;
+                    document.getElementById('playerPos').textContent = playerPos + '/100';
+                    finishPlayerTurn();
+                }, 800);
+            } else if (SNAKES[playerPos]) {
+                const targetTile = SNAKES[playerPos];
+                showBoardToast(`🐍 SNAKE SLIDE! Tile ${playerPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#ff4757,#ff6b81)');
+                if (window.playSound) window.playSound('crash');
+                spawnParticles(pCoords.x, pCoords.y, '#ff4757', 20);
+
+                setTimeout(() => {
+                    playerPos = targetTile;
+                    document.getElementById('playerPos').textContent = playerPos + '/100';
+                    finishPlayerTurn();
+                }, 800);
+            } else {
+                finishPlayerTurn();
+            }
+        }
+
+        function finishPlayerTurn() {
+            if (playerPos >= 100) { endGame(true); return; }
 
             if (currentDice === 6) {
                 rolling = false;
                 document.getElementById('rollBtn').disabled = false;
+                showBoardToast("🎲 Rolled a 6! Extra Roll!", 'linear-gradient(135deg,#6c5ce7,#a29bfe)');
                 return;
             }
 
@@ -246,26 +280,51 @@
             document.getElementById('diceDisplay').textContent = getDiceEmoji(ad);
             if (window.playSound) window.playSound('dice');
 
-            let nextPos = aiPos + ad;
-            if (nextPos <= 100) aiPos = nextPos;
-            document.getElementById('aiPos').textContent = aiPos + '/100';
+            animateAIMovement(ad);
+        }
 
-            const aCoords = getTileCoords(aiPos);
-            spawnParticles(aCoords.x, aCoords.y, '#00d4ff', 10);
-
-            if (LADDERS[aiPos]) {
-                if (window.playSound) window.playSound('powerup');
-                aiPos = LADDERS[aiPos];
-                document.getElementById('aiPos').textContent = aiPos + '/100';
-            } else if (SNAKES[aiPos]) {
-                if (window.playSound) window.playSound('crash');
-                aiPos = SNAKES[aiPos];
-                document.getElementById('aiPos').textContent = aiPos + '/100';
+        function animateAIMovement(stepsLeft) {
+            if (stepsLeft <= 0 || aiPos >= 100) {
+                checkLaddersAndSnakesAI();
+                return;
             }
 
-            if (aiPos === 100) { endGame(false); return; }
+            aiPos = Math.min(100, aiPos + 1);
+            document.getElementById('aiPos').textContent = aiPos + '/100';
+            if (window.playSound) window.playSound('click');
 
-            if (ad === 6) {
+            const aCoords = getTileCoords(aiPos);
+            spawnParticles(aCoords.x, aCoords.y, '#00d4ff', 6);
+
+            setTimeout(() => animateAIMovement(stepsLeft - 1), 220);
+        }
+
+        function checkLaddersAndSnakesAI() {
+            if (LADDERS[aiPos]) {
+                const targetTile = LADDERS[aiPos];
+                if (window.playSound) window.playSound('powerup');
+                setTimeout(() => {
+                    aiPos = targetTile;
+                    document.getElementById('aiPos').textContent = aiPos + '/100';
+                    finishAITurn();
+                }, 800);
+            } else if (SNAKES[aiPos]) {
+                const targetTile = SNAKES[aiPos];
+                if (window.playSound) window.playSound('crash');
+                setTimeout(() => {
+                    aiPos = targetTile;
+                    document.getElementById('aiPos').textContent = aiPos + '/100';
+                    finishAITurn();
+                }, 800);
+            } else {
+                finishAITurn();
+            }
+        }
+
+        function finishAITurn() {
+            if (aiPos >= 100) { endGame(false); return; }
+
+            if (currentDice === 6) {
                 setTimeout(aiTurn, 850);
                 return;
             }
@@ -319,13 +378,13 @@
                 ctx.fillStyle = TILE_COLORS[(i - 1) % TILE_COLORS.length];
                 ctx.fillRect(x, y, cellW, cellH);
 
-                ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1.5;
                 ctx.strokeRect(x, y, cellW, cellH);
 
-                ctx.fillStyle = 'rgba(0,0,0,0.6)';
-                ctx.font = `bold ${Math.floor(cellW * 0.3)}px Poppins, sans-serif`;
+                ctx.fillStyle = 'rgba(0,0,0,0.65)';
+                ctx.font = `bold ${Math.floor(cellW * 0.32)}px Poppins, sans-serif`;
                 ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-                ctx.fillText(i.toString(), x + 3, y + 3);
+                ctx.fillText(i.toString(), x + 4, y + 4);
             }
 
             // Draw Wooden Ladders
@@ -371,13 +430,13 @@
             // Draw Pawns
             const pCoords = getTileCoords(playerPos);
             ctx.fillStyle = '#ff4757'; ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 12;
-            ctx.beginPath(); ctx.arc(pCoords.x - 6, pCoords.y - 4, cellW * 0.24, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(pCoords.x - 6, pCoords.y - 4, cellW * 0.26, 0, Math.PI * 2); ctx.fill();
             ctx.fillStyle = '#fff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText('🔴', pCoords.x - 6, pCoords.y - 4);
 
             const aCoords = getTileCoords(aiPos);
             ctx.fillStyle = '#00d4ff'; ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 12;
-            ctx.beginPath(); ctx.arc(aCoords.x + 6, aCoords.y + 4, cellW * 0.24, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(aCoords.x + 6, aCoords.y + 4, cellW * 0.26, 0, Math.PI * 2); ctx.fill();
             ctx.fillStyle = '#fff'; ctx.fillText('🔵', aCoords.x + 6, aCoords.y + 4);
             ctx.shadowBlur = 0;
         }
