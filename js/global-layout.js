@@ -178,4 +178,41 @@
     } else {
         initCookieConsent();
     }
+
+    // ===== MASTER UNIVERSAL LIGHT/DARK THEME TOGGLE =====
+    function initGlobalTheme() {
+        const savedTheme = localStorage.getItem('almagen_theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+        }
+
+        function updateThemeIcons() {
+            const isLight = document.body.classList.contains('light-theme');
+            const icon = isLight ? '☀️' : '🌓';
+            document.querySelectorAll('#themeToggle, #themeToggleMobile, .theme-toggle, .theme-toggle-mobile').forEach(function (btn) {
+                btn.textContent = icon;
+                btn.setAttribute('title', isLight ? 'Switch to Dark Theme' : 'Switch to Light Theme');
+            });
+        }
+
+        updateThemeIcons();
+
+        document.addEventListener('click', function (e) {
+            const target = e.target.closest('#themeToggle, #themeToggleMobile, .theme-toggle, .theme-toggle-mobile');
+            if (target) {
+                e.preventDefault();
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                localStorage.setItem('almagen_theme', isLight ? 'light' : 'dark');
+                updateThemeIcons();
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGlobalTheme);
+    } else {
+        initGlobalTheme();
+    }
+
 })();

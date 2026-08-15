@@ -2877,7 +2877,7 @@ body.light-theme .rec-card-btn {
 }
 
 body {
-    background-color: var(--bg-dark) !important;
+    background-color: var(--bg-dark);
     color: #ffffff !important;
     font-family: 'Poppins', sans-serif !important;
 }
@@ -3148,4 +3148,75 @@ body {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* ==================== HIGH-CONTRAST LIGHT THEME STYLES ==================== */
+body.light-theme {
+    background-color: #f0f2f8 !important;
+    background-image: radial-gradient(circle at 20% 0%, rgba(108,92,231,0.06), transparent 45%) !important;
+    color: #1a1a2e !important;
+}
+
+body.light-theme .header {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-theme .header-logo .logo-text,
+body.light-theme .nav-list li a,
+body.light-theme .hero-title,
+body.light-theme .section-title,
+body.light-theme .game-card h3,
+body.light-theme .cat-card h3,
+body.light-theme .why-card h3,
+body.light-theme article h1,
+body.light-theme article h2,
+body.light-theme article h3 {
+    color: #1a1a2e !important;
+}
+
+body.light-theme .nav-list li a {
+    color: #4a4a60 !important;
+}
+
+body.light-theme .nav-list li a.active,
+body.light-theme .nav-list li a:hover {
+    color: #6c5ce7 !important;
+}
+
+body.light-theme .hero-subtitle,
+body.light-theme .section-desc,
+body.light-theme p,
+body.light-theme .trust-badge span,
+body.light-theme .cat-card p,
+body.light-theme .why-card p,
+body.light-theme .game-info p {
+    color: #555566 !important;
+}
+
+body.light-theme .game-card,
+body.light-theme .cat-card,
+body.light-theme .why-card,
+body.light-theme .cta-banner-box,
+body.light-theme article,
+body.light-theme .trust-badge {
+    background: #ffffff !important;
+    border-color: rgba(108, 92, 231, 0.2) !important;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-theme .footer {
+    background: #ffffff !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-theme .footer-logo,
+body.light-theme .footer-links h4 {
+    color: #1a1a2e !important;
+}
+
+body.light-theme .footer-links a,
+body.light-theme .footer-brand p,
+body.light-theme .footer-bottom p {
+    color: #555566 !important;
 }
