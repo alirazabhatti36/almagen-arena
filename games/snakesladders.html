@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play Snakes and Ladders online for free on AlMaGen-Arena! Roll dice, watch step-by-step pawn movement, climb ladders 🪜, slide down snakes 🐍, and race to tile 100!">
-    <meta name="keywords" content="Snakes and Ladders, Saanp Seerhi, free board game, online ludo snake, dice board game, browser games">
+    <meta name="description" content="Play the official 1-100 Snakes and Ladders board game online! Roll dice, step your pawn across colorful tiles, climb stairs to jump ahead, dodge snakes, and race to 100!">
+    <meta name="keywords" content="Snakes and Ladders, Saanp Seerhi, 1-100 ludo board game, dice board game, online snakes and ladders">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/snakesladders.html">
 
     <meta property="og:title" content="Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena">
-    <meta property="og:description" content="Roll dice, climb ladders 🪜, slide down snakes 🐍, and race to tile 100 in this classic Snakes & Ladders board game!">
+    <meta property="og:description" content="Roll dice, step your object tile by tile, climb stairs, slide down snakes, and beat the computer to Tile 100!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/snakesladders.html">
 
@@ -33,23 +33,27 @@
 
         .stats { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: flex-end; }
         .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 1rem; cursor: pointer; padding: 6px 10px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 65px; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 70px; }
         .stat-label { font-size: 0.58rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-value { font-size: 1.1rem; font-weight: bold; }
+        .stat-value { font-size: 1.15rem; font-weight: bold; }
+
+        .turn-banner { width: 100%; max-width: 520px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 8px 14px; text-align: center; font-weight: bold; color: #00ff88; font-size: 0.92rem; }
 
         #gameContainer { position: relative; width: 100%; max-width: 520px; display: flex; justify-content: center; flex-direction: column; align-items: center; }
-        canvas { border: 3px solid #6c5ce7; border-radius: 16px; box-shadow: 0 10px 35px rgba(108,92,231,0.3); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #0a0a1a; }
+        canvas { border: 4px solid #6c5ce7; border-radius: 16px; box-shadow: 0 12px 40px rgba(108,92,231,0.4); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #111; }
 
         #controls { display: flex; gap: 15px; margin-top: 14px; align-items: center; width: 100%; justify-content: center; }
-        #rollBtn { padding: 14px 36px; font-size: 1.15rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 900; box-shadow: 0 8px 25px rgba(108,92,231,0.4); transition: all 0.3s; }
-        #rollBtn:hover { transform: scale(1.04); }
-        #rollBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        #diceDisplay { font-size: 2.8rem; width: 68px; height: 68px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+        #rollBtn { padding: 14px 38px; font-size: 1.2rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 900; box-shadow: 0 8px 25px rgba(108,92,231,0.5); transition: all 0.3s; animation: pulse 2s infinite; }
+        #rollBtn:hover { transform: scale(1.05); }
+        #rollBtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; animation: none; }
+        #diceDisplay { font-size: 3rem; width: 72px; height: 72px; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
 
-        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.92); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(12px); }
-        .overlay-screen h2 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 900; }
-        .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
-        .action-btn { padding: 12px 32px; font-size: 1.05rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(108,92,231,0.6); } 70% { box-shadow: 0 0 0 15px rgba(108,92,231,0); } 100% { box-shadow: 0 0 0 0 rgba(108,92,231,0); } }
+
+        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.94); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(14px); }
+        .overlay-screen h2 { font-size: 2.3rem; margin-bottom: 8px; font-weight: 900; }
+        .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
+        .action-btn { padding: 12px 34px; font-size: 1.1rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
 
         .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 10px; text-align: center; }
     </style>
@@ -59,8 +63,8 @@
 <body class="has-global-header">
     <main class="game-page">
         <header class="game-intro">
-            <h1>🪜🐍 Snakes and Ladders</h1>
-            <p>Roll the dice, watch your pawn move step-by-step, climb ladders 🪜 to jump ahead, beware of snakes 🐍 sliding you down, and race your pawn to tile 100!</p>
+            <h1>🪜🐍 Snakes and Ladders (Saanp Seerhi)</h1>
+            <p>Roll the dice, step your token across the 1-100 grid board, climb stairs 🪜 to jump ahead, avoid snakes 🐍 sliding you down, and reach Tile 100 to WIN!</p>
         </header>
 
         <div class="top-bar">
@@ -68,9 +72,13 @@
             <div class="stats">
                 <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
                 <button class="sound-btn" onclick="startGame()" title="Restart Game">🔄</button>
-                <div class="stat-box"><div class="stat-label">🔴 You</div><div class="stat-value" id="playerPos" style="color:#ff4757;">1/100</div></div>
-                <div class="stat-box"><div class="stat-label">🔵 AI</div><div class="stat-value" id="aiPos" style="color:#00d4ff;">1/100</div></div>
+                <div class="stat-box"><div class="stat-label">🔴 You</div><div class="stat-value" id="playerPos" style="color:#ff4757;">Tile 1</div></div>
+                <div class="stat-box"><div class="stat-label">🔵 AI</div><div class="stat-value" id="aiPos" style="color:#00d4ff;">Tile 1</div></div>
             </div>
+        </div>
+
+        <div class="turn-banner" id="turnBanner">
+            🎲 Your Turn! Roll the dice to move your Red Token!
         </div>
 
         <div id="gameContainer">
@@ -88,7 +96,7 @@
             <button id="rollBtn" onclick="rollDice()">🎲 Roll Dice</button>
         </div>
 
-        <p class="instructions">🎲 Tap Roll Dice or press Spacebar to spin the dice!</p>
+        <p class="instructions">🎲 Click Roll Dice button or press Spacebar to spin the dice!</p>
     </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
@@ -97,7 +105,7 @@
         const ctx = canvas.getContext('2d');
 
         function setCanvasSize() {
-            const size = Math.min(window.innerWidth - 20, 500);
+            const size = Math.min(window.innerWidth - 24, 500);
             canvas.width = size;
             canvas.height = size;
         }
@@ -112,41 +120,37 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
-        // ==================== BOARD CONFIGURATION ====================
+        // ==================== EXACT BOARD CONFIGURATION FROM IMAGE ====================
+        // Ladders / Stairs (Start -> End)
         const LADDERS = {
-            4: 14,
-            9: 31,
-            20: 38,
-            28: 84,
-            40: 59,
-            51: 67,
-            63: 81,
-            71: 91
+            14: 35,
+            22: 78,
+            31: 70,
+            75: 86
         };
 
+        // Snakes (Head -> Tail)
         const SNAKES = {
-            17: 7,
-            54: 34,
-            62: 19,
-            64: 60,
-            87: 24,
-            93: 73,
-            95: 75,
-            99: 78
+            29: 7,
+            76: 36,
+            89: 71,
+            97: 78
         };
 
-        const TILE_COLORS = ['#ff7675', '#ffd93d', '#a29bfe', '#74b9ff', '#55efc4'];
+        // 5 Bright Vibrant Colors matching attached image
+        const TILE_COLORS = ['#ffd93d', '#ff7675', '#a29bfe', '#74b9ff', '#00b894'];
 
         let playerPos = 1, aiPos = 1, currentDice = 1, gameRunning = true, isPlayerTurn = true, rolling = false, particles = [];
 
-        function showBoardToast(msg, bgGrad) {
+        function showToast(msg, bgGrad) {
             const toast = document.createElement('div');
             toast.textContent = msg;
-            toast.style.cssText = `position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);background:${bgGrad};color:#fff;padding:10px 22px;border-radius:20px;font-weight:bold;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,0.6);font-size:0.95rem;text-align:center;`;
+            toast.style.cssText = `position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);background:${bgGrad};color:#fff;padding:12px 24px;border-radius:24px;font-weight:900;z-index:99;box-shadow:0 10px 35px rgba(0,0,0,0.6);font-size:1.05rem;text-align:center;border:2px solid rgba(255,255,255,0.3);`;
             document.getElementById('gameContainer').appendChild(toast);
-            setTimeout(() => toast.remove(), 2000);
+            setTimeout(() => toast.remove(), 2200);
         }
 
+        // ==================== TILE MATH FOR 1-100 GRID ====================
         function getTileCoords(tileNum) {
             const n = Math.max(1, Math.min(100, tileNum));
             const row = Math.floor((n - 1) / 10);
@@ -158,7 +162,9 @@
 
             return {
                 x: col * cellW + cellW / 2,
-                y: (9 - row) * cellH + cellH / 2
+                y: (9 - row) * cellH + cellH / 2,
+                cellW: cellW,
+                cellH: cellH
             };
         }
 
@@ -177,7 +183,7 @@
             }
         }
 
-        function spawnParticles(x, y, color, count = 12) {
+        function spawnParticles(x, y, color, count = 14) {
             for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
         }
 
@@ -188,10 +194,12 @@
         function startGame() {
             playerPos = 1; aiPos = 1; currentDice = 1; gameRunning = true; isPlayerTurn = true; rolling = false; particles = [];
             document.getElementById('gameOverScreen').style.display = 'none';
-            document.getElementById('playerPos').textContent = '1/100';
-            document.getElementById('aiPos').textContent = '1/100';
+            document.getElementById('playerPos').textContent = 'Tile 1';
+            document.getElementById('aiPos').textContent = 'Tile 1';
             document.getElementById('diceDisplay').textContent = '🎲';
             document.getElementById('rollBtn').disabled = false;
+            document.getElementById('turnBanner').textContent = '🎲 Your Turn! Roll the dice to move your Red Token!';
+            document.getElementById('turnBanner').style.color = '#00ff88';
         }
 
         function rollDice() {
@@ -207,12 +215,13 @@
                 rc++;
                 if (rc >= mr) {
                     clearInterval(ri);
+                    document.getElementById('turnBanner').textContent = `🎲 Rolled ${currentDice}! Moving Red Token ${currentDice} step(s)...`;
                     animatePlayerMovement(currentDice);
                 }
             }, 75);
         }
 
-        // ==================== STEP-BY-STEP PAWN ANIMATION ====================
+        // ==================== STEP-BY-STEP TILE MOVEMENT ====================
         function animatePlayerMovement(stepsLeft) {
             if (stepsLeft <= 0 || playerPos >= 100) {
                 checkLaddersAndSnakesPlayer();
@@ -220,13 +229,13 @@
             }
 
             playerPos = Math.min(100, playerPos + 1);
-            document.getElementById('playerPos').textContent = playerPos + '/100';
+            document.getElementById('playerPos').textContent = 'Tile ' + playerPos;
             if (window.playSound) window.playSound('click');
 
             const pCoords = getTileCoords(playerPos);
             spawnParticles(pCoords.x, pCoords.y, '#ff4757', 6);
 
-            setTimeout(() => animatePlayerMovement(stepsLeft - 1), 220);
+            setTimeout(() => animatePlayerMovement(stepsLeft - 1), 240);
         }
 
         function checkLaddersAndSnakesPlayer() {
@@ -234,26 +243,26 @@
 
             if (LADDERS[playerPos]) {
                 const targetTile = LADDERS[playerPos];
-                showBoardToast(`🪜 LADDER CLIMB! Tile ${playerPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#00b894,#00cec9)');
+                showToast(`🪜 STAIR CLIMB! Tile ${playerPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#00b894,#00cec9)');
                 if (window.playSound) window.playSound('powerup');
-                spawnParticles(pCoords.x, pCoords.y, '#00ff88', 20);
+                spawnParticles(pCoords.x, pCoords.y, '#00ff88', 25);
 
                 setTimeout(() => {
                     playerPos = targetTile;
-                    document.getElementById('playerPos').textContent = playerPos + '/100';
+                    document.getElementById('playerPos').textContent = 'Tile ' + playerPos;
                     finishPlayerTurn();
-                }, 800);
+                }, 850);
             } else if (SNAKES[playerPos]) {
                 const targetTile = SNAKES[playerPos];
-                showBoardToast(`🐍 SNAKE SLIDE! Tile ${playerPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#ff4757,#ff6b81)');
+                showToast(`🐍 SNAKE BITE! Tile ${playerPos} ➔ Sliding down to Tile ${targetTile}`, 'linear-gradient(135deg,#ff4757,#ff6b81)');
                 if (window.playSound) window.playSound('crash');
-                spawnParticles(pCoords.x, pCoords.y, '#ff4757', 20);
+                spawnParticles(pCoords.x, pCoords.y, '#ff4757', 25);
 
                 setTimeout(() => {
                     playerPos = targetTile;
-                    document.getElementById('playerPos').textContent = playerPos + '/100';
+                    document.getElementById('playerPos').textContent = 'Tile ' + playerPos;
                     finishPlayerTurn();
-                }, 800);
+                }, 850);
             } else {
                 finishPlayerTurn();
             }
@@ -265,11 +274,14 @@
             if (currentDice === 6) {
                 rolling = false;
                 document.getElementById('rollBtn').disabled = false;
-                showBoardToast("🎲 Rolled a 6! Extra Roll!", 'linear-gradient(135deg,#6c5ce7,#a29bfe)');
+                document.getElementById('turnBanner').textContent = '🎲 Rolled a 6! You get an Extra Turn!';
+                document.getElementById('turnBanner').style.color = '#ffd93d';
                 return;
             }
 
             isPlayerTurn = false;
+            document.getElementById('turnBanner').textContent = '🤖 AI is thinking & rolling...';
+            document.getElementById('turnBanner').style.color = '#00d4ff';
             setTimeout(aiTurn, 1000);
         }
 
@@ -280,6 +292,7 @@
             document.getElementById('diceDisplay').textContent = getDiceEmoji(ad);
             if (window.playSound) window.playSound('dice');
 
+            document.getElementById('turnBanner').textContent = `🤖 AI Rolled ${ad}! Moving Blue Token...`;
             animateAIMovement(ad);
         }
 
@@ -290,32 +303,34 @@
             }
 
             aiPos = Math.min(100, aiPos + 1);
-            document.getElementById('aiPos').textContent = aiPos + '/100';
+            document.getElementById('aiPos').textContent = 'Tile ' + aiPos;
             if (window.playSound) window.playSound('click');
 
             const aCoords = getTileCoords(aiPos);
             spawnParticles(aCoords.x, aCoords.y, '#00d4ff', 6);
 
-            setTimeout(() => animateAIMovement(stepsLeft - 1), 220);
+            setTimeout(() => animateAIMovement(stepsLeft - 1), 240);
         }
 
         function checkLaddersAndSnakesAI() {
             if (LADDERS[aiPos]) {
                 const targetTile = LADDERS[aiPos];
+                showToast(`🤖 AI Climbed Stair! Tile ${aiPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#7c5cff,#6c5ce7)');
                 if (window.playSound) window.playSound('powerup');
                 setTimeout(() => {
                     aiPos = targetTile;
-                    document.getElementById('aiPos').textContent = aiPos + '/100';
+                    document.getElementById('aiPos').textContent = 'Tile ' + aiPos;
                     finishAITurn();
-                }, 800);
+                }, 850);
             } else if (SNAKES[aiPos]) {
                 const targetTile = SNAKES[aiPos];
+                showToast(`🐍 AI Bitten by Snake! Tile ${aiPos} ➔ Tile ${targetTile}`, 'linear-gradient(135deg,#d63031,#e84118)');
                 if (window.playSound) window.playSound('crash');
                 setTimeout(() => {
                     aiPos = targetTile;
-                    document.getElementById('aiPos').textContent = aiPos + '/100';
+                    document.getElementById('aiPos').textContent = 'Tile ' + aiPos;
                     finishAITurn();
-                }, 800);
+                }, 850);
             } else {
                 finishAITurn();
             }
@@ -325,13 +340,16 @@
             if (aiPos >= 100) { endGame(false); return; }
 
             if (currentDice === 6) {
-                setTimeout(aiTurn, 850);
+                document.getElementById('turnBanner').textContent = '🤖 AI Rolled a 6 & gets an Extra Turn!';
+                setTimeout(aiTurn, 900);
                 return;
             }
 
             isPlayerTurn = true;
             rolling = false;
             document.getElementById('rollBtn').disabled = false;
+            document.getElementById('turnBanner').textContent = '🎲 Your Turn! Roll the dice!';
+            document.getElementById('turnBanner').style.color = '#00ff88';
         }
 
         function endGame(playerWon) {
@@ -344,12 +362,12 @@
                 if (window.playSound) window.playSound('win');
                 title.textContent = '🎉 YOU WIN!';
                 title.style.color = '#00ff88';
-                msg.textContent = 'You climbed the ladders & reached Tile 100 first!';
+                msg.textContent = 'Awesome! You reached Tile 100 first!';
             } else {
                 if (window.playSound) window.playSound('crash');
                 title.textContent = '😢 AI WINS!';
                 title.style.color = '#ff4757';
-                msg.textContent = 'AI reached Tile 100 first!';
+                msg.textContent = 'AI reached Tile 100 first! Try again!';
             }
 
             document.getElementById('gameOverScreen').style.display = 'flex';
@@ -361,12 +379,12 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('snakesladders', playerPos);
         }
 
-        // ==================== CANVAS RENDER ENGINE ====================
+        // ==================== CANVAS BOARD ARTWORK DRAWING ====================
         function drawBoard() {
             const w = canvas.width, h = canvas.height;
             const cellW = w / 10, cellH = h / 10;
 
-            // Draw 100 Colorful Grid Tiles
+            // Draw 100 Colorful Grid Tiles (Exact Row Order & Numbers)
             for (let i = 1; i <= 100; i++) {
                 const row = Math.floor((i - 1) / 10);
                 const colInRow = (i - 1) % 10;
@@ -375,69 +393,89 @@
                 const x = col * cellW;
                 const y = (9 - row) * cellH;
 
-                ctx.fillStyle = TILE_COLORS[(i - 1) % TILE_COLORS.length];
+                // Alternate Vibrant Colors
+                ctx.fillStyle = TILE_COLORS[(col + row * 2) % TILE_COLORS.length];
                 ctx.fillRect(x, y, cellW, cellH);
 
-                ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth = 1.5;
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1.5;
                 ctx.strokeRect(x, y, cellW, cellH);
 
-                ctx.fillStyle = 'rgba(0,0,0,0.65)';
-                ctx.font = `bold ${Math.floor(cellW * 0.32)}px Poppins, sans-serif`;
-                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-                ctx.fillText(i.toString(), x + 4, y + 4);
+                // Print Tile Number (1 to 100)
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 4;
+                ctx.font = `bold ${Math.floor(cellW * 0.34)}px Poppins, sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(i.toString(), x + cellW / 2, y + cellH / 2);
+                ctx.shadowBlur = 0;
             }
 
-            // Draw Wooden Ladders
+            // Draw Stairs / Ladders (matching attached image)
             Object.keys(LADDERS).forEach(start => {
                 const end = LADDERS[start];
                 const c1 = getTileCoords(parseInt(start));
                 const c2 = getTileCoords(end);
 
-                ctx.strokeStyle = '#d63031'; ctx.lineWidth = 5; ctx.shadowColor = '#000'; ctx.shadowBlur = 6;
-                ctx.beginPath(); ctx.moveTo(c1.x - 6, c1.y); ctx.lineTo(c2.x - 6, c2.y); ctx.stroke();
-                ctx.beginPath(); ctx.moveTo(c1.x + 6, c1.y); ctx.lineTo(c2.x + 6, c2.y); ctx.stroke();
+                ctx.strokeStyle = '#8d6e63'; ctx.lineWidth = 6; ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
+                ctx.beginPath(); ctx.moveTo(c1.x - 7, c1.y); ctx.lineTo(c2.x - 7, c2.y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(c1.x + 7, c1.y); ctx.lineTo(c2.x + 7, c2.y); ctx.stroke();
 
-                // Ladder Rungs
-                const rungs = 6;
+                // Stairs Rungs
+                const rungs = 7;
                 for (let r = 1; r < rungs; r++) {
-                    const rx1 = c1.x - 6 + (c2.x - c1.x) * (r / rungs);
+                    const rx1 = c1.x - 7 + (c2.x - c1.x) * (r / rungs);
                     const ry1 = c1.y + (c2.y - c1.y) * (r / rungs);
-                    const rx2 = c1.x + 6 + (c2.x - c1.x) * (r / rungs);
+                    const rx2 = c1.x + 7 + (c2.x - c1.x) * (r / rungs);
                     const ry2 = c1.y + (c2.y - c1.y) * (r / rungs);
+                    ctx.strokeStyle = '#5d4037'; ctx.lineWidth = 4;
                     ctx.beginPath(); ctx.moveTo(rx1, ry1); ctx.lineTo(rx2, ry2); ctx.stroke();
                 }
                 ctx.shadowBlur = 0;
             });
 
-            // Draw Snakes
+            // Draw Wavy Colorful Snakes (matching attached image)
+            const snakeColors = {
+                29: '#ff9f43',
+                76: '#00d2d3',
+                89: '#ff4757',
+                97: '#10ac84'
+            };
+
             Object.keys(SNAKES).forEach(head => {
                 const tail = SNAKES[head];
                 const c1 = getTileCoords(parseInt(head));
                 const c2 = getTileCoords(tail);
+                const color = snakeColors[head] || '#10ac84';
 
-                ctx.strokeStyle = '#00b894'; ctx.lineWidth = 7; ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
+                // Snake Wavy Body
+                ctx.strokeStyle = color; ctx.lineWidth = 10; ctx.shadowColor = color; ctx.shadowBlur = 10;
                 ctx.beginPath(); ctx.moveTo(c1.x, c1.y);
-                const midX = (c1.x + c2.x) / 2 + 20;
-                const midY = (c1.y + c2.y) / 2 - 20;
+                const midX = (c1.x + c2.x) / 2 + 25;
+                const midY = (c1.y + c2.y) / 2 - 25;
                 ctx.quadraticCurveTo(midX, midY, c2.x, c2.y);
                 ctx.stroke();
 
-                // Snake Head
-                ctx.fillStyle = '#ff7675'; ctx.beginPath(); ctx.arc(c1.x, c1.y, 8, 0, Math.PI * 2); ctx.fill();
+                // Snake Head with Eyes
+                ctx.fillStyle = color; ctx.beginPath(); ctx.arc(c1.x, c1.y, 11, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c1.x - 3, c1.y - 3, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(c1.x + 3, c1.y - 3, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(c1.x - 3, c1.y - 3, 1.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(c1.x + 3, c1.y - 3, 1.5, 0, Math.PI * 2); ctx.fill();
                 ctx.shadowBlur = 0;
             });
 
-            // Draw Pawns
+            // Draw Tokens / Pawns
             const pCoords = getTileCoords(playerPos);
-            ctx.fillStyle = '#ff4757'; ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 12;
-            ctx.beginPath(); ctx.arc(pCoords.x - 6, pCoords.y - 4, cellW * 0.26, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#fff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-            ctx.fillText('🔴', pCoords.x - 6, pCoords.y - 4);
+            ctx.fillStyle = '#ff4757'; ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 14;
+            ctx.beginPath(); ctx.arc(pCoords.x - 7, pCoords.y - 5, cellW * 0.28, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('🔴', pCoords.x - 7, pCoords.y - 5);
 
             const aCoords = getTileCoords(aiPos);
-            ctx.fillStyle = '#00d4ff'; ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 12;
-            ctx.beginPath(); ctx.arc(aCoords.x + 6, aCoords.y + 4, cellW * 0.26, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#fff'; ctx.fillText('🔵', aCoords.x + 6, aCoords.y + 4);
+            ctx.fillStyle = '#00d4ff'; ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 14;
+            ctx.beginPath(); ctx.arc(aCoords.x + 7, aCoords.y + 5, cellW * 0.28, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.fillText('🔵', aCoords.x + 7, aCoords.y + 5);
             ctx.shadowBlur = 0;
         }
 
@@ -512,11 +550,11 @@
 
     <!-- RICH SEO ARTICLE & FAQ CONTENT -->
     <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
-        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Snakes and Ladders — Play Free Online Board Game</h1>
-        <p style="margin-bottom:16px;">Snakes and Ladders (Saanp Seerhi) is a classic 1-100 tile family board game. Roll dice, climb ladders, dodge snakes, and race your pawn to tile 100 against the computer!</p>
+        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Snakes and Ladders (Saanp Seerhi) — Play Free Online Board Game</h1>
+        <p style="margin-bottom:16px;">Snakes and Ladders (Saanp Seerhi) is a classic 1-100 tile family board game. Roll dice, climb stairs 🪜, dodge snakes 🐍, and race your red token to tile 100 against the computer!</p>
 
         <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Snakes and Ladders</h2>
-        <p style="margin-bottom:16px;">Click Roll Dice or press Spacebar to spin the die. Move your pawn across the 100 tiles. Land on a ladder base to climb up, but watch out for snake heads that slide you down!</p>
+        <p style="margin-bottom:16px;">Click Roll Dice or press Spacebar to spin the die. Move your token step by step across the 100 tiles. Land on a stair base to climb up, but watch out for snake heads that slide you down to their tail!</p>
     </article>
 </body>
 </html>
