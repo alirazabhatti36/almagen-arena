@@ -2,183 +2,604 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Street Racer - Play Free Online | AlMaGen-Arena</title>
-    <meta name="description" content="Play Street Racer online for free. Steer through traffic, avoid crashes, and chase a higher score in this fast browser racing game.">
-    <meta name="keywords" content="Street Racer, free racing game, browser car game, traffic dodging game, arcade racer">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="author" content="AlMaGen-Arena">
-    <meta name="theme-color" content="#6c5ce7">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Street Racer — Educational Math Highway Racing | AlMaGen-Arena</title>
+    <meta name="description" content="Play Street Racer on AlMaGen-Arena! High-speed educational math racing game. Steer through correct answer gates, trigger nitro boosts, and complete 3 highway stages!">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#7c5cff">
     <link rel="canonical" href="https://almagen-arena.com/games/streetracer.html">
-    <meta property="og:title" content="Street Racer - Play Free Online | AlMaGen-Arena">
-    <meta property="og:description" content="Weave through traffic, react quickly, and boost your score in Street Racer.">
+
+    <meta property="og:title" content="Street Racer — Educational Math Highway Racing | AlMaGen-Arena">
+    <meta property="og:description" content="High-speed math racing game! Drive through correct answer gates, unlock nitro boosts, and beat 3 highway stages.">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
-    <meta property="og:image:alt" content="AlMaGen-Arena social preview banner.">
     <meta property="og:url" content="https://almagen-arena.com/games/streetracer.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="AlMaGen-Arena">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Street Racer - Play Free Online | AlMaGen-Arena">
-    <meta name="twitter:description" content="Drive fast, dodge traffic, and aim for a bigger score in Street Racer.">
-    <meta name="twitter:image" content="https://almagen-arena.com/preview.svg">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
-    <link rel="manifest" href="../manifest.json">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "VideoGame",
-            "name": "Street Racer",
-            "url": "https://almagen-arena.com/games/streetracer.html",
-            "description": "A free browser racing game focused on dodging traffic and chasing high scores.",
-            "applicationCategory": "Game",
-            "genre": ["Racing Game", "Arcade Game"],
-            "isAccessibleForFree": true,
-            "publisher": {
-                "@type": "Organization",
-                "name": "AlMaGen-Arena",
-                "url": "https://almagen-arena.com/"
-            }
-        }
-    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { min-height: 100vh; padding-top: 85px; padding-bottom: 40px; font-family: 'Poppins', sans-serif; overflow-y: auto; display: flex; flex-direction: column; align-items: center; background: #0a0a1a; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 500px; padding: 10px 20px; margin-bottom: 10px; gap: 10px; flex-wrap: wrap; }
-        .back-btn { color: #fff; text-decoration: none; font-size: 0.9rem; padding: 8px 15px; background: rgba(255,255,255,0.1); border-radius: 10px; transition: all 0.3s; }
-        .back-btn:hover { background: rgba(255,255,255,0.2); }
-        .stats { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-        .sound-btn { background: rgba(255,255,255,0.1); border: none; font-size: 1rem; cursor: pointer; padding: 8px 12px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 10px; text-align: center; backdrop-filter: blur(10px); }
-        .stat-label { font-size: 0.6rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
-        .stat-value { font-size: 1.3rem; font-weight: bold; }
-        canvas { border: 2px solid #ff6b6b; border-radius: 10px; box-shadow: 0 0 30px rgba(255,107,107,0.3); max-width: 95vw; max-height: 70vh; }
-        #gameContainer { position: relative; }
-        #gameOverScreen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); border-radius: 10px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; }
-        #gameOverScreen h2 { font-size: 2.5rem; color: #ff6b6b; margin-bottom: 10px; }
-        .play-again-btn { padding: 12px 35px; font-size: 1.1rem; background: #ff6b6b; color: #fff; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        body { background: #070714; color: #fff; font-family: 'Poppins', sans-serif; min-height: 100vh; touch-action: manipulation; }
+        .game-page { display: flex; flex-direction: column; align-items: center; padding: 15px; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .game-intro { text-align: center; margin-bottom: 10px; }
+        .game-intro h1 { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ff4757, #ffd93d, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 6px; }
+
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 520px; padding: 8px 12px; margin-bottom: 8px; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s; font-weight: 600; }
+        .back-btn:hover { background: rgba(255,71,87,0.3); }
+
+        .stats { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: flex-end; }
+        .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 1rem; cursor: pointer; padding: 6px 10px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 60px; }
+        .stat-label { font-size: 0.58rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; color: #ffd93d; }
+
+        /* STAGE & TARGET MATH HUD */
+        .target-math-box { width: 100%; max-width: 520px; margin-bottom: 8px; background: linear-gradient(135deg, rgba(255,71,87,0.15), rgba(124,92,255,0.25)); border: 1px solid #ff4757; border-radius: 14px; padding: 8px 14px; text-align: center; font-weight: bold; box-shadow: 0 4px 15px rgba(255,71,87,0.3); }
+        .target-math-box span { display: inline-block; }
+        
+        .stage-progress-wrapper { width: 100%; max-width: 520px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 8px 12px; }
+        .stage-info-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; }
+        .stage-title { color: #00ff88; }
+        .stage-target { color: #ffd93d; }
+        .progress-track { height: 8px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4757, #ffd93d, #00ff88); border-radius: 999px; transition: width 0.3s ease; }
+
+        #gameContainer { position: relative; width: 100%; max-width: 520px; display: flex; justify-content: center; }
+        canvas { border: 2px solid rgba(255,71,87,0.4); border-radius: 16px; box-shadow: 0 10px 35px rgba(255,71,87,0.25); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #111; }
+
+        /* OVERLAYS */
+        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.92); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(12px); }
+        .overlay-screen h2 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 900; }
+        .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
+        .action-btn { padding: 12px 32px; font-size: 1.05rem; background: linear-gradient(135deg, #ff4757, #ff6b81); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; box-shadow: 0 8px 25px rgba(255,71,87,0.5); }
+        .action-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 30px rgba(255,71,87,0.7); }
+
         #mobileControls { display: none; gap: 15px; margin-top: 12px; }
-        .ctrl-btn { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #ff6b6b; background: rgba(255,107,107,0.15); color: #fff; font-size: 1.5rem; cursor: pointer; touch-action: manipulation; }
-        .ctrl-btn:active { background: rgba(255,107,107,0.4); transform: scale(0.9); }
-        .instructions { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 6px; text-align: center; }
-        .guide-pill { display: inline-block; margin-top: 6px; padding: 6px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 0.68rem; color: rgba(255,255,255,0.8); }
+        .ctrl-btn { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #ff4757; background: rgba(255,71,87,0.2); color: #fff; font-size: 1.6rem; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .ctrl-btn:active { background: rgba(255,71,87,0.5); transform: scale(0.92); }
+
+        .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 8px; text-align: center; }
         @media (max-width: 768px) { #mobileControls { display: flex; } .instructions.desktop { display: none; } }
         @media (min-width: 769px) { .instructions.mobile { display: none; } }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
 </head>
-<body>
-    <div class="top-bar">
-        <a href="../index.html" class="back-btn">← Back</a>
-        <div class="stats">
-            <button class="sound-btn" id="soundToggle"  title="Toggle Sound">🔊</button>
-            <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay" style="color:#ffd93d;">0</div></div>
-            <div class="stat-box"><div class="stat-label">🚗 Speed</div><div class="stat-value" id="speedDisplay" style="color:#00ff88;">0</div></div>
+<body class="has-global-header">
+    <main class="game-page">
+        <header class="game-intro">
+            <h1>🏎️ Street Racer</h1>
+            <p>High-speed educational math highway racing! Drive through correct answer gates, trigger nitro boosts, and beat 3 stages!</p>
+        </header>
+
+        <div class="top-bar">
+            <a href="../index.html" class="back-btn">← Back</a>
+            <div class="stats">
+                <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
+                <div class="stat-box"><div class="stat-label">🛡️ Shield</div><div class="stat-value" id="shieldDisplay" style="color:#00ff88;">OFF</div></div>
+                <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
+                <div class="stat-box"><div class="stat-label">🚗 Speed</div><div class="stat-value" id="speedDisplay" style="color:#00ff88;">90</div></div>
+            </div>
         </div>
-    </div>
-    <div id="gameContainer">
-        <canvas style="touch-action:none;" id="gameCanvas"></canvas>
-        <div id="gameOverScreen">
-            <h2>💥 Crashed!</h2><p id="gameOverMsg"></p>
-            <div style="color:#ffd93d;font-size:1.5rem;margin-bottom:15px;">Score: <span id="finalScore" style="font-weight:bold;">0</span></div>
-            <button class="play-again-btn" onclick="startGame()">🔄 Play Again</button>
+
+        <!-- TARGET MATH BANNER -->
+        <div class="target-math-box">
+            <span>🎯 Checkpoint Math:</span>
+            <span id="targetMathText" style="color:#ffd93d;font-size:1.15rem;margin-left:6px;">8 + 7 = ?</span>
         </div>
-    </div>
-    <div id="mobileControls">
-        <button class="ctrl-btn" id="btnLeft">⬅️</button>
-        <button class="ctrl-btn" id="btnRight">➡️</button>
-    </div>
-    <p class="instructions desktop">Desktop: use the Left/Right Arrow keys or A/D. Mobile/Tablet/iPhone: tap the buttons or drag left/right on the screen to steer.</p>
-    <p class="instructions mobile">👆 Tap buttons to steer, or drag left/right on the screen.</p>
-    <div class="guide-pill">Avoid traffic and stay on the road.</div>
+
+        <!-- STAGE PROGRESS HUD -->
+        <div class="stage-progress-wrapper">
+            <div class="stage-info-row">
+                <span class="stage-title" id="stageTitle">🏎️ STAGE 1: Neon Highway</span>
+                <span class="stage-target" id="stageTargetText">🎯 Goal: 100 Score</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="450" height="600" style="touch-action:none;"></canvas>
+
+            <!-- STAGE CLEAR OVERLAY -->
+            <div id="stageClearScreen" class="overlay-screen">
+                <h2 style="color:#00ff88;" id="stageClearTitle">🎉 STAGE CLEAR!</h2>
+                <p id="stageClearMsg">Awesome driving! You mastered Speed Math. Ready for Stage 2?</p>
+                <button class="action-btn" onclick="nextStage()">🚀 Start Next Stage ➔</button>
+            </div>
+
+            <!-- GAME OVER OVERLAY -->
+            <div id="gameOverScreen" class="overlay-screen">
+                <h2 style="color:#ff4757;">💥 Crashed!</h2>
+                <p id="gameOverMsg">You drove into a wrong gate or rival car!</p>
+                <div style="color:#ffd93d;font-size:1.4rem;margin-bottom:15px;font-weight:bold;">Final Score: <span id="finalScore">0</span></div>
+                <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
+            </div>
+
+            <!-- VICTORY OVERLAY -->
+            <div id="victoryScreen" class="overlay-screen">
+                <h2 style="color:#ffd93d;">🏆 STREET RACER CHAMPION!</h2>
+                <p>Incredible! You completed all 3 Math Racing Stages & Became the Ultimate Highway Master!</p>
+                <div style="color:#00ff88;font-size:1.6rem;margin-bottom:18px;font-weight:900;">Final Score: <span id="victoryScore">0</span></div>
+                <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
+            </div>
+        </div>
+
+        <div id="mobileControls">
+            <button class="ctrl-btn" id="btnLeft">⬅️</button>
+            <button class="ctrl-btn" id="btnRight">➡️</button>
+        </div>
+        <p class="instructions desktop">⌨️ Desktop: Left / Right Arrow Keys (or A/D) to steer | Drive into 🟢 Green correct answer gates & dodge rival cars!</p>
+        <p class="instructions mobile">📱 Mobile: Tap ⬅️ / ➡️ buttons OR drag left/right on canvas to steer.</p>
+    </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        function setCanvasSize() { canvas.width = Math.min(window.innerWidth-30, 450); canvas.height = Math.min(window.innerHeight-260, 650); }
-        setCanvasSize(); window.addEventListener('resize', setCanvasSize);
+
+        function setCanvasSize() {
+            const sizeW = Math.min(window.innerWidth - 30, 450);
+            const sizeH = Math.min(window.innerHeight - 260, 600);
+            canvas.width = Math.max(300, sizeW);
+            canvas.height = Math.max(450, sizeH);
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
         function syncInGameSoundBtn() {
-        const btn = document.getElementById('soundToggle');
-        const isMuted = localStorage.getItem('almagen_muted') === 'true';
-        if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
-    }
-    window.addEventListener('soundmutechanged', syncInGameSoundBtn);
-    document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
-        function moveCarBy(delta) {
-            if (!gameRunning) return;
-            car.x = Math.max(22, Math.min(canvas.width - car.width - 22, car.x + delta));
+            const btn = document.getElementById('soundToggle');
+            const isMuted = localStorage.getItem('almagen_muted') === 'true';
+            if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+        }
+        window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+        document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
+
+        // ==================== STAGE CONFIGURATION ====================
+        const stagesConfig = [
+            {
+                level: 1,
+                name: "🏎️ STAGE 1: Neon Highway",
+                target: 100,
+                baseSpeed: 4.5,
+                hint: "Goal: Addition & Subtraction gates! Drive into correct answer gates!"
+            },
+            {
+                level: 2,
+                name: "⭐ STAGE 2: Times Table Cyber Highway",
+                target: 250,
+                baseSpeed: 6.0,
+                hint: "Goal: Multiplication Pahare gates! Dodge rival traffic!"
+            },
+            {
+                level: 3,
+                name: "🔥 STAGE 3: Turbo Championship Blitz",
+                target: 500,
+                baseSpeed: 7.5,
+                hint: "Goal: Division & Mixed Math gates at max nitro speed!"
+            }
+        ];
+
+        let currentStageIdx = 0;
+        let car = { x: 0, y: 0, width: 44, height: 75, lane: 1, shield: false };
+        let gateGroup = null;
+        let rivalCars = [];
+        let particles = [];
+        let roadLines = [];
+        let score = 0;
+        let gameSpeed = 4.5;
+        let gameRunning = true;
+        let frameCount = 0;
+        let currentTarget = { problem: '8 + 7', answer: 15 };
+
+        for (let i = 0; i < 15; i++) roadLines.push({ y: i * 45 });
+
+        function generateMathTarget() {
+            const level = stagesConfig[currentStageIdx].level;
+            if (level === 1) {
+                const isAdd = Math.random() > 0.4;
+                if (isAdd) {
+                    const n1 = Math.floor(Math.random() * 15) + 1;
+                    const n2 = Math.floor(Math.random() * 15) + 1;
+                    currentTarget = { problem: `${n1} + ${n2} = ?`, answer: n1 + n2 };
+                } else {
+                    const n1 = Math.floor(Math.random() * 20) + 5;
+                    const n2 = Math.floor(Math.random() * (n1 - 1)) + 1;
+                    currentTarget = { problem: `${n1} - ${n2} = ?`, answer: n1 - n2 };
+                }
+            } else if (level === 2) {
+                const n1 = Math.floor(Math.random() * 8) + 2;
+                const n2 = Math.floor(Math.random() * 8) + 1;
+                currentTarget = { problem: `${n1} × ${n2} = ?`, answer: n1 * n2 };
+            } else {
+                const ans = Math.floor(Math.random() * 8) + 1;
+                const n2 = Math.floor(Math.random() * 7) + 2;
+                const n1 = ans * n2;
+                currentTarget = { problem: `${n1} ÷ ${n2} = ?`, answer: ans };
+            }
+
+            document.getElementById('targetMathText').textContent = currentTarget.problem;
         }
 
-        let car = { x:0, y:0, width:45, height:80 };
-        let obstacles=[], particles=[], score=0, gameSpeed=4, gameRunning=true, frameCount=0, spawnTimer=0, roadLines=[];
+        class GateGroup {
+            constructor() {
+                this.y = -80;
+                this.height = 45;
+                const laneWidth = canvas.width / 3;
+                const correctLane = Math.floor(Math.random() * 3);
 
-        for(let i=0;i<15;i++) roadLines.push({y:i*50});
+                this.gates = [0, 1, 2].map(l => {
+                    const isCorrect = (l === correctLane);
+                    let num;
+                    if (isCorrect) {
+                        num = currentTarget.answer;
+                    } else {
+                        num = currentTarget.answer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 4) + 1);
+                        if (num < 0) num = currentTarget.answer + 3;
+                    }
+                    return {
+                        lane: l,
+                        x: l * laneWidth + 6,
+                        w: laneWidth - 12,
+                        number: num,
+                        isCorrect: isCorrect
+                    };
+                });
+                this.passed = false;
+            }
 
-        class Obstacle {
-            constructor(){this.width=40+Math.random()*20;this.height=70+Math.random()*20;this.x=Math.random()*(canvas.width-this.width-60)+30;this.y=-this.height;this.speed=gameSpeed+Math.random()*2;this.color=`hsl(${Math.random()*360},70%,55%)`;this.passed=false;}
-            update(){this.y+=this.speed;}
-            draw(){ctx.fillStyle=this.color;ctx.shadowColor=this.color;ctx.shadowBlur=8;ctx.fillRect(this.x+3,this.y+5,this.width-6,this.height-10);ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillRect(this.x+8,this.y+10,this.width-16,this.height-35);ctx.fillStyle='rgba(0,212,255,0.5)';ctx.fillRect(this.x+5,this.y+10,this.width-10,this.height-40);ctx.fillStyle='#111';ctx.fillRect(this.x+2,this.y+8,8,14);ctx.fillRect(this.x+this.width-10,this.y+8,8,14);ctx.fillRect(this.x+2,this.y+this.height-22,8,14);ctx.fillRect(this.x+this.width-10,this.y+this.height-22,8,14);ctx.fillStyle='#ffd93d';ctx.fillRect(this.x+6,this.y+this.height-10,6,6);ctx.fillRect(this.x+this.width-12,this.y+this.height-10,6,6);ctx.shadowBlur=0;}
-            isOffScreen(){return this.y>canvas.height+80;}
+            update() { this.y += gameSpeed; }
+
+            draw() {
+                this.gates.forEach(g => {
+                    ctx.shadowColor = g.isCorrect ? '#00ff88' : '#ff4757';
+                    ctx.shadowBlur = 12;
+
+                    ctx.fillStyle = g.isCorrect ? 'rgba(0,255,136,0.18)' : 'rgba(255,71,87,0.18)';
+                    ctx.beginPath(); ctx.roundRect(g.x, this.y, g.w, this.height, 10); ctx.fill();
+                    ctx.strokeStyle = g.isCorrect ? '#00ff88' : '#ff4757';
+                    ctx.lineWidth = 2.5; ctx.stroke();
+                    ctx.shadowBlur = 0;
+
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 18px Poppins, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText(g.number.toString(), g.x + g.w / 2, this.y + this.height / 2);
+                });
+            }
+
+            isOffScreen() { return this.y > canvas.height + 60; }
+        }
+
+        class RivalCar {
+            constructor() {
+                const laneWidth = canvas.width / 3;
+                this.lane = Math.floor(Math.random() * 3);
+                this.width = 38; this.height = 70;
+                this.x = this.lane * laneWidth + (laneWidth - this.width) / 2;
+                this.y = -90;
+                this.speed = gameSpeed + (Math.random() * 1.5);
+                this.color = `hsl(${Math.floor(Math.random() * 360)}, 75%, 55%)`;
+            }
+            update() { this.y += this.speed; }
+            draw() {
+                ctx.fillStyle = this.color; ctx.shadowColor = this.color; ctx.shadowBlur = 8;
+                ctx.beginPath(); ctx.roundRect(this.x, this.y, this.width, this.height, 8); ctx.fill();
+                ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fillRect(this.x + 6, this.y + 10, this.width - 12, 16);
+                ctx.shadowBlur = 0;
+            }
+            isOffScreen() { return this.y > canvas.height + 80; }
         }
 
         class Particle {
-            constructor(x,y,color){this.x=x;this.y=y;this.vx=(Math.random()-0.5)*4;this.vy=(Math.random()-0.5)*4-2;this.life=1;this.decay=0.03;this.color=color;this.size=Math.random()*3+2;}
-            update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;this.vy+=0.1;}
-            draw(){ctx.globalAlpha=this.life;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
+            constructor(x, y, color) {
+                this.x = x; this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4 - 2;
+                this.life = 1; this.decay = 0.04;
+                this.color = color; this.size = Math.random() * 3 + 2;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
         }
-        function spawnParticles(x,y,color,count=12){for(let i=0;i<count;i++)particles.push(new Particle(x,y,color));}
 
-        function startGame(){car.x=canvas.width/2-22;car.y=canvas.height-120;obstacles=[];particles=[];score=0;gameSpeed=4;gameRunning=true;frameCount=0;spawnTimer=0;document.getElementById('gameOverScreen').style.display='none';document.getElementById('scoreDisplay').textContent='0';document.getElementById('speedDisplay').textContent='0 km/h';}
-        function gameOver(msg){sound.playLose();gameRunning=false;spawnParticles(car.x+car.width/2,car.y+car.height/2,'#ff4444',25);document.getElementById('finalScore').textContent=score;document.getElementById('gameOverMsg').textContent=msg;document.getElementById('gameOverScreen').style.display='flex';const pn=localStorage.getItem('almagen_name')||'Player';localStorage.setItem('almagen_score_'+Date.now()+'_'+Math.random().toString(36).substr(2,5),JSON.stringify({game:'streetracer',name:pn,score:score,date:new Date().toISOString()}));if(typeof updateDailyProgress==='function')updateDailyProgress('streetracer',score);}
+        function spawnParticles(x, y, color, count = 12) {
+            for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
+        }
 
-        function update(){
-            if(!gameRunning)return;frameCount++;gameSpeed=4+Math.floor(frameCount/300)*0.5;if(gameSpeed>14)gameSpeed=14;
-            document.getElementById('speedDisplay').textContent=Math.floor(gameSpeed*15)+' km/h';
-            spawnTimer++;const rate=Math.max(25,60-gameSpeed*2);if(spawnTimer>=rate){spawnTimer=0;obstacles.push(new Obstacle());}
-            for(let i=obstacles.length-1;i>=0;i--){obstacles[i].update();obstacles[i].speed=gameSpeed+Math.random()*1.5;
-                if(car.x<obstacles[i].x+obstacles[i].width&&car.x+car.width>obstacles[i].x&&car.y<obstacles[i].y+obstacles[i].height&&car.y+car.height>obstacles[i].y){gameOver('You crashed! Score: '+score);return;}
-                if(!obstacles[i].passed&&obstacles[i].y>car.y+car.height){sound.playScore();obstacles[i].passed=true;score+=10;document.getElementById('scoreDisplay').textContent=score;}
-                if(obstacles[i].isOffScreen())obstacles.splice(i,1);}
-            for(let line of roadLines){line.y+=gameSpeed;if(line.y>canvas.height+20)line.y=-30;}
-            for(let i=particles.length-1;i>=0;i--){particles[i].update();if(particles[i].life<=0)particles.splice(i,1);}
+        function updateUI() {
+            const curStage = stagesConfig[currentStageIdx];
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('speedDisplay').textContent = `${Math.floor(gameSpeed * 18)} km/h`;
+            document.getElementById('shieldDisplay').textContent = car.shield ? 'ON 🛡️' : 'OFF';
+            document.getElementById('shieldDisplay').style.color = car.shield ? '#00ff88' : '#aaa';
+
+            document.getElementById('stageTitle').textContent = curStage.name;
+            document.getElementById('stageTargetText').textContent = `🎯 Goal: ${curStage.target} Score`;
+
+            // Progress Bar
+            const prevTarget = currentStageIdx > 0 ? stagesConfig[currentStageIdx - 1].target : 0;
+            const progress = Math.min(100, Math.max(0, ((score - prevTarget) / (curStage.target - prevTarget)) * 100));
+            document.getElementById('progressFill').style.width = `${progress}%`;
         }
-        function draw(){
-            const rg=ctx.createLinearGradient(0,0,canvas.width,0);rg.addColorStop(0,'#1a1a1a');rg.addColorStop(0.5,'#333');rg.addColorStop(1,'#1a1a1a');ctx.fillStyle=rg;ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle='#333';ctx.fillRect(0,0,15,canvas.height);ctx.fillRect(canvas.width-15,0,15,canvas.height);
-            ctx.strokeStyle='#ffd93d';ctx.lineWidth=3;ctx.setLineDash([30,20]);for(let line of roadLines){ctx.beginPath();ctx.moveTo(canvas.width/2,line.y);ctx.lineTo(canvas.width/2,line.y+30);ctx.stroke();}ctx.setLineDash([]);
-            for(let obs of obstacles)obs.draw();
-            for(let p of particles)p.draw();
-            const cx=car.x+car.width/2,cy=car.y+car.height/2;ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(car.x-3,car.y+5,car.width+6,car.height);
-            const cg=ctx.createLinearGradient(car.x,car.y,car.x,car.y+car.height);cg.addColorStop(0,'#ff4444');cg.addColorStop(0.5,'#cc0000');cg.addColorStop(1,'#990000');ctx.fillStyle=cg;ctx.beginPath();ctx.roundRect(car.x,car.y,car.width,car.height,8);ctx.fill();
-            ctx.fillStyle='rgba(0,212,255,0.6)';ctx.fillRect(car.x+8,car.y+10,car.width-16,20);
-            ctx.fillStyle='rgba(0,0,0,0.2)';ctx.fillRect(car.x+6,car.y+12,car.width-12,car.height-45);
-            ctx.fillStyle='#111';ctx.fillRect(car.x-4,car.y+8,8,16);ctx.fillRect(car.x+car.width-4,car.y+8,8,16);ctx.fillRect(car.x-4,car.y+car.height-24,8,16);ctx.fillRect(car.x+car.width-4,car.y+car.height-24,8,16);
-            ctx.fillStyle='#ffd93d';ctx.fillRect(car.x+4,car.y+car.height-4,8,6);ctx.fillRect(car.x+car.width-12,car.y+car.height-4,8,6);
-            ctx.fillStyle='#fff';ctx.fillRect(cx-4,car.y,8,car.height);
+
+        function startGame() {
+            currentStageIdx = 0;
+            initStage(0);
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('stageClearScreen').style.display = 'none';
+            document.getElementById('victoryScreen').style.display = 'none';
         }
-        function gameLoop(){update();draw();requestAnimationFrame(gameLoop);}
-        const keys={};document.addEventListener('keydown',(e)=>{keys[e.key]=true;if(e.key===' '&&!gameRunning)startGame();});document.addEventListener('keyup',(e)=>{keys[e.key]=false;});
-        function handleMovement(){if(!gameRunning)return;const ms=6;if(keys['ArrowLeft']||keys['a'])car.x-=ms;if(keys['ArrowRight']||keys['d'])car.x+=ms;car.x=Math.max(22,Math.min(canvas.width-car.width-22,car.x));requestAnimationFrame(handleMovement);}handleMovement();
-        document.getElementById('btnLeft').addEventListener('pointerdown',(e)=>{e.preventDefault();keys['ArrowLeft']=true;});document.getElementById('btnLeft').addEventListener('pointerup',()=>{keys['ArrowLeft']=false;});
-        document.getElementById('btnRight').addEventListener('pointerdown',(e)=>{e.preventDefault();keys['ArrowRight']=true;});document.getElementById('btnRight').addEventListener('pointerup',()=>{keys['ArrowRight']=false;});
+
+        function initStage(idx) {
+            currentStageIdx = idx;
+            const curStage = stagesConfig[currentStageIdx];
+            gameSpeed = curStage.baseSpeed;
+            car.x = canvas.width / 2 - 22; car.y = canvas.height - 110; car.shield = false;
+            gateGroup = null; rivalCars = []; particles = []; frameCount = 0; gameRunning = true;
+            generateMathTarget();
+            updateUI();
+        }
+
+        function triggerStageClear() {
+            gameRunning = false;
+            if (window.playSound) window.playSound('powerup');
+
+            if (currentStageIdx < stagesConfig.length - 1) {
+                const curStage = stagesConfig[currentStageIdx];
+                document.getElementById('stageClearTitle').textContent = `🎉 STAGE ${curStage.level} CLEARED!`;
+                document.getElementById('stageClearMsg').textContent = `Awesome Math Driving! You reached ${score} Points! Ready for STAGE ${curStage.level + 1}?`;
+                document.getElementById('stageClearScreen').style.display = 'flex';
+            } else {
+                document.getElementById('victoryScore').textContent = score;
+                document.getElementById('victoryScreen').style.display = 'flex';
+            }
+        }
+
+        function nextStage() {
+            document.getElementById('stageClearScreen').style.display = 'none';
+            initStage(currentStageIdx + 1);
+        }
+
+        function gameOver(msg) {
+            if (window.playSound) window.playSound('crash');
+            gameRunning = false;
+            spawnParticles(car.x + car.width / 2, car.y + car.height / 2, '#ff4757', 25);
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOverMsg').textContent = msg;
+            document.getElementById('gameOverScreen').style.display = 'flex';
+
+            const pn = localStorage.getItem('almagen_name') || 'Player';
+            localStorage.setItem('almagen_score_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), JSON.stringify({
+                game: 'streetracer', name: pn, score: score, date: new Date().toISOString()
+            }));
+            if (typeof updateDailyProgress === 'function') updateDailyProgress('streetracer', score);
+        }
+
+        function update() {
+            if (!gameRunning) return;
+            frameCount++;
+
+            gameSpeed = stagesConfig[currentStageIdx].baseSpeed + Math.min(3.5, Math.floor(frameCount / 350) * 0.4);
+
+            // Spawn Math Gate Group
+            if (!gateGroup && frameCount % 120 === 0) {
+                gateGroup = new GateGroup();
+            }
+
+            // Spawn Rival Cars
+            if (frameCount % 180 === 0 && Math.random() < 0.6) {
+                rivalCars.push(new RivalCar());
+            }
+
+            // Road Lines Animation
+            roadLines.forEach(line => {
+                line.y += gameSpeed;
+                if (line.y > canvas.height + 20) line.y = -30;
+            });
+
+            // Update Gate Group & Gate Collisions
+            if (gateGroup) {
+                gateGroup.update();
+                if (!gateGroup.passed && gateGroup.y + gateGroup.height >= car.y) {
+                    gateGroup.passed = true;
+                    const hitGate = gateGroup.gates.find(g => car.x + car.width > g.x && car.x < g.x + g.w);
+                    if (hitGate && hitGate.isCorrect) {
+                        if (window.playSound) window.playSound('coin');
+                        score += 15;
+                        spawnParticles(car.x + car.width / 2, car.y, '#00ff88', 16);
+                        updateUI();
+                        generateMathTarget();
+
+                        if (score >= stagesConfig[currentStageIdx].target) {
+                            triggerStageClear();
+                            return;
+                        }
+                    } else {
+                        if (car.shield) {
+                            car.shield = false;
+                            if (window.playSound) window.playSound('powerup');
+                            spawnParticles(car.x + car.width / 2, car.y, '#00d4ff', 18);
+                            updateUI();
+                        } else {
+                            gameOver(`Wrong Answer Gate! Checkpoint answer was ${currentTarget.answer}`);
+                            return;
+                        }
+                    }
+                }
+
+                if (gateGroup.isOffScreen()) gateGroup = null;
+            }
+
+            // Update Rival Cars & Collisions
+            for (let i = rivalCars.length - 1; i >= 0; i--) {
+                rivalCars[i].update();
+                if (car.x < rivalCars[i].x + rivalCars[i].width &&
+                    car.x + car.width > rivalCars[i].x &&
+                    car.y < rivalCars[i].y + rivalCars[i].height &&
+                    car.y + car.height > rivalCars[i].y) {
+                    if (car.shield) {
+                        car.shield = false;
+                        if (window.playSound) window.playSound('powerup');
+                        spawnParticles(car.x + car.width / 2, car.y, '#00d4ff', 18);
+                        rivalCars.splice(i, 1);
+                        updateUI();
+                    } else {
+                        gameOver('Crashed into a rival car!');
+                        return;
+                    }
+                } else if (rivalCars[i].isOffScreen()) {
+                    rivalCars.splice(i, 1);
+                }
+            }
+
+            // Update Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        // ==================== CYBER SPORTS CAR CANVAS RENDER ====================
+        function drawSportsCar(cx, cy) {
+            const w = car.width, h = car.height;
+
+            // Tire Friction Tracks & Ground Shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.beginPath(); ctx.ellipse(cx + w / 2, cy + h / 2 + 4, w / 2 + 4, h / 2 + 4, 0, 0, Math.PI * 2); ctx.fill();
+
+            // Shield Forcefield
+            if (car.shield) {
+                ctx.strokeStyle = '#00d4ff'; ctx.lineWidth = 3;
+                ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 16;
+                ctx.beginPath(); ctx.arc(cx + w / 2, cy + h / 2, w / 2 + 14, 0, Math.PI * 2); ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+
+            // Sports Car Body
+            const bodyGrad = ctx.createLinearGradient(cx, cy, cx + w, cy + h);
+            bodyGrad.addColorStop(0, '#ff4757'); bodyGrad.addColorStop(0.5, '#ff6b81'); bodyGrad.addColorStop(1, '#d63031');
+            ctx.fillStyle = bodyGrad;
+            ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 10;
+            ctx.beginPath(); ctx.roundRect(cx, cy, w, h, 10); ctx.fill(); ctx.shadowBlur = 0;
+
+            // Dual Racing Stripes
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(cx + w / 2 - 4, cy, 3, h);
+            ctx.fillRect(cx + w / 2 + 1, cy, 3, h);
+
+            // Tinted Windshield
+            ctx.fillStyle = 'rgba(0, 212, 255, 0.7)';
+            ctx.beginPath(); ctx.roundRect(cx + 6, cy + 12, w - 12, 20, 4); ctx.fill();
+
+            // Headlights & Brake Lights
+            ctx.fillStyle = '#ffd93d'; ctx.shadowColor = '#ffd93d'; ctx.shadowBlur = 12;
+            ctx.fillRect(cx + 4, cy + 2, 7, 5); ctx.fillRect(cx + w - 11, cy + 2, 7, 5);
+            ctx.fillStyle = '#ff0000'; ctx.shadowColor = '#ff0000';
+            ctx.fillRect(cx + 4, cy + h - 5, 8, 4); ctx.fillRect(cx + w - 12, cy + h - 5, 8, 4);
+            ctx.shadowBlur = 0;
+
+            // Wheels
+            ctx.fillStyle = '#1e272e';
+            ctx.fillRect(cx - 4, cy + 10, 5, 16); ctx.fillRect(cx + w - 1, cy + 10, 5, 16);
+            ctx.fillRect(cx - 4, cy + h - 24, 5, 16); ctx.fillRect(cx + w - 1, cy + h - 24, 5, 16);
+
+            // Nitro Thruster Sparks
+            if (frameCount % 3 === 0) {
+                spawnParticles(cx + w / 2, cy + h + 2, '#00d4ff', 2);
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Asphalt Grid Highway
+            const roadGrad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            roadGrad.addColorStop(0, '#0a0a1a'); roadGrad.addColorStop(0.5, '#1e1b4b'); roadGrad.addColorStop(1, '#0a0a1a');
+            ctx.fillStyle = roadGrad; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Lane Divider Lines
+            const laneWidth = canvas.width / 3;
+            ctx.strokeStyle = 'rgba(124, 92, 255, 0.3)'; ctx.lineWidth = 3; ctx.setLineDash([25, 20]);
+            for (let line of roadLines) {
+                ctx.beginPath(); ctx.moveTo(laneWidth, line.y); ctx.lineTo(laneWidth, line.y + 25); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(laneWidth * 2, line.y); ctx.lineTo(laneWidth * 2, line.y + 25); ctx.stroke();
+            }
+            ctx.setLineDash([]);
+
+            // Draw Checkpoint Math Gates
+            if (gateGroup) gateGroup.draw();
+
+            // Draw Rival Cars & Particles
+            for (let rival of rivalCars) rival.draw();
+            for (let p of particles) p.draw();
+
+            // Draw Hero Sports Car
+            drawSportsCar(car.x, car.y);
+        }
+
+        function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+
+        // ==================== CONTROLS ====================
+        const keys = {};
+        window.addEventListener('keydown', (e) => {
+            if (['ArrowLeft', 'ArrowRight', 'a', 'd', ' '].includes(e.key)) e.preventDefault();
+            keys[e.key] = true;
+        }, { passive: false });
+
+        window.addEventListener('keyup', (e) => { keys[e.key] = false; });
+
+        function handleMovement() {
+            if (gameRunning) {
+                const laneWidth = canvas.width / 3;
+                const moveSpeed = 6;
+                if (keys['ArrowLeft'] || keys['a']) car.x -= moveSpeed;
+                if (keys['ArrowRight'] || keys['d']) car.x += moveSpeed;
+
+                car.x = Math.max(8, Math.min(canvas.width - car.width - 8, car.x));
+            }
+            requestAnimationFrame(handleMovement);
+        }
+        handleMovement();
+
+        document.getElementById('btnLeft').addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowLeft'] = true; });
+        document.getElementById('btnLeft').addEventListener('pointerup', () => { keys['ArrowLeft'] = false; });
+        document.getElementById('btnRight').addEventListener('pointerdown', (e) => { e.preventDefault(); keys['ArrowRight'] = true; });
+        document.getElementById('btnRight').addEventListener('pointerup', () => { keys['ArrowRight'] = false; });
+
         let touchStartX = 0;
-        canvas.addEventListener('touchstart',(e)=>{touchStartX=e.touches[0].clientX;},{passive:true});
-        canvas.addEventListener('touchmove',(e)=>{e.preventDefault();if(!gameRunning)return;const r=canvas.getBoundingClientRect();const touchX=e.touches[0].clientX;const delta=(touchX-touchStartX)/2;moveCarBy(delta);touchStartX=touchX;},{passive:false});
-        document.getElementById('gameOverScreen').addEventListener('click',function(e){if(e.target===this)startGame();});
-        startGame(); gameLoop();
+        canvas.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (!gameRunning) return;
+            const touchX = e.touches[0].clientX;
+            const delta = (touchX - touchStartX) * 1.2;
+            car.x = Math.max(8, Math.min(canvas.width - car.width - 8, car.x + delta));
+            touchStartX = touchX;
+        }, { passive: false });
+
+        startGame();
+        gameLoop();
     </script>
 
-    
+    <script src="../js/global-layout.js"></script>
+    <script src="../js/user-profile-engine.js"></script>
 
-    <section class="more-games-section">
+    <!-- RECOMMENDED GAMES SECTION -->
+    <section class="more-games-section" style="width:100%;max-width:1100px;margin:40px auto 20px;padding:0 15px;">
         <div class="more-games-title-row">
             <h2 class="more-games-title">🔥 Recommended Games</h2>
-            <a href="../index.html#games" class="more-games-link">View All 15 Games ➔</a>
+            <a href="../index.html#games" class="more-games-link">View All 21 Games ➔</a>
         </div>
         <div class="recommended-games-grid">
-            
             <a href="snake.html" class="rec-game-card">
                 <div class="rec-card-thumb">🐍</div>
                 <div class="rec-card-info">
@@ -191,22 +612,22 @@
                 <div class="rec-card-thumb">🏃</div>
                 <div class="rec-card-info">
                     <h3>Life Runner</h3>
-                    <p>Run, dodge & answer questions!</p>
+                    <p>Stage-based cyber runner!</p>
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
             </a>
-            <a href="memory.html" class="rec-game-card">
-                <div class="rec-card-thumb">🧠</div>
+            <a href="orbitball.html" class="rec-game-card">
+                <div class="rec-card-thumb">⭕</div>
                 <div class="rec-card-info">
-                    <h3>Memory Master</h3>
-                    <p>Flip cards & boost memory!</p>
+                    <h3>Neon Orbit Sphere</h3>
+                    <p>Rotating endless orb jumper!</p>
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
             </a>
-            <a href="shooter.html" class="rec-game-card">
-                <div class="rec-card-thumb">🚀</div>
+            <a href="galaxyshooter.html" class="rec-game-card">
+                <div class="rec-card-thumb">🌌</div>
                 <div class="rec-card-info">
-                    <h3>Space Defender</h3>
+                    <h3>Galaxy Defender</h3>
                     <p>Shoot target math asteroids!</p>
                     <span class="rec-card-btn">Play Now ➔</span>
                 </div>
@@ -214,54 +635,16 @@
         </div>
     </section>
 
+    <!-- RICH SEO ARTICLE & FAQ CONTENT -->
     <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
-        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Street Racer — Play Free Online Game</h1>
-        <p style="margin-bottom:16px;">Street Racer is a high-octane highway racing game where players steer supercar vehicles through traffic, trigger nitro boosts, and conquer speed trials.</p>
+        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Street Racer — High-Speed Educational Math Highway Racing</h1>
+        <p style="margin-bottom:16px;">Street Racer is a fast-paced educational 2D highway math racing game. Steer your sports car through correct answer gates, unlock nitro turbo boosts, dodge rival traffic, and complete 3 highway stages!</p>
 
         <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Street Racer</h2>
-        <p style="margin-bottom:16px;">Use Left/Right Arrow keys or touch steering wheel to switch lanes. Hit green turbo pads for acceleration bursts.</p>
+        <p style="margin-bottom:16px;">Use Left / Right Arrow keys or A/D (or tap mobile buttons / drag canvas) to steer your car. Solve the Checkpoint Math equation at the top and drive into the green lane displaying the correct answer to trigger Nitro Boosts!</p>
 
-        <h2 style="font-size:1.3rem;font-weight:700;color:#7c5cff;margin:20px 0 10px;">⚡ Tips & High Score Strategies</h2>
-        <p style="margin-bottom:16px;">Weave through lane gaps smoothly to maintain maximum top speed without braking.</p>
-
-        <h2 style="font-size:1.3rem;font-weight:700;color:#ffd93d;margin:20px 0 10px;">❓ Frequently Asked Questions (FAQs)</h2>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-            
-                <div style="background:rgba(255,255,255,0.04);padding:12px 15px;border-radius:10px;border-left:3px solid #7c5cff;">
-                    <h3 style="font-size:0.95rem;font-weight:bold;color:#fff;margin-bottom:4px;">Q: How do I activate Nitro Boost?</h3>
-                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.75);margin:0;">A: Drive over glowing green turbo pads on the highway to automatically trigger Nitro!</p>
-                </div>
-            
-        </div>
+        <h2 style="font-size:1.3rem;font-weight:700;color:#7c5cff;margin:20px 0 10px;">⚡ Tips & Stage Completion Strategies</h2>
+        <p style="margin-bottom:16px;">Focus on solving the Checkpoint Math equation early so you have time to steer around rival cars into the green answer gate!</p>
     </article>
-
-    <script src="../js/global-layout.js"></script>
-    <script src="../js/user-profile-engine.js"></script>
-
-    <!-- RECOMMENDED GAMES SECTION -->
-    
-    <!-- RICH SEO ARTICLE & FAQ CONTENT (300+ Words for Search Engines & AdSense) -->
-    <!-- VideoGame JSON-LD Schema Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Street Racer",
-        "operatingSystem": "Web Browser",
-        "applicationCategory": "GameApplication",
-        "genre": "Highway Racing",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.7",
-            "ratingCount": "890"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        }
-    }
-    </script>
-    
-    </body>
+</body>
 </html>
