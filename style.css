@@ -3350,3 +3350,10 @@ body.has-global-header {
         font-size: 0.8rem !important;
     }
 }
+
+/* Disable browser scroll & jiggle on game canvases and touch controls */
+canvas, #gameCanvas, #gameContainer, .steering-console {
+    touch-action: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}

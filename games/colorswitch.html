@@ -101,7 +101,7 @@
         </div>
     </div>
     <div id="gameContainer">
-        <canvas id="gameCanvas"></canvas>
+        <canvas style="touch-action:none;" id="gameCanvas"></canvas>
         <div id="gameOverScreen">
             <h2>💥 Game Over!</h2><p id="gameOverMsg"></p>
             <div style="color:#ffd93d;font-size:1.5rem;margin-bottom:15px;">Score: <span id="finalScore" style="font-weight:bold;">0</span></div>
@@ -144,7 +144,7 @@
             draw() {
                 const sh = (canvas.height-this.gapSize)/2;
                 for(let i=0;i<4;i++){const sy=i*sh;ctx.fillStyle=this.segments[i];ctx.fillRect(this.x,sy,this.width,sh);ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(this.x,sy,this.width,sh/2);}
-                const bs=this.gapY+this.gapSize;for(let i=0;i<4;i++){const sy=bs+i*sh;if(sy<canvas.height){ctx.fillStyle=this.segments[3-i];ctx.fillRect(this.x,sy,this.width,sh);ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(this.x,sy,this.width,sh/2);}}
+                const bs=this.gapY+this.gapSize;for(let i=0;i<4;i++){const sy=bs+i*sh;if(sy<canvas style="touch-action:none;".height){ctx.fillStyle=this.segments[3-i];ctx.fillRect(this.x,sy,this.width,sh);ctx.fillStyle='rgba(255,255,255,0.1)';ctx.fillRect(this.x,sy,this.width,sh/2);}}
             }
             isOffScreen() { return this.x < -60; }
             checkCollision(bx, by, br) {
