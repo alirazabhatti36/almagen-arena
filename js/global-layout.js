@@ -119,7 +119,7 @@
         '</div>',
         '</div>',
         '<div class="footer-bottom">',
-        '<p>Made with ❤️ | AlMaGen-Arena © 2026 | All Rights Reserved</p>',
+        '<p>Made with ❤️ | AlMaGen<span class="logo-highlight">-Arena</span> © 2026 | All Rights Reserved</p>',
         '</div>'
     ].join('');
 
