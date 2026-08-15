@@ -128,10 +128,20 @@
         const existingFooter = document.querySelector('footer.global-home-footer');
         if (existingFooter) existingFooter.remove();
 
+        const seoArticle = document.querySelector('.game-seo-article');
         const moreGamesSec = document.querySelector('.more-games-section');
-        if (moreGamesSec && moreGamesSec.parentNode) {
+        const mainEl = document.querySelector('main');
+
+        if (seoArticle && seoArticle.parentNode) {
+            seoArticle.parentNode.insertBefore(footer, seoArticle.nextSibling);
+        } else if (moreGamesSec && moreGamesSec.parentNode) {
             moreGamesSec.parentNode.insertBefore(footer, moreGamesSec.nextSibling);
+        } else if (mainEl && mainEl.parentNode) {
+            mainEl.parentNode.insertBefore(footer, mainEl.nextSibling);
         } else {
+            document.body.appendChild(footer);
+        }
+    } else {
             document.body.appendChild(footer);
         }
     }
