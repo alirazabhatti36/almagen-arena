@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Carrom Board — Play Free Online Carrom Pool Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play Carrom Board online for free on AlMaGen-Arena! Drag to aim, shoot the striker, pocket white/black pucks and the Red Queen in this 2D physics carrom pool game.">
-    <meta name="keywords" content="Carrom Board, Carrom Pool, free carrom game, online carrom, 2D carrom physics, browser board games">
+    <meta name="description" content="Play Carrom Board online for free on AlMaGen-Arena! Complete stages, avoid striker fouls, cover the Red Queen, beat the shot clock, and master 2D physics carrom pool!">
+    <meta name="keywords" content="Carrom Board, Carrom Pool, free carrom game, carrom fouls, online carrom, 2D carrom physics, browser board games">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#7c5cff">
     <link rel="canonical" href="https://almagen-arena.com/games/carrom.html">
 
     <meta property="og:title" content="Carrom Board — Play Free Online Carrom Pool Game | AlMaGen-Arena">
-    <meta property="og:description" content="Aim your striker, pocket carrom pucks, cover the Red Queen, and master carrom pool physics online for free!">
+    <meta property="og:description" content="Aim your striker, avoid fouls, cover the Red Queen, beat the shot clock, and master 2D carrom pool online for free!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/carrom.html">
 
@@ -33,9 +33,17 @@
 
         .stats { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: flex-end; }
         .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 1rem; cursor: pointer; padding: 6px 10px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 60px; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 8px; border-radius: 10px; text-align: center; min-width: 55px; }
         .stat-label { font-size: 0.58rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
         .stat-value { font-size: 1.1rem; font-weight: bold; color: #ffd93d; }
+
+        /* STAGE & SHOT CLOCK HUD */
+        .stage-progress-wrapper { width: 100%; max-width: 520px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 8px 12px; }
+        .stage-info-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; font-weight: 700; margin-bottom: 4px; }
+        .stage-title { color: #00ff88; }
+        .stage-target { color: #ffd93d; }
+        .progress-track { height: 8px; background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffd93d, #ff4757, #00ff88); border-radius: 999px; transition: width 0.3s ease; }
 
         #gameContainer { position: relative; width: 100%; max-width: 520px; display: flex; justify-content: center; }
         canvas { border: 3px solid #7c5cff; border-radius: 20px; box-shadow: 0 10px 35px rgba(124,92,255,0.3); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #2d1e12; }
@@ -55,7 +63,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎯 Carrom Board Pool</h1>
-            <p>Drag along baseline to position striker, pull back to aim & shoot! Pocket White (+10), Black (+5), and the Red Queen (+25)!</p>
+            <p>Drag along baseline to position striker, pull back to aim & shoot! Pocket White (+10), Black (+5), and cover Red Queen (+25)! Avoid ❌ Striker Fouls & ⏰ Timeouts!</p>
         </header>
 
         <div class="top-bar">
@@ -63,23 +71,52 @@
             <div class="stats">
                 <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
                 <button class="sound-btn" onclick="startGame()" title="Restart Game">🔄</button>
+                <div class="stat-box"><div class="stat-label">⏱️ Clock</div><div class="stat-value" id="clockDisplay" style="color:#00ff88;">15s</div></div>
+                <div class="stat-box"><div class="stat-label">❌ Fouls</div><div class="stat-value" id="foulDisplay" style="color:#ff4757;">0/3</div></div>
                 <div class="stat-box"><div class="stat-label">🔴 Queen</div><div class="stat-value" id="queenStatus" style="color:#ff4757;">BOARD</div></div>
                 <div class="stat-box"><div class="stat-label">⭐ Score</div><div class="stat-value" id="scoreDisplay">0</div></div>
+            </div>
+        </div>
+
+        <!-- STAGE PROGRESS HUD -->
+        <div class="stage-progress-wrapper">
+            <div class="stage-info-row">
+                <span class="stage-title" id="stageTitle">🎯 STAGE 1: Carrom Rookie</span>
+                <span class="stage-target" id="stageTargetText">🎯 Goal: 60 Score</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
 
         <div id="gameContainer">
             <canvas id="gameCanvas" width="500" height="500" style="touch-action:none;"></canvas>
 
+            <!-- STAGE CLEAR OVERLAY -->
+            <div id="stageClearScreen" class="overlay-screen">
+                <h2 style="color:#00ff88;" id="stageClearTitle">🎉 STAGE CLEAR!</h2>
+                <p id="stageClearMsg">Awesome Carrom Precision! Ready for Stage 2 Queen Challenge?</p>
+                <button class="action-btn" onclick="nextStage()">🚀 Start Next Stage ➔</button>
+            </div>
+
+            <!-- GAME OVER OVERLAY -->
             <div id="gameOverScreen" class="overlay-screen">
-                <h2 style="color:#ffd93d;" id="gameOverTitle">🏆 CARROM MASTER!</h2>
-                <p id="gameOverMsg">You cleared all pucks off the carrom board!</p>
-                <div style="color:#00ff88;font-size:1.6rem;margin-bottom:18px;font-weight:900;">Final Score: <span id="finalScore">0</span></div>
+                <h2 style="color:#ff4757;" id="gameOverTitle">❌ Game Over!</h2>
+                <p id="gameOverMsg">You committed too many fouls or ran out of time!</p>
+                <div style="color:#ffd93d;font-size:1.4rem;margin-bottom:15px;font-weight:bold;">Final Score: <span id="finalScore">0</span></div>
+                <button class="action-btn" onclick="startGame()">🔄 Try Again</button>
+            </div>
+
+            <!-- VICTORY OVERLAY -->
+            <div id="victoryScreen" class="overlay-screen">
+                <h2 style="color:#ffd93d;">🏆 CARROM GRANDMASTER CHAMPION!</h2>
+                <p>Incredible! You cleared all 3 Carrom Stages & Became a Carrom Legend!</p>
+                <div style="color:#00ff88;font-size:1.6rem;margin-bottom:18px;font-weight:900;">Final Score: <span id="victoryScore">0</span></div>
                 <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
             </div>
         </div>
 
-        <p class="instructions">🖱️ Desktop / Mobile: Drag striker along baseline, pull back to set power & aim trajectory, then release to shoot!</p>
+        <p class="instructions">🖱️ Desktop / Mobile: Drag striker along baseline, pull back to set power & aim trajectory line, then release to shoot!</p>
     </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
@@ -103,11 +140,82 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
-        // ==================== CARROM ENGINE ====================
-        let pucks = [], striker = null, particles = [], score = 0, queenPocketed = false, isAiming = false, dragStart = null, gameRunning = true;
+        // ==================== STAGE CONFIGURATION ====================
+        const stagesConfig = [
+            {
+                level: 1,
+                name: "🎯 STAGE 1: Carrom Rookie",
+                target: 60,
+                shotClockMax: 15,
+                hint: "Goal: Pocket White (+10) & Black (+5) pucks. Avoid ❌ Striker Fouls!"
+            },
+            {
+                level: 2,
+                name: "👑 STAGE 2: Queen Cover Challenge",
+                target: 160,
+                shotClockMax: 12,
+                hint: "Goal: Pocket & Cover the Red Queen (+25)! Avoid Timeouts!"
+            },
+            {
+                level: 3,
+                name: "🔥 STAGE 3: Grandmaster Blitz",
+                target: 300,
+                shotClockMax: 10,
+                hint: "Goal: Fast 10s Shot Clock! Clear all pucks for Championship Victory!"
+            }
+        ];
+
+        let currentStageIdx = 0;
+        let pucks = [], striker = null, particles = [], score = 0, foulsCount = 0, streakCombo = 0;
+        let queenPocketed = false, isAiming = false, dragStart = null, gameRunning = true;
+        let shotClock = 15, shotClockTimer = null;
+
         const PUCK_RADIUS = 14;
         const STRIKER_RADIUS = 18;
         const FRICTION = 0.982;
+
+        function showFoulToast(msg) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.cssText = 'position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#ff4757,#ff6b81);color:#fff;padding:10px 22px;border-radius:20px;font-weight:bold;z-index:99;box-shadow:0 10px 30px rgba(255,71,87,0.6);font-size:0.95rem;text-align:center;';
+            document.getElementById('gameContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 1800);
+        }
+
+        function startShotClock() {
+            clearInterval(shotClockTimer);
+            const curStage = stagesConfig[currentStageIdx];
+            shotClock = curStage.shotClockMax;
+            document.getElementById('clockDisplay').textContent = `${shotClock}s`;
+            document.getElementById('clockDisplay').style.color = '#00ff88';
+
+            shotClockTimer = setInterval(() => {
+                if (!gameRunning) return;
+                shotClock--;
+                document.getElementById('clockDisplay').textContent = `${shotClock}s`;
+                if (shotClock <= 4) document.getElementById('clockDisplay').style.color = '#ff4757';
+
+                if (shotClock <= 0) {
+                    clearInterval(shotClockTimer);
+                    handleFoul("⏰ TIMEOUT FOUL! Shot Clock Expired (-5 Pts)");
+                    resetStriker();
+                    startShotClock();
+                }
+            }, 1000);
+        }
+
+        function handleFoul(msg) {
+            foulsCount++;
+            score = Math.max(0, score - 10);
+            streakCombo = 0;
+            if (window.playSound) window.playSound('crash');
+            showFoulToast(msg);
+            updateUI();
+
+            if (foulsCount >= 3) {
+                gameOver("💔 FOUL OUT! 3 Fouls Committed!");
+            }
+        }
 
         class Puck {
             constructor(x, y, type, color, pts) {
@@ -143,20 +251,28 @@
                     if (dist < 26) {
                         this.sunk = true;
                         this.vx = 0; this.vy = 0;
-                        if (window.playSound) window.playSound('coin');
                         spawnParticles(p.x, p.y, this.color, 16);
 
                         if (this.type === 'striker') {
+                            handleFoul("❌ FOUL! Striker Pocketed (-10 Pts)");
                             setTimeout(() => resetStriker(), 400);
                         } else {
-                            score += this.pts;
+                            if (window.playSound) window.playSound('coin');
+                            streakCombo++;
+                            const comboMultiplier = Math.min(3, streakCombo);
+                            score += this.pts * comboMultiplier;
+
                             if (this.type === 'queen') {
                                 queenPocketed = true;
-                                document.getElementById('queenStatus').textContent = 'POCKETED 👑';
+                                document.getElementById('queenStatus').textContent = 'COVERED 👑';
                                 document.getElementById('queenStatus').style.color = '#00ff88';
                             }
                             updateUI();
-                            checkWinCondition();
+
+                            // Check Stage Goal Completion
+                            if (score >= stagesConfig[currentStageIdx].target) {
+                                triggerStageClear();
+                            }
                         }
                     }
                 });
@@ -222,7 +338,16 @@
         }
 
         function updateUI() {
+            const curStage = stagesConfig[currentStageIdx];
             document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('foulDisplay').textContent = `${foulsCount}/3`;
+            document.getElementById('stageTitle').textContent = curStage.name;
+            document.getElementById('stageTargetText').textContent = `🎯 Goal: ${curStage.target} Score`;
+
+            // Progress Bar
+            const prevTarget = currentStageIdx > 0 ? stagesConfig[currentStageIdx - 1].target : 0;
+            const progress = Math.min(100, Math.max(0, ((score - prevTarget) / (curStage.target - prevTarget)) * 100));
+            document.getElementById('progressFill').style.width = `${progress}%`;
         }
 
         function resetStriker() {
@@ -233,8 +358,19 @@
         }
 
         function startGame() {
-            score = 0; queenPocketed = false; gameRunning = true; particles = [];
+            currentStageIdx = 0;
+            initStage(0);
             document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('stageClearScreen').style.display = 'none';
+            document.getElementById('victoryScreen').style.display = 'none';
+        }
+
+        function initStage(idx) {
+            currentStageIdx = idx;
+            const curStage = stagesConfig[currentStageIdx];
+            score = currentStageIdx === 0 ? 0 : score;
+            foulsCount = 0; streakCombo = 0; queenPocketed = false; gameRunning = true; particles = [];
+            
             document.getElementById('queenStatus').textContent = 'BOARD';
             document.getElementById('queenStatus').style.color = '#ff4757';
             updateUI();
@@ -254,22 +390,43 @@
             }
 
             striker = new Puck(cx, canvas.height - 75, 'striker', '#00d4ff', 0);
+            startShotClock();
         }
 
-        function checkWinCondition() {
-            const remainingPucks = pucks.filter(p => !p.sunk);
-            if (remainingPucks.length === 0) {
-                gameRunning = false;
-                if (window.playSound) window.playSound('win');
-                document.getElementById('finalScore').textContent = score;
-                document.getElementById('gameOverScreen').style.display = 'flex';
+        function triggerStageClear() {
+            gameRunning = false;
+            clearInterval(shotClockTimer);
+            if (window.playSound) window.playSound('powerup');
 
-                const pn = localStorage.getItem('almagen_name') || 'Player';
-                localStorage.setItem('almagen_score_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), JSON.stringify({
-                    game: 'carrom', name: pn, score: score, date: new Date().toISOString()
-                }));
-                if (typeof updateDailyProgress === 'function') updateDailyProgress('carrom', score);
+            if (currentStageIdx < stagesConfig.length - 1) {
+                const curStage = stagesConfig[currentStageIdx];
+                document.getElementById('stageClearTitle').textContent = `🎉 STAGE ${curStage.level} CLEARED!`;
+                document.getElementById('stageClearMsg').textContent = `Great Job! You reached ${score} Points! Ready for STAGE ${curStage.level + 1}?`;
+                document.getElementById('stageClearScreen').style.display = 'flex';
+            } else {
+                document.getElementById('victoryScore').textContent = score;
+                document.getElementById('victoryScreen').style.display = 'flex';
             }
+        }
+
+        function nextStage() {
+            document.getElementById('stageClearScreen').style.display = 'none';
+            initStage(currentStageIdx + 1);
+        }
+
+        function gameOver(msg) {
+            gameRunning = false;
+            clearInterval(shotClockTimer);
+            if (window.playSound) window.playSound('crash');
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('gameOverMsg').textContent = msg;
+            document.getElementById('gameOverScreen').style.display = 'flex';
+
+            const pn = localStorage.getItem('almagen_name') || 'Player';
+            localStorage.setItem('almagen_score_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), JSON.stringify({
+                game: 'carrom', name: pn, score: score, date: new Date().toISOString()
+            }));
+            if (typeof updateDailyProgress === 'function') updateDailyProgress('carrom', score);
         }
 
         function update() {
@@ -370,10 +527,10 @@
             const power = Math.min(18, Math.hypot(dx, dy) * 0.14);
 
             if (power > 1) {
-                const angle = Math.atan2(dy, dx);
-                striker.vx = Math.cos(angle) * power;
-                striker.vy = Math.sin(angle) * power;
+                striker.vx = Math.cos(Math.atan2(dy, dx)) * power;
+                striker.vy = Math.sin(Math.atan2(dy, dx)) * power;
                 if (window.playSound) window.playSound('powerup');
+                startShotClock(); // Reset shot clock on strike
             }
             dragStart = null;
         }
@@ -442,9 +599,6 @@
 
         <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Carrom Board</h2>
         <p style="margin-bottom:16px;">Drag your striker along the bottom baseline to position it. Pull back to set your shot power and aim trajectory line, then release to strike!</p>
-
-        <h2 style="font-size:1.3rem;font-weight:700;color:#7c5cff;margin:20px 0 10px;">⚡ Tips & Carrom Pool Strategies</h2>
-        <p style="margin-bottom:16px;">Target corner pucks first to open up the center circle, then aim for bank shots off the wooden cushions to pocket the Red Queen!</p>
     </article>
 </body>
 </html>
