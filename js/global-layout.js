@@ -3,130 +3,129 @@
     const isGamePage = /\/games\//i.test(window.location.pathname);
     const prefix = '/';
 
-    // Remove any existing duplicate header or footer elements before rendering
-    document.querySelectorAll('.global-home-header, .global-home-footer, .global-home-overlay, .global-utility-nav, .global-footer-links').forEach(function (node) {
-        node.remove();
-    });
+    function initGlobalHeaderAndFooter() {
+        // Remove any existing duplicate header or footer elements before rendering
+        document.querySelectorAll('.global-home-header, .global-home-footer, .global-home-overlay, .global-utility-nav, .global-footer-links').forEach(function (node) {
+            node.remove();
+        });
 
-    document.querySelectorAll('header.header, nav.navbar').forEach(function (node) {
-        node.remove();
-    });
+        document.querySelectorAll('header.header, nav.navbar').forEach(function (node) {
+            node.remove();
+        });
 
-    document.querySelectorAll('footer.footer').forEach(function (node) {
-        node.remove();
-    });
+        document.querySelectorAll('footer.footer').forEach(function (node) {
+            node.remove();
+        });
 
-    const pageFile = (window.location.pathname.split('/').pop() || '').toLowerCase();
+        const pageFile = (window.location.pathname.split('/').pop() || '').toLowerCase();
 
-    const navItems = [
-        { href: prefix + 'index.html#home', label: 'Home', key: 'home' },
-        { href: prefix + 'index.html#games', label: 'Games', key: 'games' },
-        { href: prefix + 'daily.html', label: 'Daily', key: 'daily.html' },
-        { href: prefix + 'leaderboard.html', label: 'Leaderboard', key: 'leaderboard.html' },
-        { href: prefix + 'achievements.html', label: 'Achievements', key: 'achievements.html' },
-        { href: prefix + 'profile.html', label: 'Profile', key: 'profile.html' },
-        { href: prefix + 'blog.html', label: 'Blog', key: 'blog.html' },
-        { href: prefix + 'contact.html', label: 'Contact', key: 'contact.html' }
-    ];
+        const navItems = [
+            { href: prefix + 'index.html#home', label: 'Home', key: 'home' },
+            { href: prefix + 'index.html#games', label: 'Games', key: 'games' },
+            { href: prefix + 'daily.html', label: 'Daily', key: 'daily.html' },
+            { href: prefix + 'leaderboard.html', label: 'Leaderboard', key: 'leaderboard.html' },
+            { href: prefix + 'achievements.html', label: 'Achievements', key: 'achievements.html' },
+            { href: prefix + 'profile.html', label: 'Profile', key: 'profile.html' },
+            { href: prefix + 'blog.html', label: 'Blog', key: 'blog.html' },
+            { href: prefix + 'contact.html', label: 'Contact', key: 'contact.html' }
+        ];
 
-    const navLinks = navItems.map(function (item) {
-        const activeClass = pageFile === item.key ? ' active' : '';
-        return '<li><a href="' + item.href + '" class="nav-link' + activeClass + '">' + item.label + '</a></li>';
-    }).join('');
+        const navLinks = navItems.map(function (item) {
+            const activeClass = pageFile === item.key ? ' active' : '';
+            return '<li><a href="' + item.href + '" class="nav-link' + activeClass + '">' + item.label + '</a></li>';
+        }).join('');
 
-    const header = document.createElement('header');
-    header.className = 'header global-home-header';
-    header.id = 'header';
-    header.innerHTML = [
-        '<div class="header-container">',
-        '<a href="' + prefix + 'index.html" class="header-logo">',
-        '<span class="logo-icon">⚔️</span>',
-        '<span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>',
-        '</a>',
-        '<nav class="header-nav" id="headerNav">',
-        '<ul class="nav-list">',
-        navLinks,
-        '<li class="mobile-actions">',
-        '<span class="mobile-label">Settings</span>',
-        '<div class="mobile-buttons">',
-        '<button class="theme-toggle-mobile" id="themeToggleMobile">🌓</button>',
-        '<button class="sound-btn-mobile" id="muteBtnMobile">🔊</button>',
-        '</div>',
-        '</li>',
-        '</ul>',
-        '</nav>',
-        '<div class="header-actions">',
-        '<button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>',
-        '<button class="sound-btn" id="muteBtn" title="Toggle Sound">🔊</button>',
-        '<button class="menu-dots" id="menuDots" title="Menu">⋮</button>',
-        '</div>',
-        '</div>'
-    ].join('');
+        const header = document.createElement('header');
+        header.className = 'header global-home-header';
+        header.id = 'header';
+        header.innerHTML = [
+            '<div class="header-container">',
+            '<a href="' + prefix + 'index.html" class="header-logo">',
+            '<span class="logo-icon">⚔️</span>',
+            '<span class="logo-text">AlMaGen<span class="logo-highlight">-Arena</span></span>',
+            '</a>',
+            '<nav class="header-nav" id="headerNav">',
+            '<ul class="nav-list">',
+            navLinks,
+            '<li class="mobile-actions">',
+            '<span class="mobile-label">Settings</span>',
+            '<div class="mobile-buttons">',
+            '<button class="theme-toggle-mobile" id="themeToggleMobile">🌓</button>',
+            '<button class="sound-btn-mobile" id="muteBtnMobile">🔊</button>',
+            '</div>',
+            '</li>',
+            '</ul>',
+            '</nav>',
+            '<div class="header-actions">',
+            '<button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>',
+            '<button class="sound-btn" id="muteBtn" title="Toggle Sound">🔊</button>',
+            '<button class="menu-dots" id="menuDots" title="Menu">⋮</button>',
+            '</div>',
+            '</div>'
+        ].join('');
 
-    const overlay = document.createElement('div');
-    overlay.className = 'nav-overlay global-home-overlay';
-    overlay.id = 'navOverlay';
+        const overlay = document.createElement('div');
+        overlay.className = 'nav-overlay global-home-overlay';
+        overlay.id = 'navOverlay';
 
-    document.body.insertBefore(overlay, document.body.firstChild);
-    document.body.insertBefore(header, overlay);
+        if (document.body) {
+            document.body.insertBefore(overlay, document.body.firstChild);
+            document.body.insertBefore(header, overlay);
 
-    document.body.classList.add('has-global-header');
-    if (isGamePage) {
-        document.body.classList.add('global-game-page');
-    }
+            document.body.classList.add('has-global-header');
+            if (isGamePage) {
+                document.body.classList.add('global-game-page');
+            }
+        }
 
-    const footer = document.createElement('footer');
-    footer.className = 'footer global-home-footer';
-    footer.innerHTML = [
-        '<div class="footer-container">',
-        '<div class="footer-brand">',
-        '<span class="footer-logo">⚔️ AlMaGen<span class="logo-highlight">-Arena</span></span>',
-        '<p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p>',
-        '<div class="footer-socials">',
-        '<a href="' + prefix + 'index.html#home" aria-label="Home">🏠</a>',
-        '<a href="' + prefix + 'index.html#games" aria-label="Games">🎮</a>',
-        '<a href="https://instagram.com" aria-label="Instagram">📸</a>',
-        '<a href="https://youtube.com" aria-label="YouTube">▶</a>',
-        '</div>',
-        '</div>',
-        '<div class="footer-links">',
-        '<h4>🔗 Quick Links</h4>',
-        '<ul>',
-        '<li><a href="' + prefix + 'index.html#home">Home</a></li>',
-        '<li><a href="' + prefix + 'index.html#games">Games</a></li>',
-        '<li><a href="' + prefix + 'daily.html">Daily Challenges</a></li>',
-        '<li><a href="' + prefix + 'leaderboard.html">Leaderboard</a></li>',
-        '<li><a href="' + prefix + 'profile.html">Profile</a></li>',
-        '</ul>',
-        '</div>',
-        '<div class="footer-links">',
-        '<h4>🎮 Popular Games</h4>',
-        '<ul>',
-        '<li><a href="' + prefix + 'games/snake.html">Math Snake</a></li>',
-        '<li><a href="' + prefix + 'games/streetracer.html">Street Racer</a></li>',
-        '<li><a href="' + prefix + 'games/ludo.html">Ludo Dice</a></li>',
-        '<li><a href="' + prefix + 'games/chess.html">Mini Chess</a></li>',
-        '<li><a href="' + prefix + 'games/cardmatch.html">Card Match</a></li>',
-        '</ul>',
-        '</div>',
-        '<div class="footer-links">',
-        '<h4>🛡️ Legal & Info</h4>',
-        '<ul>',
-        '<li><a href="' + prefix + 'about.html">About Us</a></li>',
-        '<li><a href="' + prefix + 'privacy.html">Privacy Policy</a></li>',
-        '<li><a href="' + prefix + 'terms.html">Terms of Service</a></li>',
-        '<li><a href="' + prefix + 'contact.html">Contact Us</a></li>',
-        '</ul>',
-        '</div>',
-        '</div>',
-        '<div class="footer-bottom">',
-        '<p>Made with ❤️ | AlMaGen<span class="logo-highlight">-Arena</span> © 2026 | All Rights Reserved</p>',
-        '</div>'
-    ].join('');
-
-    function attachFooter() {
-        const existingFooter = document.querySelector('footer.global-home-footer');
-        if (existingFooter) existingFooter.remove();
+        const footer = document.createElement('footer');
+        footer.className = 'footer global-home-footer';
+        footer.innerHTML = [
+            '<div class="footer-container">',
+            '<div class="footer-brand">',
+            '<span class="footer-logo">⚔️ AlMaGen<span class="logo-highlight">-Arena</span></span>',
+            '<p>Where Gaming Meets Learning — 15 Free Online Educational Games for Everyone</p>',
+            '<div class="footer-socials">',
+            '<a href="' + prefix + 'index.html#home" aria-label="Home">🏠</a>',
+            '<a href="' + prefix + 'index.html#games" aria-label="Games">🎮</a>',
+            '<a href="https://instagram.com" aria-label="Instagram">📸</a>',
+            '<a href="https://youtube.com" aria-label="YouTube">▶</a>',
+            '</div>',
+            '</div>',
+            '<div class="footer-links">',
+            '<h4>🔗 Quick Links</h4>',
+            '<ul>',
+            '<li><a href="' + prefix + 'index.html#home">Home</a></li>',
+            '<li><a href="' + prefix + 'index.html#games">Games</a></li>',
+            '<li><a href="' + prefix + 'daily.html">Daily Challenges</a></li>',
+            '<li><a href="' + prefix + 'leaderboard.html">Leaderboard</a></li>',
+            '<li><a href="' + prefix + 'profile.html">Profile</a></li>',
+            '</ul>',
+            '</div>',
+            '<div class="footer-links">',
+            '<h4>🎮 Popular Games</h4>',
+            '<ul>',
+            '<li><a href="' + prefix + 'games/snake.html">Math Snake</a></li>',
+            '<li><a href="' + prefix + 'games/streetracer.html">Street Racer</a></li>',
+            '<li><a href="' + prefix + 'games/ludo.html">Ludo Dice</a></li>',
+            '<li><a href="' + prefix + 'games/chess.html">Mini Chess</a></li>',
+            '<li><a href="' + prefix + 'games/cardmatch.html">Card Match</a></li>',
+            '</ul>',
+            '</div>',
+            '<div class="footer-links">',
+            '<h4>🛡️ Legal & Info</h4>',
+            '<ul>',
+            '<li><a href="' + prefix + 'about.html">About Us</a></li>',
+            '<li><a href="' + prefix + 'privacy.html">Privacy Policy</a></li>',
+            '<li><a href="' + prefix + 'terms.html">Terms of Service</a></li>',
+            '<li><a href="' + prefix + 'contact.html">Contact Us</a></li>',
+            '</ul>',
+            '</div>',
+            '</div>',
+            '<div class="footer-bottom">',
+            '<p>Made with ❤️ | AlMaGen<span class="logo-highlight">-Arena</span> © 2026 | All Rights Reserved</p>',
+            '</div>'
+        ].join('');
 
         const seoArticle = document.querySelector('.game-seo-article');
         const moreGamesSec = document.querySelector('.more-games-section');
@@ -138,18 +137,15 @@
             moreGamesSec.parentNode.insertBefore(footer, moreGamesSec.nextSibling);
         } else if (mainEl && mainEl.parentNode) {
             mainEl.parentNode.insertBefore(footer, mainEl.nextSibling);
-        } else {
-            document.body.appendChild(footer);
-        }
-    } else {
+        } else if (document.body) {
             document.body.appendChild(footer);
         }
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', attachFooter);
+        document.addEventListener('DOMContentLoaded', initGlobalHeaderAndFooter);
     } else {
-        attachFooter();
+        initGlobalHeaderAndFooter();
     }
 
     // ===== GOOGLE ADSENSE & GDPR COOKIE CONSENT BANNER =====
@@ -172,16 +168,10 @@
 
         document.body.appendChild(banner);
 
-        const acceptBtn = document.getElementById('acceptCookieBtn');
-        if (acceptBtn) {
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem('almagen_cookie_consent', 'accepted');
-                banner.style.opacity = '0';
-                banner.style.transform = 'translateX(-50%) translateY(20px)';
-                banner.style.transition = 'all 0.3s ease';
-                setTimeout(() => banner.remove(), 300);
-            });
-        }
+        document.getElementById('acceptCookieBtn').addEventListener('click', function () {
+            localStorage.setItem('almagen_cookie_consent', 'accepted');
+            banner.remove();
+        });
     }
 
     if (document.readyState === 'loading') {
@@ -225,5 +215,4 @@
     } else {
         initGlobalTheme();
     }
-
 })();
