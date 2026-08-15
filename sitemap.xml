@@ -314,4 +314,11 @@
         <priority>0.9</priority>
     </url>
 
+
+    <url><loc>https://almagen-arena.com/categories/action-games.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://almagen-arena.com/categories/puzzle-games.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://almagen-arena.com/categories/racing-games.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://almagen-arena.com/categories/math-games.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://almagen-arena.com/blog/best-educational-games-kids.html</loc><lastmod>2026-08-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
 </urlset>
