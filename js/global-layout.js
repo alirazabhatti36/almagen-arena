@@ -1,7 +1,7 @@
 (function () {
     const isSubFolder = /\/(games|categories|blog)\//i.test(window.location.pathname);
     const isGamePage = /\/games\//i.test(window.location.pathname);
-    const prefix = isSubFolder ? '../' : '';
+    const prefix = '/';
 
     // Remove any existing duplicate header or footer elements before rendering
     document.querySelectorAll('.global-home-header, .global-home-footer, .global-home-overlay, .global-utility-nav, .global-footer-links').forEach(function (node) {

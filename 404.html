@@ -105,11 +105,11 @@
         <h1>Page Not Found</h1>
         <p>The page you requested is missing, moved, or typed incorrectly. Use one of the links below to continue.</p>
         <div class="links">
-            <a href="index.html">Home</a>
-            <a href="index.html#games">All Games</a>
+            <a href="/index.html">Home</a>
+            <a href="/index.html#games">All Games</a>
             <a href="#" id="randomGameBtn">Play Random Game</a>
-            <a href="blog.html" class="secondary">Blog</a>
-            <a href="contact.html" class="secondary">Contact</a>
+            <a href="/blog.html" class="secondary">Blog</a>
+            <a href="/contact.html" class="secondary">Contact</a>
         </div>
     </main>
     <script src="js/soundengine.js"></script>
@@ -127,7 +127,7 @@
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 const pick = games[Math.floor(Math.random() * games.length)];
-                window.location.href = pick;
+                window.location.href = '/' + pick;
             });
         })();
     </script>
