@@ -517,8 +517,11 @@
         }
 
         class MathFood {
-            constructor(forceCorrect = false) { this.spawn(forceCorrect); }
-            spawn(forceCorrect = false) {
+            constructor(isCorrect = false, specificNumber = null) {
+                this.spawn(isCorrect, specificNumber);
+            }
+
+            spawn(isCorrect = false, specificNumber = null) {
                 let pos, attempts = 0;
                 do {
                     pos = getRandomGridPos();
@@ -527,17 +530,12 @@
 
                 this.x = pos.x;
                 this.y = pos.y;
+                this.isCorrect = isCorrect;
 
-                if (forceCorrect || Math.random() < 0.45) {
+                if (isCorrect) {
                     this.number = currentTarget.answer;
-                    this.isCorrect = true;
                 } else {
-                    let wrong;
-                    do {
-                        wrong = currentTarget.answer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 4) + 1);
-                    } while (wrong === currentTarget.answer || wrong < 0);
-                    this.number = wrong;
-                    this.isCorrect = false;
+                    this.number = (specificNumber !== null) ? specificNumber : (currentTarget.answer + 2);
                 }
             }
 
@@ -575,11 +573,41 @@
             }
         }
 
+        function generateFoodSet() {
+            foods = [];
+            // 1. EXACTLY 1 Green Correct Answer Ball
+            const correctFood = new MathFood(true);
+            foods.push(correctFood);
+
+            // 2. EXACTLY 3 Unique Red Wrong Answer Balls
+            const usedNumbers = new Set([currentTarget.answer]);
+            for (let i = 0; i < 3; i++) {
+                let wrongNum;
+                let attempts = 0;
+                do {
+                    const delta = (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 1);
+                    wrongNum = currentTarget.answer + delta;
+                    attempts++;
+                } while ((usedNumbers.has(wrongNum) || wrongNum < 0) && attempts < 100);
+
+                if (wrongNum < 0 || usedNumbers.has(wrongNum)) {
+                    wrongNum = currentTarget.answer + (i + 1) * 2;
+                }
+                usedNumbers.add(wrongNum);
+
+                const wrongFood = new MathFood(false, wrongNum);
+                foods.push(wrongFood);
+            }
+        }
+
         function ensureCorrectFoodExists() {
-            if (!foods || foods.length === 0) return;
+            if (!foods || foods.length === 0) {
+                generateFoodSet();
+                return;
+            }
             const hasGreen = foods.some(f => f && f.isCorrect);
             if (!hasGreen) {
-                foods[0] = new MathFood(true);
+                generateFoodSet();
             }
         }
 
@@ -607,7 +635,7 @@
             direction = { x: gridSize, y: 0 };
             nextDirection = { x: gridSize, y: 0 };
 
-            foods = [new MathFood(true), new MathFood(), new MathFood()];
+            generateFoodSet();
             ensureCorrectFoodExists();
 
             document.getElementById('gameOverScreen').style.display = 'none';
@@ -699,7 +727,7 @@
                         if (gameSpeed > 50) gameSpeed = Math.max(50, gameSpeed - 2);
 
                         generateMathTarget();
-                        foods = [new MathFood(true), new MathFood(), new MathFood()];
+                        generateFoodSet();
                     } else {
                         if (window.playSound) window.playSound('crash');
                         gameOver(`Wrong Answer! ${currentTarget.problem} = ${currentTarget.answer}, not ${foods[i].number}`);
