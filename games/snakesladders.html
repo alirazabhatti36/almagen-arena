@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena</title>
+    <meta name="description" content="Play Snakes and Ladders online for free on AlMaGen-Arena! Roll dice, climb ladders, slide down snakes, solve math checkpoints, and race your pawn to tile 100!">
+    <meta name="keywords" content="Snakes and Ladders, Saanp Seerhi, free board game, online ludo snake, dice board game, browser games">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#6c5ce7">
+    <link rel="canonical" href="https://almagen-arena.com/games/snakesladders.html">
+
+    <meta property="og:title" content="Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena">
+    <meta property="og:description" content="Roll dice, climb ladders, slide down snakes, and race to 100 in this classic Snakes & Ladders board game!">
+    <meta property="og:image" content="https://almagen-arena.com/preview.svg">
+    <meta property="og:url" content="https://almagen-arena.com/games/snakesladders.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #070714; color: #fff; font-family: 'Poppins', sans-serif; min-height: 100vh; touch-action: manipulation; }
+        .game-page { display: flex; flex-direction: column; align-items: center; padding: 15px; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .game-intro { text-align: center; margin-bottom: 10px; }
+        .game-intro h1 { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ffd93d, #ff4757, #6c5ce7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 6px; }
+
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 520px; padding: 8px 12px; margin-bottom: 8px; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
+        .back-btn { color: #fff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s; font-weight: 600; }
+        .back-btn:hover { background: rgba(108,92,231,0.3); }
+
+        .stats { display: flex; gap: 6px; align-items: center; flex: 1; justify-content: flex-end; }
+        .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 1rem; cursor: pointer; padding: 6px 10px; border-radius: 10px; color: #fff; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 5px 10px; border-radius: 10px; text-align: center; min-width: 65px; }
+        .stat-label { font-size: 0.58rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; }
+
+        #gameContainer { position: relative; width: 100%; max-width: 520px; display: flex; justify-content: center; flex-direction: column; align-items: center; }
+        canvas { border: 3px solid #6c5ce7; border-radius: 16px; box-shadow: 0 10px 35px rgba(108,92,231,0.3); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #0a0a1a; }
+
+        #controls { display: flex; gap: 15px; margin-top: 14px; align-items: center; width: 100%; justify-content: center; }
+        #rollBtn { padding: 14px 36px; font-size: 1.15rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 900; box-shadow: 0 8px 25px rgba(108,92,231,0.4); transition: all 0.3s; }
+        #rollBtn:hover { transform: scale(1.04); }
+        #rollBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        #diceDisplay { font-size: 2.8rem; width: 68px; height: 68px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+
+        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.92); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(12px); }
+        .overlay-screen h2 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 900; }
+        .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
+        .action-btn { padding: 12px 32px; font-size: 1.05rem; background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
+
+        .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 10px; text-align: center; }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="has-global-header">
+    <main class="game-page">
+        <header class="game-intro">
+            <h1>🐍 Snakes and Ladders</h1>
+            <p>Roll the dice, climb ladders 🪜 to jump ahead, beware of snakes 🐍 sliding you down, and race your pawn to tile 100!</p>
+        </header>
+
+        <div class="top-bar">
+            <a href="../index.html" class="back-btn">← Back</a>
+            <div class="stats">
+                <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
+                <button class="sound-btn" onclick="startGame()" title="Restart Game">🔄</button>
+                <div class="stat-box"><div class="stat-label">🔴 You</div><div class="stat-value" id="playerPos" style="color:#ff4757;">1/100</div></div>
+                <div class="stat-box"><div class="stat-label">🔵 AI</div><div class="stat-value" id="aiPos" style="color:#00d4ff;">1/100</div></div>
+            </div>
+        </div>
+
+        <div id="gameContainer">
+            <canvas id="gameCanvas" width="500" height="500" style="touch-action:none;"></canvas>
+
+            <div id="gameOverScreen" class="overlay-screen">
+                <h2 id="gameOverTitle" style="color:#00ff88;">🎉 YOU WIN!</h2>
+                <p id="gameOverMsg">You reached Tile 100 first!</p>
+                <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
+            </div>
+        </div>
+
+        <div id="controls">
+            <div id="diceDisplay">🎲</div>
+            <button id="rollBtn" onclick="rollDice()">🎲 Roll Dice</button>
+        </div>
+
+        <p class="instructions">🎲 Tap Roll Dice or press Spacebar to spin the dice!</p>
+    </main>
+
+    <script src="../js/soundengine.js?v=20260722-1"></script>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function setCanvasSize() {
+            const size = Math.min(window.innerWidth - 30, window.innerHeight - 300, 500);
+            canvas.width = Math.max(300, size);
+            canvas.height = Math.max(300, size);
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        function syncInGameSoundBtn() {
+            const btn = document.getElementById('soundToggle');
+            const isMuted = localStorage.getItem('almagen_muted') === 'true';
+            if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
+        }
+        window.addEventListener('soundmutechanged', syncInGameSoundBtn);
+        document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
+
+        // ==================== BOARD CONFIGURATION ====================
+        const LADDERS = {
+            4: 14,
+            9: 31,
+            20: 38,
+            28: 84,
+            40: 59,
+            51: 67,
+            63: 81,
+            71: 91
+        };
+
+        const SNAKES = {
+            17: 7,
+            54: 34,
+            62: 19,
+            64: 60,
+            87: 24,
+            93: 73,
+            95: 75,
+            99: 78
+        };
+
+        const TILE_COLORS = ['#ff7675', '#ffd93d', '#a29bfe', '#74b9ff', '#55efc4'];
+
+        let playerPos = 1, aiPos = 1, currentDice = 1, gameRunning = true, isPlayerTurn = true, rolling = false, particles = [];
+
+        function getTileCoords(tileNum) {
+            const n = Math.max(1, Math.min(100, tileNum));
+            const row = Math.floor((n - 1) / 10);
+            const colInRow = (n - 1) % 10;
+            const col = (row % 2 === 0) ? colInRow : 9 - colInRow;
+
+            const cellW = canvas.width / 10;
+            const cellH = canvas.height / 10;
+
+            return {
+                x: col * cellW + cellW / 2,
+                y: (9 - row) * cellH + cellH / 2
+            };
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y;
+                this.vx = (Math.random() - 0.5) * 4; this.vy = (Math.random() - 0.5) * 4 - 2;
+                this.life = 1; this.decay = 0.03; this.color = color;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life);
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, 4, 0, Math.PI * 2); ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function spawnParticles(x, y, color, count = 12) {
+            for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
+        }
+
+        function getDiceEmoji(num) {
+            return ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][num];
+        }
+
+        function startGame() {
+            playerPos = 1; aiPos = 1; currentDice = 1; gameRunning = true; isPlayerTurn = true; rolling = false; particles = [];
+            document.getElementById('gameOverScreen').style.display = 'none';
+            document.getElementById('playerPos').textContent = '1/100';
+            document.getElementById('aiPos').textContent = '1/100';
+            document.getElementById('diceDisplay').textContent = '🎲';
+            document.getElementById('rollBtn').disabled = false;
+        }
+
+        function rollDice() {
+            if (!gameRunning || rolling || !isPlayerTurn) return;
+            rolling = true;
+            document.getElementById('rollBtn').disabled = true;
+            if (window.playSound) window.playSound('dice');
+
+            let rc = 0; const mr = 10;
+            const ri = setInterval(() => {
+                currentDice = Math.floor(Math.random() * 6) + 1;
+                document.getElementById('diceDisplay').textContent = getDiceEmoji(currentDice);
+                rc++;
+                if (rc >= mr) {
+                    clearInterval(ri);
+                    finalizePlayerDice();
+                }
+            }, 75);
+        }
+
+        function finalizePlayerDice() {
+            let nextPos = playerPos + currentDice;
+            if (nextPos <= 100) playerPos = nextPos;
+            document.getElementById('playerPos').textContent = playerPos + '/100';
+
+            const pCoords = getTileCoords(playerPos);
+            spawnParticles(pCoords.x, pCoords.y, '#ff4757', 10);
+
+            // Check Ladder Climb
+            if (LADDERS[playerPos]) {
+                if (window.playSound) window.playSound('powerup');
+                spawnParticles(pCoords.x, pCoords.y, '#00ff88', 18);
+                playerPos = LADDERS[playerPos];
+                document.getElementById('playerPos').textContent = playerPos + '/100';
+            }
+            // Check Snake Slide
+            else if (SNAKES[playerPos]) {
+                if (window.playSound) window.playSound('crash');
+                spawnParticles(pCoords.x, pCoords.y, '#ff4757', 18);
+                playerPos = SNAKES[playerPos];
+                document.getElementById('playerPos').textContent = playerPos + '/100';
+            }
+
+            if (playerPos === 100) { endGame(true); return; }
+
+            if (currentDice === 6) {
+                rolling = false;
+                document.getElementById('rollBtn').disabled = false;
+                return;
+            }
+
+            isPlayerTurn = false;
+            setTimeout(aiTurn, 1000);
+        }
+
+        function aiTurn() {
+            if (!gameRunning) return;
+            const ad = Math.floor(Math.random() * 6) + 1;
+            currentDice = ad;
+            document.getElementById('diceDisplay').textContent = getDiceEmoji(ad);
+            if (window.playSound) window.playSound('dice');
+
+            let nextPos = aiPos + ad;
+            if (nextPos <= 100) aiPos = nextPos;
+            document.getElementById('aiPos').textContent = aiPos + '/100';
+
+            const aCoords = getTileCoords(aiPos);
+            spawnParticles(aCoords.x, aCoords.y, '#00d4ff', 10);
+
+            if (LADDERS[aiPos]) {
+                if (window.playSound) window.playSound('powerup');
+                aiPos = LADDERS[aiPos];
+                document.getElementById('aiPos').textContent = aiPos + '/100';
+            } else if (SNAKES[aiPos]) {
+                if (window.playSound) window.playSound('crash');
+                aiPos = SNAKES[aiPos];
+                document.getElementById('aiPos').textContent = aiPos + '/100';
+            }
+
+            if (aiPos === 100) { endGame(false); return; }
+
+            if (ad === 6) {
+                setTimeout(aiTurn, 850);
+                return;
+            }
+
+            isPlayerTurn = true;
+            rolling = false;
+            document.getElementById('rollBtn').disabled = false;
+        }
+
+        function endGame(playerWon) {
+            gameRunning = false;
+            document.getElementById('rollBtn').disabled = true;
+            const title = document.getElementById('gameOverTitle');
+            const msg = document.getElementById('gameOverMsg');
+
+            if (playerWon) {
+                if (window.playSound) window.playSound('win');
+                title.textContent = '🎉 YOU WIN!';
+                title.style.color = '#00ff88';
+                msg.textContent = 'You climbed the ladders & reached Tile 100 first!';
+            } else {
+                if (window.playSound) window.playSound('crash');
+                title.textContent = '😢 AI WINS!';
+                title.style.color = '#ff4757';
+                msg.textContent = 'AI reached Tile 100 first!';
+            }
+
+            document.getElementById('gameOverScreen').style.display = 'flex';
+
+            const pn = localStorage.getItem('almagen_name') || 'Player';
+            localStorage.setItem('almagen_score_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5), JSON.stringify({
+                game: 'snakesladders', name: pn, score: playerPos, date: new Date().toISOString()
+            }));
+            if (typeof updateDailyProgress === 'function') updateDailyProgress('snakesladders', playerPos);
+        }
+
+        // ==================== CANVAS RENDER ENGINE ====================
+        function drawBoard() {
+            const w = canvas.width, h = canvas.height;
+            const cellW = w / 10, cellH = h / 10;
+
+            // Draw 100 Colorful Grid Tiles
+            for (let i = 1; i <= 100; i++) {
+                const row = Math.floor((i - 1) / 10);
+                const colInRow = (i - 1) % 10;
+                const col = (row % 2 === 0) ? colInRow : 9 - colInRow;
+
+                const x = col * cellW;
+                const y = (9 - row) * cellH;
+
+                ctx.fillStyle = TILE_COLORS[(i - 1) % TILE_COLORS.length];
+                ctx.fillRect(x, y, cellW, cellH);
+
+                ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1;
+                ctx.strokeRect(x, y, cellW, cellH);
+
+                ctx.fillStyle = 'rgba(0,0,0,0.6)';
+                ctx.font = `bold ${Math.floor(cellW * 0.3)}px Poppins, sans-serif`;
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText(i.toString(), x + 3, y + 3);
+            }
+
+            // Draw Wooden Ladders
+            Object.keys(LADDERS).forEach(start => {
+                const end = LADDERS[start];
+                const c1 = getTileCoords(parseInt(start));
+                const c2 = getTileCoords(end);
+
+                ctx.strokeStyle = '#d63031'; ctx.lineWidth = 5; ctx.shadowColor = '#000'; ctx.shadowBlur = 6;
+                ctx.beginPath(); ctx.moveTo(c1.x - 6, c1.y); ctx.lineTo(c2.x - 6, c2.y); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(c1.x + 6, c1.y); ctx.lineTo(c2.x + 6, c2.y); ctx.stroke();
+
+                // Ladder Rungs
+                const rungs = 6;
+                for (let r = 1; r < rungs; r++) {
+                    const rx1 = c1.x - 6 + (c2.x - c1.x) * (r / rungs);
+                    const ry1 = c1.y + (c2.y - c1.y) * (r / rungs);
+                    const rx2 = c1.x + 6 + (c2.x - c1.x) * (r / rungs);
+                    const ry2 = c1.y + (c2.y - c1.y) * (r / rungs);
+                    ctx.beginPath(); ctx.moveTo(rx1, ry1); ctx.lineTo(rx2, ry2); ctx.stroke();
+                }
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw Snakes
+            Object.keys(SNAKES).forEach(head => {
+                const tail = SNAKES[head];
+                const c1 = getTileCoords(parseInt(head));
+                const c2 = getTileCoords(tail);
+
+                ctx.strokeStyle = '#00b894'; ctx.lineWidth = 7; ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
+                ctx.beginPath(); ctx.moveTo(c1.x, c1.y);
+                const midX = (c1.x + c2.x) / 2 + 20;
+                const midY = (c1.y + c2.y) / 2 - 20;
+                ctx.quadraticCurveTo(midX, midY, c2.x, c2.y);
+                ctx.stroke();
+
+                // Snake Head
+                ctx.fillStyle = '#ff7675'; ctx.beginPath(); ctx.arc(c1.x, c1.y, 8, 0, Math.PI * 2); ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw Pawns
+            const pCoords = getTileCoords(playerPos);
+            ctx.fillStyle = '#ff4757'; ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 12;
+            ctx.beginPath(); ctx.arc(pCoords.x - 6, pCoords.y - 4, cellW * 0.24, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('🔴', pCoords.x - 6, pCoords.y - 4);
+
+            const aCoords = getTileCoords(aiPos);
+            ctx.fillStyle = '#00d4ff'; ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 12;
+            ctx.beginPath(); ctx.arc(aCoords.x + 6, aCoords.y + 4, cellW * 0.24, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#fff'; ctx.fillText('🔵', aCoords.x + 6, aCoords.y + 4);
+            ctx.shadowBlur = 0;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBoard();
+            particles.forEach(p => p.draw());
+        }
+
+        function update() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        function gameLoop() { update(); draw(); requestAnimationFrame(gameLoop); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && isPlayerTurn && gameRunning) { e.preventDefault(); rollDice(); }
+            if (!gameRunning && e.key === ' ') startGame();
+        });
+
+        startGame();
+        gameLoop();
+    </script>
+
+    <script src="../js/global-layout.js"></script>
+    <script src="../js/user-profile-engine.js"></script>
+
+    <!-- RECOMMENDED GAMES SECTION -->
+    <section class="more-games-section" style="width:100%;max-width:1100px;margin:40px auto 20px;padding:0 15px;">
+        <div class="more-games-title-row">
+            <h2 class="more-games-title">🔥 Recommended Games</h2>
+            <a href="../index.html#games" class="more-games-link">View All 23 Games ➔</a>
+        </div>
+        <div class="recommended-games-grid">
+            <a href="ludo.html" class="rec-game-card">
+                <div class="rec-card-thumb">🎲</div>
+                <div class="rec-card-info">
+                    <h3>Ludo Dice</h3>
+                    <p>Roll dice & race tokens home!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="carrom.html" class="rec-game-card">
+                <div class="rec-card-thumb">🎯</div>
+                <div class="rec-card-info">
+                    <h3>Carrom Board</h3>
+                    <p>Pocket pucks in 2D physics pool!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="snake.html" class="rec-game-card">
+                <div class="rec-card-thumb">🐍</div>
+                <div class="rec-card-info">
+                    <h3>Math Snake</h3>
+                    <p>Solve math & grow your snake!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+            <a href="streetracer.html" class="rec-game-card">
+                <div class="rec-card-thumb">🏎️</div>
+                <div class="rec-card-info">
+                    <h3>Street Racer</h3>
+                    <p>High-speed highway math racing!</p>
+                    <span class="rec-card-btn">Play Now ➔</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- RICH SEO ARTICLE & FAQ CONTENT -->
+    <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
+        <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Snakes and Ladders — Play Free Online Board Game</h1>
+        <p style="margin-bottom:16px;">Snakes and Ladders (Saanp Seerhi) is a classic 1-100 tile family board game. Roll dice, climb ladders, dodge snakes, and race your pawn to tile 100 against the computer!</p>
+
+        <h2 style="font-size:1.3rem;font-weight:700;color:#00ff88;margin:20px 0 10px;">🎮 How to Play Snakes and Ladders</h2>
+        <p style="margin-bottom:16px;">Click Roll Dice or press Spacebar to spin the die. Move your pawn across the 100 tiles. Land on a ladder base to climb up, but watch out for snake heads that slide you down!</p>
+    </article>
+</body>
+</html>
