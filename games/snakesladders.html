@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 1-100 Snakes and Ladders board game online! Roll dice, step your pawn across colorful tiles, climb stairs to jump ahead, dodge snakes, and race to 100!">
+    <meta name="description" content="Play the authentic 1-100 Snakes and Ladders board game online! Roll dice, step your pawn across 100 colorful tiles, climb ladders 🪜, dodge snakes 🐍, and race to 100!">
     <meta name="keywords" content="Snakes and Ladders, Saanp Seerhi, 1-100 ludo board game, dice board game, online snakes and ladders">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/snakesladders.html">
 
     <meta property="og:title" content="Snakes and Ladders — Play Free Online Board Game | AlMaGen-Arena">
-    <meta property="og:description" content="Roll dice, step your object tile by tile, climb stairs, slide down snakes, and beat the computer to Tile 100!">
+    <meta property="og:description" content="Roll dice, step your token tile by tile, climb stairs, slide down snakes, and beat the computer to Tile 100!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/snakesladders.html">
 
@@ -134,11 +134,32 @@
             29: 7,
             76: 36,
             89: 71,
-            97: 78
+            97: 79
         };
 
-        // 5 Bright Vibrant Colors matching attached image
-        const TILE_COLORS = ['#ffd93d', '#ff7675', '#a29bfe', '#74b9ff', '#00b894'];
+        // 100 Colors array matching the exact attached image tile by tile
+        const EXACT_TILE_COLORS = [
+            // Row 1 (1..10)
+            '#ffd93d', '#00d2d3', '#ff4757', '#4cd137', '#8c7ae6', '#00a8ff', '#2ed573', '#fbc531', '#9c88ff', '#4cd137',
+            // Row 2 (11..20)
+            '#4cd137', '#9c88ff', '#ffd93d', '#e84118', '#ffd93d', '#2ed573', '#00d2d3', '#00a8ff', '#ff4757', '#ff9f43',
+            // Row 3 (21..30)
+            '#ff4757', '#e84118', '#ff9f43', '#00d2d3', '#ffd93d', '#2ed573', '#8c7ae6', '#00a8ff', '#ff4757', '#00d2d3',
+            // Row 4 (31..40)
+            '#8c7ae6', '#00d2d3', '#ffd93d', '#2ed573', '#00d2d3', '#00a8ff', '#8c7ae6', '#00a8ff', '#ffd93d', '#ff9f43',
+            // Row 5 (41..50)
+            '#e84118', '#ff4757', '#ffd93d', '#00a8ff', '#8c7ae6', '#8c7ae6', '#ff4757', '#00a8ff', '#ffd93d', '#2ed573',
+            // Row 6 (51..60)
+            '#ff4757', '#2ed573', '#ffd93d', '#8c7ae6', '#ff4757', '#8c7ae6', '#ff4757', '#00a8ff', '#ff9f43', '#ffd93d',
+            // Row 7 (61..70)
+            '#00a8ff', '#8c7ae6', '#ff4757', '#00a8ff', '#ffd93d', '#ffd93d', '#8c7ae6', '#00a8ff', '#ffd93d', '#ff9f43',
+            // Row 8 (71..80)
+            '#ff9f43', '#00a8ff', '#8c7ae6', '#ffd93d', '#2ed573', '#ffd93d', '#ffd93d', '#ff4757', '#ff4757', '#ff9f43',
+            // Row 9 (81..90)
+            '#00a8ff', '#ff4757', '#ffd93d', '#00a8ff', '#2ed573', '#ffd93d', '#8c7ae6', '#00a8ff', '#e84118', '#ff9f43',
+            // Row 10 (91..100)
+            '#00d2d3', '#2ed573', '#ffd93d', '#2ed573', '#8c7ae6', '#00a8ff', '#2ed573', '#00a8ff', '#e84118', '#2ed573'
+        ];
 
         let playerPos = 1, aiPos = 1, currentDice = 1, gameRunning = true, isPlayerTurn = true, rolling = false, particles = [];
 
@@ -380,11 +401,74 @@
         }
 
         // ==================== CANVAS BOARD ARTWORK DRAWING ====================
+        function drawCartoonSnake(hTile, tTile, color, eyeColor = '#ffffff') {
+            const c1 = getTileCoords(hTile);
+            const c2 = getTileCoords(tTile);
+
+            // Wavy body path
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 10;
+
+            const midX = (c1.x + c2.x) / 2 + (hTile % 2 === 0 ? 30 : -30);
+            const midY = (c1.y + c2.y) / 2;
+
+            ctx.beginPath();
+            ctx.moveTo(c1.x, c1.y);
+            ctx.quadraticCurveTo(midX, midY, c2.x, c2.y);
+            ctx.stroke();
+
+            // Cartoon Snake Head
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(c1.x, c1.y, 14, 0, Math.PI * 2);
+            ctx.fill();
+
+            // White cartoon eyes with pupils
+            ctx.fillStyle = eyeColor;
+            ctx.beginPath(); ctx.arc(c1.x - 4, c1.y - 3, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(c1.x + 4, c1.y - 3, 4, 0, Math.PI * 2); ctx.fill();
+
+            ctx.fillStyle = '#000000';
+            ctx.beginPath(); ctx.arc(c1.x - 4, c1.y - 3, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(c1.x + 4, c1.y - 3, 2, 0, Math.PI * 2); ctx.fill();
+
+            // Snake Tongue
+            ctx.strokeStyle = '#e84118'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(c1.x, c1.y + 12); ctx.lineTo(c1.x - 3, c1.y + 18); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(c1.x, c1.y + 12); ctx.lineTo(c1.x + 3, c1.y + 18); ctx.stroke();
+
+            ctx.shadowBlur = 0;
+        }
+
+        function drawWoodenLadder(bTile, tTile) {
+            const c1 = getTileCoords(bTile);
+            const c2 = getTileCoords(tTile);
+
+            ctx.strokeStyle = '#6d4c41'; ctx.lineWidth = 6; ctx.shadowColor = '#000'; ctx.shadowBlur = 6;
+            ctx.beginPath(); ctx.moveTo(c1.x - 8, c1.y); ctx.lineTo(c2.x - 8, c2.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(c1.x + 8, c1.y); ctx.lineTo(c2.x + 8, c2.y); ctx.stroke();
+
+            // Rungs
+            const rungs = 7;
+            for (let r = 1; r < rungs; r++) {
+                const rx1 = c1.x - 8 + (c2.x - c1.x) * (r / rungs);
+                const ry1 = c1.y + (c2.y - c1.y) * (r / rungs);
+                const rx2 = c1.x + 8 + (c2.x - c1.x) * (r / rungs);
+                const ry2 = c1.y + (c2.y - c1.y) * (r / rungs);
+                ctx.strokeStyle = '#8d6e63'; ctx.lineWidth = 4;
+                ctx.beginPath(); ctx.moveTo(rx1, ry1); ctx.lineTo(rx2, ry2); ctx.stroke();
+            }
+            ctx.shadowBlur = 0;
+        }
+
         function drawBoard() {
             const w = canvas.width, h = canvas.height;
             const cellW = w / 10, cellH = h / 10;
 
-            // Draw 100 Colorful Grid Tiles (Exact Row Order & Numbers)
+            // Draw 100 Colorful Grid Tiles (Exact Match to attached image)
             for (let i = 1; i <= 100; i++) {
                 const row = Math.floor((i - 1) / 10);
                 const colInRow = (i - 1) % 10;
@@ -393,88 +477,45 @@
                 const x = col * cellW;
                 const y = (9 - row) * cellH;
 
-                // Alternate Vibrant Colors
-                ctx.fillStyle = TILE_COLORS[(col + row * 2) % TILE_COLORS.length];
+                ctx.fillStyle = EXACT_TILE_COLORS[i - 1];
                 ctx.fillRect(x, y, cellW, cellH);
 
-                ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1.5;
+                ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.5;
                 ctx.strokeRect(x, y, cellW, cellH);
 
                 // Print Tile Number (1 to 100)
                 ctx.fillStyle = '#ffffff';
                 ctx.shadowColor = 'rgba(0,0,0,0.8)'; ctx.shadowBlur = 4;
-                ctx.font = `bold ${Math.floor(cellW * 0.34)}px Poppins, sans-serif`;
+                ctx.font = `bold ${Math.floor(cellW * 0.35)}px Poppins, sans-serif`;
                 ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                 ctx.fillText(i.toString(), x + cellW / 2, y + cellH / 2);
                 ctx.shadowBlur = 0;
             }
 
-            // Draw Stairs / Ladders (matching attached image)
-            Object.keys(LADDERS).forEach(start => {
-                const end = LADDERS[start];
-                const c1 = getTileCoords(parseInt(start));
-                const c2 = getTileCoords(end);
+            // Draw Ladders (Matching image exact positions)
+            drawWoodenLadder(14, 35);
+            drawWoodenLadder(22, 78);
+            drawWoodenLadder(31, 70);
+            drawWoodenLadder(75, 86);
 
-                ctx.strokeStyle = '#8d6e63'; ctx.lineWidth = 6; ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
-                ctx.beginPath(); ctx.moveTo(c1.x - 7, c1.y); ctx.lineTo(c2.x - 7, c2.y); ctx.stroke();
-                ctx.beginPath(); ctx.moveTo(c1.x + 7, c1.y); ctx.lineTo(c2.x + 7, c2.y); ctx.stroke();
+            // Draw Cartoon Snakes (Matching image exact positions & colors)
+            drawCartoonSnake(97, 79, '#2ed573'); // Green Snake top-left
+            drawCartoonSnake(89, 71, '#ff4757'); // Red Snake top-right
+            drawCartoonSnake(76, 36, '#00d2d3'); // Cyan Snake center
+            drawCartoonSnake(29, 7, '#ff9f43');  // Yellow Snake bottom-right
 
-                // Stairs Rungs
-                const rungs = 7;
-                for (let r = 1; r < rungs; r++) {
-                    const rx1 = c1.x - 7 + (c2.x - c1.x) * (r / rungs);
-                    const ry1 = c1.y + (c2.y - c1.y) * (r / rungs);
-                    const rx2 = c1.x + 7 + (c2.x - c1.x) * (r / rungs);
-                    const ry2 = c1.y + (c2.y - c1.y) * (r / rungs);
-                    ctx.strokeStyle = '#5d4037'; ctx.lineWidth = 4;
-                    ctx.beginPath(); ctx.moveTo(rx1, ry1); ctx.lineTo(rx2, ry2); ctx.stroke();
-                }
-                ctx.shadowBlur = 0;
-            });
-
-            // Draw Wavy Colorful Snakes (matching attached image)
-            const snakeColors = {
-                29: '#ff9f43',
-                76: '#00d2d3',
-                89: '#ff4757',
-                97: '#10ac84'
-            };
-
-            Object.keys(SNAKES).forEach(head => {
-                const tail = SNAKES[head];
-                const c1 = getTileCoords(parseInt(head));
-                const c2 = getTileCoords(tail);
-                const color = snakeColors[head] || '#10ac84';
-
-                // Snake Wavy Body
-                ctx.strokeStyle = color; ctx.lineWidth = 10; ctx.shadowColor = color; ctx.shadowBlur = 10;
-                ctx.beginPath(); ctx.moveTo(c1.x, c1.y);
-                const midX = (c1.x + c2.x) / 2 + 25;
-                const midY = (c1.y + c2.y) / 2 - 25;
-                ctx.quadraticCurveTo(midX, midY, c2.x, c2.y);
-                ctx.stroke();
-
-                // Snake Head with Eyes
-                ctx.fillStyle = color; ctx.beginPath(); ctx.arc(c1.x, c1.y, 11, 0, Math.PI * 2); ctx.fill();
-                ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c1.x - 3, c1.y - 3, 3, 0, Math.PI * 2); ctx.fill();
-                ctx.beginPath(); ctx.arc(c1.x + 3, c1.y - 3, 3, 0, Math.PI * 2); ctx.fill();
-                ctx.fillStyle = '#000'; ctx.beginPath(); ctx.arc(c1.x - 3, c1.y - 3, 1.5, 0, Math.PI * 2); ctx.fill();
-                ctx.beginPath(); ctx.arc(c1.x + 3, c1.y - 3, 1.5, 0, Math.PI * 2); ctx.fill();
-                ctx.shadowBlur = 0;
-            });
-
-            // Draw Tokens / Pawns
+            // Draw Pawns
             const pCoords = getTileCoords(playerPos);
             ctx.fillStyle = '#ff4757'; ctx.shadowColor = '#ff4757'; ctx.shadowBlur = 14;
             ctx.beginPath(); ctx.arc(pCoords.x - 7, pCoords.y - 5, cellW * 0.28, 0, Math.PI * 2); ctx.fill();
-            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.stroke();
             ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             ctx.fillText('🔴', pCoords.x - 7, pCoords.y - 5);
 
             const aCoords = getTileCoords(aiPos);
             ctx.fillStyle = '#00d4ff'; ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 14;
             ctx.beginPath(); ctx.arc(aCoords.x + 7, aCoords.y + 5, cellW * 0.28, 0, Math.PI * 2); ctx.fill();
-            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.stroke();
             ctx.fillStyle = '#fff'; ctx.fillText('🔵', aCoords.x + 7, aCoords.y + 5);
             ctx.shadowBlur = 0;
         }
