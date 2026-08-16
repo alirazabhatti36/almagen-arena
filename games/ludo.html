@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Enter custom player names, choose colors, generate AI names, and play 1-4 Players!">
-    <meta name="keywords" content="Ludo Board, custom player names ludo, color selection ludo, 2 player ludo, 4 player ludo, classic ludo online">
+    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Renders custom player names directly on the Ludo board, supports 1-4 Players & rotating Google AI bots!">
+    <meta name="keywords" content="Ludo Board, custom player names ludo, ludo star, 2 player ludo, 4 player ludo, classic ludo online">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/ludo.html">
 
     <meta property="og:title" content="Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena">
-    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Enter custom player names & pick colors in 1-4 Player modes!">
+    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Custom player names rendered directly on board & rotating Google AI bots!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/ludo.html">
 
@@ -38,7 +38,7 @@
         .color-pill.active { border-color: #fff; transform: scale(1.15); box-shadow: 0 0 15px rgba(255,255,255,0.6); }
 
         .name-inputs-container { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .name-input-group { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
+        .name-input-group { display: flex; align-items: center; gap: 8px; justify-content: center; }
         .name-input-box { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: #fff; padding: 6px 12px; font-size: 0.85rem; font-family: inherit; width: 140px; text-align: center; }
         .name-input-box:focus { border-color: #ff4757; outline: none; box-shadow: 0 0 10px rgba(255,71,87,0.4); }
 
@@ -79,7 +79,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎲 Authentic Classic Ludo Board</h1>
-            <p>Type custom player names, pick your color, select 1-4 Player modes, roll ⚅ 6, knockout opponents, and race home!</p>
+            <p>Type your name, select your color & mode! Player names render directly on board boxes with auto-rotating Google AI bots!</p>
         </header>
 
         <div class="control-panel">
@@ -98,26 +98,11 @@
                 <div class="color-pill" id="cGreen" style="background:#2ed573;" onclick="selectPlayerColor(3)" title="Green">🟢</div>
             </div>
 
-            <!-- CUSTOM PLAYER NAME INPUT FIELDS -->
+            <!-- CUSTOM PLAYER NAME INPUT FIELDS (HUMAN PLAYERS ONLY) -->
             <div class="name-inputs-container" id="nameInputsContainer">
-                <div class="panel-label" style="text-align:center;">✏️ Enter Player Names:</div>
-                <div class="panel-row">
-                    <div class="name-input-group" id="groupP1">
-                        <span style="font-size:0.8rem;font-weight:bold;color:#ff4757;" id="labelP1">🔴 P1:</span>
-                        <input type="text" class="name-input-box" id="inputP1" value="Player 1" onchange="onNameInputChange()" placeholder="Player 1 Name">
-                    </div>
-                    <div class="name-input-group" id="groupP2">
-                        <span style="font-size:0.8rem;font-weight:bold;color:#00d4ff;" id="labelP2">🔵 P2:</span>
-                        <input type="text" class="name-input-box" id="inputP2" value="Player 2" onchange="onNameInputChange()" placeholder="Player 2 Name">
-                    </div>
-                    <div class="name-input-group" id="groupP3" style="display:none;">
-                        <span style="font-size:0.8rem;font-weight:bold;color:#ffd93d;" id="labelP3">🟡 P3:</span>
-                        <input type="text" class="name-input-box" id="inputP3" value="Player 3" onchange="onNameInputChange()" placeholder="Player 3 Name">
-                    </div>
-                    <div class="name-input-group" id="groupP4" style="display:none;">
-                        <span style="font-size:0.8rem;font-weight:bold;color:#2ed573;" id="labelP4">🟢 P4:</span>
-                        <input type="text" class="name-input-box" id="inputP4" value="Player 4" onchange="onNameInputChange()" placeholder="Player 4 Name">
-                    </div>
+                <div class="panel-label" style="text-align:center;">✏️ Enter Real User Name(s):</div>
+                <div class="panel-row" id="humanInputsRow">
+                    <!-- Dynamic Input Boxes generated here -->
                 </div>
             </div>
         </div>
@@ -177,15 +162,16 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
-        // ==================== COOL AI RANDOM NAMES POOL ====================
-        const COOL_AI_NAMES = [
-            'CyberWolf', 'LudoMaster', 'ShadowBot', 'VortexAI', 'SpeedyLudo',
-            'TitanBot', 'NinjaLudo', 'ApexPlayer', 'HyperBot', 'BlazeAI'
+        // ==================== 15 GOOGLE & TECH COOL AI NAMES POOL ====================
+        const GOOGLE_AI_NAMES = [
+            'GoogleGemini', 'DeepMind', 'AlphaGo', 'TensorBot', 'AndroidHero',
+            'PixelMaster', 'ChromeRacer', 'CyberTitan', 'QuantumAI', 'NexusBot',
+            'StadiaKing', 'VortexPro', 'ApexCyber', 'ShadowMind', 'ByteWizard'
         ];
 
         function getRandomAIName(usedNames) {
-            const pool = COOL_AI_NAMES.filter(n => !usedNames.includes(n));
-            const chosen = pool[Math.floor(Math.random() * pool.length)] || 'AIBot';
+            const pool = GOOGLE_AI_NAMES.filter(n => !usedNames.includes(n));
+            const chosen = pool[Math.floor(Math.random() * pool.length)] || 'GoogleAI';
             usedNames.push(chosen);
             return chosen;
         }
@@ -219,6 +205,7 @@
         let playerColors = ['#ff4757', '#00d4ff', '#ffd93d', '#2ed573'];
         let colorEmojis = ['🔴', '🔵', '🟡', '🟢'];
         let playerDisplayNames = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
+        let humanCustomNames = ['User 1', 'User 2', 'User 3', 'User 4'];
 
         let playersTokens = [
             [ {pos:-1, inHome:false, base:{r:2,c:2}}, {pos:-1, inHome:false, base:{r:2,c:3}}, {pos:-1, inHome:false, base:{r:3,c:2}}, {pos:-1, inHome:false, base:{r:3,c:3}} ],
@@ -234,36 +221,22 @@
             humanColorIdx = cIdx;
             const pills = [document.getElementById('cRed'), document.getElementById('cBlue'), document.getElementById('cYellow'), document.getElementById('cGreen')];
             pills.forEach((p, i) => p.classList.toggle('active', i === cIdx));
+            renderHumanInputFields();
             startGame();
         }
 
         function setPlayerMode(m) {
             modeCount = m;
             document.querySelectorAll('.mode-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === m));
-
-            // Update Name Input visibility based on player count
-            document.getElementById('groupP3').style.display = m >= 3 ? 'flex' : 'none';
-            document.getElementById('groupP4').style.display = m >= 4 ? 'flex' : 'none';
-
+            renderHumanInputFields();
             startGame();
         }
 
-        function onNameInputChange() {
-            setupPlayerNames();
-            updateTurnBanner();
-        }
+        function renderHumanInputFields() {
+            const container = document.getElementById('humanInputsRow');
+            container.innerHTML = '';
 
-        function setupPlayerNames() {
-            const usedNames = [];
-            const savedUserName = localStorage.getItem('almagen_name') || 'You';
-
-            const input1 = document.getElementById('inputP1').value.trim() || 'Player 1';
-            const input2 = document.getElementById('inputP2').value.trim() || 'Player 2';
-            const input3 = document.getElementById('inputP3').value.trim() || 'Player 3';
-            const input4 = document.getElementById('inputP4').value.trim() || 'Player 4';
-
-            const customInputs = [input1, input2, input3, input4];
-
+            // Configure activePlayers & isAI array
             if (modeCount === 1) {
                 activePlayers = [0, 1, 2, 3];
                 isAI = [true, true, true, true];
@@ -284,11 +257,34 @@
                 isAI = [false, false, false, false];
             }
 
+            // Create text input boxes ONLY for human players!
+            for (let i = 0; i < 4; i++) {
+                if (activePlayers.includes(i) && !isAI[i]) {
+                    const group = document.createElement('div');
+                    group.className = 'name-input-group';
+                    const savedUserName = localStorage.getItem('almagen_name') || 'You';
+                    const defaultVal = (i === humanColorIdx) ? savedUserName : ('User ' + (i + 1));
+
+                    group.innerHTML = `<span style="font-size:0.8rem;font-weight:bold;color:${playerColors[i]};">${colorEmojis[i]} P${i+1}:</span><input type="text" class="name-input-box" id="inputP${i}" value="${humanCustomNames[i] || defaultVal}" onchange="onNameInputChange(${i}, this.value)" placeholder="Your Name">`;
+                    container.appendChild(group);
+                }
+            }
+        }
+
+        function onNameInputChange(pIdx, val) {
+            if (val.trim()) humanCustomNames[pIdx] = val.trim();
+            setupPlayerNames();
+            updateTurnBanner();
+        }
+
+        function setupPlayerNames() {
+            const usedNames = [];
+
             for (let i = 0; i < 4; i++) {
                 if (isAI[i]) {
-                    playerDisplayNames[i] = getRandomAIName(usedNames);
+                    playerDisplayNames[i] = getRandomAIName(usedNames); // Auto-generated Google AI name
                 } else {
-                    playerDisplayNames[i] = customInputs[i];
+                    playerDisplayNames[i] = humanCustomNames[i] || (localStorage.getItem('almagen_name') || 'You');
                 }
             }
 
@@ -356,6 +352,7 @@
             document.getElementById('gameOverScreen').style.display = 'none';
             document.getElementById('diceDisplay').textContent = '🎲';
 
+            renderHumanInputFields();
             setupPlayerNames();
             updateUI();
             updateTurnBanner();
@@ -492,7 +489,7 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('ludo', 100);
         }
 
-        // ==================== CANVAS RENDER ENGINE ====================
+        // ==================== CANVAS RENDER ENGINE WITH DIRECT BOARD NAMES ====================
         function drawBoard() {
             const sz = canvas.width / 15;
 
@@ -558,6 +555,30 @@
                 ctx.font = `bold ${Math.floor(sz * 0.7)}px Poppins, sans-serif`;
                 ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
                 ctx.fillText('⭐', coords.x, coords.y);
+            });
+
+            // ==================== DRAW PLAYER NAMES DIRECTLY ON BOARD BOXES ====================
+            const boardNameCoords = [
+                {x: 3 * sz, y: 0.35 * sz},   // Red Base (Top)
+                {x: 12 * sz, y: 0.35 * sz},  // Blue Base (Top)
+                {x: 12 * sz, y: 14.65 * sz}, // Yellow Base (Bottom)
+                {x: 3 * sz, y: 14.65 * sz}   // Green Base (Bottom)
+            ];
+
+            activePlayers.forEach(pIdx => {
+                const bPos = boardNameCoords[pIdx];
+                const pName = (isAI[pIdx] ? '🤖 ' : '') + playerDisplayNames[pIdx];
+
+                ctx.fillStyle = playerColors[pIdx];
+                ctx.beginPath();
+                ctx.roundRect(bPos.x - 2.4 * sz, bPos.y - 0.35 * sz, 4.8 * sz, 0.7 * sz, 8);
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5; ctx.stroke();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${Math.floor(sz * 0.38)}px Poppins, sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(pName, bPos.x, bPos.y);
             });
 
             // Tokens
