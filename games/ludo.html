@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Customize player colors, generate cool AI names, and select 1, 2, 3, or 4 Player modes!">
-    <meta name="keywords" content="Ludo Board, color selection ludo, 2 player ludo, 4 player ludo, classic ludo online, 15x15 ludo, ludo star">
+    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Enter custom player names, choose colors, generate AI names, and play 1-4 Players!">
+    <meta name="keywords" content="Ludo Board, custom player names ludo, color selection ludo, 2 player ludo, 4 player ludo, classic ludo online">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/ludo.html">
 
     <meta property="og:title" content="Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena">
-    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Customize player colors & cool AI names in 1-4 Player modes!">
+    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Enter custom player names & pick colors in 1-4 Player modes!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/ludo.html">
 
@@ -27,15 +27,20 @@
         .game-intro h1 { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ff4757, #ffd93d, #00d4ff, #2ed573); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 6px; }
 
-        .control-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 520px; margin-bottom: 10px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 10px; }
+        .control-panel { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 520px; margin-bottom: 10px; align-items: center; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 12px; backdrop-filter: blur(12px); }
         .panel-row { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
-        .panel-label { font-size: 0.75rem; color: #aaa; font-weight: 600; text-transform: uppercase; }
+        .panel-label { font-size: 0.75rem; color: #aaa; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .mode-btn { padding: 5px 12px; font-size: 0.78rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 20px; cursor: pointer; font-weight: 700; transition: all 0.25s; }
+        .mode-btn { padding: 6px 14px; font-size: 0.78rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 20px; cursor: pointer; font-weight: 700; transition: all 0.25s; }
         .mode-btn.active { background: linear-gradient(135deg, #ff4757, #ff6b81); border-color: #ff4757; box-shadow: 0 4px 15px rgba(255,71,87,0.4); }
 
         .color-pill { width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
         .color-pill.active { border-color: #fff; transform: scale(1.15); box-shadow: 0 0 15px rgba(255,255,255,0.6); }
+
+        .name-inputs-container { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .name-input-group { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
+        .name-input-box { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: #fff; padding: 6px 12px; font-size: 0.85rem; font-family: inherit; width: 140px; text-align: center; }
+        .name-input-box:focus { border-color: #ff4757; outline: none; box-shadow: 0 0 10px rgba(255,71,87,0.4); }
 
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 520px; padding: 8px 12px; margin-bottom: 8px; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
         .back-btn { color: #fff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s; font-weight: 600; }
@@ -43,7 +48,7 @@
 
         .stats { display: flex; gap: 4px; align-items: center; flex: 1; justify-content: flex-end; flex-wrap: wrap; }
         .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 0.95rem; cursor: pointer; padding: 5px 8px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 8px; text-align: center; min-width: 60px; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 8px; text-align: center; min-width: 60px; max-width: 105px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .stat-label { font-size: 0.58rem; color: #ccc; text-transform: uppercase; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
         .stat-value { font-size: 0.95rem; font-weight: bold; }
 
@@ -74,7 +79,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎲 Authentic Classic Ludo Board</h1>
-            <p>Pick your color, select 1-4 Player modes, enjoy custom player & cool AI names, roll ⚅ 6, knockout opponents, and race home!</p>
+            <p>Type custom player names, pick your color, select 1-4 Player modes, roll ⚅ 6, knockout opponents, and race home!</p>
         </header>
 
         <div class="control-panel">
@@ -91,6 +96,29 @@
                 <div class="color-pill" id="cBlue" style="background:#00d4ff;" onclick="selectPlayerColor(1)" title="Blue">🔵</div>
                 <div class="color-pill" id="cYellow" style="background:#ffd93d;" onclick="selectPlayerColor(2)" title="Yellow">🟡</div>
                 <div class="color-pill" id="cGreen" style="background:#2ed573;" onclick="selectPlayerColor(3)" title="Green">🟢</div>
+            </div>
+
+            <!-- CUSTOM PLAYER NAME INPUT FIELDS -->
+            <div class="name-inputs-container" id="nameInputsContainer">
+                <div class="panel-label" style="text-align:center;">✏️ Enter Player Names:</div>
+                <div class="panel-row">
+                    <div class="name-input-group" id="groupP1">
+                        <span style="font-size:0.8rem;font-weight:bold;color:#ff4757;" id="labelP1">🔴 P1:</span>
+                        <input type="text" class="name-input-box" id="inputP1" value="Player 1" onchange="onNameInputChange()" placeholder="Player 1 Name">
+                    </div>
+                    <div class="name-input-group" id="groupP2">
+                        <span style="font-size:0.8rem;font-weight:bold;color:#00d4ff;" id="labelP2">🔵 P2:</span>
+                        <input type="text" class="name-input-box" id="inputP2" value="Player 2" onchange="onNameInputChange()" placeholder="Player 2 Name">
+                    </div>
+                    <div class="name-input-group" id="groupP3" style="display:none;">
+                        <span style="font-size:0.8rem;font-weight:bold;color:#ffd93d;" id="labelP3">🟡 P3:</span>
+                        <input type="text" class="name-input-box" id="inputP3" value="Player 3" onchange="onNameInputChange()" placeholder="Player 3 Name">
+                    </div>
+                    <div class="name-input-group" id="groupP4" style="display:none;">
+                        <span style="font-size:0.8rem;font-weight:bold;color:#2ed573;" id="labelP4">🟢 P4:</span>
+                        <input type="text" class="name-input-box" id="inputP4" value="Player 4" onchange="onNameInputChange()" placeholder="Player 4 Name">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -183,15 +211,14 @@
             {r:2, c:6}, {r:6, c:12}, {r:12, c:8}, {r:8, c:2}
         ];
 
-        let modeCount = 1; // 1, 2, 3, or 4 players
-        let humanColorIdx = 0; // 0:Red, 1:Blue, 2:Yellow, 3:Green
+        let modeCount = 1;
+        let humanColorIdx = 0;
         let activePlayers = [0, 1, 2, 3];
         let isAI = [false, true, true, true];
 
         let playerColors = ['#ff4757', '#00d4ff', '#ffd93d', '#2ed573'];
-        let colorNames = ['Red', 'Blue', 'Yellow', 'Green'];
         let colorEmojis = ['🔴', '🔵', '🟡', '🟢'];
-        let playerDisplayNames = ['', '', '', ''];
+        let playerDisplayNames = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
 
         let playersTokens = [
             [ {pos:-1, inHome:false, base:{r:2,c:2}}, {pos:-1, inHome:false, base:{r:2,c:3}}, {pos:-1, inHome:false, base:{r:3,c:2}}, {pos:-1, inHome:false, base:{r:3,c:3}} ],
@@ -213,23 +240,39 @@
         function setPlayerMode(m) {
             modeCount = m;
             document.querySelectorAll('.mode-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === m));
+
+            // Update Name Input visibility based on player count
+            document.getElementById('groupP3').style.display = m >= 3 ? 'flex' : 'none';
+            document.getElementById('groupP4').style.display = m >= 4 ? 'flex' : 'none';
+
             startGame();
         }
 
-        function setupPlayerNames() {
-            const userName = localStorage.getItem('almagen_name') || 'You';
-            const usedNames = [];
+        function onNameInputChange() {
+            setupPlayerNames();
+            updateTurnBanner();
+        }
 
-            // Configure activePlayers & isAI array based on modeCount and humanColorIdx
+        function setupPlayerNames() {
+            const usedNames = [];
+            const savedUserName = localStorage.getItem('almagen_name') || 'You';
+
+            const input1 = document.getElementById('inputP1').value.trim() || 'Player 1';
+            const input2 = document.getElementById('inputP2').value.trim() || 'Player 2';
+            const input3 = document.getElementById('inputP3').value.trim() || 'Player 3';
+            const input4 = document.getElementById('inputP4').value.trim() || 'Player 4';
+
+            const customInputs = [input1, input2, input3, input4];
+
             if (modeCount === 1) {
                 activePlayers = [0, 1, 2, 3];
                 isAI = [true, true, true, true];
-                isAI[humanColorIdx] = false; // Assign human to selected color
+                isAI[humanColorIdx] = false;
             } else if (modeCount === 2) {
                 activePlayers = [humanColorIdx, (humanColorIdx + 2) % 4];
                 isAI = [true, true, true, true];
                 isAI[humanColorIdx] = false;
-                isAI[(humanColorIdx + 2) % 4] = false; // P2 human opposite
+                isAI[(humanColorIdx + 2) % 4] = false;
             } else if (modeCount === 3) {
                 activePlayers = [0, 1, 2];
                 isAI = [true, true, true, true];
@@ -245,11 +288,7 @@
                 if (isAI[i]) {
                     playerDisplayNames[i] = getRandomAIName(usedNames);
                 } else {
-                    if (i === humanColorIdx) {
-                        playerDisplayNames[i] = userName;
-                    } else {
-                        playerDisplayNames[i] = 'P' + (i + 1);
-                    }
+                    playerDisplayNames[i] = customInputs[i];
                 }
             }
 
@@ -405,10 +444,10 @@
                         if (otherIdx !== pIdx) {
                             const enemyHit = playersTokens[otherIdx].find(bt => bt.pos >= 0 && !bt.inHome && MAIN_PATH[bt.pos % MAIN_PATH.length].r === targetCoord.r && MAIN_PATH[bt.pos % MAIN_PATH.length].c === targetCoord.c);
                             if (enemyHit) {
-                                enemyHit.pos = -1; // Send enemy back!
+                                enemyHit.pos = -1;
                                 if (window.playSound) window.playSound('crash');
                                 showToast(`💥 KNOCKOUT by ${playerDisplayNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
-                                finishTurn(true); // Extra roll on knockout!
+                                finishTurn(true);
                                 return;
                             }
                         }
