@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Tap any active token to move, roll 3D dice, knockout opponents, and play 1-4 Players!">
-    <meta name="keywords" content="Ludo Board, interactive token ludo, 3d dice ludo, 2 player ludo, 4 player ludo, classic ludo online, ludo star">
+    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Features Pause, Resume & New Game controls, 3D rolling dice, & 1-4 Player modes!">
+    <meta name="keywords" content="Ludo Board, pause resume ludo, new game ludo, 3d dice ludo, 2 player ludo, 4 player ludo, classic ludo online, ludo star">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/ludo.html">
 
     <meta property="og:title" content="Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena">
-    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Tap whichever token you want to move, roll 3D dice, & race home!">
+    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Pause, Resume, start New Game, tap tokens to move, & race home!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/ludo.html">
 
@@ -85,10 +85,12 @@
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,71,87,0.6); } 70% { box-shadow: 0 0 0 15px rgba(255,71,87,0); } 100% { box-shadow: 0 0 0 0 rgba(255,71,87,0); } }
 
-        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.94); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 10; padding: 20px; text-align: center; backdrop-filter: blur(14px); }
+        .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.94); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 20; padding: 20px; text-align: center; backdrop-filter: blur(14px); }
         .overlay-screen h2 { font-size: 2.3rem; margin-bottom: 8px; font-weight: 900; }
         .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
-        .action-btn { padding: 12px 34px; font-size: 1.1rem; background: linear-gradient(135deg, #ff4757, #ff6b81); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
+        .action-btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .action-btn { padding: 12px 30px; font-size: 1.05rem; background: linear-gradient(135deg, #ff4757, #ff6b81); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
+        .action-btn.secondary { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); }
 
         .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 10px; text-align: center; }
     </style>
@@ -99,7 +101,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎲 Authentic Classic Ludo Board</h1>
-            <p>Tap ANY token on the board to move! Realistic 3D rolling dice, full 52-cell perimeter lap rules, & custom names!</p>
+            <p>Pause, Resume, or start a New Game at any time! Tap tokens to move, roll 3D dice, & race home!</p>
         </header>
 
         <div class="control-panel">
@@ -131,7 +133,8 @@
             <a href="../index.html" class="back-btn">← Back</a>
             <div class="stats">
                 <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
-                <button class="sound-btn" onclick="startGame()" title="Restart Game">🔄</button>
+                <button class="sound-btn" onclick="togglePauseGame()" title="Pause Game">⏸️</button>
+                <button class="sound-btn" onclick="startGame()" title="New Game">🔄</button>
                 <div class="stat-box" id="p1Box"><div class="stat-label" id="p1Name" style="color:#ff4757;">🔴 Player 1</div><div class="stat-value" id="p1Home" style="color:#ff4757;">0/4</div></div>
                 <div class="stat-box" id="p2Box"><div class="stat-label" id="p2Name" style="color:#00d4ff;">🔵 AI Bot</div><div class="stat-value" id="p2Home" style="color:#00d4ff;">0/4</div></div>
                 <div class="stat-box" id="p3Box"><div class="stat-label" id="p3Name" style="color:#ffd93d;">🟡 AI Bot</div><div class="stat-value" id="p3Home" style="color:#ffd93d;">0/4</div></div>
@@ -146,10 +149,21 @@
         <div id="gameContainer">
             <canvas id="gameCanvas" width="520" height="520" style="touch-action:none;"></canvas>
 
+            <!-- PAUSE OVERLAY SCREEN -->
+            <div id="pauseOverlayScreen" class="overlay-screen">
+                <h2 style="color:#ffd93d;">⏸️ GAME PAUSED</h2>
+                <p>Take a breath! Click Resume to continue playing your Ludo match.</p>
+                <div class="action-btn-row">
+                    <button class="action-btn" onclick="togglePauseGame()">▶️ Resume</button>
+                    <button class="action-btn secondary" onclick="startGame()">🔄 New Game</button>
+                </div>
+            </div>
+
+            <!-- GAME OVER OVERLAY SCREEN -->
             <div id="gameOverScreen" class="overlay-screen">
                 <h2 id="gameOverTitle" style="color:#00ff88;">🎉 YOU WIN!</h2>
                 <p id="gameOverMsg">You got all 4 tokens into the center home triangle!</p>
-                <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
+                <button class="action-btn" onclick="startGame()">🔄 New Game</button>
             </div>
         </div>
 
@@ -253,9 +267,18 @@
         ];
 
         let turnIndex = 0;
-        let currentDice = 1, gameRunning = true, rolling = false, particles = [];
-        let legalMovableTokens = []; // Array of tokens user can tap!
+        let currentDice = 1, gameRunning = true, isPaused = false, rolling = false, particles = [];
+        let legalMovableTokens = [];
         let awaitingUserSelection = false;
+
+        function togglePauseGame() {
+            if (!gameRunning) return;
+            isPaused = !isPaused;
+            document.getElementById('pauseOverlayScreen').style.display = isPaused ? 'flex' : 'none';
+            if (!isPaused && isAI[activePlayers[turnIndex]] && !rolling) {
+                updateTurnBanner();
+            }
+        }
 
         function selectPlayerColor(cIdx) {
             humanColorIdx = cIdx;
@@ -412,8 +435,9 @@
 
         function startGame() {
             playersTokens.forEach(p => p.forEach(t => { t.stepsMoved = -1; t.inHome = false; }));
-            currentDice = 1; gameRunning = true; rolling = false; turnIndex = 0; particles = [];
+            currentDice = 1; gameRunning = true; isPaused = false; rolling = false; turnIndex = 0; particles = [];
             legalMovableTokens = []; awaitingUserSelection = false;
+            document.getElementById('pauseOverlayScreen').style.display = 'none';
             document.getElementById('gameOverScreen').style.display = 'none';
             rotate3DDice(1);
 
@@ -424,7 +448,7 @@
         }
 
         function updateTurnBanner() {
-            if (!gameRunning) return;
+            if (!gameRunning || isPaused) return;
             const pIdx = activePlayers[turnIndex];
             const pName = playerDisplayNames[pIdx];
             const pColor = playerColors[pIdx];
@@ -447,13 +471,14 @@
 
         function rollDice() {
             const pIdx = activePlayers[turnIndex];
-            if (!gameRunning || rolling || isAI[pIdx] || awaitingUserSelection) return;
+            if (!gameRunning || isPaused || rolling || isAI[pIdx] || awaitingUserSelection) return;
             rolling = true;
             document.getElementById('rollBtn').disabled = true;
             triggerTurn();
         }
 
         function triggerTurn() {
+            if (isPaused || !gameRunning) return;
             const pIdx = activePlayers[turnIndex];
             if (window.playSound) window.playSound('dice');
 
@@ -465,8 +490,8 @@
             }, 850);
         }
 
-        // ==================== INTERACTIVE TOKEN SELECTION & EVALUATION ENGINE ====================
         function evaluateMoves() {
+            if (isPaused || !gameRunning) return;
             const pIdx = activePlayers[turnIndex];
             const pTokens = playersTokens[pIdx];
             legalMovableTokens = [];
@@ -474,9 +499,9 @@
             pTokens.forEach(t => {
                 if (t.inHome) return;
                 if (t.stepsMoved === -1) {
-                    if (currentDice === 6) legalMovableTokens.push(t); // Can release from base on 6
+                    if (currentDice === 6) legalMovableTokens.push(t);
                 } else if (t.stepsMoved + currentDice <= 56) {
-                    legalMovableTokens.push(t); // Can move along track/home path
+                    legalMovableTokens.push(t);
                 }
             });
 
@@ -487,23 +512,18 @@
             }
 
             if (isAI[pIdx]) {
-                // Smart AI Token Selection
                 const chosenToken = legalMovableTokens[Math.floor(Math.random() * legalMovableTokens.length)];
                 executeTokenMove(pIdx, chosenToken);
             } else {
-                // Human Player Choice
                 if (legalMovableTokens.length === 1) {
-                    // Auto-execute if only 1 legal token
                     executeTokenMove(pIdx, legalMovableTokens[0]);
                 } else {
-                    // MULTIPLE LEGAL TOKENS: Await User Canvas Click!
                     awaitingUserSelection = true;
                     document.getElementById('turnBanner').textContent = `👉 ${colorEmojis[pIdx]} Tap ANY glowing token on the board to move!`;
                 }
             }
         }
 
-        // CANVAS TAP/CLICK EVENT LISTENER FOR TOKEN SELECTION
         canvas.addEventListener('click', handleCanvasClick);
         canvas.addEventListener('touchstart', (e) => {
             if (e.touches.length > 0) {
@@ -513,7 +533,7 @@
         });
 
         function handleCanvasClick(e) {
-            if (!awaitingUserSelection || !gameRunning) return;
+            if (!awaitingUserSelection || !gameRunning || isPaused) return;
             const pIdx = activePlayers[turnIndex];
             const rect = canvas.getBoundingClientRect();
             const clickX = (e.clientX - rect.left) * (canvas.width / rect.width);
@@ -534,11 +554,11 @@
 
         function executeTokenMove(pIdx, tokenToMove) {
             if (tokenToMove.stepsMoved === -1) {
-                tokenToMove.stepsMoved = 0; // Release onto Start Cell
+                tokenToMove.stepsMoved = 0;
                 if (window.playSound) window.playSound('powerup');
                 showToast(`${colorEmojis[pIdx]} ${playerDisplayNames[pIdx]} Released Token Out!`, `linear-gradient(135deg,${playerColors[pIdx]},#fff)`);
                 spawnParticles(getTokenCurrentTile(pIdx, tokenToMove).x, getTokenCurrentTile(pIdx, tokenToMove).y, playerColors[pIdx], 20);
-                finishTurn(true); // Extra roll on 6!
+                finishTurn(true);
                 return;
             }
 
@@ -556,7 +576,6 @@
                 updateUI();
             }
 
-            // Check Knockout along perimeter track
             if (tokenToMove.stepsMoved <= 50) {
                 const currentAbsIdx = (START_INDICES[pIdx] + tokenToMove.stepsMoved) % 52;
                 const targetCoord = MAIN_PATH[currentAbsIdx];
@@ -569,7 +588,7 @@
                                 if (enemyToken.stepsMoved >= 0 && enemyToken.stepsMoved <= 50 && !enemyToken.inHome) {
                                     const enemyAbsIdx = (START_INDICES[otherIdx] + enemyToken.stepsMoved) % 52;
                                     if (enemyAbsIdx === currentAbsIdx) {
-                                        enemyToken.stepsMoved = -1; // Send enemy token BACK TO BASE!
+                                        enemyToken.stepsMoved = -1;
                                         if (window.playSound) window.playSound('crash');
                                         showToast(`💥 KNOCKOUT by ${playerDisplayNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
                                         finishTurn(true);
@@ -619,7 +638,7 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('ludo', 100);
         }
 
-        // ==================== CANVAS RENDER ENGINE WITH HIGHLIGHTED MOVABLE TOKENS ====================
+        // ==================== CANVAS RENDER ENGINE ====================
         let pulseTime = 0;
 
         function drawBoard() {
@@ -714,14 +733,13 @@
                 ctx.fillText(pName, bPos.x, bPos.y);
             });
 
-            // Draw Tokens with Interactive Pulse Glow on Movable Tokens
+            // Draw Tokens
             activePlayers.forEach(pIdx => {
                 playersTokens[pIdx].forEach(t => {
                     const coords = getTokenCurrentTile(pIdx, t);
                     const isLegal = awaitingUserSelection && legalMovableTokens.includes(t) && pIdx === activePlayers[turnIndex];
 
                     if (isLegal) {
-                        // PULSE HIGHLIGHT RING
                         const glowRadius = sz * (0.55 + Math.sin(pulseTime) * 0.1);
                         ctx.fillStyle = 'rgba(255, 217, 61, 0.45)';
                         ctx.beginPath(); ctx.arc(coords.x, coords.y, glowRadius, 0, Math.PI * 2); ctx.fill();
@@ -730,7 +748,7 @@
 
                     ctx.fillStyle = playerColors[pIdx]; ctx.shadowColor = playerColors[pIdx]; ctx.shadowBlur = isLegal ? 20 : 12;
                     ctx.beginPath(); ctx.arc(coords.x, coords.y, sz * 0.42, 0, Math.PI * 2); ctx.fill();
-                    ctx.strokeStyle = isLegal ? '#ffd93d' : '#ffffff'; ctx.lineWidth = isLegal ? 3.5 : 2.5; ctx.stroke();
+                    ctx.strokeStyle = isLegal ? '#ffd93d' : '#ffffff'; ctx.lineWidth = isLegal ? 2.5 : 2.5; ctx.stroke();
                     ctx.shadowBlur = 0;
                 });
             });
@@ -753,7 +771,8 @@
 
         document.addEventListener('keydown', (e) => {
             const pIdx = activePlayers[turnIndex];
-            if (e.key === ' ' && !isAI[pIdx] && gameRunning && !awaitingUserSelection) { e.preventDefault(); rollDice(); }
+            if (e.key === ' ' && !isAI[pIdx] && gameRunning && !awaitingUserSelection && !isPaused) { e.preventDefault(); rollDice(); }
+            if (e.key === 'p' || e.key === 'P') togglePauseGame();
             if (!gameRunning && e.key === ' ') startGame();
         });
 
