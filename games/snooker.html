@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snooker Champion — Play Free Online 2D Snooker Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play Snooker Champion online for free! Controls include 3D Cue Stick aiming, fine-tune rotation buttons, power slider, & 2D ball physics!">
-    <meta name="keywords" content="Snooker game, cue stick snooker, 2D snooker physics, free pool game, cue sports">
+    <meta name="description" content="Play Snooker Champion online for free! Features intuitive Carrom-style pull-back dragging aiming controls, 2D ball physics, & 3 stage progression!">
+    <meta name="keywords" content="Snooker game, carrom style snooker, drag aiming pool, 2D snooker physics, free pool game, cue sports">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/snooker.html">
 
     <meta property="og:title" content="Snooker Champion — Play Free Online 2D Snooker Game | AlMaGen-Arena">
-    <meta property="og:description" content="Rotate cue stick with precision buttons or touch, adjust power, and pocket balls with realistic 2D physics!">
+    <meta property="og:description" content="Drag back the White Cue Ball just like Carrom, release to shoot, & pocket red & color balls!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/snooker.html">
 
@@ -38,21 +38,8 @@
         .stat-value { font-size: 0.95rem; font-weight: bold; }
 
         #gameContainer { position: relative; width: 100%; max-width: 550px; display: flex; justify-content: center; flex-direction: column; align-items: center; }
-        canvas { border: 5px solid #2d1e18; border-radius: 16px; box-shadow: 0 12px 40px rgba(46,213,115,0.25); width: 100%; max-width: 550px; height: auto; touch-action: none; background: #0f4d2a; cursor: crosshair; }
-
-        /* CUE STICK CONTROL PANEL */
-        .stick-controls-panel { width: 100%; max-width: 550px; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 12px; backdrop-filter: blur(12px); }
-        .control-row { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
-
-        .aim-btn { padding: 10px 18px; font-size: 0.9rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 12px; cursor: pointer; font-weight: 700; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
-        .aim-btn:active { background: rgba(46,213,115,0.4); transform: scale(0.96); }
-
-        .power-container { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; background: rgba(0,0,0,0.4); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); }
-        .power-slider { flex: 1; accent-color: #2ed573; cursor: pointer; height: 8px; }
-
-        #shootBtn { padding: 14px 40px; font-size: 1.2rem; background: linear-gradient(135deg, #2ed573, #26af5f); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 900; box-shadow: 0 8px 25px rgba(46,213,115,0.5); transition: all 0.3s; }
-        #shootBtn:hover { transform: scale(1.05); }
-        #shootBtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        canvas { border: 5px solid #2d1e18; border-radius: 16px; box-shadow: 0 12px 40px rgba(46,213,115,0.25); width: 100%; max-width: 550px; height: auto; touch-action: none; background: #0f4d2a; cursor: grab; }
+        canvas:active { cursor: grabbing; }
 
         .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.94); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 20; padding: 20px; text-align: center; backdrop-filter: blur(14px); }
         .overlay-screen h2 { font-size: 2.3rem; margin-bottom: 8px; font-weight: 900; }
@@ -61,7 +48,7 @@
         .action-btn { padding: 12px 30px; font-size: 1.05rem; background: linear-gradient(135deg, #2ed573, #26af5f); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
         .action-btn.secondary { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); }
 
-        .instructions { color: rgba(255,255,255,0.55); font-size: 0.75rem; margin-top: 10px; text-align: center; }
+        .instructions { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 12px; text-align: center; font-weight: 600; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
@@ -70,7 +57,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎱 Snooker Champion 2D Pool</h1>
-            <p>Use Cue Stick Rotation buttons or touch table to aim, adjust Power slider, & strike balls!</p>
+            <p>Carrom-Style Controls: Drag back the White Cue Ball, aim the trajectory, & release to shoot!</p>
         </header>
 
         <div class="top-bar">
@@ -107,25 +94,7 @@
             </div>
         </div>
 
-        <!-- CUE STICK EASY CONTROLS PANEL -->
-        <div class="stick-controls-panel">
-            <div class="control-row">
-                <button class="aim-btn" onclick="adjustAimAngle(-0.06)">↺ Aim Left</button>
-                <button class="aim-btn" onclick="adjustAimAngle(-0.01)">↖️ Fine Left</button>
-                <button class="aim-btn" onclick="adjustAimAngle(0.01)">↗️ Fine Right</button>
-                <button class="aim-btn" onclick="adjustAimAngle(0.06)">↻ Aim Right</button>
-            </div>
-            <div class="control-row">
-                <div class="power-container">
-                    <span style="font-size:0.85rem;font-weight:bold;color:#2ed573;">⚡ Shot Power:</span>
-                    <input type="range" class="power-slider" id="powerSlider" min="10" max="100" value="55" oninput="updatePowerLabel(this.value)">
-                    <span id="powerValText" style="font-size:0.85rem;font-weight:bold;color:#fff;min-width:38px;">55%</span>
-                </div>
-                <button id="shootBtn" onclick="shootCueBall()">🎱 SHOOT!</button>
-            </div>
-        </div>
-
-        <p class="instructions">👉 Tap anywhere on table to point Cue Stick OR use Aim Buttons above, set Power, then click SHOOT!</p>
+        <p class="instructions">⚪ Drag back the White Ball & release to shoot (Carrom Style Aim)!</p>
     </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
@@ -149,15 +118,6 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
-        function updatePowerLabel(val) {
-            document.getElementById('powerValText').textContent = val + '%';
-        }
-
-        function adjustAimAngle(delta) {
-            if (!isAiming || !gameRunning || isPaused) return;
-            cueAngle += delta;
-        }
-
         // ==================== SNOOKER PHYSICS CONSTANTS ====================
         const FRICTION = 0.984;
         const RESTITUTION = 0.92;
@@ -169,7 +129,9 @@
         let shotsLeft = 10;
         let gameRunning = true, isPaused = false, isAiming = true, particles = [];
 
-        let cueAngle = 0; // Aiming angle in radians
+        // CARROM-STYLE DRAG SHOOTING ENGINE
+        let isDraggingCue = false;
+        let dragCurrentPos = { x: 0, y: 0 };
 
         function getPockets() {
             const w = canvas.width, h = canvas.height;
@@ -286,10 +248,9 @@
             score = 0;
             shotsLeft = 10;
             targetScore = currentStage === 1 ? 15 : (currentStage === 2 ? 25 : 35);
-            gameRunning = true; isPaused = false; isAiming = true;
+            gameRunning = true; isPaused = false; isAiming = true; isDraggingCue = false;
             document.getElementById('pauseOverlayScreen').style.display = 'none';
             document.getElementById('gameOverScreen').style.display = 'none';
-            document.getElementById('shootBtn').disabled = false;
 
             updateStatsDisplay();
             initBalls();
@@ -326,21 +287,6 @@
             }
         }
 
-        function shootCueBall() {
-            if (!isAiming || !gameRunning || isPaused || shotsLeft <= 0) return;
-            isAiming = false;
-            document.getElementById('shootBtn').disabled = true;
-
-            const power = parseFloat(document.getElementById('powerSlider').value) * 0.24;
-            cueBall.vx = Math.cos(cueAngle) * power;
-            cueBall.vy = Math.sin(cueAngle) * power;
-
-            shotsLeft--;
-            updateStatsDisplay();
-
-            if (window.playSound) window.playSound('click');
-        }
-
         function handleBallCollisions() {
             for (let i = 0; i < balls.length; i++) {
                 for (let j = i + 1; j < balls.length; j++) {
@@ -373,27 +319,65 @@
             }
         }
 
-        // TOUCH/CLICK TAP ON TABLE TO AIM CUE STICK DIRECTLY
-        function setAimFromCanvasPos(clientX, clientY) {
-            if (!isAiming || !cueBall || cueBall.pocketed) return;
+        // ==================== CARROM-STYLE PULL-BACK DRAG & RELEASE EVENT LISTENERS ====================
+        function getCanvasCoords(clientX, clientY) {
             const rect = canvas.getBoundingClientRect();
-            const tapX = (clientX - rect.left) * (canvas.width / rect.width);
-            const tapY = (clientY - rect.top) * (canvas.height / rect.height);
-            cueAngle = Math.atan2(tapY - cueBall.y, tapX - cueBall.x);
+            return {
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
+            };
         }
 
-        canvas.addEventListener('mousedown', (e) => setAimFromCanvasPos(e.clientX, e.clientY));
-        canvas.addEventListener('mousemove', (e) => { if (e.buttons === 1) setAimFromCanvasPos(e.clientX, e.clientY); });
-        canvas.addEventListener('touchstart', (e) => { if (e.touches.length > 0) setAimFromCanvasPos(e.touches[0].clientX, e.touches[0].clientY); });
-        canvas.addEventListener('touchmove', (e) => { if (e.touches.length > 0) setAimFromCanvasPos(e.touches[0].clientX, e.touches[0].clientY); });
+        function onPointerDown(clientX, clientY) {
+            if (!isAiming || !cueBall || cueBall.pocketed || !gameRunning || isPaused) return;
+            const pos = getCanvasCoords(clientX, clientY);
+            const dist = Math.hypot(pos.x - cueBall.x, pos.y - cueBall.y);
+
+            if (dist <= cueBall.radius * 3.5) {
+                isDraggingCue = true;
+                dragCurrentPos = pos;
+            }
+        }
+
+        function onPointerMove(clientX, clientY) {
+            if (!isDraggingCue) return;
+            dragCurrentPos = getCanvasCoords(clientX, clientY);
+        }
+
+        function onPointerUp() {
+            if (!isDraggingCue) return;
+            isDraggingCue = false;
+
+            const dx = cueBall.x - dragCurrentPos.x;
+            const dy = cueBall.y - dragCurrentPos.y;
+            const pullDist = Math.hypot(dx, dy);
+
+            if (pullDist > 12) {
+                isAiming = false;
+                const powerFactor = 0.18;
+                cueBall.vx = dx * powerFactor;
+                cueBall.vy = dy * powerFactor;
+
+                shotsLeft--;
+                updateStatsDisplay();
+
+                if (window.playSound) window.playSound('click');
+            }
+        }
+
+        canvas.addEventListener('mousedown', (e) => onPointerDown(e.clientX, e.clientY));
+        canvas.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY));
+        window.addEventListener('mouseup', onPointerUp);
+
+        canvas.addEventListener('touchstart', (e) => { if (e.touches.length > 0) onPointerDown(e.touches[0].clientX, e.touches[0].clientY); });
+        canvas.addEventListener('touchmove', (e) => { if (e.touches.length > 0) onPointerMove(e.touches[0].clientX, e.touches[0].clientY); });
+        window.addEventListener('touchend', onPointerUp);
 
         function checkTurnEnd() {
             if (!isAiming) {
                 const isMoving = balls.some(b => !b.pocketed && (Math.abs(b.vx) > 0.04 || Math.abs(b.vy) > 0.04));
                 if (!isMoving) {
                     isAiming = true;
-                    document.getElementById('shootBtn').disabled = false;
-
                     if (shotsLeft <= 0 && score < targetScore) {
                         endGame(false);
                     }
@@ -403,7 +387,6 @@
 
         function endGame(won) {
             gameRunning = false;
-            document.getElementById('shootBtn').disabled = true;
             const title = document.getElementById('gameOverTitle');
             const msg = document.getElementById('gameOverMsg');
 
@@ -429,9 +412,12 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('snooker', score);
         }
 
-        // ==================== CANVAS REALISTIC CUE STICK & TABLE RENDER ENGINE ====================
+        // ==================== CANVAS SNOOKER & CARROM DRAG RENDER ENGINE ====================
+        let glowPulse = 0;
+
         function drawTable() {
             const w = canvas.width, h = canvas.height;
+            glowPulse += 0.08;
 
             // Green Cloth Background
             ctx.fillStyle = '#0f4d2a'; ctx.fillRect(0, 0, w, h);
@@ -454,48 +440,40 @@
                 ctx.strokeStyle = '#eccc68'; ctx.lineWidth = 2; ctx.stroke();
             });
 
-            // REALISTIC WOODEN CUE STICK & LASER AIM LINE
+            // CARROM-STYLE PULL-BACK AIMING ARROW & TRAJECTORY LINE
             if (isAiming && cueBall && !cueBall.pocketed) {
-                // Trajectory Laser Guideline
-                ctx.strokeStyle = 'rgba(46, 213, 115, 0.7)'; ctx.setLineDash([6, 6]); ctx.lineWidth = 2.5;
-                ctx.beginPath();
-                ctx.moveTo(cueBall.x, cueBall.y);
-                ctx.lineTo(cueBall.x + Math.cos(cueAngle) * 240, cueBall.y + Math.sin(cueAngle) * 240);
-                ctx.stroke(); ctx.setLineDash([]);
+                if (isDraggingCue) {
+                    const dx = cueBall.x - dragCurrentPos.x;
+                    const dy = cueBall.y - dragCurrentPos.y;
+                    const angle = Math.atan2(dy, dx);
+                    const pullDist = Math.hypot(dx, dy);
 
-                // Target Sight Circle
-                ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.arc(cueBall.x + Math.cos(cueAngle) * 60, cueBall.y + Math.sin(cueAngle) * 60, BALL_RADIUS, 0, Math.PI * 2);
-                ctx.stroke();
+                    // Forward Trajectory Line
+                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 3; ctx.setLineDash([6, 6]);
+                    ctx.beginPath();
+                    ctx.moveTo(cueBall.x, cueBall.y);
+                    ctx.lineTo(cueBall.x + Math.cos(angle) * (pullDist * 2.5), cueBall.y + Math.sin(angle) * (pullDist * 2.5));
+                    ctx.stroke(); ctx.setLineDash([]);
 
-                // REALISTIC 3D STICK RENDERING
-                const cueLen = 160;
-                const offset = 18;
-                const startX = cueBall.x - Math.cos(cueAngle) * offset;
-                const startY = cueBall.y - Math.sin(cueAngle) * offset;
-                const endX = startX - Math.cos(cueAngle) * cueLen;
-                const endY = startY - Math.sin(cueAngle) * cueLen;
+                    // Pull-back Spring Line
+                    ctx.strokeStyle = 'rgba(255, 71, 87, 0.8)'; ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(cueBall.x, cueBall.y);
+                    ctx.lineTo(dragCurrentPos.x, dragCurrentPos.y);
+                    ctx.stroke();
 
-                // Main Wooden Shaft
-                ctx.strokeStyle = '#a66a38'; ctx.lineWidth = 7; ctx.lineCap = 'round';
-                ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(endX, endY); ctx.stroke();
-
-                // Dark Handle Butt
-                const buttX = endX + Math.cos(cueAngle) * 45;
-                const buttY = endY + Math.sin(cueAngle) * 45;
-                ctx.strokeStyle = '#2d1e18'; ctx.lineWidth = 9;
-                ctx.beginPath(); ctx.moveTo(endX, endY); ctx.lineTo(buttX, buttY); ctx.stroke();
-
-                // Brass Ferrule
-                const brassX = startX - Math.cos(cueAngle) * 6;
-                const brassY = startY - Math.sin(cueAngle) * 6;
-                ctx.strokeStyle = '#ffd93d'; ctx.lineWidth = 7;
-                ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(brassX, brassY); ctx.stroke();
-
-                // White Leather Tip
-                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 6;
-                ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(startX - Math.cos(cueAngle) * 3, startY - Math.sin(cueAngle) * 3); ctx.stroke();
+                    // Aim Arrow Tip
+                    const targetX = cueBall.x + Math.cos(angle) * (pullDist * 2.5);
+                    const targetY = cueBall.y + Math.sin(angle) * (pullDist * 2.5);
+                    ctx.fillStyle = '#2ed573';
+                    ctx.beginPath(); ctx.arc(targetX, targetY, BALL_RADIUS, 0, Math.PI * 2); ctx.fill();
+                } else {
+                    // Glowing Pulse Ring around White Ball indicating "DRAG ME!"
+                    const rGlow = cueBall.radius * (1.4 + Math.sin(glowPulse) * 0.2);
+                    ctx.fillStyle = 'rgba(46, 213, 115, 0.35)';
+                    ctx.beginPath(); ctx.arc(cueBall.x, cueBall.y, rGlow, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 2; ctx.stroke();
+                }
             }
 
             // Draw Balls
@@ -568,10 +546,10 @@
     <!-- RICH SEO ARTICLE & FAQ CONTENT -->
     <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
         <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Snooker Champion 2D Pool — Play Free Online Cue Sports</h1>
-        <p style="margin-bottom:16px;">Snooker Champion is an authentic 2D pool snooker simulator. Aim your Cue Stick with precision buttons or touch, adjust shot power, strike red (+1 pt) & colored balls (+2 to +7 pts) into 6 pockets with realistic physics!</p>
+        <p style="margin-bottom:16px;">Snooker Champion is an authentic 2D pool snooker simulator featuring intuitive Carrom-style drag aiming! Drag back the White Cue Ball, aim the trajectory, & release to strike red (+1 pt) & colored balls (+2 to +7 pts) into 6 pockets!</p>
 
         <h2 style="font-size:1.3rem;font-weight:700;color:#2ed573;margin:20px 0 10px;">🎮 How to Play Snooker Champion</h2>
-        <p style="margin-bottom:16px;">Tap anywhere on the table to point the Cue Stick, or use the Aim Left / Right buttons for degree precision! Select force on the Power Slider (10% - 100%), then click SHOOT to strike!</p>
+        <p style="margin-bottom:16px;">Touch or click on the White Cue Ball and drag backwards to set shot force and trajectory angle. Release to shoot!</p>
     </article>
 </body>
 </html>
