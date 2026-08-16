@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Renders custom player names directly on the Ludo board, supports 1-4 Players & rotating Google AI bots!">
-    <meta name="keywords" content="Ludo Board, custom player names ludo, ludo star, 2 player ludo, 4 player ludo, classic ludo online">
+    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Features realistic 3D rolling dice, full 52-cell perimeter tracks, multiple token releases on 6s, and custom names!">
+    <meta name="keywords" content="Ludo Board, 3d dice ludo, authentic ludo rules, 2 player ludo, 4 player ludo, classic ludo online, ludo star">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/ludo.html">
 
     <meta property="og:title" content="Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena">
-    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Custom player names rendered directly on board & rotating Google AI bots!">
+    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board with realistic 3D rolling dice, full perimeter track laps, & multiple token releases!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/ludo.html">
 
@@ -57,11 +57,33 @@
         #gameContainer { position: relative; width: 100%; max-width: 520px; display: flex; justify-content: center; flex-direction: column; align-items: center; }
         canvas { border: 4px solid #ff4757; border-radius: 16px; box-shadow: 0 12px 40px rgba(255,71,87,0.35); width: 100%; max-width: 520px; height: auto; touch-action: none; background: #fff; }
 
-        #controls { display: flex; gap: 15px; margin-top: 14px; align-items: center; width: 100%; justify-content: center; }
+        #controls { display: flex; gap: 18px; margin-top: 14px; align-items: center; width: 100%; justify-content: center; }
         #rollBtn { padding: 14px 38px; font-size: 1.2rem; background: linear-gradient(135deg, #ff4757, #ff6b81); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 900; box-shadow: 0 8px 25px rgba(255,71,87,0.5); transition: all 0.3s; animation: pulse 2s infinite; }
         #rollBtn:hover { transform: scale(1.05); }
         #rollBtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; animation: none; }
-        #diceDisplay { font-size: 3rem; width: 72px; height: 72px; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
+        /* REALISTIC 3D ROLLING DICE CONTAINER */
+        .dice-scene { width: 64px; height: 64px; perspective: 400px; }
+        .dice-cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .dice-face { position: absolute; width: 64px; height: 64px; background: #ffffff; border: 2px solid #ddd; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.15), 0 4px 10px rgba(0,0,0,0.3); display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); padding: 6px; align-items: center; justify-items: center; }
+        .pip { width: 10px; height: 10px; background: #1e272e; border-radius: 50%; display: none; }
+        .pip.red { background: #ff4757; }
+
+        /* Face Transforms */
+        .face-1 { transform: rotateY(0deg) translateZ(32px); }
+        .face-2 { transform: rotateY(90deg) translateZ(32px); }
+        .face-3 { transform: rotateY(180deg) translateZ(32px); }
+        .face-4 { transform: rotateY(-90deg) translateZ(32px); }
+        .face-5 { transform: rotateX(90deg) translateZ(32px); }
+        .face-6 { transform: rotateX(-90deg) translateZ(32px); }
+
+        /* Pip Grid Layouts */
+        .f1 .pip:nth-child(5) { display: block; }
+        .f2 .pip:nth-child(1), .f2 .pip:nth-child(9) { display: block; }
+        .f3 .pip:nth-child(1), .f3 .pip:nth-child(5), .f3 .pip:nth-child(9) { display: block; }
+        .f4 .pip:nth-child(1), .f4 .pip:nth-child(3), .f4 .pip:nth-child(7), .f4 .pip:nth-child(9) { display: block; }
+        .f5 .pip:nth-child(1), .f5 .pip:nth-child(3), .f5 .pip:nth-child(5), .f5 .pip:nth-child(7), .f5 .pip:nth-child(9) { display: block; }
+        .f6 .pip:nth-child(1), .f6 .pip:nth-child(3), .f6 .pip:nth-child(4), .f6 .pip:nth-child(6), .f6 .pip:nth-child(7), .f6 .pip:nth-child(9) { display: block; }
 
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,71,87,0.6); } 70% { box-shadow: 0 0 0 15px rgba(255,71,87,0); } 100% { box-shadow: 0 0 0 0 rgba(255,71,87,0); } }
 
@@ -79,7 +101,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎲 Authentic Classic Ludo Board</h1>
-            <p>Type your name, select your color & mode! Player names render directly on board boxes with auto-rotating Google AI bots!</p>
+            <p>Realistic 3D rolling dice, authentic 52-cell perimeter lap rules, multiple token releases on 6s, and custom names!</p>
         </header>
 
         <div class="control-panel">
@@ -134,7 +156,17 @@
         </div>
 
         <div id="controls">
-            <div id="diceDisplay">🎲</div>
+            <!-- REALISTIC 3D DICE CUBE -->
+            <div class="dice-scene">
+                <div class="dice-cube" id="diceCube">
+                    <div class="dice-face face-1 f1"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip red"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                    <div class="dice-face face-2 f2"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                    <div class="dice-face face-3 f3"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                    <div class="dice-face face-4 f4"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                    <div class="dice-face face-5 f5"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                    <div class="dice-face face-6 f6"><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+                </div>
+            </div>
             <button id="rollBtn" onclick="rollDice()">🎯 Roll Dice</button>
         </div>
 
@@ -162,7 +194,7 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
-        // ==================== 15 GOOGLE & TECH COOL AI NAMES POOL ====================
+        // ==================== 15 GOOGLE AI NAMES ====================
         const GOOGLE_AI_NAMES = [
             'GoogleGemini', 'DeepMind', 'AlphaGo', 'TensorBot', 'AndroidHero',
             'PixelMaster', 'ChromeRacer', 'CyberTitan', 'QuantumAI', 'NexusBot',
@@ -176,7 +208,7 @@
             return chosen;
         }
 
-        // ==================== 15x15 LUDO TRACK PERIMETER PATH ====================
+        // ==================== 15x15 LUDO TRACK PERIMETER PATH (52 CELLS) ====================
         const MAIN_PATH = [
             {r:6, c:1}, {r:6, c:2}, {r:6, c:3}, {r:6, c:4}, {r:6, c:5},
             {r:5, c:6}, {r:4, c:6}, {r:3, c:6}, {r:2, c:6}, {r:1, c:6}, {r:0, c:6},
@@ -190,6 +222,17 @@
             {r:14, c:6}, {r:13, c:6}, {r:12, c:6}, {r:11, c:6}, {r:10, c:6}, {r:9, c:6},
             {r:8, c:5}, {r:8, c:4}, {r:8, c:3}, {r:8, c:2}, {r:8, c:1}, {r:8, c:0},
             {r:7, c:0}, {r:6, c:0}
+        ];
+
+        // 4 Player Start Indices along MAIN_PATH
+        const START_INDICES = [0, 13, 26, 39];
+
+        // 4 Colored Home Paths (5 steps to Center Victory Triangle)
+        const HOME_PATHS = [
+            [{r:7, c:1}, {r:7, c:2}, {r:7, c:3}, {r:7, c:4}, {r:7, c:5}, {r:7, c:6}], // Red
+            [{r:1, c:7}, {r:2, c:7}, {r:3, c:7}, {r:4, c:7}, {r:5, c:7}, {r:6, c:7}], // Blue
+            [{r:7, c:13}, {r:7, c:12}, {r:7, c:11}, {r:7, c:10}, {r:7, c:9}, {r:7, c:8}], // Yellow
+            [{r:13, c:7}, {r:12, c:7}, {r:11, c:7}, {r:10, c:7}, {r:9, c:7}, {r:8, c:7}]  // Green
         ];
 
         const SAFE_STARS = [
@@ -207,11 +250,12 @@
         let playerDisplayNames = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
         let humanCustomNames = ['User 1', 'User 2', 'User 3', 'User 4'];
 
+        // Each token has stepsMoved (-1: Base, 0..50: Perimeter Track, 51..56: Home Path/Center)
         let playersTokens = [
-            [ {pos:-1, inHome:false, base:{r:2,c:2}}, {pos:-1, inHome:false, base:{r:2,c:3}}, {pos:-1, inHome:false, base:{r:3,c:2}}, {pos:-1, inHome:false, base:{r:3,c:3}} ],
-            [ {pos:-1, inHome:false, base:{r:2,c:11}}, {pos:-1, inHome:false, base:{r:2,c:12}}, {pos:-1, inHome:false, base:{r:3,c:11}}, {pos:-1, inHome:false, base:{r:3,c:12}} ],
-            [ {pos:-1, inHome:false, base:{r:11,c:11}}, {pos:-1, inHome:false, base:{r:11,c:12}}, {pos:-1, inHome:false, base:{r:12,c:11}}, {pos:-1, inHome:false, base:{r:12,c:12}} ],
-            [ {pos:-1, inHome:false, base:{r:11,c:2}}, {pos:-1, inHome:false, base:{r:11,c:3}}, {pos:-1, inHome:false, base:{r:12,c:2}}, {pos:-1, inHome:false, base:{r:12,c:3}} ]
+            [ {stepsMoved:-1, inHome:false, base:{r:2,c:2}}, {stepsMoved:-1, inHome:false, base:{r:2,c:3}}, {stepsMoved:-1, inHome:false, base:{r:3,c:2}}, {stepsMoved:-1, inHome:false, base:{r:3,c:3}} ],
+            [ {stepsMoved:-1, inHome:false, base:{r:2,c:11}}, {stepsMoved:-1, inHome:false, base:{r:2,c:12}}, {stepsMoved:-1, inHome:false, base:{r:3,c:11}}, {stepsMoved:-1, inHome:false, base:{r:3,c:12}} ],
+            [ {stepsMoved:-1, inHome:false, base:{r:11,c:11}}, {stepsMoved:-1, inHome:false, base:{r:11,c:12}}, {stepsMoved:-1, inHome:false, base:{r:12,c:11}}, {stepsMoved:-1, inHome:false, base:{r:12,c:12}} ],
+            [ {stepsMoved:-1, inHome:false, base:{r:11,c:2}}, {stepsMoved:-1, inHome:false, base:{r:11,c:3}}, {stepsMoved:-1, inHome:false, base:{r:12,c:2}}, {stepsMoved:-1, inHome:false, base:{r:12,c:3}} ]
         ];
 
         let turnIndex = 0;
@@ -236,7 +280,6 @@
             const container = document.getElementById('humanInputsRow');
             container.innerHTML = '';
 
-            // Configure activePlayers & isAI array
             if (modeCount === 1) {
                 activePlayers = [0, 1, 2, 3];
                 isAI = [true, true, true, true];
@@ -257,7 +300,6 @@
                 isAI = [false, false, false, false];
             }
 
-            // Create text input boxes ONLY for human players!
             for (let i = 0; i < 4; i++) {
                 if (activePlayers.includes(i) && !isAI[i]) {
                     const group = document.createElement('div');
@@ -282,13 +324,12 @@
 
             for (let i = 0; i < 4; i++) {
                 if (isAI[i]) {
-                    playerDisplayNames[i] = getRandomAIName(usedNames); // Auto-generated Google AI name
+                    playerDisplayNames[i] = getRandomAIName(usedNames);
                 } else {
                     playerDisplayNames[i] = humanCustomNames[i] || (localStorage.getItem('almagen_name') || 'You');
                 }
             }
 
-            // Update DOM Stat Labels
             const boxes = [document.getElementById('p1Box'), document.getElementById('p2Box'), document.getElementById('p3Box'), document.getElementById('p4Box')];
             const names = [document.getElementById('p1Name'), document.getElementById('p2Name'), document.getElementById('p3Name'), document.getElementById('p4Name')];
 
@@ -316,6 +357,21 @@
             return { x: c * sz + sz / 2, y: r * sz + sz / 2, sz: sz };
         }
 
+        function getTokenCurrentTile(pIdx, t) {
+            if (t.stepsMoved === -1) return getCellCoords(t.base.r, t.base.c);
+            if (t.inHome || t.stepsMoved >= 56) return getCellCoords(7, 7);
+
+            if (t.stepsMoved <= 50) {
+                const absoluteIndex = (START_INDICES[pIdx] + t.stepsMoved) % 52;
+                const pathCell = MAIN_PATH[absoluteIndex];
+                return getCellCoords(pathCell.r, pathCell.c);
+            } else {
+                const homeIndex = t.stepsMoved - 51;
+                const pathCell = HOME_PATHS[pIdx][Math.min(5, homeIndex)];
+                return getCellCoords(pathCell.r, pathCell.c);
+            }
+        }
+
         class Particle {
             constructor(x, y, color) {
                 this.x = x; this.y = y;
@@ -335,8 +391,21 @@
             for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
         }
 
-        function getDiceEmoji(num) {
-            return ['', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'][num];
+        // ==================== REALISTIC 3D DICE ROTATION ENGINE ====================
+        function rotate3DDice(num) {
+            const cube = document.getElementById('diceCube');
+            const rotations = {
+                1: 'rotateY(0deg) rotateX(0deg)',
+                2: 'rotateY(-90deg) rotateX(0deg)',
+                3: 'rotateY(-180deg) rotateX(0deg)',
+                4: 'rotateY(90deg) rotateX(0deg)',
+                5: 'rotateX(-90deg) rotateY(0deg)',
+                6: 'rotateX(90deg) rotateY(0deg)'
+            };
+
+            const extraSpinX = (Math.floor(Math.random() * 2) + 2) * 360;
+            const extraSpinY = (Math.floor(Math.random() * 2) + 2) * 360;
+            cube.style.transform = `rotateX(${extraSpinX}deg) rotateY(${extraSpinY}deg) ` + rotations[num];
         }
 
         function updateUI() {
@@ -347,10 +416,10 @@
         }
 
         function startGame() {
-            playersTokens.forEach(p => p.forEach(t => { t.pos = -1; t.inHome = false; }));
+            playersTokens.forEach(p => p.forEach(t => { t.stepsMoved = -1; t.inHome = false; }));
             currentDice = 1; gameRunning = true; rolling = false; turnIndex = 0; particles = [];
             document.getElementById('gameOverScreen').style.display = 'none';
-            document.getElementById('diceDisplay').textContent = '🎲';
+            rotate3DDice(1);
 
             renderHumanInputFields();
             setupPlayerNames();
@@ -392,63 +461,76 @@
             const pIdx = activePlayers[turnIndex];
             if (window.playSound) window.playSound('dice');
 
-            let rc = 0; const mr = 10;
-            const ri = setInterval(() => {
-                currentDice = Math.floor(Math.random() * 6) + 1;
-                document.getElementById('diceDisplay').textContent = getDiceEmoji(currentDice);
-                rc++;
-                if (rc >= mr) {
-                    clearInterval(ri);
-                    processCurrentTurn();
-                }
-            }, 75);
+            currentDice = Math.floor(Math.random() * 6) + 1;
+            rotate3DDice(currentDice);
+
+            setTimeout(() => {
+                processCurrentTurn();
+            }, 850);
         }
 
+        // ==================== AUTHENTIC LUDO GAMEPLAY & RELEASE LOGIC ====================
         function processCurrentTurn() {
             const pIdx = activePlayers[turnIndex];
             const pTokens = playersTokens[pIdx];
-            let activeToken = pTokens.find(t => t.pos >= 0 && !t.inHome);
 
-            if (!activeToken) {
-                if (currentDice === 6) {
-                    activeToken = pTokens.find(t => t.pos === -1);
-                    if (activeToken) {
-                        const startIndices = [0, 13, 26, 39];
-                        activeToken.pos = startIndices[pIdx];
-                        if (window.playSound) window.playSound('powerup');
-                        showToast(`${colorEmojis[pIdx]} ${playerDisplayNames[pIdx]} Released Token Out!`, `linear-gradient(135deg,${playerColors[pIdx]},#fff)`);
-                        finishTurn(true);
-                        return;
-                    }
+            let tokenToMove = null;
+
+            if (currentDice === 6) {
+                // If 6 is rolled, release a token from base if any remain inside, OR move active token!
+                const baseToken = pTokens.find(t => t.stepsMoved === -1);
+                if (baseToken) {
+                    tokenToMove = baseToken;
+                    tokenToMove.stepsMoved = 0; // Release onto Start Cell!
+                    if (window.playSound) window.playSound('powerup');
+                    showToast(`${colorEmojis[pIdx]} ${playerDisplayNames[pIdx]} Released Token Out!`, `linear-gradient(135deg,${playerColors[pIdx]},#fff)`);
+                    finishTurn(true); // Extra Roll on 6!
+                    return;
+                } else {
+                    // All tokens are out, move active token
+                    tokenToMove = pTokens.find(t => t.stepsMoved >= 0 && !t.inHome);
                 }
             } else {
-                activeToken.pos += currentDice;
+                // Move active token on track
+                tokenToMove = pTokens.find(t => t.stepsMoved >= 0 && !t.inHome);
+            }
+
+            if (tokenToMove) {
+                tokenToMove.stepsMoved += currentDice;
                 if (window.playSound) window.playSound('click');
 
-                if (activeToken.pos >= 51) {
-                    activeToken.inHome = true;
+                if (tokenToMove.stepsMoved >= 56) {
+                    tokenToMove.inHome = true;
+                    tokenToMove.stepsMoved = 56;
                     if (window.playSound) window.playSound('powerup');
-                    showToast(`🏆 ${playerDisplayNames[pIdx]} Token Reached Home!`, `linear-gradient(135deg,#00b894,#00cec9)`);
+                    showToast(`🏆 ${playerDisplayNames[pIdx]} Token Reached Center Home!`, `linear-gradient(135deg,#00b894,#00cec9)`);
                     updateUI();
                 }
 
-                // Check Knockout
-                const targetCoord = MAIN_PATH[activeToken.pos % MAIN_PATH.length];
-                const isSafe = SAFE_STARS.some(s => s.r === targetCoord.r && s.c === targetCoord.c);
+                // Check Knockout along perimeter track
+                if (tokenToMove.stepsMoved <= 50) {
+                    const currentAbsIdx = (START_INDICES[pIdx] + tokenToMove.stepsMoved) % 52;
+                    const targetCoord = MAIN_PATH[currentAbsIdx];
+                    const isSafe = SAFE_STARS.some(s => s.r === targetCoord.r && s.c === targetCoord.c);
 
-                if (!isSafe) {
-                    activePlayers.forEach(otherIdx => {
-                        if (otherIdx !== pIdx) {
-                            const enemyHit = playersTokens[otherIdx].find(bt => bt.pos >= 0 && !bt.inHome && MAIN_PATH[bt.pos % MAIN_PATH.length].r === targetCoord.r && MAIN_PATH[bt.pos % MAIN_PATH.length].c === targetCoord.c);
-                            if (enemyHit) {
-                                enemyHit.pos = -1;
-                                if (window.playSound) window.playSound('crash');
-                                showToast(`💥 KNOCKOUT by ${playerDisplayNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
-                                finishTurn(true);
-                                return;
+                    if (!isSafe) {
+                        activePlayers.forEach(otherIdx => {
+                            if (otherIdx !== pIdx) {
+                                playersTokens[otherIdx].forEach(enemyToken => {
+                                    if (enemyToken.stepsMoved >= 0 && enemyToken.stepsMoved <= 50 && !enemyToken.inHome) {
+                                        const enemyAbsIdx = (START_INDICES[otherIdx] + enemyToken.stepsMoved) % 52;
+                                        if (enemyAbsIdx === currentAbsIdx) {
+                                            enemyToken.stepsMoved = -1; // Send enemy token BACK TO BASE!
+                                            if (window.playSound) window.playSound('crash');
+                                            showToast(`💥 KNOCKOUT by ${playerDisplayNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
+                                            finishTurn(true); // Extra turn on Knockout!
+                                            return;
+                                        }
+                                    }
+                                });
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
 
@@ -463,7 +545,7 @@
             if (!extraRoll) {
                 turnIndex = (turnIndex + 1) % activePlayers.length;
             } else {
-                showToast(`🎲 ${playerDisplayNames[pIdx]} Gets Extra Roll!`, `linear-gradient(135deg,#ffd93d,#ff9f43)`);
+                showToast(`🎲 ${playerDisplayNames[pIdx]} Gets Bonus Roll!`, `linear-gradient(135deg,#ffd93d,#ff9f43)`);
             }
 
             updateTurnBanner();
@@ -489,7 +571,7 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('ludo', 100);
         }
 
-        // ==================== CANVAS RENDER ENGINE WITH DIRECT BOARD NAMES ====================
+        // ==================== CANVAS RENDER ENGINE ====================
         function drawBoard() {
             const sz = canvas.width / 15;
 
@@ -557,12 +639,12 @@
                 ctx.fillText('⭐', coords.x, coords.y);
             });
 
-            // ==================== DRAW PLAYER NAMES DIRECTLY ON BOARD BOXES ====================
+            // Player Names directly on Canvas Board
             const boardNameCoords = [
-                {x: 3 * sz, y: 0.35 * sz},   // Red Base (Top)
-                {x: 12 * sz, y: 0.35 * sz},  // Blue Base (Top)
-                {x: 12 * sz, y: 14.65 * sz}, // Yellow Base (Bottom)
-                {x: 3 * sz, y: 14.65 * sz}   // Green Base (Bottom)
+                {x: 3 * sz, y: 0.35 * sz},   // Red Base
+                {x: 12 * sz, y: 0.35 * sz},  // Blue Base
+                {x: 12 * sz, y: 14.65 * sz}, // Yellow Base
+                {x: 3 * sz, y: 14.65 * sz}   // Green Base
             ];
 
             activePlayers.forEach(pIdx => {
@@ -581,19 +663,10 @@
                 ctx.fillText(pName, bPos.x, bPos.y);
             });
 
-            // Tokens
+            // Draw Tokens
             activePlayers.forEach(pIdx => {
                 playersTokens[pIdx].forEach(t => {
-                    let coords;
-                    if (t.pos === -1) {
-                        coords = getCellCoords(t.base.r, t.base.c);
-                    } else if (t.inHome) {
-                        coords = getCellCoords(7, 7);
-                    } else {
-                        const pathCoord = MAIN_PATH[t.pos % MAIN_PATH.length];
-                        coords = getCellCoords(pathCoord.r, pathCoord.c);
-                    }
-
+                    const coords = getTokenCurrentTile(pIdx, t);
                     ctx.fillStyle = playerColors[pIdx]; ctx.shadowColor = playerColors[pIdx]; ctx.shadowBlur = 12;
                     ctx.beginPath(); ctx.arc(coords.x, coords.y, sz * 0.42, 0, Math.PI * 2); ctx.fill();
                     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5; ctx.stroke();
