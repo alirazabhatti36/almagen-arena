@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena</title>
-    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Supports 1 Player (vs AI), 2 Player, 3 Player, and 4 Player multiplayer modes!">
-    <meta name="keywords" content="Ludo Board, 2 player ludo, 4 player ludo, classic ludo online, 15x15 ludo, ludo star">
+    <meta name="description" content="Play the official 15x15 classic Ludo Board game online for free! Customize player colors, generate cool AI names, and select 1, 2, 3, or 4 Player modes!">
+    <meta name="keywords" content="Ludo Board, color selection ludo, 2 player ludo, 4 player ludo, classic ludo online, 15x15 ludo, ludo star">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/ludo.html">
 
     <meta property="og:title" content="Ludo Board — Play Free Online Classic Ludo | AlMaGen-Arena">
-    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Supports 1, 2, 3, or 4 Player multiplayer modes!">
+    <meta property="og:description" content="Play authentic classic 15x15 Ludo Board online! Customize player colors & cool AI names in 1-4 Player modes!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/ludo.html">
 
@@ -27,18 +27,24 @@
         .game-intro h1 { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ff4757, #ffd93d, #00d4ff, #2ed573); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .game-intro p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 6px; }
 
-        .mode-selector { display: flex; gap: 8px; justify-content: center; width: 100%; max-width: 520px; margin-bottom: 10px; flex-wrap: wrap; }
-        .mode-btn { padding: 6px 14px; font-size: 0.8rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 20px; cursor: pointer; font-weight: 700; transition: all 0.25s; }
+        .control-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 520px; margin-bottom: 10px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 10px; }
+        .panel-row { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
+        .panel-label { font-size: 0.75rem; color: #aaa; font-weight: 600; text-transform: uppercase; }
+
+        .mode-btn { padding: 5px 12px; font-size: 0.78rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 20px; cursor: pointer; font-weight: 700; transition: all 0.25s; }
         .mode-btn.active { background: linear-gradient(135deg, #ff4757, #ff6b81); border-color: #ff4757; box-shadow: 0 4px 15px rgba(255,71,87,0.4); }
 
-        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 520px; padding: 8px 12px; margin-bottom: 8px; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
+        .color-pill { width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .color-pill.active { border-color: #fff; transform: scale(1.15); box-shadow: 0 0 15px rgba(255,255,255,0.6); }
+
+        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 520px; padding: 8px 12px; margin-bottom: 8px; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); }
         .back-btn { color: #fff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.08); border-radius: 10px; transition: all 0.3s; font-weight: 600; }
         .back-btn:hover { background: rgba(255,71,87,0.3); }
 
         .stats { display: flex; gap: 4px; align-items: center; flex: 1; justify-content: flex-end; flex-wrap: wrap; }
         .sound-btn { background: rgba(255,255,255,0.08); border: none; font-size: 0.95rem; cursor: pointer; padding: 5px 8px; border-radius: 10px; color: #fff; }
-        .stat-box { background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 8px; text-align: center; min-width: 50px; }
-        .stat-label { font-size: 0.55rem; color: #aaa; text-transform: uppercase; }
+        .stat-box { background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 8px; text-align: center; min-width: 60px; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .stat-label { font-size: 0.58rem; color: #ccc; text-transform: uppercase; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
         .stat-value { font-size: 0.95rem; font-weight: bold; }
 
         .turn-banner { width: 100%; max-width: 520px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 8px 14px; text-align: center; font-weight: bold; color: #ff4757; font-size: 0.92rem; }
@@ -68,14 +74,24 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎲 Authentic Classic Ludo Board</h1>
-            <p>Select 1, 2, 3, or 4 Player mode! Roll ⚅ 6 to release tokens, race 4 tokens home, knockout opponents, and reach the center triangle!</p>
+            <p>Pick your color, select 1-4 Player modes, enjoy custom player & cool AI names, roll ⚅ 6, knockout opponents, and race home!</p>
         </header>
 
-        <div class="mode-selector">
-            <button class="mode-btn active" id="m1" onclick="setPlayerMode(1)">👤 1 Player (vs 3 AI)</button>
-            <button class="mode-btn" id="m2" onclick="setPlayerMode(2)">👥 2 Players</button>
-            <button class="mode-btn" id="m3" onclick="setPlayerMode(3)">👥 3 Players</button>
-            <button class="mode-btn" id="m4" onclick="setPlayerMode(4)">👥 4 Players</button>
+        <div class="control-panel">
+            <div class="panel-row">
+                <span class="panel-label">Mode:</span>
+                <button class="mode-btn active" id="m1" onclick="setPlayerMode(1)">👤 1 Player (vs 3 AI)</button>
+                <button class="mode-btn" id="m2" onclick="setPlayerMode(2)">👥 2 Players</button>
+                <button class="mode-btn" id="m3" onclick="setPlayerMode(3)">👥 3 Players</button>
+                <button class="mode-btn" id="m4" onclick="setPlayerMode(4)">👥 4 Players</button>
+            </div>
+            <div class="panel-row">
+                <span class="panel-label">Your Color:</span>
+                <div class="color-pill active" id="cRed" style="background:#ff4757;" onclick="selectPlayerColor(0)" title="Red">🔴</div>
+                <div class="color-pill" id="cBlue" style="background:#00d4ff;" onclick="selectPlayerColor(1)" title="Blue">🔵</div>
+                <div class="color-pill" id="cYellow" style="background:#ffd93d;" onclick="selectPlayerColor(2)" title="Yellow">🟡</div>
+                <div class="color-pill" id="cGreen" style="background:#2ed573;" onclick="selectPlayerColor(3)" title="Green">🟢</div>
+            </div>
         </div>
 
         <div class="top-bar">
@@ -83,22 +99,22 @@
             <div class="stats">
                 <button class="sound-btn" id="soundToggle" title="Toggle Sound">🔊</button>
                 <button class="sound-btn" onclick="startGame()" title="Restart Game">🔄</button>
-                <div class="stat-box"><div class="stat-label">🔴 P1</div><div class="stat-value" id="p1Home" style="color:#ff4757;">0/4</div></div>
-                <div class="stat-box"><div class="stat-label">🔵 P2</div><div class="stat-value" id="p2Home" style="color:#00d4ff;">0/4</div></div>
-                <div class="stat-box" id="p3Box" style="display:none;"><div class="stat-label">🟡 P3</div><div class="stat-value" id="p3Home" style="color:#ffd93d;">0/4</div></div>
-                <div class="stat-box" id="p4Box" style="display:none;"><div class="stat-label">🟢 P4</div><div class="stat-value" id="p4Home" style="color:#2ed573;">0/4</div></div>
+                <div class="stat-box" id="p1Box"><div class="stat-label" id="p1Name" style="color:#ff4757;">🔴 Player 1</div><div class="stat-value" id="p1Home" style="color:#ff4757;">0/4</div></div>
+                <div class="stat-box" id="p2Box"><div class="stat-label" id="p2Name" style="color:#00d4ff;">🔵 AI Bot</div><div class="stat-value" id="p2Home" style="color:#00d4ff;">0/4</div></div>
+                <div class="stat-box" id="p3Box"><div class="stat-label" id="p3Name" style="color:#ffd93d;">🟡 AI Bot</div><div class="stat-value" id="p3Home" style="color:#ffd93d;">0/4</div></div>
+                <div class="stat-box" id="p4Box"><div class="stat-label" id="p4Name" style="color:#2ed573;">🟢 AI Bot</div><div class="stat-value" id="p4Home" style="color:#2ed573;">0/4</div></div>
             </div>
         </div>
 
         <div class="turn-banner" id="turnBanner">
-            🎲 Player 1 Turn (Red)! Roll ⚅ 6 to bring a token out!
+            🎲 Player 1 Turn! Roll ⚅ 6 to bring a token out!
         </div>
 
         <div id="gameContainer">
             <canvas id="gameCanvas" width="520" height="520" style="touch-action:none;"></canvas>
 
             <div id="gameOverScreen" class="overlay-screen">
-                <h2 id="gameOverTitle" style="color:#00ff88;">🎉 PLAYER 1 WINS!</h2>
+                <h2 id="gameOverTitle" style="color:#00ff88;">🎉 YOU WIN!</h2>
                 <p id="gameOverMsg">You got all 4 tokens into the center home triangle!</p>
                 <button class="action-btn" onclick="startGame()">🔄 Play Again</button>
             </div>
@@ -133,6 +149,19 @@
         window.addEventListener('soundmutechanged', syncInGameSoundBtn);
         document.addEventListener('DOMContentLoaded', syncInGameSoundBtn);
 
+        // ==================== COOL AI RANDOM NAMES POOL ====================
+        const COOL_AI_NAMES = [
+            'CyberWolf', 'LudoMaster', 'ShadowBot', 'VortexAI', 'SpeedyLudo',
+            'TitanBot', 'NinjaLudo', 'ApexPlayer', 'HyperBot', 'BlazeAI'
+        ];
+
+        function getRandomAIName(usedNames) {
+            const pool = COOL_AI_NAMES.filter(n => !usedNames.includes(n));
+            const chosen = pool[Math.floor(Math.random() * pool.length)] || 'AIBot';
+            usedNames.push(chosen);
+            return chosen;
+        }
+
         // ==================== 15x15 LUDO TRACK PERIMETER PATH ====================
         const MAIN_PATH = [
             {r:6, c:1}, {r:6, c:2}, {r:6, c:3}, {r:6, c:4}, {r:6, c:5},
@@ -155,11 +184,14 @@
         ];
 
         let modeCount = 1; // 1, 2, 3, or 4 players
-        let activePlayers = [0, 1, 2, 3]; // 0:Red, 1:Blue, 2:Yellow, 3:Green
-        let isAI = [false, true, true, true]; // Default 1P: P1 Human, others AI
+        let humanColorIdx = 0; // 0:Red, 1:Blue, 2:Yellow, 3:Green
+        let activePlayers = [0, 1, 2, 3];
+        let isAI = [false, true, true, true];
 
         let playerColors = ['#ff4757', '#00d4ff', '#ffd93d', '#2ed573'];
-        let playerNames = ['Player 1 (Red)', 'Player 2 (Blue)', 'Player 3 (Yellow)', 'Player 4 (Green)'];
+        let colorNames = ['Red', 'Blue', 'Yellow', 'Green'];
+        let colorEmojis = ['🔴', '🔵', '🟡', '🟢'];
+        let playerDisplayNames = ['', '', '', ''];
 
         let playersTokens = [
             [ {pos:-1, inHome:false, base:{r:2,c:2}}, {pos:-1, inHome:false, base:{r:2,c:3}}, {pos:-1, inHome:false, base:{r:3,c:2}}, {pos:-1, inHome:false, base:{r:3,c:3}} ],
@@ -168,32 +200,72 @@
             [ {pos:-1, inHome:false, base:{r:11,c:2}}, {pos:-1, inHome:false, base:{r:11,c:3}}, {pos:-1, inHome:false, base:{r:12,c:2}}, {pos:-1, inHome:false, base:{r:12,c:3}} ]
         ];
 
-        let turnIndex = 0; // Index in activePlayers array
+        let turnIndex = 0;
         let currentDice = 1, gameRunning = true, rolling = false, particles = [];
+
+        function selectPlayerColor(cIdx) {
+            humanColorIdx = cIdx;
+            const pills = [document.getElementById('cRed'), document.getElementById('cBlue'), document.getElementById('cYellow'), document.getElementById('cGreen')];
+            pills.forEach((p, i) => p.classList.toggle('active', i === cIdx));
+            startGame();
+        }
 
         function setPlayerMode(m) {
             modeCount = m;
             document.querySelectorAll('.mode-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === m));
+            startGame();
+        }
 
-            if (m === 1) {
-                activePlayers = [0, 1, 2, 3]; isAI = [false, true, true, true];
-                document.getElementById('p3Box').style.display = 'block';
-                document.getElementById('p4Box').style.display = 'block';
-            } else if (m === 2) {
-                activePlayers = [0, 1]; isAI = [false, false, true, true];
-                document.getElementById('p3Box').style.display = 'none';
-                document.getElementById('p4Box').style.display = 'none';
-            } else if (m === 3) {
-                activePlayers = [0, 1, 2]; isAI = [false, false, false, true];
-                document.getElementById('p3Box').style.display = 'block';
-                document.getElementById('p4Box').style.display = 'none';
-            } else if (m === 4) {
-                activePlayers = [0, 1, 2, 3]; isAI = [false, false, false, false];
-                document.getElementById('p3Box').style.display = 'block';
-                document.getElementById('p4Box').style.display = 'block';
+        function setupPlayerNames() {
+            const userName = localStorage.getItem('almagen_name') || 'You';
+            const usedNames = [];
+
+            // Configure activePlayers & isAI array based on modeCount and humanColorIdx
+            if (modeCount === 1) {
+                activePlayers = [0, 1, 2, 3];
+                isAI = [true, true, true, true];
+                isAI[humanColorIdx] = false; // Assign human to selected color
+            } else if (modeCount === 2) {
+                activePlayers = [humanColorIdx, (humanColorIdx + 2) % 4];
+                isAI = [true, true, true, true];
+                isAI[humanColorIdx] = false;
+                isAI[(humanColorIdx + 2) % 4] = false; // P2 human opposite
+            } else if (modeCount === 3) {
+                activePlayers = [0, 1, 2];
+                isAI = [true, true, true, true];
+                isAI[humanColorIdx] = false;
+                isAI[(humanColorIdx + 1) % 4] = false;
+                isAI[(humanColorIdx + 2) % 4] = false;
+            } else {
+                activePlayers = [0, 1, 2, 3];
+                isAI = [false, false, false, false];
             }
 
-            startGame();
+            for (let i = 0; i < 4; i++) {
+                if (isAI[i]) {
+                    playerDisplayNames[i] = getRandomAIName(usedNames);
+                } else {
+                    if (i === humanColorIdx) {
+                        playerDisplayNames[i] = userName;
+                    } else {
+                        playerDisplayNames[i] = 'P' + (i + 1);
+                    }
+                }
+            }
+
+            // Update DOM Stat Labels
+            const boxes = [document.getElementById('p1Box'), document.getElementById('p2Box'), document.getElementById('p3Box'), document.getElementById('p4Box')];
+            const names = [document.getElementById('p1Name'), document.getElementById('p2Name'), document.getElementById('p3Name'), document.getElementById('p4Name')];
+
+            for (let i = 0; i < 4; i++) {
+                if (activePlayers.includes(i)) {
+                    boxes[i].style.display = 'block';
+                    names[i].textContent = `${colorEmojis[i]} ${playerDisplayNames[i]}`;
+                    names[i].style.color = playerColors[i];
+                } else {
+                    boxes[i].style.display = 'none';
+                }
+            }
         }
 
         function showToast(msg, bgGrad) {
@@ -244,6 +316,8 @@
             currentDice = 1; gameRunning = true; rolling = false; turnIndex = 0; particles = [];
             document.getElementById('gameOverScreen').style.display = 'none';
             document.getElementById('diceDisplay').textContent = '🎲';
+
+            setupPlayerNames();
             updateUI();
             updateTurnBanner();
         }
@@ -251,19 +325,20 @@
         function updateTurnBanner() {
             if (!gameRunning) return;
             const pIdx = activePlayers[turnIndex];
-            const pName = playerNames[pIdx];
+            const pName = playerDisplayNames[pIdx];
             const pColor = playerColors[pIdx];
+            const pEmoji = colorEmojis[pIdx];
             const banner = document.getElementById('turnBanner');
             const rollBtn = document.getElementById('rollBtn');
 
             banner.style.color = pColor;
 
             if (isAI[pIdx]) {
-                banner.textContent = `🤖 ${pName} (AI) Turn... Thinking...`;
+                banner.textContent = `🤖 ${pEmoji} ${pName} (AI) Turn... Thinking...`;
                 rollBtn.disabled = true;
                 setTimeout(triggerTurn, 900);
             } else {
-                banner.textContent = `🎲 ${pName} Turn! Roll the dice!`;
+                banner.textContent = `🎲 ${pEmoji} ${pName} Turn! Roll the dice!`;
                 rollBtn.disabled = false;
                 rolling = false;
             }
@@ -305,7 +380,7 @@
                         const startIndices = [0, 13, 26, 39];
                         activeToken.pos = startIndices[pIdx];
                         if (window.playSound) window.playSound('powerup');
-                        showToast(`${playerNames[pIdx]} Released Token Out!`, `linear-gradient(135deg,${playerColors[pIdx]},#fff)`);
+                        showToast(`${colorEmojis[pIdx]} ${playerDisplayNames[pIdx]} Released Token Out!`, `linear-gradient(135deg,${playerColors[pIdx]},#fff)`);
                         finishTurn(true);
                         return;
                     }
@@ -317,7 +392,7 @@
                 if (activeToken.pos >= 51) {
                     activeToken.inHome = true;
                     if (window.playSound) window.playSound('powerup');
-                    showToast(`🏆 ${playerNames[pIdx]} Token Reached Home!`, `linear-gradient(135deg,#00b894,#00cec9)`);
+                    showToast(`🏆 ${playerDisplayNames[pIdx]} Token Reached Home!`, `linear-gradient(135deg,#00b894,#00cec9)`);
                     updateUI();
                 }
 
@@ -332,7 +407,7 @@
                             if (enemyHit) {
                                 enemyHit.pos = -1; // Send enemy back!
                                 if (window.playSound) window.playSound('crash');
-                                showToast(`💥 KNOCKOUT by ${playerNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
+                                showToast(`💥 KNOCKOUT by ${playerDisplayNames[pIdx]}!`, 'linear-gradient(135deg,#e84118,#ff4757)');
                                 finishTurn(true); // Extra roll on knockout!
                                 return;
                             }
@@ -352,7 +427,7 @@
             if (!extraRoll) {
                 turnIndex = (turnIndex + 1) % activePlayers.length;
             } else {
-                showToast(`🎲 ${playerNames[pIdx]} Gets Extra Roll!`, `linear-gradient(135deg,#ffd93d,#ff9f43)`);
+                showToast(`🎲 ${playerDisplayNames[pIdx]} Gets Extra Roll!`, `linear-gradient(135deg,#ffd93d,#ff9f43)`);
             }
 
             updateTurnBanner();
@@ -365,9 +440,9 @@
             const msg = document.getElementById('gameOverMsg');
 
             if (window.playSound) window.playSound('win');
-            title.textContent = `🎉 ${playerNames[winnerIdx].toUpperCase()} WINS!`;
+            title.textContent = `🎉 ${playerDisplayNames[winnerIdx].toUpperCase()} WINS!`;
             title.style.color = playerColors[winnerIdx];
-            msg.textContent = `Congratulations! ${playerNames[winnerIdx]} got all 4 tokens into the center home triangle!`;
+            msg.textContent = `Congratulations! ${playerDisplayNames[winnerIdx]} got all 4 tokens into the center home triangle!`;
 
             document.getElementById('gameOverScreen').style.display = 'flex';
 
