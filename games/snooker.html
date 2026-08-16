@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Snooker Champion — Play Free Online 2D Snooker Game | AlMaGen-Arena</title>
-    <meta name="description" content="Play Snooker Champion online for free! Features intuitive Carrom-style pull-back dragging aiming controls, 2D ball physics, & 3 stage progression!">
-    <meta name="keywords" content="Snooker game, carrom style snooker, drag aiming pool, 2D snooker physics, free pool game, cue sports">
+    <meta name="description" content="Play Snooker Champion online for free! Drag the White Aim Ball or use the Touch Aim Pad to aim and shoot easily on any device!">
+    <meta name="keywords" content="Snooker game, aim ball snooker, carrom style snooker, drag aiming pool, 2D snooker physics, free pool game">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6c5ce7">
     <link rel="canonical" href="https://almagen-arena.com/games/snooker.html">
 
     <meta property="og:title" content="Snooker Champion — Play Free Online 2D Snooker Game | AlMaGen-Arena">
-    <meta property="og:description" content="Drag back the White Cue Ball just like Carrom, release to shoot, & pocket red & color balls!">
+    <meta property="og:description" content="Touch & drag the White Aim Ball or Touch Pad to aim & shoot red and colored balls into 6 pockets!">
     <meta property="og:image" content="https://almagen-arena.com/preview.svg">
     <meta property="og:url" content="https://almagen-arena.com/games/snooker.html">
 
@@ -41,6 +41,13 @@
         canvas { border: 5px solid #2d1e18; border-radius: 16px; box-shadow: 0 12px 40px rgba(46,213,115,0.25); width: 100%; max-width: 550px; height: auto; touch-action: none; background: #0f4d2a; cursor: grab; }
         canvas:active { cursor: grabbing; }
 
+        /* TOUCH AIM PAD / JOYSTICK FOR EASY MOBILE PLAY */
+        .aim-pad-container { width: 100%; max-width: 550px; margin-top: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 12px; backdrop-filter: blur(12px); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .aim-pad-title { font-size: 0.8rem; font-weight: 800; color: #2ed573; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .aim-pad { width: 140px; height: 140px; background: rgba(0,0,0,0.5); border: 3px solid #2ed573; border-radius: 50%; display: flex; justify-content: center; align-items: center; position: relative; touch-action: none; cursor: grab; box-shadow: 0 0 20px rgba(46,213,115,0.3); }
+        .aim-pad-knob { width: 44px; height: 44px; background: radial-gradient(circle, #ffffff, #dcdde1); border: 2px solid #2ed573; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; }
+
         .overlay-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 7, 20, 0.94); border-radius: 16px; justify-content: center; align-items: center; flex-direction: column; z-index: 20; padding: 20px; text-align: center; backdrop-filter: blur(14px); }
         .overlay-screen h2 { font-size: 2.3rem; margin-bottom: 8px; font-weight: 900; }
         .overlay-screen p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 15px; max-width: 420px; line-height: 1.5; }
@@ -48,7 +55,7 @@
         .action-btn { padding: 12px 30px; font-size: 1.05rem; background: linear-gradient(135deg, #2ed573, #26af5f); color: #fff; border: none; border-radius: 30px; cursor: pointer; font-weight: 800; transition: all 0.3s; }
         .action-btn.secondary { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); }
 
-        .instructions { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 12px; text-align: center; font-weight: 600; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .instructions { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 10px; text-align: center; font-weight: 600; }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1373118680696037" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style.css">
@@ -57,7 +64,7 @@
     <main class="game-page">
         <header class="game-intro">
             <h1>🎱 Snooker Champion 2D Pool</h1>
-            <p>Carrom-Style Controls: Drag back the White Cue Ball, aim the trajectory, & release to shoot!</p>
+            <p>Drag the White Aim Ball directly on the table OR drag the Aim Knob below to shoot!</p>
         </header>
 
         <div class="top-bar">
@@ -94,7 +101,15 @@
             </div>
         </div>
 
-        <p class="instructions">⚪ Drag back the White Ball & release to shoot (Carrom Style Aim)!</p>
+        <!-- EASY AIM PAD CONTROLLER FOR MOBILE & DESKTOP -->
+        <div class="aim-pad-container">
+            <div class="aim-pad-title">⚪ Touch & Drag White Aim Knob to Shoot:</div>
+            <div class="aim-pad" id="aimPad">
+                <div class="aim-pad-knob" id="aimKnob">⚪</div>
+            </div>
+        </div>
+
+        <p class="instructions">👉 Touch & drag the White Aim Knob in any direction, then release to shoot!</p>
     </main>
 
     <script src="../js/soundengine.js?v=20260722-1"></script>
@@ -121,7 +136,7 @@
         // ==================== SNOOKER PHYSICS CONSTANTS ====================
         const FRICTION = 0.984;
         const RESTITUTION = 0.92;
-        const BALL_RADIUS = 9;
+        const BALL_RADIUS = 10;
 
         let currentStage = 1;
         let score = 0;
@@ -129,7 +144,6 @@
         let shotsLeft = 10;
         let gameRunning = true, isPaused = false, isAiming = true, particles = [];
 
-        // CARROM-STYLE DRAG SHOOTING ENGINE
         let isDraggingCue = false;
         let dragCurrentPos = { x: 0, y: 0 };
 
@@ -252,6 +266,7 @@
             document.getElementById('pauseOverlayScreen').style.display = 'none';
             document.getElementById('gameOverScreen').style.display = 'none';
 
+            resetAimKnobPosition();
             updateStatsDisplay();
             initBalls();
         }
@@ -319,7 +334,7 @@
             }
         }
 
-        // ==================== CARROM-STYLE PULL-BACK DRAG & RELEASE EVENT LISTENERS ====================
+        // ==================== DUAL DRAG ENGINE (CANVAS + AIM PAD JOYSTICK) ====================
         function getCanvasCoords(clientX, clientY) {
             const rect = canvas.getBoundingClientRect();
             return {
@@ -328,23 +343,18 @@
             };
         }
 
-        function onPointerDown(clientX, clientY) {
+        function startDrag(pos) {
             if (!isAiming || !cueBall || cueBall.pocketed || !gameRunning || isPaused) return;
-            const pos = getCanvasCoords(clientX, clientY);
-            const dist = Math.hypot(pos.x - cueBall.x, pos.y - cueBall.y);
-
-            if (dist <= cueBall.radius * 3.5) {
-                isDraggingCue = true;
-                dragCurrentPos = pos;
-            }
+            isDraggingCue = true;
+            dragCurrentPos = pos;
         }
 
-        function onPointerMove(clientX, clientY) {
+        function updateDrag(pos) {
             if (!isDraggingCue) return;
-            dragCurrentPos = getCanvasCoords(clientX, clientY);
+            dragCurrentPos = pos;
         }
 
-        function onPointerUp() {
+        function releaseDrag() {
             if (!isDraggingCue) return;
             isDraggingCue = false;
 
@@ -352,7 +362,7 @@
             const dy = cueBall.y - dragCurrentPos.y;
             const pullDist = Math.hypot(dx, dy);
 
-            if (pullDist > 12) {
+            if (pullDist > 10) {
                 isAiming = false;
                 const powerFactor = 0.18;
                 cueBall.vx = dx * powerFactor;
@@ -363,15 +373,76 @@
 
                 if (window.playSound) window.playSound('click');
             }
+
+            resetAimKnobPosition();
         }
 
-        canvas.addEventListener('mousedown', (e) => onPointerDown(e.clientX, e.clientY));
-        canvas.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY));
-        window.addEventListener('mouseup', onPointerUp);
+        // Canvas Touch/Mouse Listeners (GENEROUS TOUCH HITBOX ON TABLE)
+        canvas.addEventListener('mousedown', (e) => {
+            const pos = getCanvasCoords(e.clientX, e.clientY);
+            // Allow dragging anywhere on canvas when aiming!
+            startDrag(pos);
+        });
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDraggingCue) updateDrag(getCanvasCoords(e.clientX, e.clientY));
+        });
+        window.addEventListener('mouseup', releaseDrag);
 
-        canvas.addEventListener('touchstart', (e) => { if (e.touches.length > 0) onPointerDown(e.touches[0].clientX, e.touches[0].clientY); });
-        canvas.addEventListener('touchmove', (e) => { if (e.touches.length > 0) onPointerMove(e.touches[0].clientX, e.touches[0].clientY); });
-        window.addEventListener('touchend', onPointerUp);
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) startDrag(getCanvasCoords(e.touches[0].clientX, e.touches[0].clientY));
+        });
+        canvas.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0 && isDraggingCue) updateDrag(getCanvasCoords(e.touches[0].clientX, e.touches[0].clientY));
+        });
+        window.addEventListener('touchend', releaseDrag);
+
+        // AIM PAD JOYSTICK LISTENERS
+        const aimPad = document.getElementById('aimPad');
+        const aimKnob = document.getElementById('aimKnob');
+        let isPadDragging = false;
+
+        function resetAimKnobPosition() {
+            aimKnob.style.transform = 'translate(0px, 0px)';
+        }
+
+        function handlePadMove(clientX, clientY) {
+            const rect = aimPad.getBoundingClientRect();
+            const padCenterX = rect.left + rect.width / 2;
+            const padCenterY = rect.top + rect.height / 2;
+
+            let deltaX = clientX - padCenterX;
+            let deltaY = clientY - padCenterY;
+            const maxRadius = 45;
+
+            const dist = Math.hypot(deltaX, deltaY);
+            if (dist > maxRadius) {
+                deltaX = (deltaX / dist) * maxRadius;
+                deltaY = (deltaY / dist) * maxRadius;
+            }
+
+            aimKnob.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+            // Translate knob offset directly into Cue Ball drag vector!
+            if (cueBall && isAiming) {
+                isDraggingCue = true;
+                dragCurrentPos = {
+                    x: cueBall.x + deltaX * 1.5,
+                    y: cueBall.y + deltaY * 1.5
+                };
+            }
+        }
+
+        aimPad.addEventListener('mousedown', (e) => { isPadDragging = true; handlePadMove(e.clientX, e.clientY); });
+        window.addEventListener('mousemove', (e) => { if (isPadDragging) handlePadMove(e.clientX, e.clientY); });
+        window.addEventListener('mouseup', () => { if (isPadDragging) { isPadDragging = false; releaseDrag(); } });
+
+        aimPad.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) { isPadDragging = true; handlePadMove(e.touches[0].clientX, e.touches[0].clientY); }
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (isPadDragging && e.touches.length > 0) handlePadMove(e.touches[0].clientX, e.touches[0].clientY);
+        });
+        window.addEventListener('touchend', () => { if (isPadDragging) { isPadDragging = false; releaseDrag(); } });
 
         function checkTurnEnd() {
             if (!isAiming) {
@@ -412,7 +483,7 @@
             if (typeof updateDailyProgress === 'function') updateDailyProgress('snooker', score);
         }
 
-        // ==================== CANVAS SNOOKER & CARROM DRAG RENDER ENGINE ====================
+        // ==================== CANVAS SNOOKER RENDER ENGINE ====================
         let glowPulse = 0;
 
         function drawTable() {
@@ -449,14 +520,14 @@
                     const pullDist = Math.hypot(dx, dy);
 
                     // Forward Trajectory Line
-                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 3; ctx.setLineDash([6, 6]);
+                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 3.5; ctx.setLineDash([6, 6]);
                     ctx.beginPath();
                     ctx.moveTo(cueBall.x, cueBall.y);
                     ctx.lineTo(cueBall.x + Math.cos(angle) * (pullDist * 2.5), cueBall.y + Math.sin(angle) * (pullDist * 2.5));
                     ctx.stroke(); ctx.setLineDash([]);
 
                     // Pull-back Spring Line
-                    ctx.strokeStyle = 'rgba(255, 71, 87, 0.8)'; ctx.lineWidth = 4;
+                    ctx.strokeStyle = 'rgba(255, 71, 87, 0.85)'; ctx.lineWidth = 4;
                     ctx.beginPath();
                     ctx.moveTo(cueBall.x, cueBall.y);
                     ctx.lineTo(dragCurrentPos.x, dragCurrentPos.y);
@@ -468,11 +539,16 @@
                     ctx.fillStyle = '#2ed573';
                     ctx.beginPath(); ctx.arc(targetX, targetY, BALL_RADIUS, 0, Math.PI * 2); ctx.fill();
                 } else {
-                    // Glowing Pulse Ring around White Ball indicating "DRAG ME!"
-                    const rGlow = cueBall.radius * (1.4 + Math.sin(glowPulse) * 0.2);
+                    // LARGE PROMINENT WHITE AIM DISC & GLOW RING
+                    const rGlow = cueBall.radius * (1.6 + Math.sin(glowPulse) * 0.2);
                     ctx.fillStyle = 'rgba(46, 213, 115, 0.35)';
                     ctx.beginPath(); ctx.arc(cueBall.x, cueBall.y, rGlow, 0, Math.PI * 2); ctx.fill();
-                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 2; ctx.stroke();
+                    ctx.strokeStyle = '#2ed573'; ctx.lineWidth = 2.5; ctx.stroke();
+
+                    // Outer Aim Ring Label
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.arc(cueBall.x, cueBall.y, cueBall.radius * 2.8, 0, Math.PI * 2); ctx.stroke();
+                    ctx.setLineDash([]);
                 }
             }
 
@@ -546,10 +622,10 @@
     <!-- RICH SEO ARTICLE & FAQ CONTENT -->
     <article class="game-seo-article" style="width:100%;max-width:850px;margin:35px auto 20px;padding:25px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;color:rgba(255,255,255,0.85);font-size:0.88rem;line-height:1.7;">
         <h1 style="font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;">Snooker Champion 2D Pool — Play Free Online Cue Sports</h1>
-        <p style="margin-bottom:16px;">Snooker Champion is an authentic 2D pool snooker simulator featuring intuitive Carrom-style drag aiming! Drag back the White Cue Ball, aim the trajectory, & release to strike red (+1 pt) & colored balls (+2 to +7 pts) into 6 pockets!</p>
+        <p style="margin-bottom:16px;">Snooker Champion is an authentic 2D pool snooker simulator featuring intuitive White Aim Ball drag controls & dedicated Touch Aim Pad! Drag the White Aim Knob in any direction to strike red (+1 pt) & colored balls (+2 to +7 pts) into 6 pockets!</p>
 
         <h2 style="font-size:1.3rem;font-weight:700;color:#2ed573;margin:20px 0 10px;">🎮 How to Play Snooker Champion</h2>
-        <p style="margin-bottom:16px;">Touch or click on the White Cue Ball and drag backwards to set shot force and trajectory angle. Release to shoot!</p>
+        <p style="margin-bottom:16px;">Touch & drag anywhere on the green table OR drag the White Aim Knob below in any direction, then release to shoot!</p>
     </article>
 </body>
 </html>
