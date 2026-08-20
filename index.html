@@ -81,12 +81,24 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Loading Screen -->
+        <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loader-content">
             <div class="loader-logo"><span class="logo-sword">⚡</span></div>
             <h1 class="loader-title">ALMAGEN<span class="highlight"> ARENA</span></h1>
             <div class="loader-bar-container"><div class="loader-bar"></div></div>
+            <p class="loader-text">Loading 24 Physics & Arcade Games...</p>
+        </div>
+    </div>
+    <script>
+        setTimeout(function() {
+            var loader = document.getElementById('loadingScreen');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(function() { loader.style.display = 'none'; }, 300);
+            }
+        }, 400);
+    </script>
             <p class="loader-text">Loading 24 Physics & Arcade Games...</p>
         </div>
     </div>
@@ -509,6 +521,7 @@
 
     <script src="js/soundengine.js?v=20260722-1"></script>
     <script src="js/user-profile.js"></script>
+    <script src="js/homepage-init.js?v=20260722-1"></script>
     <script src="js/global-layout.js"></script>
 
     <script>
